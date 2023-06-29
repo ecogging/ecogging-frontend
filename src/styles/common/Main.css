@@ -1,0 +1,23 @@
+
+/* 폰트 설정 */
+html {
+    font-size:16px;
+}
+
+/* 레이아웃 설정 */
+.Main {
+    width:1280px;
+    margin:0 auto;
+}
+
+ul {
+    margin:0px; padding:0px;
+}
+li {
+    list-style: none;
+}
+
+a {
+
+    text-decoration: none;
+}
