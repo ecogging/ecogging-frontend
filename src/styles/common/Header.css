@@ -78,3 +78,6 @@ header {
     margin-left:auto;
 }
 
+.userNav {
+    display:flex;
+}
