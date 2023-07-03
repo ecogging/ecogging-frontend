@@ -1,9 +1,11 @@
 
 header {
-  width:1280px;
-  height:70px;
+  background-color:rgb(59, 59, 59);
+  width:100%;
+  height:80px;
   display: flex;
   align-items: center;
+  z-index:5000;
 }
 
 .toggle {
@@ -49,11 +51,10 @@ header {
 
 .ploggingNavContainer {
   display: none;
-  left:0;
   height: 35px;
   width: 1280px;
-  margin:0 auto; 
-  position: fixed;
+  margin-left: -11%;
+  position: absolute;
   background-color: white;
 }
 #ploggingMenu:hover + .ploggingNavContainer{
@@ -117,7 +118,7 @@ header {
   margin-left:18px;
   position:absolute;
   border-radius:35%;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   justify-content: center;
   background-color: rgba(235, 1, 1, 0.829);
 }
@@ -147,6 +148,7 @@ header {
   }
   .logoContainer {
     width:20%;
+    z-index:2;
   }
   .headerNav {
     width:100%;
@@ -162,16 +164,33 @@ header {
   }
   .headerMenu {
     width:100%;
-    height:100%;
+    height:30%;
+    margin-top:140px;
     flex-direction: column;
     align-items: center;
-    background-color: white;
+    background-color:white;
   }
   .headerMenuLink {
     padding:10px 20px;
   }
   .headerMenuLink:hover {
     color:#9BE4CE;
+  }
+  .ploggingNavContainer{
+    width:100%;
+    height:55px;
+    margin-left:0;
+    left:0;
+  }
+  .ploggingNav{
+    width:100%;
+    height:100%;
+    margin-left:0;
+    display:flex;
+    justify-content: space-around;
+  }
+  .ploggingNavMenu{
+    color:gray;
   }
 
   .toggle {
@@ -182,21 +201,12 @@ header {
     margin-left:auto;
     align-items: center;
     justify-content: center;
+    z-index:2;
   }
   .toggle:hover {
     cursor:pointer;
   }
-  .ploggingNavContainer {
-    width:100%;
-    height:21%;
-  }
-  .ploggingNav {
-    display:flex;
-    width:30%;
-    margin-left:35%;
-  }
-  .ploggingNavMenu{
-    color:gray;
-  }
+
+
 
 }

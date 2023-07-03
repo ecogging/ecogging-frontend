@@ -15,11 +15,11 @@ export default function Header () {
     }
     
     const printTarget = (e) => {
-        console.log(e.target);
-        console.log(e.target.parentNode);
-        // if(showNav == true) {
-        //     setShowNav(!showNav);
-        // }
+        if(e.target.classList !== 'headerNav show'){
+            if(showNav == true) {
+                setShowNav(!showNav);
+            }
+        }
     }
 
     // 반응형 토글 메뉴 여닫기
@@ -66,7 +66,7 @@ export default function Header () {
     }
 
     return (
-        <header>
+        <header onClick={printTarget}>
             <div className='logoContainer'>
                 <Link to = {'/'}>
                     <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
