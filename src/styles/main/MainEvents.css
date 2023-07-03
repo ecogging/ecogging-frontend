@@ -1,0 +1,44 @@
+.eventsBackground {
+  width:100%;
+  height:800px;
+  border:1px solid blue;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.eventsTitleBox {
+  width:100%;
+  height:100px;
+  background-color: pink;
+  
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eventsTitle {
+  font-size:3.5vw;
+  font-weight:bold;
+}
+
+.eventsBox {
+  width:100%;
+  height:700px;
+  margin-top:20px;
+  background-color:aquamarine;
+
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+
+
+}
+.eventInfo {
+  width:21%;
+  height:100%;
+  border:2px solid red;
+}

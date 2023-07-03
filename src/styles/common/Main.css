@@ -14,14 +14,6 @@
 
 
 /* 레이아웃 설정 */
-.Main {
-    /* width:1280px; */
-    margin:0 auto;
-}
-.mainContents {
-    /* margin:0 2%; */
-}
-
 ul {
     margin:0px; padding:0px;
 }

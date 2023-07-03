@@ -3,7 +3,7 @@ import '../../styles/common/Header.css';
 import ecoggingLogo from '../../assets/ecoggingLogo.png';
 import MyButton  from './MyButton';
 import { GiHamburgerMenu } from "react-icons/gi";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegBell } from "react-icons/fa";
 
 export default function Header () {
@@ -14,8 +14,8 @@ export default function Header () {
         setIsLogin(!isLogin);
     }
     
-    const printTarget = (e) => {
-        if(e.target.classList !== 'headerNav show'){
+    const closeToggle = (e) => {
+        if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
             if(showNav == true) {
                 setShowNav(!showNav);
             }
@@ -30,43 +30,43 @@ export default function Header () {
 
     if(isLogin){
         return (
-            <header onClick={printTarget}>
-            <div className='logoContainer'>
-                <Link to = {'/'}>
-                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
-                </Link>
-            </div>
-            <nav className={`headerNav ${showNav ? 'show' : ''}`}>
-                <ul className='headerMenu'>
-                    <li className='headerMenuList'>
-                        <Link to = {'/temp'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
-                        <div className='ploggingNavContainer'>
-                            <ul className='ploggingNav'>
-                                <li className='ploggingNavMenu'>모임</li>
-                                <li className='ploggingNavMenu'>행사</li>
-                                <li className='ploggingNavMenu'>후기</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li className='headerMenuList'>
-                        <div className='headerMenuLink'>커뮤니티</div>
-                    </li>
+            <header className='header' onClick={closeToggle}>
+                <div className='logoContainer'>
+                    <Link to = {'/'}>
+                        <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
+                    </Link>
+                </div>
+                <nav className={`headerNav ${showNav ? 'show' : ''}`}>
+                    <ul className='headerMenu'>
+                        <li className='headerMenuList'>
+                            <Link to = {'/temp'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
+                            <div className='ploggingNavContainer'>
+                                <ul className='ploggingNav'>
+                                    <li className='ploggingNavMenu'>모임</li>
+                                    <li className='ploggingNavMenu'>행사</li>
+                                    <li className='ploggingNavMenu'>후기</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className='headerMenuList'>
+                            <div className='headerMenuLink'>커뮤니티</div>
+                        </li>
+                    </ul>
+                </nav>
+                <ul className='userNav'>
+                    <li className='userNavBox headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
+                    <li className='userNavBox'><span className='nickName'>닉네임</span> 님</li>
+                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={loginTemp}></MyButton></li>
                 </ul>
-            </nav>
-            <ul className='userNav'>
-                <li className='headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
-                <li><span className='nickName'>닉네임</span> 님</li>
-                <li><MyButton text={"로그아웃"} type={"graySmall"} onClick={loginTemp}></MyButton></li>
-            </ul>
-            <div className='toggle' onClick={toggleNav}>
-                <GiHamburgerMenu />
-            </div>
-         </header>
+                <div className='toggle' onClick={toggleNav}>
+                    <GiHamburgerMenu />
+                </div>
+           </header>
         );
     }
 
     return (
-        <header onClick={printTarget}>
+        <header onClick={closeToggle}>
             <div className='logoContainer'>
                 <Link to = {'/'}>
                     <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
