@@ -20,12 +20,25 @@ const Event = () => {
         setEvent({...event,[name]:value});
     }
 
-    const fileChange = (e) => {
-        setEvent({...event,fileName:e.target.files[0].name})
-        setFile(e.target.files[0]);
-    }
+    // const handleContentChange = (content) => {
+    //     setEvent((prevEvent) => ({ ...prevEvent, content: content }));
+    // };  
 
-    const changeArticle = (e) => {
+    //파일 미리볼 url을 저장해줄 state
+    const [fileImage, setFileImage] = useState("");
+
+    // 파일 저장
+    const saveFileImage = (e) => {
+        setFileImage(URL.createObjectURL(e.target.files[0]));
+    };
+
+    // 파일 삭제
+    const deleteFileImage = () => {
+        URL.revokeObjectURL(fileImage);
+        setFileImage("");
+    };  
+
+    const changeEvent = (e) => {
         axios.post(`http://localhost:8080/eventModify`, event, {
             headers : {
                 Authorization:token
@@ -39,32 +52,41 @@ const Event = () => {
             })
     }
 
-
-
     return (
         <>
-          <h5 style={{textAlign:'center', margin:'20px auto'}}>행사 기획 수정</h5>
-          <div style={{margin:'0 auto',width:'900px', border:'1px solid lightgray', borderRadius:'7px', padding:'10px'}}>  
-            <Table borderless>
+          <h1 style={{textAlign:'center', margin:'20px auto'}}>행사 기획 작성</h1>
+          <div style={{margin:'0 auto',width:'100%', border:'1px solid lightgray', borderRadius:'7px', padding:'10px', backgroundColor:'rgba(243, 243, 243, 1)'}}>  
+            <Table style={{margin:'0 auto',width:'810px', padding:'20px'}}>
                     <tbody>
+                    <tr style={{height:'10px'}}></tr>
                         <tr>
                             <td><Label for="title">제 목</Label></td>
-                            <td><Input name="title" type="text" id="title" required="required" defaultValue={event.title}/></td>
+                            <td style={{width:'700px'}}><Input style={{width:'700px', height:'25px'}} name="title" type="text" onChange={change}
+                                id="title" required="required" defaultValue={event.title}/></td>
                         </tr>
+                        <tr style={{height:'15px'}}></tr>
                         <tr>
                             <td><Label for="corpName">기업명</Label></td>
-                            <td><Input type="text" id="corpName" name="corpName"
+                            <td><Input style={{width:'700px', height:'25px'}} type="text" id="corpName" name="corpName" onChange={change}
                                  required="required" defaultValue={event.corpName}/></td>
                         </tr>
+                        <tr style={{height:'15px'}}></tr>
+                        <tr>
+                            <td><Label for="explanation">한 줄 소개</Label></td>
+                            <td><Input style={{width:'700px', height:'25px'}} type="text" id="explanation" name="explanation" onChange={change}
+                                 required="required" defaultValue={event.explanation}/></td>
+                        </tr>
+                        <tr style={{height:'15px'}}></tr>
                         <tr>
                             <td><Label for="meetingDate">행사일자</Label></td>
-                            <td><Input type="Date" id="meetingDate" name="meetingDate"
+                            <td><Input style={{height:'25px'}} type="Date" id="meetingDate" name="meetingDate" onChange={change}
                                  required="required" defaultValue={event.meetingDate}/></td>
                         </tr>
+                        <tr style={{height:'15px'}}></tr>
                         <tr>
                             <td><Label for="location">지 역</Label></td>
                             <td>
-                                <select id="location" name='location' defaultValue={event.location}>
+                                <select style={{width:'85px', height:'25px'}} id="location" name='location' required="required" onChange={change} defaultValue={event.location}>
                                     <option>선택</option>
                                     <option>서울</option>
                                     <option>경기</option>
@@ -85,32 +107,38 @@ const Event = () => {
                                 </select>
                             </td>
                         </tr>
+                        <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td><Label for="explanation">한 줄 소개</Label></td>
-                            <td><Input type="text" id="explanation" name="explanation"
-                                 required="required" defaultValue={event.explanation}/></td>
-                        </tr>
-                        <tr>
-                            <td><Label for="content">내 용</Label></td>
-                            <td><Input type='textarea' id="content" name="content" onChange={change}
-                                cols="40" rows="15" required="required" defaultValue={event.content}/></td>
-                        </tr>
-                        <tr>
-                            <td><Label for="file"> 썸네일 </Label></td>
-                            <td><Input name="file" type="file"
-                                id="file" accept="image/*" onChange={fileChange}/></td>
-                        </tr>
-                        <tr>
-                            <td colSpan='2'> 
-                                <Button color='primary'><Link to={'/eventList'}>목록</Link></Button>&nbsp;&nbsp;
-                                <Button color='primary'>임시저장</Button>&nbsp;&nbsp;
-                                <Button color='primary' onClick={submit}>등록</Button>
+                            <td  style={{ verticalAlign:'top'}}><Label for="content">내 용</Label></td>
+                            <td>
+                            <style>{qlContainerStyle}</style>
+                             <ReactQuill style={{height:'400px', background:'white'}} modules={modules} defaultValue={event.content} onChange={handleContentChange}/>   
+                            {/* <Input type='textarea' id="content" name="content" onChange={change} style={{height:'100px'}}required="required" value={event.content}/> */}
                             </td>
                         </tr>
+                        <tr style={{height:'60px'}}></tr>
+                        <tr>
+                            <td><Label for="file"> 썸네일 </Label></td>
+                            <td>
+                            <div>
+                                {fileImage && (<img alt="sample" src={fileImage} style={{ margin: "auto" }}/>)}
+                                <div style={{alignItems: "center", justifyContent: "center"}}>
+                                <input name="file" type="file" accept="image/*" onChange={saveFileImage} style={{cursor: "pointer"}} defaultValue={event.file} />
+                                <button style={{cursor: "pointer"}} onClick={() => deleteFileImage()}>삭제</button>
+                                </div>
+                            </div>       
+                            </td>
+                        </tr>
+                        <tr style={{height:'15px'}}></tr>
                     </tbody>
-             </Table>  
+             </Table>
             </div>
+            <div style={{textAlign:'center', marginTop:'30px', marginBottom:'20px'}}>
+            <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px'}}><Link to={'/eventList'} style={{textDecoration:'none',color:'white'}}>취소</Link></Button>
+            <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white'}} onClick={changeEvent}>저장</Button>       
+            </div>  
         </>
     )
-
 }
+
+export default EventModify;

@@ -1,5 +1,7 @@
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import EventList from './components/plogging/event/EventList';
+import EventDetail from './components/plogging/event/EventDetail';
+import EventWrite from './components/plogging/event/EventWrite'
 import { Provider } from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
@@ -10,18 +12,17 @@ const persister = persistStore(store);
 function App() {
   return (
     <div>
-      <EventList/>
-      {/* <Provider store={store}>
+      <Provider store={store}>
         <PersistGate persistor={persister}>
           <BrowserRouter>
-            <Main/>
             <Routes>
-              <Route exact path='/' element={<Login/>}/>
-              <Route exact path='/join' element={<Join/>}/>            
+              <Route exact path='/detail' element={<EventDetail/>}/>
+              <Route exact path='/' element={<EventList/>}/> 
+              <Route exact path='/write' element={<EventWrite/>}/>          
             </Routes>
           </BrowserRouter>
         </PersistGate>
-      </Provider> */}
+      </Provider>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const DetailForm = () => {
     const {id} = useParams();
-    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',id:'',fileName:'',createdAt:''})
+    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',id:'',fileName:'',view:'',createdAt:''})
     const [scrap, setScrap] = useState(false);
     const token = useSelector(state=>state.Authorization);
     const userId = useSelector(state=>state.userId);
@@ -36,31 +36,33 @@ const DetailForm = () => {
 
     return (
         <>
-        <div style={{margin:'0 auto',width:'900px', border:'1px solid lightgray', borderRadius:'7px', padding:'10px'}}>  
-            <Table borderless>
+        <div style={{margin:'0 auto',width:'1000px', height:'100%',border:'1px solid lightgray', borderRadius:'7px', padding:'10px'}}>  
+            <Table style={{padding:'10px'}}>
                 <tbody>
-                    <tr>
+                    <tr style={{borderBottom:'1px solid', height:'30px'}}>
                         <td><Label for="title">제 목</Label></td>
-                        <td><Input name="title" type="text" id="title" required="required" value={event.title} readOnly/>
-                            <Input name='createdAt' type='Date' id='createdAt' value={event.createdAt}/></td>
+                        <td><Input name="title" type="text" id="title" required="required" value={event.title} readOnly
+                             style={{width:'700px', border:'none' }}/>
+                             조회수<Input name='view' type='text' id='view' value={event.view}style={{border:'none'}} readOnly></Input>
+                            <Input name='createdAt' type='text' id='createdAt' value={event.createdAt}  style={{border:'none'}} readOnly/></td>
                     </tr>
-                    <tr>
-                        <td>지역/일시</td>
-                        <td><Input name='location' type='text' id='location' value={event.location}/> / 
-                            <Input name='meetingDate' type='Date' id='meetingDate' value={event.meetingDate}/></td>
+                    <tr style={{height:'10px'}}></tr>
+                    <tr style={{borderBottom:'1px solid', height:'30px', paddingTop:'10px'}}>
+                        <td><Label for="">지역/일시</Label></td>
+                        <td><Input name='location' type='text' id='location' value={event.location} style={{border:'none' }} readOnly /> / 
+                            <Input name='meetingDate' type='text' id='meetingDate' value={event.meetingDate} style={{border:'none' }} readOnly/></td>
                     </tr>
+                    <tr style={{height:'10px'}}></tr>
                     <tr>
                         <td colSpan='2'><Input type='textarea' id="content" name="content"
-                            required="required" value={article.content} onChange={change}/></td>
-                    </tr>
-                    <tr>
-                        <td colSpan='2'>
-                            {userId==event.userId && <Button color='primary' tag='a' href='/eventModify'>수정하기</Button>}&nbsp;&nbsp;    
-                            <Button color='primary' tag='a' href='/list/1'>게시판목록</Button>&nbsp;&nbsp;
-                        </td>
+                            required="required" value={event.content} style={{width:'100%', height:'100%'}} readOnly/></td>
                     </tr>
                 </tbody>
             </Table>
+            <div style={{textAlign:'center', marginTop:'20px', marginBottom:'10px'}}> 
+            {userId==event.userId && <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'white 1px solid',marginRight:'40px'}}><a style={{textDecoration:'none',color:'white'}} href='/eventModify'>수정하기</a></Button>}
+            <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'white 1px solid',marginRight:'40px'}}><a style={{textDecoration:'none',color:'white'}} href='/list/1'>목록</a></Button>
+            </div>    
         </div>
         </>
     )
