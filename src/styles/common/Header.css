@@ -1,0 +1,240 @@
+
+header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  background: white;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.toggle {
+  display:none;
+}
+
+/* 로고 */
+.logoContainer {
+  width:220px;
+  height:100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoContainer:hover {
+  cursor:pointer;
+}
+
+/* 메뉴 */
+.headerNav {
+  width:1200px;
+  height:100%;
+  display:flex;
+  align-items: center;
+}
+.headerMenu {
+  width: 350px;
+  height:100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.headerMenuLink {
+  width:70px;
+  color:black;
+  font-size: 1.25em;
+  padding:23.5px 30px;
+}
+.headerMenuLink:hover {
+  cursor:pointer;
+  color:#9BE4CE;
+  font-weight: bold;
+}
+
+.ploggingNavContainer {
+  display: none;
+  height: 40px;
+  width: 100%;
+  left:0;
+  top:0;
+  margin-top:80px;
+  position: absolute;
+  background-color: white;
+}
+#ploggingMenu:hover + .ploggingNavContainer{
+  display:block;
+  z-index: 2;
+}
+.ploggingNavContainer:hover {
+  display:block;
+  z-index:2;
+}
+
+.ploggingNav {
+  width:310px;
+  height:100%;
+  display:flex;
+  margin-left:240px;
+  align-items: center;
+  justify-content: space-around;
+}
+.ploggingNavMenu {
+  width:50px;
+  height:100%;
+  display:flex;
+  padding:3px 15px;
+  font-size:1.125em;
+  align-items: center;
+  justify-content: center;
+}
+.ploggingNavMenu:hover {
+  cursor:pointer;
+  font-weight: bold;
+}
+
+
+
+/* 로그인 */
+.loginNav {
+  width:300px;
+  height:100%;
+  display:flex;
+  align-items: center;
+  margin-left:auto;
+  margin-right:1%;
+  justify-content: space-around;
+}
+.loginBtn {
+  width:150px;
+  display:flex;
+  justify-content: center;
+}
+
+
+
+/* ------- 로그인 후 -------- */
+.userNav {
+  width:350px;
+  height:100%;
+  display:flex;
+  margin-left:auto;
+  align-items: center;
+  justify-content: space-around;
+}
+.userNavBox {
+  width:90px;
+}
+.headerNotify {
+  display:flex;
+  color:#8ed1bd;
+  font-size:1.75rem;
+  width:50px;
+}
+.alaramCount {
+  width:18px;
+  display:flex;
+  color:white;
+  margin-left:16px;
+  position:absolute;
+  border-radius:35%;
+  font-size: 0.6rem;
+  justify-content: center;
+  background-color: rgba(235, 1, 1, 0.829);
+}
+.nickName {
+  color:#8ed1bd;
+  font-weight:bold;
+}
+
+
+
+
+
+/* 반응형 */
+
+@media screen and (max-width: 768px) {
+  .loginNav{
+    display:none;
+  }
+  .userNav{
+    display: none;
+  }
+  .toggle {
+    display:block;
+  }
+
+  header {
+    width:100%;
+    max-width:768px;
+  }
+  .logoContainer {
+    width:220px;
+    z-index:2;
+  }
+  .headerNav {
+    width:100%;
+    height:2000px;
+    top:0;
+    margin-top:80px;
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    display:none;
+  }
+  .headerNav.show {
+    display:block;
+    z-index:2;
+  }
+  .headerMenu {
+    width:100%;
+    height:130px;
+    flex-direction: column;
+    align-items: center;
+    background-color:white;
+  }
+  .headerMenuLink {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:10px 20px;
+  }
+  .headerMenuLink:hover {
+    color:#9BE4CE;
+  }
+  .ploggingNavContainer{
+    top:0;
+    width:100%;
+    height:80px;
+    margin-top:50px;
+  }
+  .ploggingNav{
+    width:100%;
+    height:100%;
+    margin-left:0;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .ploggingNavMenu{
+    color:gray;
+  }
+
+  .toggle {
+    width:15%;
+    height:100%;
+    font-size:35px;
+    display:flex;
+    margin-left:auto;
+    align-items: center;
+    justify-content: center;
+    z-index:2;
+  }
+  .toggle:hover {
+    cursor:pointer;
+  }
+
+
+
+}
