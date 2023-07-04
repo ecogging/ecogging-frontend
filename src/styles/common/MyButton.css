@@ -1,0 +1,79 @@
+.MyButton_whiteMint {
+    width:135px;
+    height:40px;
+    font-size:15px;
+    cursor:pointer;
+    color:#8bceba;
+    border-radius:5px;
+    background-color: white;
+    border:1px solid #9BE4CE;
+}
+.MyButton_whiteMint:hover {
+    color:white;
+    font-weight: bold;
+    background-color: #9BE4CE;
+}
+
+.MyButton_whiteGray {
+    width:135px;
+    height:40px;
+    font-size:15px;
+    cursor:pointer;
+    color:#838383;
+    border-radius:5px;
+    background-color: white;
+    border:1px solid #838383;
+}
+.MyButton_whiteGray:hover {
+    color:white;
+    font-weight: bolder;
+    background-color: #838383;
+}
+
+.MyButton_mint {
+    width:135px;
+    height:40px;
+    border:none;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    border-radius:5px;
+    background-color: #9be4ce;
+}
+.MyButton_mint:hover {
+    color:white;
+    font-weight: bolder;
+    background-color:#88e4c8;
+}
+
+.MyButton_gray {
+    width:135px;
+    height:40px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    border-radius:5px;
+    background-color: #838383;
+}
+.MyButton_gray:hover {
+    color:white;
+    font-weight: bolder;
+    background-color: #666666;
+}
+
+.MyButton_graySmall {
+    width:70px;
+    height:25px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-size:10px;
+    border-radius:5px;
+    background-color: #838383;
+}
+.MyButton_graySmall:hover {
+    color:white;
+    font-weight: bolder;
+    background-color: #666666;
+}

@@ -1,22 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css';
-import AccompanyList from './components/plogging/accompany/AccompanyList';
-import AccompanyDetail from './components/plogging/accompany/AccompanyDetail';
-import AccompanyWrite from './components/plogging/accompany/AccompanyWrite';
 import reportWebVitals from './reportWebVitals';
+import Main from './pages/Main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<AccompanyList />} />
-        <Route path="/detail" element={<AccompanyDetail />} />
-        <Route path="/write" element={<AccompanyWrite />} />
-      </Routes>
-    </Router>
+      <Main />
   </React.StrictMode>
 );
 
