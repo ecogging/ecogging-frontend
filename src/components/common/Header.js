@@ -39,7 +39,7 @@ export default function Header () {
                 <nav className={`headerNav ${showNav ? 'show' : ''}`}>
                     <ul className='headerMenu'>
                         <li className='headerMenuList'>
-                            <Link to = {'/temp'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
+                            <Link to = {'/accompany'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
                             <div className='ploggingNavContainer'>
                                 <ul className='ploggingNav'>
                                     <li className='ploggingNavMenu'>모임</li>
@@ -75,7 +75,7 @@ export default function Header () {
             <nav className={`headerNav ${showNav ? 'show' : ''}`}>
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
-                        <Link to = {'/temp'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
+                        <Link to = {'/accompany'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
                         <div className='ploggingNavContainer'>
                             <ul className='ploggingNav'>
                                 <li className='ploggingNavMenu'>모임</li>

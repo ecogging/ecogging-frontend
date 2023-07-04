@@ -4,6 +4,11 @@ import '../styles/common/MyButton.css';
 import Header from '../components/common/Header';
 import Home from '../components/main/Home';
 import Footer from '../components/common/Footer';
+
+import AccompanyList from '../components/plogging/accompany/AccompanyList';
+import AccompanyDetail from '../components/plogging/accompany/AccompanyDetail';
+import AccompanyWrite from '../components/plogging/accompany/AccompanyWrite';
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import Temp from './Temp';
@@ -21,9 +26,9 @@ export default function Main() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/temp" element={<Temp />}></Route>
 
-            <Route path="/" element={<AccompanyList />} />
-            <Route path="/detail" element={<AccompanyDetail />} />
-            <Route path="/write" element={<AccompanyWrite />} />
+            <Route path="/accompany" element={<AccompanyList />} />
+            <Route path="/accompanydetail" element={<AccompanyDetail />} />
+            <Route path="/accompanywrite" element={<AccompanyWrite />} />
           </Routes>
         </div>
         <Footer />  

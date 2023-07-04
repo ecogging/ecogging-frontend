@@ -1,5 +1,6 @@
 import '../../../styles/plogging/accompany/AccompanyList.css';
 import { Link } from 'react-router-dom';
+import MyButton from '../../common/MyButton';
 
 const AccompanyList = () => {
     return (
@@ -9,8 +10,8 @@ const AccompanyList = () => {
                 <tbody>
                     <tr>
                         <td className="article-new">
-                            <Link to="/write">
-                                <button className="write-new">새 글</button>
+                            <Link to="/accompanywrite">
+                                <MyButton text={'새 글 작성'}></MyButton>
                             </Link>
                         </td>
                     </tr>

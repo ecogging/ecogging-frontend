@@ -1,4 +1,4 @@
-import { BsTwitter,BsInstagram,BsYoutube,BsFacebook } from "react-icons/bs";
+import { BsInstagram,BsYoutube } from "react-icons/bs";
 import { FaSquareFacebook } from "react-icons/fa6";
 
 export default function Footer() {
