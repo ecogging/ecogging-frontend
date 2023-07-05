@@ -5,9 +5,11 @@ import Header from '../components/common/Header';
 import Home from '../components/main/Home';
 import Footer from '../components/common/Footer';
 
+
 import AccompanyList from '../components/plogging/accompany/AccompanyList';
 import AccompanyDetail from '../components/plogging/accompany/AccompanyDetail';
 import AccompanyWrite from '../components/plogging/accompany/AccompanyWrite';
+import Reviews from '../components/plogging/reivews/Reviews';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
@@ -29,6 +31,7 @@ export default function Main() {
             <Route path="/accompany" element={<AccompanyList />} />
             <Route path="/accompanydetail" element={<AccompanyDetail />} />
             <Route path="/accompanywrite" element={<AccompanyWrite />} />
+            <Route path="/reviews" element={<Reviews/>}/>
           </Routes>
         </div>
         <Footer />  

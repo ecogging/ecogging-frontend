@@ -44,7 +44,7 @@ export default function Header () {
                                 <ul className='ploggingNav'>
                                     <Link to={'/accompany'}><li className='ploggingNavMenu'>모임</li></Link>
                                     <li className='ploggingNavMenu'>행사</li>
-                                    <li className='ploggingNavMenu'>후기</li>
+                                    <Link to={'/reviews'}><li className='ploggingNavMenu'>후기</li></Link>
                                 </ul>
                             </div>
                         </li>
@@ -80,7 +80,7 @@ export default function Header () {
                             <ul className='ploggingNav'>
                                 <Link to={'/accompany'}><li className='ploggingNavMenu'>모임</li></Link>
                                 <li className='ploggingNavMenu'>행사</li>
-                                <li className='ploggingNavMenu'>후기</li>
+                                <Link to={'/reviews'}><li className='ploggingNavMenu'>후기</li></Link>
                             </ul>
                         </div>
                     </li>
