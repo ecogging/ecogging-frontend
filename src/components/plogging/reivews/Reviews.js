@@ -42,6 +42,7 @@ export default function ForumList(){
 
     return (
         <div className="reviews_mainLayout">
+            <h1>동구리언니 바보~!~!~</h1>
             <div className="review_wrap">
                 <div className="reviews_top">
                     <div className="reivew_search">
@@ -85,9 +86,7 @@ export default function ForumList(){
                     }
                 </div>
             </div>
-            <Pageination> 
 
-            </Pageination>
         </div>
     );
 }

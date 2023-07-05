@@ -9,7 +9,7 @@ a{
     display: flex;
     justify-content: center;
     background-color: aliceblue;
-    margin: 0 auto;
+    margin: 120px auto;
 }
 .review_wrap{
     width: 1280px;
@@ -20,7 +20,7 @@ a{
 .reviews_top{
     display: flex;
     width: 1280px;
-    background-color: rgb(166, 130, 199);
+    background-color: rgb(183, 166, 197);
     flex-wrap: wrap;
     align-items: center;
 }
