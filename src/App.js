@@ -17,7 +17,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route exact path='/detail' element={<EventDetail/>}/>
-              <Route exact path='/' element={<EventList/>}/> 
+              <Route exact path='/list/:page' element={<EventList/>}/> 
               <Route exact path='/write' element={<EventWrite/>}/>          
             </Routes>
           </BrowserRouter>

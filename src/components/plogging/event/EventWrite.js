@@ -10,9 +10,9 @@ import 'react-quill/dist/quill.snow.css';
 
 
 const EventWrite = () => {
-    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',id:'',fileName:''})
+    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:'',fileName:''})
     const [file, setFile] = useState();
-    const id = useSelector(state=>state.id);
+    const userid = useSelector(state=>state.UserId);
     const token = useSelector(state=>state.Authorization);
     const [cookie, setCookie] = useCookies('[refreshToken]');
     const dispatch = useDispatch();
@@ -53,9 +53,10 @@ const deleteFileImage = () => {
         formData.append('content', event.content);
         formData.append('location', event.location);
         formData.append('meetingDate', event.meetingDate);
+        formData.append('endDate', event.endDate);
         formData.append('corpName', event.corpName);
         formData.append('explanation', event.explanation);
-        formData.append('id', event.id);
+        formData.append('userId', event.userId);
         formData.append('fileName', event.fileName);
         formData.append('file', file);
 
@@ -127,9 +128,16 @@ const deleteFileImage = () => {
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td><Label for="meetingDate">행사일자</Label></td>
-                            <td><Input style={{height:'25px'}} type="Date" id="meetingDate" name="meetingDate" onChange={change}
-                                 required="required" value={event.meetingDate}/></td>
+                            <td><Label for="meetingDate">시작일자</Label></td>
+                            <td><Input style={{height:'25px', marginRight:'25px'}} type="Date" id="meetingDate" name="meetingDate" onChange={change}
+                                 required="required" value={event.meetingDate}/>
+                                 <span style={{fontSize:'20px'}}>~</span>
+                                 <Label for="endDate" style={{marginRight:'20px', marginLeft:'20px'}}>종료일자</Label>
+                                 <Input style={{height:'25px'}} type="Date" id="endDate" name="endDate" onChange={change}
+                                 required="required" value={event.endDate}/>
+                            </td>
+                            
+                            
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>

@@ -1,18 +1,3 @@
-html, body, div, span, applet, object, iframes, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, a, abbr, acronym, address, big, quotes, code, del,
-dfn, em, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, u,
-i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
-caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
-output, ruby, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	do: inherit;
-	vertical-align: baseline;
-}
-
 article, aside, details, figcaption, figure, footer, header, hgroup,
 menu, nav, section {
 	display: block;
@@ -27,14 +12,10 @@ blockquote:before, blockquote:after, q:before, q:after {
 	content: none;
 }
 
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 
 .card {
-	height: 380px;
-	width: 300px;
+	height: 413px;
+	width: 290px;
 	border-radius: 15px;
 	display: inline-block;
 	margin-top: 30px;
@@ -72,17 +53,19 @@ table {
 	float: right;
 	margin: 15px 15px 0 0;
 	border-radius: 50%;
-	font-weight: bold;
-	padding: 10px 10px;
+	padding: 7px 5px;
 	line-height: 20px;
 }
 
 h1 {
 	font-size: 22px;
 	font-weight: bold;
+	margin-bottom: 10px;
+	color: forestgreen;
 }
 
 .card-body {
+
 }
 
 .card-body-header {
@@ -92,6 +75,7 @@ h1 {
 }
 
 .card-body-description {
+	text-align: left;
 	opacity: 0;
 	color: #757B82;
 	line-height: 25px;
@@ -102,7 +86,7 @@ h1 {
 	transition: .2s ease-in-out;
 	overflow: hidden;
 	height: 170px;
-	margin: 5px 20px;
+	margin: 5px 10px;
 	width: 270px;
 	word-wrap: break-word;
 }
@@ -122,7 +106,8 @@ h1 {
 
 
 .card-body-hashtag {
-	font-size: large;
+	font-size: medium;
+	margin: 0;
 }
 
 .card-body-footer {
@@ -130,31 +115,119 @@ h1 {
 	margin-top: 15px;
 	margin-bottom: 6px;
 	bottom: 0;
-	width: 314px;
+	width: 290px;
 	font-size: 14px;
 	color: #9FA5A8;
-	padding: 0 15px;
-}
-
-.icon {
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 2px;
-}
-
-.icon-view_count {
-	width: 25px;
-	height: 17px;
-	background: url("") no-repeat;
-}
-
-.icon-comments_count {
-	margin-left: 5px;
-	width: 25px;
-	height: 17px;
-	background: url("") no-repeat;
 }
 
 .reg_date {
-	float: right;
+	margin-left: 120px;
 }
+
+ol,ul {
+  padding-left: 2rem;
+}
+
+ol,ul,dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ol ol,ul ul,ol ul,ul ol {
+  margin-bottom: 0;
+}
+
+
+.pagination {
+	--bs-pagination-padding-x: 0.75rem;
+	--bs-pagination-padding-y: 0.375rem;
+	--bs-pagination-font-size: 1rem;
+	--bs-pagination-color: var(--bs-link-color);
+	--bs-pagination-bg: var(--bs-body-bg);
+	--bs-pagination-border-width: var(--bs-border-width);
+	--bs-pagination-border-color: var(--bs-border-color);
+	--bs-pagination-border-radius: var(--bs-border-radius);
+	--bs-pagination-hover-color: var(--bs-link-hover-color);
+	--bs-pagination-hover-bg: var(--bs-tertiary-bg);
+	--bs-pagination-hover-border-color: var(--bs-border-color);
+	--bs-pagination-focus-color: var(--bs-link-hover-color);
+	--bs-pagination-focus-bg: var(--bs-secondary-bg);
+	--bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+	--bs-pagination-active-color: #fff;
+	--bs-pagination-active-bg: #0d6efd;
+	--bs-pagination-active-border-color: #0d6efd;
+	--bs-pagination-disabled-color: var(--bs-secondary-color);
+	--bs-pagination-disabled-bg: var(--bs-secondary-bg);
+	--bs-pagination-disabled-border-color: var(--bs-border-color);
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+  }
+  
+  .page-link {
+	position: relative;
+	display: block;
+	padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+	font-size: var(--bs-pagination-font-size);
+	color: var(--bs-pagination-color);
+	text-decoration: none;
+	background-color: var(--bs-pagination-bg);
+	border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+	.page-link {
+	  transition: none;
+	}
+  }
+  .page-link:hover {
+	z-index: 2;
+	color: var(--bs-pagination-hover-color);
+	background-color: var(--bs-pagination-hover-bg);
+	border-color: var(--bs-pagination-hover-border-color);
+  }
+  .page-link:focus {
+	z-index: 3;
+	color: var(--bs-pagination-focus-color);
+	background-color: var(--bs-pagination-focus-bg);
+	outline: 0;
+	box-shadow: var(--bs-pagination-focus-box-shadow);
+  }
+  .page-link.active, .active > .page-link {
+	z-index: 3;
+	color: var(--bs-pagination-active-color);
+	background-color: var(--bs-pagination-active-bg);
+	border-color: var(--bs-pagination-active-border-color);
+  }
+  .page-link.disabled, .disabled > .page-link {
+	color: var(--bs-pagination-disabled-color);
+	pointer-events: none;
+	background-color: var(--bs-pagination-disabled-bg);
+	border-color: var(--bs-pagination-disabled-border-color);
+  }
+  
+  .page-item:not(:first-child) .page-link {
+	margin-left: calc(var(--bs-border-width) * -1);
+  }
+  .page-item:first-child .page-link {
+	border-top-left-radius: var(--bs-pagination-border-radius);
+	border-bottom-left-radius: var(--bs-pagination-border-radius);
+  }
+  .page-item:last-child .page-link {
+	border-top-right-radius: var(--bs-pagination-border-radius);
+	border-bottom-right-radius: var(--bs-pagination-border-radius);
+  }
+  
+  .pagination-lg {
+	--bs-pagination-padding-x: 1.5rem;
+	--bs-pagination-padding-y: 0.75rem;
+	--bs-pagination-font-size: 1.25rem;
+	--bs-pagination-border-radius: var(--bs-border-radius-lg);
+  }
+  
+  .pagination-sm {
+	--bs-pagination-padding-x: 0.5rem;
+	--bs-pagination-padding-y: 0.25rem;
+	--bs-pagination-font-size: 0.875rem;
+	--bs-pagination-border-radius: var(--bs-border-radius-sm);
+  }
