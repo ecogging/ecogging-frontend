@@ -1,5 +1,5 @@
 import MainHome from "./MainHome";
-import MainMates from "./MainMates";
+import MainAccompany from "./MainAccompany";
 import MainEvents from "./MainEvents";
 import MainForums from "./MainForums";
 import Bar from "./Bar";
@@ -9,7 +9,7 @@ export default function Home() {
         <div className="home">
             <MainHome />
             <Bar />
-            <MainMates />
+            <MainAccompany />
             <Bar />
             <MainEvents />
             <Bar />
