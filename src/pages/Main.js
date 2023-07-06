@@ -11,7 +11,6 @@ import AccompanyWrite from '../components/plogging/accompany/AccompanyWrite';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
-import Temp from './Temp';
 
 
 export default function Main() {
@@ -24,7 +23,6 @@ export default function Main() {
         <div className='mainContents'>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/temp" element={<Temp />}></Route>
 
             <Route path="/accompany" element={<AccompanyList />} />
             <Route path="/accompanydetail" element={<AccompanyDetail />} />
