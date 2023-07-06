@@ -85,9 +85,6 @@ export default function ForumList(){
                     }
                 </div>
             </div>
-            <Pageination> 
-
-            </Pageination>
         </div>
     );
 }
