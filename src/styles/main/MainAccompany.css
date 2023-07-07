@@ -1,11 +1,17 @@
 
 .mainAccompContainer {
+  width:100%;
+  height:600px;
+  background-color: #eeeeee;
 }
 
 .accompBackground {
-  width:100%;
-  height:800px;
-  background-color: #eeeeee;
+  width:90%;
+  height:100%;
+
+  background-color: pink;
+
+  margin:0 auto;
 
   display:flex;
   flex-direction: column;
@@ -15,8 +21,8 @@
 
 .accompTitleBox {
   width:100%;
-  height:100px;
-  background-color: pink;
+  height:80px;
+  margin-top:70px;
   
   display:flex;
   justify-content: center;
@@ -24,26 +30,25 @@
 }
 
 .accompTitle {
-  font-size:3.5vw;
-  font-weight:bold;
+  font-size:3rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .accompBox {
   width:100%;
   height:500px;
   margin-top:20px;
-  background-color:aquamarine;
 
   display:flex;
-  justify-content: space-around;
   align-items: center;
-
+  justify-content: center;
+  gap:0.5%;
 
 }
 .accompCardBox {
-  width:30%;
+  background-color: #2A9E7B;
+  width:500px;
   height:100%;
-  border:2px solid red;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -53,23 +58,128 @@
 /* 세부설정 */
 
 .accompCard {
-  width:550px;
-  height:300px;
+  width:480px;
+  height:280px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  border:1px solid rgba(170, 170, 170, 0.281);
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(216, 216, 216, 0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
+.accompCard:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/* 카드 상단 - 프사 & 모집상태 */
 .cardTop {
+  display: flex;
+  justify-content: center;
   width:100%;
-  height:70px;
-  background-color: antiquewhite;
-  
-  display:flex;
-  align-items: center;
-  justify-content: space-around;
-}
+  height:21%;
+  border-radius: 10px 10px 0 0;
+
+} 
+
 .userPic {
-  width:140px;
-  height:140px;
+  width:120px;
+  height:120px;
   background-color: gray;
   border-radius: 50%;
+  border:1px solid rgba(211, 211, 211, 0.192);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(255, 255, 255, 0.24);
+  
+  overflow: hidden;
+  
+  margin-top:-12%;
 }
+.userPicSource{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+
+.cardTop-recruit{
+  width:100%;
+  background-color: red;
+}
+
+.accompRecruit{
+  width:60px;
+  height:20px;
+  font-size: 1rem;
+  color:#2A9E7B;
+  font-weight:bold;
+  position: absolute;
+  margin-top:0.9%;
+  margin-left:0.7%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 카드 중단부 - 닉네임, 제목 */
+.cardbody  {
+  width:100%;
+  height:25%;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userCardNickname {
+  width:80px;
+  height:15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:0.85rem;
+  margin:2% 0 2% 0;
+  color:#838383;
+}
+
+
+.accompCardTitle {
+  width:100%;
+  height:20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight:bold;
+  font-size: 1.25rem;
+  height:25px;
+  color:black;
+}
+
+/* 카드 하단부 - 지도 */
+.cardfooter {
+  width:100%;
+  height:50%;
+  border-radius: 0 0 10px 10px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-top:auto;
+  overflow: hidden;
+
+}
+.cardMapBox{
+  width:100%;
+}
+
+.cardMapImg {
+  width:100%;
+  height:100%;
+  object-fit: contain;
+}
+
+
+/* hover */

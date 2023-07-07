@@ -1,6 +1,8 @@
 import '../../styles/main/MainAccompany.css';
 import MyButton from '../common/MyButton';
-
+import imgTemp from '../../assets/123213.png';
+import picTemp from '../../assets/444.jpg';
+import { Link } from 'react-router-dom';
 
 export default function MainAccompany() {
   return (
@@ -12,32 +14,95 @@ export default function MainAccompany() {
         </div>
 
         <div className='accompBox'>
-          <div className='accompCardBox'>
 
+          <div className='accompCardBox'>
             <div className='accompCard'>
-            
-              <div className='cardTop'>
+
+              <div className='cardTop-recruit'>
                 <div className='accompRecruit'>모집중</div>
-                <div className='userPic'></div>
-                <div className='accompNotice'>
-                  <div className='nowRecruiting'>5명 중 3명 참여중</div>
-                  <div className='accompTime'>7/14 AM 6:30</div>
+              </div>
+              <div className='cardTop'>
+                <div className='userPic'>
+                  <img src={picTemp} className='userPicSource'/>
                 </div>
               </div>
 
               <div className='cardbody'>
                 <div className='userCardNickname'>닉네임</div>
-                <div className='accompCardTitle'>동행제목</div>
-                <div className='accompCardContent'>동행모집본문</div>
-                <div className='accompCardDetail'><MyButton text={'상세글 보기'} type={'whiteMint'}/></div>
+                <Link to={"/temp"}><div className='accompCardTitle'>동행제목</div></Link>
               </div>
-            </div>
 
+              <div className='cardfooter'>
+                <div className='cardMapBox'>
+                  <img src={imgTemp} alt='temp' className='cardMapImg'/>
+                </div>
+              </div>
+
+            </div>
           </div>
-          <div className='accompCardBox'>2</div>
-          <div className='accompCardBox'>3</div>
+
+
+          {/* 2 */}
+          <div className='accompCardBox'>
+            <div className='accompCard'>
+
+              <div className='cardTop-recruit'>
+                <div className='accompRecruit'>모집중</div>
+              </div>
+              <div className='cardTop'>
+                <div className='userPic'>
+                  <img src={picTemp} className='userPicSource'/>
+                </div>
+              </div>
+
+              <div className='cardbody'>
+                <div className='userCardNickname'>닉네임</div>
+                <Link to={"/temp"}><div className='accompCardTitle'>동행제목</div></Link>
+              </div>
+
+              <div className='cardfooter'>
+                <div className='cardMapBox'>
+                  <img src={imgTemp} alt='temp' className='cardMapImg'/>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* 3 */}
+          <div className='accompCardBox'>
+            <div className='accompCard'>
+
+              <div className='cardTop-recruit'>
+                <div className='accompRecruit'>모집중</div>
+              </div>
+              <div className='cardTop'>
+                <div className='userPic'>
+                  <img src={picTemp} className='userPicSource'/>
+                </div>
+              </div>
+
+              <div className='cardbody'>
+                <div className='userCardNickname'>닉네임</div>
+                <Link to={"/temp"}><div className='accompCardTitle'>동행제목</div></Link>
+              </div>
+
+              <div className='cardfooter'>
+                <div className='cardMapBox'>
+                  <img src={imgTemp} alt='temp' className='cardMapImg'/>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
         </div>
       </div>
     </div>
+
+    
   );
 }
