@@ -1,8 +1,8 @@
-import MainHome from "./MainHome";
-import MainAccompany from "./MainAccompany";
-import MainEvents from "./MainEvents";
-import MainForums from "./MainForums";
-import Bar from "./Bar";
+import MainHome from "../components/main/MainHome";
+import MainAccompany from "../components/main/MainAccompany";
+import MainEvents from "../components/main/MainEvents";
+import MainForums from "../components/main/MainForums";
+import Bar from "../components/main/Bar";
 
 export default function Home() {
     return(

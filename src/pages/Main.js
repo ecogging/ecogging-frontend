@@ -2,7 +2,7 @@ import '../styles/common/Main.css';
 import '../styles/common/Footer.css';
 import '../styles/common/MyButton.css';
 import Header from '../components/common/Header';
-import Home from '../components/main/Home';
+import Home from './Home';
 import Footer from '../components/common/Footer';
 
 
