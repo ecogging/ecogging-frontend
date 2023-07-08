@@ -1,44 +1,92 @@
-.eventsBackground {
+
+.container_mainEvents {
   width:100%;
-  height:800px;
-  border:1px solid blue;
+  height:100%;
 
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background-color: yellowgreen;
+}
+
+.container_mainEvents_part {
+  width:90%;
+  height:100%;  
+
+  margin:0 auto;
 }
 
 
-.eventsTitleBox {
+/* 카드박스 */
+
+.container_EventsCards {
   width:100%;
-  height:100px;
-  background-color: pink;
-  
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.eventsTitle {
-  font-size:3.5vw;
-  font-weight:bold;
-}
-
-.eventsBox {
-  width:100%;
-  height:700px;
-  margin-top:20px;
+  height:80%;
   background-color:aquamarine;
 
   display:flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: center;
 
-
+  flex-wrap: wrap;
+  gap:2.5%;
 }
-.eventInfo {
-  width:21%;
+
+
+/* 카드 */
+.box_EventsCards {
+  width:350px;
+  height:625px;
+  border:1px solid red;
+  position: relative;
+}
+
+/* 카드커버 */
+.cover_EventsCard {
+  width:100%;
   height:100%;
-  border:2px solid red;
+  position: absolute;
+  background-color: rgba(43, 43, 43, 0.589);
+  z-index: 1;
 }
+.cover_EventsCard:hover {
+  width:30%;
+}
+
+/* 커버 텍스트 */
+.container_EventsCardCoverText {
+  width:100%;
+  height:50%;
+  color:white;
+  
+  background-color: rgba(101, 38, 161, 0.63);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.box_EventsCard_title {
+
+}
+
+
+/* 카드포스터 */
+.card_EventsWhole{
+  width:100%;
+  height:100%;
+  background-color: #e2e2e2;
+  overflow: hidden;
+}
+.img_poster_source{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+.cover_EventsCard:hover + .card_EventsWhole {
+  position: absolute;
+  width:620px;
+}
+
+
