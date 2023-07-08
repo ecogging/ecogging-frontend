@@ -14,6 +14,7 @@ export default function Home() {
             <MainEvents />
             <Bar />
             <MainForums />
+            <Bar />
         </div>
     );
 }
