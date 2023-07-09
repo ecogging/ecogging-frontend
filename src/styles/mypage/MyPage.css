@@ -33,6 +33,13 @@
   background-color: #9BE4CE;
   color:white;
 }
+.box_myPageTabMenu_clicked{
+  width:100%;
+  height:100%;
+  padding: 5% 0;
+  background-color: #9BE4CE;
+  color:white;
+}
 
 .box_myPageTabMenuTitle {
   width:100%;
@@ -67,6 +74,14 @@
   background-color: #9BE4CE;
   color:white;
 }
+.box_myPloggingMenu_clicked {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+  background-color: #9BE4CE;
+  color:white;
+}
 
 /* 나의 커뮤니티 */
 .box_myForumList {
@@ -89,6 +104,14 @@
   align-items: center;
 }
 .box_myForumMenu:hover{
+  background-color: #9BE4CE;
+  color:white;
+}
+.box_myForumMenu_clicked {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
   background-color: #9BE4CE;
   color:white;
 }
