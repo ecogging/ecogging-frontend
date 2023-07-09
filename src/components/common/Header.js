@@ -43,19 +43,21 @@ export default function Header () {
                             <div className='ploggingNavContainer'>
                                 <ul className='ploggingNav'>
                                     <Link to={'/accompany'}><li className='ploggingNavMenu'>모임</li></Link>
-                                    <li className='ploggingNavMenu'>행사</li>
+                                    <Link to={'/temp'}><li className='ploggingNavMenu'>행사</li></Link>
                                     <Link to={'/reviews'}><li className='ploggingNavMenu'>후기</li></Link>
                                 </ul>
                             </div>
                         </li>
-                        <li className='headerMenuList'>
-                            <div className='headerMenuLink'>커뮤니티</div>
-                        </li>
+                        <Link to={'/temp'}>
+                            <li className='headerMenuList'>
+                                <div className='headerMenuLink'>커뮤니티</div>
+                            </li>
+                        </Link>
                     </ul>
                 </nav>
                 <ul className='userNav'>
                     <li className='userNavBox headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
-                    <li className='userNavBox'><span className='nickName'>닉네임</span> 님</li>
+                    <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>닉네임</span></Link> 님</li>
                     <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={loginTemp}></MyButton></li>
                 </ul>
                 <div className='toggle' onClick={toggleNav}>
@@ -79,14 +81,16 @@ export default function Header () {
                         <div className='ploggingNavContainer'>
                             <ul className='ploggingNav'>
                                 <Link to={'/accompany'}><li className='ploggingNavMenu'>모임</li></Link>
-                                <li className='ploggingNavMenu'>행사</li>
+                                <Link to={'/temp'}><li className='ploggingNavMenu'>행사</li></Link>
                                 <Link to={'/reviews'}><li className='ploggingNavMenu'>후기</li></Link>
                             </ul>
                         </div>
                     </li>
-                    <li className='headerMenuList'>
-                        <div className='headerMenuLink'>커뮤니티</div>
-                    </li>
+                    <Link to={'/temp'}>
+                        <li className='headerMenuList'>
+                            <div className='headerMenuLink'>커뮤니티</div>
+                        </li>
+                    </Link>
                 </ul>
             </nav>
             <ul className='loginNav'>
