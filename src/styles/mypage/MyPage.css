@@ -1,8 +1,93 @@
 
 .MyPage {
-  width:95%;
-  margin:100px auto;
+  width:96%;
+  height:100%;
+  margin:120px auto 5% auto;
   display:flex;
 
   color:black;
+}
+
+.container_myPageTabAll {
+  width:225px;
+  height:600px;
+  background-color: white;
+}
+
+.container_myPageTabNav {
+  width:100%;
+}
+
+
+/* 단독메뉴 */
+.box_myPageTabMenu {
+  width:100%;
+  height:100%;
+  padding: 5% 0;
+}
+.txt_myPageTabMenu {
+  width:95%;
+  margin-left:auto;
+  font-size: 1.45rem;
+}
+.box_myPageTabMenu:hover {
+  background-color: #9BE4CE;
+  color:white;
+}
+
+.box_myPageTabMenuTitle {
+  width:100%;
+  height:100%;
+  padding:5% 0;
+}
+
+
+/* --------서브메뉴-------- */
+
+/* 플로깅 */
+.box_myPloggingList {
+  width:100%;
+  margin-top:5%;
+}
+.box_myPloggingMenu {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+}
+.txt_myPloggingMenu {
+  margin-left:auto;
+  width:85%;
+  height:100%;
+  font-size:1.25rem;
+  display: flex;
+  align-items: center;
+}
+.box_myPloggingMenu:hover{
+  background-color: #9BE4CE;
+  color:white;
+}
+
+/* 나의 커뮤니티 */
+.box_myForumList {
+  width:100%;
+  margin-top:5%;
+}
+.box_myForumMenu {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+}
+.txt_myForumMenu{
+  margin-left:auto;
+  width:85%;
+  height:100%;
+  font-size:1.25rem;
+  display: flex;
+  align-items: center;
+}
+.box_myForumMenu:hover{
+  background-color: #9BE4CE;
+  color:white;
 }
