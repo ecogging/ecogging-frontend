@@ -83,6 +83,7 @@ header {
 .ploggingNavMenu {
   width:50px;
   height:100%;
+  color:black;
   display:flex;
   padding:3px 15px;
   font-size:1.125em;

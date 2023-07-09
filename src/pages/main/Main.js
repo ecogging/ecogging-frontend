@@ -1,19 +1,19 @@
-import '../styles/common/Main.css';
-import '../styles/common/Footer.css';
-import '../styles/common/MyButton.css';
-import Header from '../components/common/Header';
+import '../../styles/common/Main.css';
+import '../../styles/common/Footer.css';
+import '../../styles/common/MyButton.css';
+import Header from '../../components/common/Header';
 import Home from './Home';
-import Footer from '../components/common/Footer';
+import Footer from '../../components/common/Footer';
 
 
-import AccompanyList from '../components/plogging/accompany/AccompanyList';
-import AccompanyDetail from '../components/plogging/accompany/AccompanyDetail';
-import AccompanyWrite from '../components/plogging/accompany/AccompanyWrite';
-import Reviews from '../components/plogging/reivews/Reviews';
+import AccompanyList from '../../components/plogging/accompany/AccompanyList';
+import AccompanyDetail from '../../components/plogging/accompany/AccompanyDetail';
+import AccompanyWrite from '../../components/plogging/accompany/AccompanyWrite';
+import Reviews from '../../components/plogging/reivews/Reviews';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
-import Temp from '../components/main/Temp';
+import Temp from '../../components/main/Temp';
 
 
 export default function Main() {

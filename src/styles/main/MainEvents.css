@@ -72,8 +72,7 @@
 .container_EventsCardCoverText {
   width:95%;
   height:40%;
-  color:white;
-  
+  color: white;
   display: flex;
   flex-direction: column;
 }
