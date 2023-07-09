@@ -4,8 +4,6 @@
   height:100%;
   margin:120px auto 5% auto;
   display:flex;
-
-  color:black;
 }
 
 .container_myPageTabAll {
@@ -24,6 +22,7 @@
   width:100%;
   height:100%;
   padding: 5% 0;
+  color:black;
 }
 .txt_myPageTabMenu {
   width:95%;
@@ -54,6 +53,7 @@
   height:40px;
   display: flex;
   align-items: center;
+  color:#838383;
 }
 .txt_myPloggingMenu {
   margin-left:auto;
@@ -78,6 +78,7 @@
   height:40px;
   display: flex;
   align-items: center;
+  color:#838383;
 }
 .txt_myForumMenu{
   margin-left:auto;

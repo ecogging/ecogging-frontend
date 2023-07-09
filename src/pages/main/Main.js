@@ -29,7 +29,7 @@ export default function Main() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/temp" element={<Temp />}></Route>
 
-            <Route path="/mypage" element={<MyPage />}></Route>
+            <Route path="/mypage/*" element={<MyPage />}></Route>
 
             <Route path="/accompany" element={<AccompanyList />} />
             <Route path="/accompanydetail" element={<AccompanyDetail />} />
