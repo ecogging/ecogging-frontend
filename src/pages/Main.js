@@ -31,7 +31,7 @@ export default function Main() {
             <Route path="/accompany" element={<AccompanyList />} />
             <Route path="/accompanydetail" element={<AccompanyDetail />} />
             <Route path="/accompanywrite" element={<AccompanyWrite />} />
-            <Route path="/reviews" element={<Reviews/>}/>
+            <Route path="/reviews/:page" element={<Reviews/>}/>
           </Routes>
         </div>
         <Footer />  
