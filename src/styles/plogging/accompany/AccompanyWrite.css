@@ -1,83 +1,106 @@
 .accompany-new {
     width: 1280px;
+    margin: 120px auto;
+}
+
+.write-container {
+    width: 93%;
     margin: 0 auto;
 }
 
 .accompany-cell {
     display: flex;
-    justify-content: center;
+/*    justify-content: center; */
     align-items: center;
 }
 
 .accompany-info {
-    width: 100%;
+/*    width: 100%; */
+    width: 98%;
+    margin-left: 10px;
     height: 400px;
+    justify-content: flex-start;
 }
 
 .accompany-subject {
     font-size: 17px;
-    color: #28d6c8;
+    color: #9be4ce;
     margin-bottom: 10px;
-    margin-left: 313.5px;
 }
 
 .accompany-title {
-    width: 50%;
+    width: 94.5%;
     padding: 6px;
-    border: 1px solid #28d6c8;
+    border: 1px solid #9be4ce;
     border-radius: 3.5px;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.accompany-loc-detail {
+    width: 45%;
+    padding: 6px;
+    border: 1px solid lightgray;
+    border-radius: 3.5px;
+    margin-bottom: 15px;
+    margin-right: 15px;
 }
 
 .accompany-location {
-    width: 50%;
+    width: 36.5%;
     padding: 6px;
-    border: 1px solid #28d6c8;
+    border: 1px solid lightgray;
     border-radius: 3.5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    margin-right: 15px;
 }
 
+.find-address {
+    margin-bottom: 15px;
+    padding: 6px 28.8px;
+    border: none;
+    border-radius: 3.5px;
+    background-color: lightgray;
+    color: white;
+    cursor: pointer;
+}
 
 .accompany-headcount {
-    width: 12.8%;
+    width: 31.8%;
     padding: 6px;
-    border: 1px solid #28d6c8;
+    border: 1px solid lightgray;
     border-radius: 3.5px;
     margin-right: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.accompany-datetime {
-    width: 35%;
-    padding: 6px;
-    border: 1px solid #28d6c8;
+.accomp-date {
+    width: 30%;
+    border: 1px solid lightgray;
     border-radius: 3.5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+
+.accomp-time {
+    width: 30%;
+    border: 1px solid lightgray;
+    border-radius: 3.5px;
+    margin-bottom: 15px;
 }
 
 .accompany-content {
-    width: 50.6%;
+    width: 95%;
     height: 200px;
-    border: 1px solid #28d6c8;
+    border: 1px solid #9be4ce;
     border-radius: 3.5px;
     resize: none;
     outline: none;
-    margin-bottom: 20px;
-}
-
-.accompany-save, .accompany-complete {
-    padding: 5px 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #28d6c8;
-    color: white;
-    cursor: pointer;
+    margin-bottom: 30px;
 }
 
 .accompany-buttons {
     display: flex;
     justify-content: flex-end;
-    margin-right: 303px;
+    margin-right: 53px;
 }
