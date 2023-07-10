@@ -1,13 +1,13 @@
 
 .MyPage {
-  width:96%;
+  width:98%;
   height:100%;
   margin:120px auto 5% auto;
   display:flex;
 }
 
 .container_myPageTabAll {
-  width:225px;
+  width:180px;
   height:600px;
   background-color: white;
 }
@@ -27,7 +27,7 @@
 .txt_myPageTabMenu {
   width:95%;
   margin-left:auto;
-  font-size: 1.45rem;
+  font-size: 1.25rem;
 }
 .box_myPageTabMenu:hover {
   background-color: #9BE4CE;
@@ -66,7 +66,7 @@
   margin-left:auto;
   width:85%;
   height:100%;
-  font-size:1.25rem;
+  font-size:1.05rem;
   display: flex;
   align-items: center;
 }
@@ -99,7 +99,7 @@
   margin-left:auto;
   width:85%;
   height:100%;
-  font-size:1.25rem;
+  font-size:1.05rem;
   display: flex;
   align-items: center;
 }
