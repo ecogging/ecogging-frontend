@@ -27,7 +27,13 @@ export default function MyPageReview () {
                             </div>
                         </div>
                         <div className='container_mypageRevContents'>
-                            <div className='box_revTitle'>플로깅 후기 제목</div>
+                            <div className='temper'>
+                                <div className='box_revTitle'>플로깅 후기 제목</div>
+                                <div className='box_detailBtns'>
+                                    <div className='box_revModify'>수정</div>
+                                    <div className='box_revDelete'>삭제</div>
+                                </div>
+                            </div>
                             <div className='box_revContents'>플로깅 후기 본문</div>
                         </div>
                     </div>
