@@ -1,0 +1,146 @@
+
+.MyPageRecommend {
+  width:100%;
+  height:100%;
+  
+  display: flex;
+  flex-direction: column;
+}
+.container_mypageRecomArea {
+  width:100%;
+  height:100%;
+
+  display: flex;
+  flex-direction: column;
+
+  margin:5px auto;
+  gap:5px;
+}
+
+
+/* 카드 */
+
+.container_mypageRecomWriting {
+  width:100%;
+  height:150px;
+
+  display: flex;
+  align-items: center;
+  border:1px solid rgb(204, 204, 204);
+  border-radius:10px;
+}
+
+/* 왼쪽 사진 */
+.container_myRecomLeft {
+  width:250px;
+  height:100%;
+  background-color: gray;
+  border-radius: 10px 0 0 10px;
+  object-fit: contain;
+}
+
+
+/* 오른쪽 */
+.container_myRecomRight {
+  width:91%;
+  height:100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container_myRecomWhole {
+  width:95%;
+  height:70%;
+}
+
+
+/* 제목 + 조회수 */
+.container_myRecomTop {
+  width:100%;
+  height:40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top:5px;
+}
+.container_myViews {
+  width:150px;
+  height:100%;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size:1.125rem;
+}
+/* 글제목 */
+.container_myRecomTitle {
+  width:100%;
+  height:40px;
+
+  font-size:1.6rem;
+  font-weight:bold;
+
+  display: flex;
+  align-items: flex-start;
+}
+
+/* 하단 본문 + 수정삭제버튼 */
+.container_myRecomBottom {
+  width:100%;
+  height:58%;
+
+  display: flex;
+  align-items: center;
+  font-size:1.3rem;
+}
+
+/* 본문 */
+.container_myRecomContent {
+  width:100%;
+  height:100%;
+
+  display: flex;
+  align-items: center;
+}
+
+/* 버튼 */
+.container_myDetailBtns {
+  width:165px;
+  height:100%;
+  
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap:10px;
+}
+.txt_myBtn {
+  width:40px;
+  height:25px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  font-size:1.2rem;
+  color:#838383;
+}
+.txt_myBtn:hover {
+  cursor: pointer;
+}
+
+
+
+
+/* 하단 페이지네이션 */
+.container_myBottom {
+  width:100%;
+  height:100%;
+  margin-top: 2.5%;
+  display: flex;
+  justify-content: center;
+}
+.box_contensPlus {
+  font-size:1.325rem;
+  cursor:pointer;
+}
