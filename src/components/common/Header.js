@@ -6,13 +6,26 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import React, { useEffect, useState } from 'react';
 import { FaRegBell } from "react-icons/fa";
 
+import UserLoginModal from '../user/UserLoginModal';
+
 export default function Header () {
     
     // 임시 로그인 처리
     const [isLogin, setIsLogin] = useState(false);
-    const loginTemp = () => {
-        setIsLogin(!isLogin);
+    const [userLoginModalOpen, setUserLoginModalOpen] = useState(false);
+
+    const userLoginToggle = () => {
+      setUserLoginModalOpen(!userLoginModalOpen);
     }
+
+    // 모달창 노출
+    const showUserLoginModal = () => {
+      setUserLoginModalOpen(true);
+  };
+
+    // useEffect(() => {
+    //   console.log('useEffect: ' + userLoginModal)
+    // },[userLoginModal]);
     
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
@@ -68,7 +81,7 @@ export default function Header () {
                 <ul className='userNav' onClick={clickMenu}>
                     <li className='userNavBox headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
                     <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>닉네임</span></Link> 님</li>
-                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={loginTemp}></MyButton></li>
+                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={userLoginToggle}></MyButton></li>
                 </ul>
                 <div className='toggle' onClick={toggleNav} >
                     <GiHamburgerMenu />
@@ -103,10 +116,17 @@ export default function Header () {
                     </Link>
                 </ul>
             </nav>
-            <ul className='loginNav' onClick={clickMenu}>
-                <Link to={'/temp'}><li className='loginBtn' onClick={loginTemp}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li></Link>
-                <Link to={'/temp'}><li className='loginBtn'><MyButton text={'개인 로그인'} onClick={loginTemp}></MyButton></li></Link>
+            <ul className='loginNav'>
+                <Link to={'/temp'}><li className='loginBtn' onClick={userLoginToggle}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li></Link>
+              <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={showUserLoginModal}></MyButton></li>
+               
             </ul>
+
+            {/* Login Modal */}
+            <div>
+              {userLoginModalOpen && <UserLoginModal setModalOpen={setUserLoginModalOpen} />}
+            </div>
+
             <div className='toggle' onClick={toggleNav}>
                 <GiHamburgerMenu />
             </div>
