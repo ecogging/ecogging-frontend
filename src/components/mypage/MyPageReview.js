@@ -26,16 +26,19 @@ export default function MyPageReview () {
                                 <div className='txt_revViews'>조회수 25</div>
                             </div>
                         </div>
+
                         <div className='container_mypageRevContents'>
-                            <div className='temper'>
+                            <div className='container_mypageBody'>
                                 <div className='box_revTitle'>플로깅 후기 제목</div>
                                 <div className='box_detailBtns'>
-                                    <div className='box_revModify'>수정</div>
-                                    <div className='box_revDelete'>삭제</div>
+                                    <div className='box_revBtn'>수정</div>
+                                    <div className='box_revBtn'>삭제</div>
                                 </div>
                             </div>
+
                             <div className='box_revContents'>플로깅 후기 본문</div>
                         </div>
+
                     </div>
                 </div>
 
