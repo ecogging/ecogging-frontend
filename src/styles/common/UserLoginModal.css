@@ -1,8 +1,8 @@
 ﻿/* 모달창을 화면 중앙. 최상단에 노출 */
 .modal-container {
   /* 모달창 크기 */
-  width: 450px;
-  height: 600px;
+  width: 400px;
+  height: 450px;
 
   /* 최상단 위치 */
   z-index: 999;
@@ -16,8 +16,13 @@
   transform: translate(-50%, -50%);
 
   /* 모달창 디자인 */
-  background-color: red;
   border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
 }
 
 /* 모달창 내부 X버튼 */
@@ -25,4 +30,75 @@
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 55%;
+  width: 70%;
+  max-width: 300px;
+}
+
+.button-group {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-close {
+  border: none;
+}
+.modal-image {
+  margin-bottom: 20px;
+  height: 45px;
+  width: 160px;
+}
+
+.login-input-group {
+  width: 100%;
+  margin-bottom: 10px;
+}
+input {
+  padding-left: 10px;
+
+  width: 100%;
+  height: 45px;
+
+  border-color: #E9E9E9;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray;
+  opacity: 1; /* Firefox */
+}
+.input-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.login-button {
+  width: 100%;
+}
+
+.button-group {
+  width: 100%;
+}
+.button-group button {
+  margin-bottom: 5px;
+  width: 100%;
+  height: 45px;
+}
+
+.link-group {
+  margin-bottom: 20px;
+  font-size: small;
+  color: gray;
 }
