@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const DetailForm = () => {
     const {id} = useParams();
-    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',id:'',fileName:'',view:'',createdAt:''})
+    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',id:'',fileId:'',view:'',createdAt:''})
     const [scrap, setScrap] = useState(false);
     const token = useSelector(state=>state.Authorization);
     const userId = useSelector(state=>state.userId);

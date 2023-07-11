@@ -16,9 +16,9 @@ function App() {
         <PersistGate persistor={persister}>
           <BrowserRouter>
             <Routes>
-              <Route exact path='/detail' element={<EventDetail/>}/>
-              <Route exact path='/list/:page' element={<EventList/>}/> 
-              <Route exact path='/write' element={<EventWrite/>}/>          
+              <Route exact path='/eventDetail' element={<EventDetail/>}/>
+              <Route exact path='/eventList' element={<EventList/>}/> 
+              <Route exact path='/eventWrite' element={<EventWrite/>}/>          
             </Routes>
           </BrowserRouter>
         </PersistGate>
