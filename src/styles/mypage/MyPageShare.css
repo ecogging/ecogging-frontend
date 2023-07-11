@@ -22,7 +22,7 @@
 
 .container_mypageShareWriting {
   width:100%;
-  height:170px;
+  height:150px;
 
   display: flex;
   align-items: center;
@@ -58,7 +58,7 @@
 /* 진행상태 + 조회수 */
 .container_myShareTop {
   width:100%;
-  height:45px;
+  height:40px;
 
   display: flex;
   justify-content: space-between;
