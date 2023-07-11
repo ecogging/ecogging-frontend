@@ -88,7 +88,7 @@ export default function Header () {
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
                     <Link to = {'/accompany'} id='ploggingMenu'><div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div></Link>
-                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                        <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                             <ul className='ploggingNav'>
                                 <Link to={'/accompany'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
                                 <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
@@ -98,14 +98,14 @@ export default function Header () {
                     </li>
                     <Link to={'/temp'}>
                         <li className='headerMenuList'>
-                        <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
+                            <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                         </li>
                     </Link>
                 </ul>
             </nav>
             <ul className='loginNav' onClick={clickMenu}>
-                <Link to={'/temp'}><li className='loginBtn' onClick={loginTemp}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li></Link>
-                <Link to={'/temp'}><li className='loginBtn'><MyButton text={'개인 로그인'} onClick={loginTemp}></MyButton></li></Link>
+                <li className='loginBtn' onClick={loginTemp}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+                <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={loginTemp}></MyButton></li>
             </ul>
             <div className='toggle' onClick={toggleNav}>
                 <GiHamburgerMenu />

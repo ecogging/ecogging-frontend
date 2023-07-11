@@ -3,6 +3,7 @@ import Temp from "../../components/main/Temp";
 import MyPageTab from "../../components/mypage/MyPageTab";
 import '../../styles/mypage/MyPage.css';
 import Message from "./Message";
+import MyPageReview from "../../components/mypage/MyPageReview";
 
 export default function MyPage() {
   return (
@@ -12,6 +13,8 @@ export default function MyPage() {
         <Routes>
           <Route path="/temp2" element={<Temp />}></Route>
           <Route path="/message" element={<Message />}></Route>
+
+          <Route path="/reviews" element={<MyPageReview />}></Route>
         </Routes>
       </div>
 

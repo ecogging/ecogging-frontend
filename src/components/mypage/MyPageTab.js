@@ -63,7 +63,7 @@ export default function MyPageTab() {
               <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
                 <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
               </Link>
-              <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
+              <Link to={'/mypage/reviews'} className="link_myPageTabMenu">
                 <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
               </Link>
             </ul>
