@@ -15,6 +15,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import Temp from '../../components/main/Temp';
 import MyPage from '../mypage/MyPage';
+import UserSignupIntro from '../../components/user/UserSignupIntro';
+import UserSignup from '../../components/user/UserSignup';
 
 
 export default function Main() {
@@ -36,6 +38,9 @@ export default function Main() {
             <Route path="/accompanywrite" element={<AccompanyWrite />} />
             
             <Route path="/reviews" element={<Reviews/>}/>
+
+            <Route path="/signup-intro" element={<UserSignupIntro/>}/>
+            <Route path="/signup" element={<UserSignup/>}/>
           </Routes>
         </div>
         <Footer />  

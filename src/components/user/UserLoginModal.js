@@ -3,10 +3,11 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
+import { Link } from 'react-router-dom';
+
 import MyButton from '../common/MyButton';
 import ecoggingLogo from '../../assets/ecoggingLogo.png';
 import kakaoLoginImage from '../../assets/kakao_login_medium_wide.png'
-
 
 import '../../styles/common/UserLoginModal.css'
 
@@ -118,7 +119,7 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
                 <div className="link-group">
                   <span> 아이디 찾기 </span> |
                   <span> 비밀번호 찾기 </span> |
-                  <span> 회원가입 </span>
+                  <Link to={'/signup-intro'} onClick={closeModal}><span> 회원가입 </span></Link>
                 </div>
 
               <img src={kakaoLoginImage} alt='kakaoLoginImage' className='kakao-login-image'/>
