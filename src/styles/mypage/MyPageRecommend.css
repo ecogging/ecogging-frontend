@@ -42,16 +42,16 @@
 
 /* 오른쪽 */
 .container_myRecomRight {
-  width:91%;
+  width:100%;
   height:100%;
 
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .container_myRecomWhole {
-  width:95%;
-  height:70%;
+  width:96%;
+  height:80%;
+  margin:0 40px;
 }
 
 
@@ -77,28 +77,28 @@
 /* 글제목 */
 .container_myRecomTitle {
   width:100%;
-  height:40px;
+  height:100%;
 
   font-size:1.6rem;
   font-weight:bold;
 
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 /* 하단 본문 + 수정삭제버튼 */
 .container_myRecomBottom {
   width:100%;
-  height:58%;
+  height: 60%;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   font-size:1.3rem;
 }
 
 /* 본문 */
 .container_myRecomContent {
-  width:100%;
+  width:90%;
   height:100%;
 
   display: flex;
@@ -106,16 +106,17 @@
 }
 
 /* 버튼 */
-.container_myDetailBtns {
-  width:165px;
+.container_myDetailBtns_Recom {
+  width:100px;
   height:100%;
+  margin-left:auto;
   
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   gap:10px;
 }
-.txt_myBtn {
+.txt_myBtn_Recom {
   width:40px;
   height:25px;
   display: flex;

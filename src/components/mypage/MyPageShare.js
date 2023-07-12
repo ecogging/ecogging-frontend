@@ -6,13 +6,14 @@ export default function MyPageShare() {
   return (
     <div className="MyPageShare">
 
-      <div className="container_mypageShareArea">
+      {/* 글 목록 업데이트 영역 -- 5개 */}
+      <div className="container_myShareArea"> 
 
         <div className="container_mypageShareWriting">
           {/* 사진 */}
-          <div className="container_myShareLeft">
+          {/* <div className="container_myShareLeft"> */}
             {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
+          {/* </div> */}
 
           <div className="container_myShareRight">
             <div className='container_myShareWhole'>
@@ -27,9 +28,9 @@ export default function MyPageShare() {
                 <div className='container_myShareContent'>
                   본문
                 </div>
-                <div className='container_myDetailBtns'>
-                  <div className='txt_myBtn'>수정</div>
-                  <div className='txt_myBtn'>삭제</div>
+                <div className='container_myDetailBtns_Share'>
+                  <div className='txt_myBtn_Share'>수정</div>
+                  <div className='txt_myBtn_Share'>삭제</div>
                 </div>
               </div>
             </div>
@@ -57,9 +58,9 @@ export default function MyPageShare() {
                 <div className='container_myShareContent'>
                   본문
                 </div>
-                <div className='container_myDetailBtns'>
-                  <div className='txt_myBtn'>수정</div>
-                  <div className='txt_myBtn'>삭제</div>
+                <div className='container_myDetailBtns_Share'>
+                  <div className='txt_myBtn_Share'>수정</div>
+                  <div className='txt_myBtn_Share'>삭제</div>
                 </div>
               </div>
             </div>
@@ -85,9 +86,9 @@ export default function MyPageShare() {
                 <div className='container_myShareContent'>
                   본문
                 </div>
-                <div className='container_myDetailBtns'>
-                  <div className='txt_myBtn'>수정</div>
-                  <div className='txt_myBtn'>삭제</div>
+                <div className='container_myDetailBtns_Share'>
+                  <div className='txt_myBtn_Share'>수정</div>
+                  <div className='txt_myBtn_Share'>삭제</div>
                 </div>
               </div>
             </div>
@@ -113,9 +114,9 @@ export default function MyPageShare() {
                 <div className='container_myShareContent'>
                   본문
                 </div>
-                <div className='container_myDetailBtns'>
-                  <div className='txt_myBtn'>수정</div>
-                  <div className='txt_myBtn'>삭제</div>
+                <div className='container_myDetailBtns_Share'>
+                  <div className='txt_myBtn_Share'>수정</div>
+                  <div className='txt_myBtn_Share'>삭제</div>
                 </div>
               </div>
             </div>
@@ -141,9 +142,9 @@ export default function MyPageShare() {
                 <div className='container_myShareContent'>
                   본문
                 </div>
-                <div className='container_myDetailBtns'>
-                  <div className='txt_myBtn'>수정</div>
-                  <div className='txt_myBtn'>삭제</div>
+                <div className='container_myDetailBtns_Share'>
+                  <div className='txt_myBtn_Share'>수정</div>
+                  <div className='txt_myBtn_Share'>삭제</div>
                 </div>
               </div>
             </div>

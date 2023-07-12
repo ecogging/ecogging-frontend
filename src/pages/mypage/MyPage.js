@@ -6,6 +6,7 @@ import Message from "./Message";
 import MyPageReview from "../../components/mypage/MyPageReview";
 import MyPageShare from "../../components/mypage/MyPageShare";
 import MyPageRecommend from "../../components/mypage/MyPageRecommend";
+import MyPageForumScrap from "../../components/mypage/MyPageForumScrap";
 
 export default function MyPage() {
   return (
@@ -21,6 +22,7 @@ export default function MyPage() {
           <Route path="/reviews" element={<MyPageReview />}></Route>
           <Route path="/shares" element={<MyPageShare />}></Route>
           <Route path="/recommendations" element={<MyPageRecommend />}></Route>
+          <Route path="/forumscraps" element={<MyPageForumScrap />}></Route>
         </Routes>
       </div>
 
