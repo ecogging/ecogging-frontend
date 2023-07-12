@@ -10,9 +10,9 @@ export default function MyPageShare() {
 
         <div className="container_mypageShareWriting">
           {/* 사진 */}
-          <div className="container_myShareLeft">
+          {/* <div className="container_myShareLeft"> */}
             {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
+          {/* </div> */}
 
           <div className="container_myShareRight">
             <div className='container_myShareWhole'>
