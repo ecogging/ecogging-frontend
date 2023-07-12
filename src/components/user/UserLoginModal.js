@@ -95,7 +95,7 @@ function UserLoginModal({ isOpen, closeModal }) {
     if (!isOpen) return null;
 
     return (
-      <>
+      <div className='UserLoginModal'>
         <div className="overlay" onClick={closeModal}></div>
         <div className="modal-container" ref={modalRef}>
           <div className="model-header">
@@ -131,7 +131,7 @@ function UserLoginModal({ isOpen, closeModal }) {
               </div>
           </div>
         </div>
-      </>
+      </div>
     );
 
 }
