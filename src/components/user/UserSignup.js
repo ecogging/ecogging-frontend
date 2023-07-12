@@ -97,12 +97,12 @@ const UserSignup = () => {
       <div className="input-wrapper">
         {/* 이메일 */}
         <div className='input-section'>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">이메일</label>
           <input type="email" id="email" value={email} onChange={handleEmailChange} />
         </div>
         {/* 비밀번호 */}
         <div className='input-section'>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">비밀번호</label>
           <input type="password" id="password" value={password} onChange={handlePasswordChange} />
           <input
             type="password"
@@ -114,34 +114,33 @@ const UserSignup = () => {
         </div>
         {/* 닉네임 */}
         <div className='input-section'>
-          <label htmlFor="nickname">Nickname</label>
+          <label htmlFor="nickname">닉네임</label>
           <input type="text" id="nickname" value={nickname} onChange={handleNicknameChange} />
         </div>
         {/* 핸드폰번호 */}
         <div className='input-section'>
-          <label htmlFor="telephone">Telephone</label>
+          <label htmlFor="telephone">휴대폰 번호</label>
           <div id='telephone-input-section'>
             <input type="text" id="telephone" value={telephone} onChange={handleTelephoneChange} />
             <MyButton text={'인증번호 요청'} id="request-tel-auth"></MyButton>
           </div>
-        </div>
-        {/* 핸드폰번호 인증 */}
-        <div className='input-section'>
-          <label htmlFor="telephoneAuthText">Telephone Authentication Text:</label>
+    
           <input
             type="text"
             id="telephoneAuthText"
             value={telephoneAuthText}
             onChange={handleTelephoneAuthTextChange}
+            placeholder='인증번호 입력'
           />
         </div>
         {/* 생년월일 */}
         <div className='input-section'>
-          <label htmlFor="birthdate">Birthdate</label>
+          <label htmlFor="birthdate">생년월일</label>
           <input type="date" id="birthdate" value={birthdate} onChange={handleBirthdateChange} />
         </div>
       </div>
 
+      {/* 이용약관 동의 */}
       <div className='policies'>
         <div className="checkboxOptionSection">
           <input type="checkbox" id="agreeAll" checked={agreeAll} onChange={handleAgreeAllChange} />

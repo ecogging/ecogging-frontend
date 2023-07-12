@@ -9,7 +9,7 @@
   border: 1px solid lightgray;
   display:flex;
   flex-direction: column;
-  padding: 30px 50px;
+  padding: 25px 50px;
   margin-bottom: 50px;
 }
 
@@ -34,6 +34,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 5px;
+}
+.input-wrapper #password {
+  margin-bottom: 5px;
 }
 
 .input-wrapper label {
@@ -43,10 +47,10 @@
 
 
 #telephone {
-  width: 70%;
+  width: 65%;
 }
 #request-tel-auth {
-  width: 30%;
+  width: 25%;
 }
 
 .policies {
