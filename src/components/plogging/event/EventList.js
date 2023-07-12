@@ -102,18 +102,22 @@ const EventList = () => {
               backgroundRepeat: 'no-repeat',
             };
             const eventEndDate = new Date(event.endDate);
+            const eventMeetingDate = new Date(event.meetingDate);
             const currentDate = new Date();
 
             let cardHeaderText = '진행예정';
             let cardHeaderIsClosedStyle = {
               backgroundColor: '5bce0e',
             };
-            if (currentDate > eventEndDate) {
-              cardHeaderText = '마감됨';
-              cardHeaderIsClosedStyle = {
-                backgroundColor: '#6163685e',
-              };
-            }
+            if(currentDate >= eventMeetingDate) {
+              cardHeaderText = '진행중';
+              if (currentDate > eventEndDate) {
+                cardHeaderText = '마감됨';
+                cardHeaderIsClosedStyle = {
+                  backgroundColor: '#6163685e',
+                };
+              }
+            } 
 
             return (
               <a href={'/eventDetial/' + event.eventId} key={event.eventId}>
