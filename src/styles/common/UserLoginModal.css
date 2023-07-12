@@ -102,3 +102,7 @@ input {
   font-size: small;
   color: gray;
 }
+
+.kakao-login-image {
+  width: 280px;
+}
