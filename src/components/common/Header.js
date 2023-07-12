@@ -1,48 +1,43 @@
-import { Link } from 'react-router-dom';
-import '../../styles/common/Header.css';
-import ecoggingLogo from '../../assets/ecoggingLogo.png';
-import MyButton  from './MyButton';
-import { GiHamburgerMenu } from "react-icons/gi";
 import React, { useEffect, useState } from 'react';
+import { Link, navigate, useNavigate } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRegBell } from "react-icons/fa";
 
+import '../../styles/common/Header.css';
+
+import ecoggingLogo from '../../assets/ecoggingLogo.png';
+import MyButton  from './MyButton';
+import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
+
 import UserLoginModal from '../user/UserLoginModal';
+import useLoginModal from '../../hooks/useLoginModal';
+
+function isValidTokenToLogin(token) {
+  return token != null && token != "";
+}
+
+function removeTokenAndUserFromCookie() {
+  removeCookie('access-token');
+  removeCookie('userId');
+  removeCookie('nickname')
+}
 
 export default function Header () {
-    
+    const navigate = useNavigate();
+    const accessToken = getCookie('access-token');
     // 임시 로그인 처리
-    const [isLogin, setIsLogin] = useState(false);
-    const [basicUserInfo, setBasicUserInfo] = useState({"userId": 0, "nickname": "유저"});
-    const [userLoginModalOpen, setUserLoginModalOpen] = useState(false);
+    const isLogin = isValidTokenToLogin(accessToken);
 
-    const userLoginToggle = () => {
-      setIsLogin(!isLogin);
-    }
+    const userNickname = getCookie("nickname");
 
+    // 모달
+    const { isLoginModalOpen, openLoginModal, closeLoginModal } = useLoginModal();
     const userLogout = () => {
-      setIsLogin(false);
+      removeTokenAndUserFromCookie();
+      navigate('/');
+      alert('로그아웃 되었습니다.');
     }
 
-    // 모달창 노출
-    const showUserLoginModal = () => {
-      setUserLoginModalOpen(true);
-    };
-
-    // 로그인 성공 시 유저 데이터 반영
-    const handleUserInfoUpdate = (userData) => {
-      setBasicUserInfo(userData);
-    };
-
-    const handleLoginSuccess = (data) => {
-      handleUserInfoUpdate(data)
-      setIsLogin(true);
-    };
-
-
-    // useEffect(() => {
-    //   console.log('useEffect: ' + userLoginModal)
-    // },[userLoginModal]);
-    
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
         if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
@@ -96,7 +91,7 @@ export default function Header () {
                 </nav>
                 <ul className='userNav' onClick={clickMenu}>
                     <li className='userNavBox headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
-                    <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>{basicUserInfo.nickname}</span></Link> 님</li>
+                    <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>{userNickname}</span></Link> 님</li>
                     <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={userLogout}></MyButton></li>
                 </ul>
                 <div className='toggle' onClick={toggleNav} >
@@ -133,18 +128,11 @@ export default function Header () {
                 </ul>
             </nav>
             <ul className='loginNav' onClick={clickMenu}>
-              <li className='loginBtn' onClick={userLoginToggle}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
-              <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={showUserLoginModal}></MyButton></li>
+              <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+              <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={openLoginModal}></MyButton></li>
             </ul>
 
-            {/* Login Modal */}
-            <div>
-              <UserLoginModal
-                isOpen={userLoginModalOpen}
-                setModalOpen={setUserLoginModalOpen}
-                handleLoginSuccess={handleLoginSuccess}
-              />
-            </div>
+            <UserLoginModal isOpen={isLoginModalOpen} closeModal={closeLoginModal} />
 
             <div className='toggle' onClick={toggleNav}>
                 <GiHamburgerMenu />
