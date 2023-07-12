@@ -12,16 +12,32 @@ export default function Header () {
     
     // 임시 로그인 처리
     const [isLogin, setIsLogin] = useState(false);
+    const [basicUserInfo, setBasicUserInfo] = useState({"userId": 0, "nickname": "유저"});
     const [userLoginModalOpen, setUserLoginModalOpen] = useState(false);
 
     const userLoginToggle = () => {
-      setUserLoginModalOpen(!userLoginModalOpen);
+      setIsLogin(!isLogin);
+    }
+
+    const userLogout = () => {
+      setIsLogin(false);
     }
 
     // 모달창 노출
     const showUserLoginModal = () => {
       setUserLoginModalOpen(true);
-  };
+    };
+
+    // 로그인 성공 시 유저 데이터 반영
+    const handleUserInfoUpdate = (userData) => {
+      setBasicUserInfo(userData);
+    };
+
+    const handleLoginSuccess = (data) => {
+      handleUserInfoUpdate(data)
+      setIsLogin(true);
+    };
+
 
     // useEffect(() => {
     //   console.log('useEffect: ' + userLoginModal)
@@ -80,8 +96,8 @@ export default function Header () {
                 </nav>
                 <ul className='userNav' onClick={clickMenu}>
                     <li className='userNavBox headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
-                    <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>닉네임</span></Link> 님</li>
-                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={userLoginToggle}></MyButton></li>
+                    <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>{basicUserInfo.nickname}</span></Link> 님</li>
+                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={userLogout}></MyButton></li>
                 </ul>
                 <div className='toggle' onClick={toggleNav} >
                     <GiHamburgerMenu />
@@ -101,7 +117,7 @@ export default function Header () {
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
                     <Link to = {'/accompany'} id='ploggingMenu'><div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div></Link>
-                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                        <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                             <ul className='ploggingNav'>
                                 <Link to={'/accompany'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
                                 <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
@@ -111,20 +127,23 @@ export default function Header () {
                     </li>
                     <Link to={'/temp'}>
                         <li className='headerMenuList'>
-                        <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
+                            <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                         </li>
                     </Link>
                 </ul>
             </nav>
-            <ul className='loginNav'>
-                <Link to={'/temp'}><li className='loginBtn' onClick={userLoginToggle}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li></Link>
+            <ul className='loginNav' onClick={clickMenu}>
+              <li className='loginBtn' onClick={userLoginToggle}><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
               <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={showUserLoginModal}></MyButton></li>
-               
             </ul>
 
             {/* Login Modal */}
             <div>
-              {userLoginModalOpen && <UserLoginModal setModalOpen={setUserLoginModalOpen} />}
+              <UserLoginModal
+                isOpen={userLoginModalOpen}
+                setModalOpen={setUserLoginModalOpen}
+                handleLoginSuccess={handleLoginSuccess}
+              />
             </div>
 
             <div className='toggle' onClick={toggleNav}>

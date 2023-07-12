@@ -17,6 +17,13 @@
 }
 
 
+/* 마이페이지 컨텐츠 */
+.MyPageContent {
+  width:88%;
+  height:100%;
+  margin:0 auto;
+}
+
 /* 단독메뉴 */
 .box_myPageTabMenu {
   width:100%;

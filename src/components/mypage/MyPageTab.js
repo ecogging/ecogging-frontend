@@ -63,7 +63,7 @@ export default function MyPageTab() {
               <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
                 <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
               </Link>
-              <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
+              <Link to={'/mypage/reviews'} className="link_myPageTabMenu">
                 <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
               </Link>
             </ul>
@@ -73,10 +73,10 @@ export default function MyPageTab() {
             <div className="txt_myPageTabMenu">나의 커뮤니티</div>
             
             <ul className="box_myForumList">
-              <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
+              <Link to={'/mypage/shares'} className="link_myPageTabMenu">
               <li className={clicked === '무료 나눔' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">무료 나눔</div></li>
               </Link>
-              <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
+              <Link to={'/mypage/recommendations'} className="link_myPageTabMenu">
               <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
               </Link>
               <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
