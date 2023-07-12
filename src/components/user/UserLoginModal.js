@@ -3,15 +3,25 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
+import { Link, useNavigate } from 'react-router-dom';
+
+import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
+
 import MyButton from '../common/MyButton';
 import ecoggingLogo from '../../assets/ecoggingLogo.png';
 import kakaoLoginImage from '../../assets/kakao_login_medium_wide.png'
 
-
 import '../../styles/common/UserLoginModal.css'
 
-function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
-    const login_url = 'http://localhost:8080/auth/login';
+
+function setUserToCookie (data) {
+    setCookie('userId', data.userId)
+    setCookie('nickname', data.nickname);
+};
+
+function UserLoginModal({ isOpen, closeModal }) {
+    const navigate = useNavigate();
+    const loginEndPoint = 'http://localhost:8080/auth/login';
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,12 +35,13 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
       setPassword(event.target.value);
     };
 
-    const modalRef = useRef(null);
+    const userLoginByToken = (data) => {
+      setUserToCookie(data);
+      navigate('/');
+    }
 
     // 모달 끄기 
-    const closeModal = () => {
-        setModalOpen(false);
-    };
+    const modalRef = useRef(null);
 
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -43,7 +54,7 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
       event.preventDefault();
   
       try {
-        const response = await axios.post(login_url, {
+        const response = await axios.post(loginEndPoint, {
           email,
           password,
         });
@@ -51,20 +62,13 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
         // Assuming the server responds with a JSON Web Token (JWT)
         const token = response.data.token;
         // Save the token to localStorage
-        localStorage.setItem('token', token);
-        console.log("token: " + token);
+        // localStorage.setItem('token', token);
+        setCookie('access-token', token);
 
         // Decode the token
         const decodedToken = jwtDecode(token);
-        // Extract the desired fields
-        const userId = decodedToken.userId;
-        const nickname = decodedToken.nickname;
-
-        // Set the user info in localStorage -> 추후 redux로 변경. 지금은 안씀
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('nickname', nickname);
-
-        handleLoginSuccess({userId: userId, nickname: nickname});
+        // set userinfo in token to cooke
+        userLoginByToken(decodedToken);
 
         // Clear the form fields and any error messages
         setEmail('');
@@ -87,10 +91,11 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
       };
     }, []);
 
+    // modal on/off
     if (!isOpen) return null;
 
     return (
-      <>
+      <div className='UserLoginModal'>
         <div className="overlay" onClick={closeModal}></div>
         <div className="modal-container" ref={modalRef}>
           <div className="model-header">
@@ -118,7 +123,7 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
                 <div className="link-group">
                   <span> 아이디 찾기 </span> |
                   <span> 비밀번호 찾기 </span> |
-                  <span> 회원가입 </span>
+                  <Link to={'/signup-intro'} onClick={closeModal}><span> 회원가입 </span></Link>
                 </div>
 
               <img src={kakaoLoginImage} alt='kakaoLoginImage' className='kakao-login-image'/>
@@ -126,7 +131,7 @@ function UserLoginModal({isOpen, setModalOpen, handleLoginSuccess}) {
               </div>
           </div>
         </div>
-      </>
+      </div>
     );
 
 }
