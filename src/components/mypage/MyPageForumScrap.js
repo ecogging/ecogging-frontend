@@ -51,7 +51,6 @@ export default function MyPageForumScrap() {
                 </div>
                 {/* 스크랩에서만 글작성자 */}
                 <div className='container_myScrapUser'>
-                  <div className='circle_userPic'></div>
                   <div className='box_userNickname'>닉네임닉네임</div>
                 </div>
               </div>
@@ -80,7 +79,6 @@ export default function MyPageForumScrap() {
                 </div>
                 {/* 스크랩에서만 글작성자 */}
                 <div className='container_myScrapUser'>
-                  <div className='circle_userPic'></div>
                   <div className='box_userNickname'>닉네임닉네임</div>
                 </div>
               </div>
@@ -109,7 +107,6 @@ export default function MyPageForumScrap() {
                 </div>
                    {/* 스크랩에서만 글작성자 */}
                    <div className='container_myScrapUser'>
-                  <div className='circle_userPic'></div>
                   <div className='box_userNickname'>닉네임닉네임</div>
                 </div>
               </div>
@@ -120,6 +117,12 @@ export default function MyPageForumScrap() {
 
 
 
+      </div>
+
+      <div className='container_myBottom'>
+        <div className='box_contensPlus'>
+            더보기  
+        </div>
       </div>
 
     </div>
