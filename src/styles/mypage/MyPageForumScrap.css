@@ -52,6 +52,13 @@
   background-color: rgb(230, 230, 230);
   display: none;
 }
+.droplist_myScrapSearch_clicked {
+  position: absolute;
+  width:50px;
+  height:95px;
+  background-color: rgb(230, 230, 230);
+  display: block;
+}
 .drops_myScrapSearch {
   width: 100%;
   height:25px;
@@ -63,6 +70,7 @@
 }
 .drops_myScrapSearch:hover {
   cursor: pointer;
+  color:rgb(57, 57, 57);
 }
 .input_myForumScrapSearch {
   border: none;
