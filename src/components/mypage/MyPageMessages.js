@@ -207,8 +207,8 @@ export default function MyPageMessages() {
 
       <div className='container_MessageBottom'>
         <div className='container_MessageBtns'>
-          <MyButton text={'모두 선택'} type={'whiteGraySmall'}/>
-          <MyButton text={'삭제'} type={'graySmall'} />
+          <MyButton text={'모두 선택'} type={'whiteGray'}/>
+          <MyButton text={'삭제'} type={'gray'} />
         </div>
       </div>
       <div className='container_mypageRevBottom'>
