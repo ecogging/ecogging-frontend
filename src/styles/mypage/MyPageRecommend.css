@@ -62,12 +62,23 @@
 
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-top:5px;
 }
 .container_myViews {
   width:150px;
-  height:100%;
+  height:75%;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size:1.125rem;
+  margin-left: auto;
+}
+
+.container_myWriteDate_Recom  {
+  width:190px;
+  height:75%;
 
   display: flex;
   justify-content: flex-end;
@@ -76,9 +87,8 @@
 }
 /* 글제목 */
 .container_myRecomTitle {
-  width:100%;
+  width:70%;
   height:100%;
-
   font-size:1.6rem;
   font-weight:bold;
 

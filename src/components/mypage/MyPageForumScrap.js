@@ -51,6 +51,7 @@ export default function MyPageForumScrap() {
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
                 
                 <div className='container_myScrapToggle'
                 onClick={() => scrapClick(0)}>
@@ -85,6 +86,7 @@ export default function MyPageForumScrap() {
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
                 <div className='container_myScrapToggle'
                 onClick={() => scrapClick(1)}>
                   <RxBookmarkFilled className={isScrapped[1] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
@@ -120,6 +122,7 @@ export default function MyPageForumScrap() {
                   경로 추천글 제목
                 </div>
                 <div className='container_myViews'>조회수 1004</div>
+                <div className='container_myWriteDate_Recom'>2023. 07. 16 03:46</div>
 
                 <div className='container_myScrapToggle'
                 onClick={() => scrapClick(2)}>

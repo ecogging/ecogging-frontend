@@ -92,13 +92,22 @@
 }
 /* 조회수 */
 .container_myShareViews {
-  width:100px;
+  width:150px;
   height:75%;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
   margin-left:auto;
-  font-size:1.1rem;
+  font-size:1.125rem;
+}
+
+.container_myWriteDate_share {
+  width:190px;
+  height:75%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size:1.125rem;
 }
 
 /* 글제목 */
