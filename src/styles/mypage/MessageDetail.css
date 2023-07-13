@@ -1,0 +1,72 @@
+
+.MessageDetail {
+    margin: 120px auto 5% auto;
+    width:100%;
+    height:100%;
+    background-color: #F3F3F3;
+}
+.container_messageWrapper {
+    width:88%;
+    height:100%;
+    margin:0 auto;
+
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+}
+.container_msgSubWrapper {
+    width: 98%;
+    height: 100%;
+    margin:2% auto;
+    background-color: pink;
+}
+
+/* 버튼헤더 */
+.container_messageDetailHeader {
+    width: 100%;
+    height:60px;
+
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 158, 174);
+}
+
+
+/* 닉네임+쪽지함 */
+.container_messageBody {
+    width:100%;
+    height:100%;
+
+    background-color: blue;
+}
+
+/* 쪽지헤더 */
+.container_msgBodyHeader {
+    width:100%;
+    height:150px;
+    background-color: yellowgreen;
+    
+    display: flex;
+    justify-content: space-between;
+}
+.container_msgBodyHeaderLeft {
+    width:600px;
+    height:100%;
+    background-color: palegoldenrod;
+}
+.container_msgBodyHeaderRight {
+    width:600px;
+    height:100%;
+    background-color: rgb(113, 124, 218);
+}
+
+.container_msgBodyHeaderBtns {
+    width:100%;
+    height:50%;
+    background-color: yellow;
+
+    gap:10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
