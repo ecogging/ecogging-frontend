@@ -18,6 +18,7 @@ import Temp from '../../components/main/Temp';
 import MyPage from '../mypage/MyPage';
 import UserSignupIntro from '../../components/user/UserSignupIntro';
 import UserSignup from '../../components/user/UserSignup';
+import MessageDetail from '../mypage/MessageDetail';
 
 
 export default function Main() {
@@ -33,6 +34,7 @@ export default function Main() {
             <Route path="/temp" element={<Temp />}></Route>
 
             <Route path="/mypage/*" element={<MyPage />}></Route>
+            <Route path="/messages" element={<MessageDetail />}></Route>
 
             <Route path="/accompanies" element={<AccompanyList />} />
             <Route path="/accompaniesdetail/:id" element={<AccompanyDetail />} />

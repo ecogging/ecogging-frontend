@@ -46,7 +46,7 @@ export default function MyPageTab() {
           <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
             <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
           </Link>
-          <Link to={'/mypage/message'} className="link_myPageTabMenu">
+          <Link to={'/mypage/messages'} className="link_myPageTabMenu">
             <li className={clicked === '쪽지함' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">쪽지함</div></li>
           </Link>
 

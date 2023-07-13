@@ -62,6 +62,22 @@
     background-color: #666666;
 }
 
+.MyButton_lightGray {
+    width:135px;
+    height:40px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    border-radius:5px;
+    background-color: #D9D9D9;
+}
+.MyButton_lightGray:hover {
+    color:white;
+    font-weight: bolder;
+    background-color: rgb(143, 143, 143);
+}
+
 .MyButton_graySmall {
     width:70px;
     height:25px;
@@ -73,6 +89,22 @@
     background-color: #838383;
 }
 .MyButton_graySmall:hover {
+    color:white;
+    font-weight: bolder;
+    background-color: #666666;
+}
+
+.MyButton_whiteGraySmall {
+    width:70px;
+    height:25px;
+    border:1px solid #838383;
+    color:#838383;
+    cursor:pointer;
+    font-size:10px;
+    border-radius:5px;
+    background-color: white;
+}
+.MyButton_whiteGraySmall:hover {
     color:white;
     font-weight: bolder;
     background-color: #666666;
