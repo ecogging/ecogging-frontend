@@ -73,8 +73,8 @@ export default function Header () {
                 <nav className={`headerNav ${showNav ? 'show' : ''}`} onClick={clickMenu}>
                     <ul className='headerMenu'>
                         <li className='headerMenuList'>
-                            <Link to = {'/accompany'} id='ploggingMenu'><div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div></Link>
-                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                            <Link to = {'/accompanies'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
+                            <div className='ploggingNavContainer'>
                                 <ul className='ploggingNav'>
                                     <Link to={'/accompany'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
                                     <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
