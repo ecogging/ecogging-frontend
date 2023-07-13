@@ -7,8 +7,6 @@ import { FaAngleDown } from 'react-icons/fa';
 import '../../../styles/EventList.css';
 
 const EventList = () => {
-  const { page } = useParams();
-  const navigate = useNavigate(); // 페이지번호를 주소 할당 추가
   const [curPage, setCurPage] = useState(1);
   const [event, setEvent] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
@@ -120,7 +118,7 @@ const EventList = () => {
             } 
 
             return (
-              <a href={'/eventDetial/' + event.eventId} key={event.eventId}>
+              <a href={'/eventDetail/' + event.eventId} key={event.eventId}>
                 <div className="card">
                   {/* 카드 헤더 */}
                   <div className="card-header" style={cardHeaderStyle}>
