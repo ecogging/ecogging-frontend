@@ -193,6 +193,34 @@
   font-size:1.1rem;
 }
 
+/* 스크랩 토글 */
+.container_myScrapToggle {
+  width:60px;
+  height:60px;
+}
+.icon_myScrapToggle_scrap {
+  width:80px;
+  height:80px;
+  margin-top:-15px;
+  color:#9BE4CE;
+}
+.icon_myScrapToggle_unScrap {
+  width:80px;
+  height:80px;
+  margin-top:-15px;
+  color:#c2c2c2;
+}
+#icon_myRouteScrapToggle {
+  margin-top:-30px;
+}
+
+.icon_myScrapToggle_scrap:hover {
+  cursor: pointer;
+}
+.icon_myScrapToggle_unScrap:hover {
+  cursor: pointer;
+}
+
 /* 글제목 */
 .container_myScrapTitle {
   width:100%;
@@ -223,35 +251,6 @@
   display: flex;
   align-items: center;
 }
-
-/* 버튼 */
-.container_myDetailBtns {
-  width:165px;
-  height:100%;
-  display: flex;
-  justify-content: flex-end;
-  gap:10px;
-}
-.txt_myBtn {
-  width:40px;
-  height:100%;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  font-size:1.2rem;
-  color:#838383;
-}
-.txt_myBtn:hover {
-  cursor: pointer;
-}
-
-
-
-/* 닉네임 */
-
-
 
 /* 하단 페이지네이션 */
 .container_myBottom {
