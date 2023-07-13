@@ -12,7 +12,7 @@ export default function ReviewList(){
     const [reviews,setReviews]=useState([]);
     const {page}=useParams();
     const [curPage,setCurPage]=useState(page);
-    const [allPage, setAllPage]=useState([]);
+    const [lastPage, setLastPage]=useState(false);
     const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
     // const [formattedDate,setFormattedDate]=useState('');
@@ -23,29 +23,33 @@ export default function ReviewList(){
     // page=location.state;
     useEffect(() => {
         console.log("page : "+page);
-        fetchReviews(page);
-    },[page]);
+        setCurPage(parseInt(curPage));
+        fetchReviews(parseInt(curPage));
+    },[]);
         
-    const fetchReviews=async (page)=>{
-        try {
-            const response=await axios.get(`http://localhost:8080/reviews/${page}`);
-            console.log(response);
-            let pageInfo=response.data.pageInfo;
-            let list=response.data.reviews;
-            // console.log(pageInfo);
-            // console.log("pageInfo.endPage : "+pageInfo.endPage);
-            console.log(list);
-            setReviews([...list]);
-            let btn=[];
-            for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
-                btn.push(i);
+    const fetchReviews=async (p_page)=>{
+        axios
+            .get(`http://localhost:8080/reviews/${p_page}`)
+            .then((res)=>{
+                let pageInfo=res.data.pageInfo;
+                let list=res.data.reviews;
+                setReviews([...list]);
+                console.log(list);
+                let btn=[];
+                for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
+                    btn.push(i);
             }
-            console.log("pageBtn : "+pageBtn);
+            setCurPage(pageInfo.curPage);
             setPageBtn(btn);
+            setLastPage(res.data.pageInfo.allPage);
+            console.log("fetchReviews curPage : "+curPage);
+            console.log("fetchReviews pageBtn : "+pageBtn);
+            console.log("fetchReviews lastPage : "+lastPage);
             // return list;
-        } catch (error) {
-            console.error();
-        }
+        })
+            .catch ((err)=> {
+                console.log(err);
+            });
     }; 
 
 
@@ -55,19 +59,22 @@ export default function ReviewList(){
 
     };
 
-    const handleSort=()=>{
-
-    };
-    const handlePageChange=(e)=>{
-        console.log("page2 : "+page);
-        setCurPage(e.target.id);
-        console.log("curPage2 : "+curPage);
-        if(bsearch){
-            //search(e.target.id);
+    const handleSort=(e, selectedValue)=>{
+        console.log("리뷰 정렬");
+        if(selectedValue === '조회순'){
+            console.log("조회순");
+        }else if(selectedValue === '최신순'){
+            console.log("최신순");
         }else{
-            fetchReviews(e.target.id);
+            return ;
         }
-        
+    };
+
+    const handlePageChange=(e)=>{
+        console.log("handlePageChange page : "+page);
+        setCurPage(e.target.id);
+        console.log("handlePageChange curPage : "+curPage);
+        fetchReviews(e.target.id);
     };
 
 
@@ -82,14 +89,10 @@ export default function ReviewList(){
 
     
     const goToNextPage = () => {
+        console.log("goToNextPage curPage : "+curPage);
+        if (curPage === lastPage) return ;
         setCurPage(curPage + 1);
         fetchReviews(curPage + 1);
-        console.log("curPage : "+curPage);
-        if (curPage === allPage.length){
-            return ;
-        } 
-        console.log("allPage : "+allPage);
-        //return; // 마지막 페이지일 경우 다음 페이지로 이동하지 않음
     }
    
 
@@ -98,21 +101,27 @@ export default function ReviewList(){
             <div className="review_wrap">
                 <div className="reviews_top">
                     <div className="review_top_title">
-                        REVIEWS
+                        <div className='review_top_title2'>
+                            REVIEWS
+                        </div>
                     </div>
-                    <div className="review_sort">
-                        <ul className="review_sort_ul">
-                            <li onClick={()=>handleSort()}>
-                                조회순
-                            </li>
-                            <li>
-                                최신순
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="reivew_search">
-                        <input className="search_input" type="text" placeholder="    search" />
-                        <BiSearch className="search_icon" onClick={()=>handleSearch()}/>
+                    <div className='sortAndSearch'>
+                        <div className='sortAndSearchIn'>
+                            <div className="review_sort">
+                                <ul className="review_sort_ul">
+                                    <li onClick={(e)=>handleSort(e, "조회순")}>
+                                        조회순
+                                    </li>
+                                    <li onClick={(e)=>handleSort(e,"최신순")}>
+                                        최신순
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="reivew_search">
+                                <input className="search_input" type="text" placeholder="    search" />
+                                <BiSearch className="search_icon" onClick={()=>handleSearch()}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="listLayout">
