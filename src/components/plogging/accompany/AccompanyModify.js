@@ -1,27 +1,29 @@
 import '../../../styles/plogging/accompany/AccompanyWrite.css';
 import MyButton from '../../common/MyButton';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { DatePicker, TimePicker } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 const { daum } = window;
 
-const AccompanyWrite = () => {
+const AccompanyModify = () => {
+    const {id} = useParams();
 
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = ('0'+(today.getMonth()+1)).slice(-2);
-    let day = ('0'+today.getDate()).slice(-2);
+    const [userId, setUserId] = useState(1);
+    const [accompany, setAccompany] = useState({userId:0, title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:'', meetingTime:''});
 
-    let hours = ('0'+today.getHours()).slice(-2);
-    let minutes = ('0'+today.getMinutes()).slice(-2);
-    let seconds = ('0'+today.getSeconds()).slice(-2);
-
-    let todaystr = year+"-"+month+"-"+day;
-    let curtime = hours+"::"+minutes+"::"+seconds;
-
-    const [accompany, setAccompany] = useState({title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:todaystr, meetingTime:hours+':'+minutes+':'+seconds});
+    useEffect(()=> {
+        axios.post(`http://localhost:8080/accompaniesdetail`,{userId:userId, accompanyId:id})
+            .then(res=> {
+                console.log(res.data.accompany);
+                setAccompany(res.data.accompany);
+            })
+            .catch(err=> {
+                console.log(err);
+            })
+    }, []);
 
     const searchAddress = (e) => {
         new daum.Postcode({
@@ -52,11 +54,11 @@ const AccompanyWrite = () => {
         setAccompany({...accompany, [e.target.name]:e.target.value});
     }
 
-    const accompanyWrite = (temp) => {
-        axios.post(`http://localhost:8080/accompanieswrite/${temp}`,accompany)
+    const accompanyModify = () => {
+        axios.post(`http://localhost:8080/accompaniesmodify`,accompany)
         .then(res=> {
             console.log(res)
-            window.location.href = '/accompanies';
+            window.location.href = `/accompaniesdetail/${id}`;
         })
         .catch(err=> {
             console.log(err);
@@ -71,32 +73,32 @@ const AccompanyWrite = () => {
                     <tbody>
                         <tr>
                             <td className="accompany-cell">
-                                <input className="accompany-title" type="text" name="title" id="title" placeholder="제목" onChange={changeInput}/>
+                                <input className="accompany-title" type="text" name="title" id="title" value={accompany.title} placeholder="제목" onChange={changeInput}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="accompany-cell">
-                                <input className="accompany-loc-detail" type="text" name="locationDetail" id="locationDetail" placeholder="장소" onChange={changeInput}/>
-                                <input className="accompany-location" type="text" name="location" id="location" placeholder="주소" readOnly/>
+                                <input className="accompany-loc-detail" type="text" name="locationDetail" id="locationDetail" value={accompany.locationDetail} placeholder="장소" onChange={changeInput}/>
+                                <input className="accompany-location" type="text" name="location" id="location" value={accompany.location} placeholder="주소" readOnly/>
                                 <button className="find-address" onClick={searchAddress}>주소 찾기</button>
                             </td>
                         </tr>
                         <tr>
                             <td className="accompany-cell">
-                                <input className="accompany-headcount" type="text" name="numOfPeople" id="numOfPeople" placeholder="모집 인원" onChange={changeInput}/>
-                                <DatePicker className="accomp-date" allowClear={false}  defaultValue={dayjs(todaystr, 'YYYY-MM-DD') }  onChange={(date, dateString)=> {setAccompany({...accompany, meetingDate:dateString})}}/>
-                                <TimePicker className="accomp-time" allowClear={false}  defaultValue={dayjs(curtime, 'HH::mm::ss') }  onChange={(time, timeString)=> {setAccompany({...accompany, meetingTime:timeString})}}/>
+                                <input className="accompany-headcount" type="text" name="numOfPeople" id="numOfPeople" value={accompany.numOfPeople} placeholder="모집 인원" onChange={changeInput}/>
+                                <DatePicker className="accomp-date" allowClear={false} value={dayjs(accompany.meetingDate) }  onChange={(date, dateString)=> {setAccompany({...accompany, meetingDate:dateString})}}/>
+                                <TimePicker className="accomp-time" value={dayjs(accompany.meetingTime,'HH:mm:ss') } allowClear={false} onChange={(time, timeString)=> {setAccompany({...accompany, meetingTime:timeString})}}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="accompany-cell">
-                                <textarea className="accompany-content" name="content" id="content" placeholder="모집글 작성" onChange={changeInput}/>
+                                <textarea className="accompany-content" name="content" id="content" value={accompany.content} placeholder="모집글 작성" onChange={changeInput}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="accompany-buttons">
-                                <MyButton text={'임시 저장'} onClick={()=>accompanyWrite(1)}></MyButton>&nbsp;&nbsp;&nbsp;
-                                <MyButton text={'작성 완료'} onClick={()=>accompanyWrite(0)}></MyButton>
+                                <MyButton text={'수정 완료'} onClick={accompanyModify}></MyButton>&nbsp;&nbsp;&nbsp;
+                                <Link to="/accompanies"><MyButton text={'목록'}></MyButton></Link>
                             </td>
                         </tr>
                     </tbody>
@@ -106,4 +108,4 @@ const AccompanyWrite = () => {
     );
 };
 
-export default AccompanyWrite;
+export default AccompanyModify;

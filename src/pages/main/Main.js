@@ -9,6 +9,7 @@ import Footer from '../../components/common/Footer';
 import AccompanyList from '../../components/plogging/accompany/AccompanyList';
 import AccompanyDetail from '../../components/plogging/accompany/AccompanyDetail';
 import AccompanyWrite from '../../components/plogging/accompany/AccompanyWrite';
+import AccompanyModify from '../../components/plogging/accompany/AccompanyModify';
 import Reviews from '../../components/plogging/reivews/Reviews';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -31,10 +32,10 @@ export default function Main() {
 
             <Route path="/mypage/*" element={<MyPage />}></Route>
 
-            <Route path="/accompany" element={<AccompanyList />} />
-            <Route path="/accompanydetail" element={<AccompanyDetail />} />
-            <Route path="/accompanywrite" element={<AccompanyWrite />} />
-            
+            <Route path="/accompanies" element={<AccompanyList />} />
+            <Route path="/accompaniesdetail/:id" element={<AccompanyDetail />} />
+            <Route path="/accompanieswrite" element={<AccompanyWrite />} />
+            <Route path="/accompaniesmodify/:id" element={<AccompanyModify />} />
             <Route path="/reviews" element={<Reviews/>}/>
           </Routes>
         </div>

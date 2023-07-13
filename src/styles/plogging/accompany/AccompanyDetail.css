@@ -32,7 +32,7 @@
     width: 94.5%;
     padding: 6px;
     border: none;
-    border-bottom: 1px solid #9be4ce;
+    border-bottom: 1px solid #6DA997;
     margin-bottom: 15px;
     outline: none;
 }
@@ -44,8 +44,9 @@
     background-color: lightgray;
     border-radius: 3.5px;
     margin-bottom: 15px;
-    margin-right: 15px;
 }
+
+.article-location:focus {outline: none;}
 
 .article-loc-detail {
     width: 46.1%;
@@ -53,8 +54,11 @@
     border: none;
     background-color: lightgray;
     border-radius: 3.5px;
+    margin-right: 15px;
     margin-bottom: 15px;
 }
+
+.article-loc-detail:focus {outline: none;}
 
 .article-headcount {
     width: 20%;
@@ -66,6 +70,8 @@
     margin-bottom: 15px;
 }
 
+.article-headcount:focus {outline: none;}
+
 .article-date {
     width: 35%;
     padding: 6px;
@@ -76,6 +82,8 @@
     margin-right: 15px;
 }
 
+.article-date:focus {outline: none;}
+
 .article-time {
     width: 35%;
     padding: 6px;
@@ -85,10 +93,12 @@
     margin-bottom: 15px;
 }
 
+.article-time:focus {outline: none;}
+
 .article-content {
     width: 95%;
     height: 200px;
-    border: 1px solid #9be4ce;
+    border: 1px solid #6DA997;
     border-radius: 3.5px;
     resize: none;
     outline: none;

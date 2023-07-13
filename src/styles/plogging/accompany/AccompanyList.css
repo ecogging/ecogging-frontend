@@ -61,7 +61,7 @@
     margin-bottom: 35px;
 }
 
-.list-latest, .almost-done {
+.list-latest, .almost-done, .list-done {
     background: none;
     border: none;
     padding: 0;
@@ -71,7 +71,7 @@
 }
 
 .list-latest.selected, .almost-done.selected {
-    color: #9be4ce;
+    color: #6DA997;
 }
 
 .card-info {
@@ -99,7 +99,7 @@
 	font-weight: bold;
     font-size: 8px;
 	text-align: center;
-    background-color: #9be4ce;
+    background-color: #6DA997;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,5 +184,5 @@
     color: gray;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 20px; 
 }

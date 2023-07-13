@@ -1,20 +1,60 @@
 import '../../../styles/plogging/accompany/AccompanyDetail.css';
 import MyButton from '../../common/MyButton';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const AccompanyDetail = () => {
 
+    const {id} = useParams();
+    const [userId, setUserId] = useState(1);
     const [isScrapped, setIsScrapped] = useState(false);
     const [isParticipated, setIsParticipated] = useState(false);
+    const [accompany, setAccompany] = useState({id:0,title:'',content:'',meetingDate:'',meetingTime:'',
+        numOfPeople:0,active:true,views:0,save:false,location:'',locationDetail:'',joincnt:0,nickname:''})
+
+    useEffect(()=> {
+        axios.post(`http://localhost:8080/accompaniesdetail`,{userId:userId, accompanyId:id})
+            .then(res=> {
+                setAccompany(res.data.accompany);
+                setIsParticipated(res.data.isParticipation);
+                setIsScrapped(res.data.isAccompanyscrap);
+            })
+            .catch(err=> {
+                console.log(err);
+            })
+    }, []);
 
     const handleScrapToggle = () => {
-        setIsScrapped(!isScrapped);
+        axios.post(`http://localhost:8080/accompaniesscrap`,{userId:userId, accompanyId:id})
+        .then(res=> {
+            setIsScrapped(res.data);
+        })
+        .catch(err=> {
+            console.log(err);
+        })    
     };
 
     const handleParticipationToggle = () => {
-        setIsParticipated(!isParticipated);
+        axios.post(`http://localhost:8080/participation`,{userId:userId, accompanyId:id})
+        .then(res=> {
+            setIsParticipated(res.data);
+        })
+        .catch(err=> {
+            console.log(err);
+        })        
+       
     };
+
+    const accompaniesDelete = () => {
+        axios.get(`http://localhost:8080/accompaniesdelete/${id}`)
+        .then(res=> {
+            window.location.href = '/accompanies';            
+        })
+        .catch(err=> {
+            console.log(err);
+        })
+    }
 
     return (
         <div className="accompany-article">
@@ -30,32 +70,32 @@ const AccompanyDetail = () => {
                         </tr>
                         <tr>
                             <td className="article-cell">
-                                <input className="article-location" type="text" name="location" id="location"/>
-                                <input className="article-loc-detail" type="text" name="locationDetail" id="locationDetail"/>
+                                <input className="article-loc-detail" type="text" name="locationDetail" id="locationDetail" value={accompany.locationDetail}/>
+                                <input className="article-location" type="text" name="location" id="location" value={accompany.location}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="article-cell">
-                                <input className="article-headcount" type="text" name="headcount" id="headcount"/>
-                                <input className="article-date" type="text" name="date" id="date"/>
-                                <input className="article-time" type="text" name="time" id="time"/>
+                                <input className="article-headcount" type="text" name="headcount" id="headcount" value={accompany.numOfPeople}/>
+                                <input className="article-date" type="text" name="date" id="date" value={accompany.meetingDate}/>
+                                <input className="article-time" type="text" name="time" id="time" value={accompany.meetingTime}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="article-cell">
-                                <input className="article-title" type="text" name="title" id="title"/>
+                                <input className="article-title" type="text" name="title" id="title" value={accompany.title}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="article-cell">
-                                <textarea className="article-content" name="content" id="content"/>
+                                <textarea className="article-content" name="content" id="content" value={accompany.content}/>
                             </td>
                         </tr>
                         <tr>
                             <td className="buttons-bottom">
-                                <MyButton text={'수정'}></MyButton>&nbsp;&nbsp;&nbsp;
-                                <MyButton text={'삭제'}></MyButton>&nbsp;&nbsp;&nbsp;
-                                <Link to="/accompany"><MyButton text={'목록'}></MyButton></Link>
+                            <Link to={`/accompaniesmodify/${id}`}><MyButton text={'수정'}></MyButton></Link>&nbsp;&nbsp;&nbsp;
+                                <MyButton onClick={accompaniesDelete} text={'삭제'}></MyButton>&nbsp;&nbsp;&nbsp;
+                                <Link to="/accompanies"><MyButton text={'목록'}></MyButton></Link>
                             </td>
                         </tr>
                     </tbody>
