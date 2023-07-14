@@ -191,3 +191,37 @@
     font-weight: bolder;
     background-color: #666666;
 }
+
+
+.MyButton_whiteGrayWide3  {
+    width:47%;
+    height:40px;
+    border:1px solid #838383;
+    color:#838383;
+    cursor:pointer;
+    font-size:16px;
+    border-radius:10px;
+    background-color: white;
+}
+.MyButton_whiteGrayWide3:hover {
+    color:white;
+    font-weight: bolder;
+    background-color: #666666;
+}
+
+
+.MyButton_mintWide3  {
+    width:47%;
+    height:40px;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+    border-radius:10px;
+    border:none;
+    background-color: #9be4ce;
+}
+.MyButton_mintWide3:hover {
+    color:white;
+    font-weight: bolder;
+    background-color:#88e4c8;
+}
