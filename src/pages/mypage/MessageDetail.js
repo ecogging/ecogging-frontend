@@ -1,15 +1,29 @@
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import MyButton from '../../components/common/MyButton';
 import '../../styles/mypage/MessageDetail.css';
+import MessageReplyModal from '../../components/mypage/MessageReplyModal';
 
 export default function MessageDetail() {
     const goBack = useNavigate();
 
+    const [isOpen, setIsOpen] = useState(false);
+    const openReplyModal = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const closeReplyModal = () => {
+        if(isOpen){
+            setIsOpen(false);
+        }
+    };
+
     return(
         <div className="MessageDetail">
-            
-            <div className='container_messageWrapper'>
+            {isOpen ? 
+                <MessageReplyModal onCloseModal={closeReplyModal} />
+                : null }
+            <div className='container_messageWrapper'  onClick={closeReplyModal}>
 
 
                 <div className='container_messageDetailHeader'>
@@ -27,7 +41,7 @@ export default function MessageDetail() {
                             </div>
                             <div className='container_msgBodyHeaderRight'>
                                 <div className='container_msgBodyHeaderBtns'>
-                                    <MyButton text={'답장하기'} type={'mintWide2'}/>
+                                    <MyButton text={'답장하기'} type={'mintWide2'} onClick={openReplyModal}/>
                                     <MyButton text={'삭제하기'} type={'lightGrayWide2'}/>
                                 </div>
                             </div>
