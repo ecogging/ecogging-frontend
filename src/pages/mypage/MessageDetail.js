@@ -2,12 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import MyButton from '../../components/common/MyButton';
 import '../../styles/mypage/MessageDetail.css';
+import MessageReplyModal from '../../components/mypage/MessageReplyModal';
 
 export default function MessageDetail() {
     const goBack = useNavigate();
 
     return(
         <div className="MessageDetail">
+
+            {/* <MessageReplyModal /> */}
             
             <div className='container_messageWrapper'>
 
