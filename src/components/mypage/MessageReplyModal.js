@@ -89,7 +89,7 @@ export default function MessageReplyModal({ onCloseModal }) {
             </div>
 
             <div className="replyMiddle">
-                <textarea name="replyContents" className="replyContents" />
+                <textarea name="replyContents" className="replyContents" placeholder="쪽지 내용을 입력하세요..." autofocus/>
             </div>
 
             <div className="replyBottom">
