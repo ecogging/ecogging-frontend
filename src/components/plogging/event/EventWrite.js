@@ -11,7 +11,7 @@ import { useRef } from 'react';
 
 
 const EventWrite = () => {
-    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:'', save:''})
+    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:1, save:false,views:0})
     const [file, setFile] = useState();
     const userid = useSelector(state=>state.UserId);
     const token = useSelector(state=>state.Authorization);
@@ -40,16 +40,17 @@ const EventWrite = () => {
         formData.append('endDate', event.endDate);
         formData.append('corpName', event.corpName);
         formData.append('explanation', event.explanation);
-        //formData.append('userId', event.userId);
+        formData.append('userId', event.userId);
         formData.append('save', event.save);
-        //formData.append('fileId', event.fileId);
         formData.append('file', file);
+        formData.append('views', event.views);
+        formData.append('management', event.management);
 
         axios.post('http://localhost:8080/eventWrite', formData,
             // {headers: {Authorization:token},}
             )
         .then(res=> {
-            document.location.href="/eventList/1";
+            document.location.href="/eventList";
         })
         .catch(err=> {
             console.log(err);
@@ -65,58 +66,56 @@ const EventWrite = () => {
 
     const handleTempSave = (e) => {
         e.preventDefault();
-        setEvent((prevEvent) => ({ ...prevEvent, save: 1 }));
+        setEvent((prevEvent) => ({ ...prevEvent, save: true }));
         submit();
       };
     
       const handleRegister = (e) => {
         e.preventDefault();
         if (!event.title) {
-            alert('제목을 입력해 주세요');
-            return;
-          }
+          alert('제목을 입력해 주세요');
+          return;
+        }
+      
+        if (!event.corpName) {
+          alert('기업명을 입력해 주세요');
+          return;
+        }
+      
+        if(!event.explanation){
+          alert('행사개요를 입력해 주세요');
+          return;
+        }
+                
+        if (!event.meetingDate) {
+          alert('시작일자를 입력해 주세요');
+          return;
+        }
         
-          if (!event.corpName) {
-            alert('기업명을 입력해 주세요');
-            return;
-          }
-        
-          if(!event.explanation){
-            alert('행사개요를 입력해 주세요');
-            return;
-          }
-                  
-          if (!event.meetingDate) {
-            alert('시작일자를 입력해 주세요');
-            return;
-          }
-        
-          if (!event.endDate) {
-            alert('종료일자를 입력해 주세요');
-            return;
-          }
+        if (!event.endDate) {
+          alert('종료일자를 입력해 주세요');
+          return;
+        }
 
+        if (!event.location) {
+            alert('지역을 선택해 주세요');
+            return;
+          }
           
-          if (!event.location) {
-              alert('지역을 선택해 주세요');
-              return;
-            }
-            
-            if (!event.content) {
-              alert('본문을 작성해 주세요');
-              return;
-            }
-
-          if (!file) {
-            alert('썸네일을 선택해 주세요');
-            return;
-          }  
-
-          if (new Date(event.meetingDate) > new Date(event.endDate)) {
-            alert('시작일자는 종료일자와 같거나 이전 날짜여야 합니다');
+          if (!event.content) {
+            alert('본문을 작성해 주세요');
             return;
           }
-        setEvent((prevEvent) => ({ ...prevEvent, save: 0 }));
+
+        if (!file) {
+          alert('썸네일을 선택해 주세요');
+          return;
+        }  
+
+        if (new Date(event.meetingDate) > new Date(event.endDate)) {
+          alert('시작일자는 종료일자와 같거나 이전 날짜여야 합니다');
+          return;
+        }
         submit();
       };
 
@@ -164,27 +163,33 @@ const fileInput=useRef();
 
     return (
         <>
-          <h1 style={{textAlign:'center', margin:'20px auto'}}>행사 기획 작성</h1>
           <div style={{margin:'0 auto',width:'100%', border:'1px solid lightgray', borderRadius:'7px', padding:'10px', backgroundColor:'rgba(243, 243, 243, 1)'}}>  
+          <h1 style={{textAlign:'center', margin:'0 auto', marginTop:'20px'}}>행사 기획 작성</h1>
             <Table style={{margin:'0 auto',width:'860px', padding:'20px'}}>
                     <tbody>
                     <tr style={{height:'10px'}}></tr>
                         <tr>
-                            <td style={{width:'100px'}}><Label for="title">제 목</Label></td>
+                            <td style={{width:'100px'}}><Label for="title">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</Label></td>
                             <td><Input style={{width:'700px', height:'25px'}} name="title" type="text" onChange={change} id="title" required="required"
-                                 value={event.title} placeholder="제목을 입력해 주세요(20자 이하)" maxLength='20'/></td>
+                                 value={event.title} placeholder="제목을 입력해 주세요(27자 이하)" maxLength='27'/></td>
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td><Label for="corpName">기업명</Label></td>
+                            <td><Label for="corpName">주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최</Label></td>
                             <td><Input style={{width:'700px', height:'25px'}} type="text" id="corpName" name="corpName" onChange={change}
-                                 required="required" value={event.corpName} placeholder="기업명을 입력해 주세요(10자 이하)" maxLength='10'/></td>
+                                 required="required" value={event.corpName} placeholder="주최명을 입력해 주세요(16자 이하)" maxLength='16'/></td>
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td><Label for="explanation">행사개요</Label></td>
+                            <td><Label for="corpName">주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;관</Label></td>
+                            <td><Input style={{width:'700px', height:'25px'}} type="text" id="corpName" name="corpName" onChange={change}
+                                 required="required" value={event.corpName} placeholder="주관명을 입력해 주세요(16자 이하)" maxLength='16'/></td>
+                        </tr>
+                        <tr style={{height:'15px'}}></tr>
+                        <tr>
+                            <td><Label for="explanation">행사내용</Label></td>
                             <td><Input style={{width:'700px', height:'25px'}} type="text" id="explanation" name="explanation" onChange={change}
-                                 required="required" value={event.explanation} placeholder="행사개요를 입력해 주세요(64자 이하)" maxLength='64'/></td>
+                                 required="required" value={event.explanation} placeholder="행사내용를 입력해 주세요(60자 이하)" maxLength='60'/></td>
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
@@ -201,7 +206,7 @@ const fileInput=useRef();
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td><Label for="location">지 역</Label></td>
+                            <td><Label for="location">지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;역</Label></td>
                             <td>
                                 <select style={{width:'85px', height:'25px'}} id="location" name='location' required="required" onChange={change}>
                                     <option>선택</option>
@@ -221,12 +226,13 @@ const fileInput=useRef();
                                     <option>세종</option>
                                     <option>강원</option>
                                     <option>제주</option>	
+                                    <option>기타</option>	
                                 </select>
                             </td>
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td  style={{ verticalAlign:'top'}}><Label for="content">행사본문</Label></td>
+                            <td  style={{ verticalAlign:'top'}}><Label for="content">상세내용</Label></td>
                             <td>
                             <style>{qlContainerStyle}</style>
                              <ReactQuill style={{height:'400px', background:'white'}} id='content' name='content' modules={modules} value={event.content} 
@@ -257,9 +263,9 @@ const fileInput=useRef();
              </Table>
             </div>
             <div style={{textAlign:'center', marginTop:'30px', marginBottom:'20px'}}>
-             <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px'}}><Link to={'/eventList'} style={{textDecoration:'none',color:'white'}}>목록</Link></Button>
-             <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white'}} onClick={handleTempSave}>임시저장</Button>
-             <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white'}} onClick={handleRegister}>등록</Button>       
+             <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', cursor:'pointer'}}><Link to={'/eventList'} style={{textDecoration:'none',color:'white'}}>목록</Link></Button>
+             <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white', cursor:'pointer'}} onClick={handleTempSave}>임시저장</Button>
+             <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white', cursor:'pointer' }} onClick={handleRegister}>등록</Button>       
             </div> 
         </>
     )
