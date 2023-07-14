@@ -164,10 +164,7 @@ const EventList = () => {
               </a>
             );
           })}
-        <Pagination
-          aria-label="Page navigation example"
-          style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}
-        >
+        <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
           <PaginationItem disabled={curPage === 1}>
             <PaginationLink onClick={goToPreviousPage} aria-label="Previous">
               <span aria-hidden="true">‹</span>
