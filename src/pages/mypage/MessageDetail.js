@@ -23,7 +23,7 @@ export default function MessageDetail() {
             {isOpen ? 
                 <MessageReplyModal onCloseModal={closeReplyModal} />
                 : null }
-            <div className='container_messageWrapper'>
+            <div className='container_messageWrapper'  onClick={closeReplyModal}>
 
 
                 <div className='container_messageDetailHeader'>

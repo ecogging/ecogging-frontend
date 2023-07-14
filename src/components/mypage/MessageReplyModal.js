@@ -5,17 +5,17 @@ import MyButton from "../common/MyButton";
 
 
 export const ModalView = styled.div`
-    width: 20vw;
+    width: 400px;
     height: 45vh;
 
     border:1px solid #8383835b;
     border-radius:10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     position:fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
 
     display: flex;
     flex-direction:column;
@@ -33,12 +33,12 @@ export const ModalView = styled.div`
         font-size:1.65rem;
     }
     .replyTitle {
-        width:140px;
+        width:180px;
         height:50%;
 
         display:flex;
         align-items:center;
-        justify-content:space-between;
+        gap:20px;
         margin-left:8px;
         color:#6CABA7;
         font-weight:bold;

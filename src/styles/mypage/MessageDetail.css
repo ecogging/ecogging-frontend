@@ -45,25 +45,25 @@
     margin:20px auto;
     
     display: flex;
-    justify-content: space-between;
 }
 /* 프사, 닉네임 */
 .container_msgBodyHeaderLeft {
-    width:50%;
+    width:350px;
     height:100%;
 
     display: flex;
     align-items: center;
+    margin-right:1%;
 }
 .circle_msgSenderPic {
     width:100px;
     height:100px;
     border-radius: 50%;
     background-color: gray;
-    margin-right: 25px;
+    margin-right: 5%;
 }
 .txt_msgSenderNick {
-    width:300px;
+    width:220px;
     height:100px;
     font-size:2.5rem;
 
@@ -73,8 +73,9 @@
 
 /* 답장, 삭제버튼 */
 .container_msgBodyHeaderRight {
-    width:50%;
+    width:30%;
     height:100%;
+    margin-left:auto;
 }
 
 .container_msgBodyHeaderBtns {
@@ -83,8 +84,10 @@
 
     gap:10px;
     display: flex;
+    flex-wrap:wrap;
     align-items: center;
     justify-content: flex-end;
+    margin-left:auto;
 }
 
 
