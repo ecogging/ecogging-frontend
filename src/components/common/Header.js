@@ -22,6 +22,11 @@ function removeTokenAndUserFromCookie() {
   removeCookie('nickname')
 }
 
+// 새로고침
+const reloading = () => {
+    window.location.reload();
+};
+
 export default function Header () {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
@@ -62,10 +67,12 @@ export default function Header () {
         setInMenu(nowMenuClass);
     }
 
+
+
     if(isLogin){
         return (
             <header className='header' onClick={closeToggle}>
-                <div className='logoContainer' onClick={clickMenu}>
+                <div className='logoContainer' onClick={reloading}>
                     <Link to = {'/'}>
                         <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
                     </Link>
@@ -105,7 +112,7 @@ export default function Header () {
 
     return (
         <header onClick={closeToggle}>
-             <div className='logoContainer' onClick={clickMenu}>
+            <div className='logoContainer' onClick={reloading}>
                 <Link to = {'/'}>
                     <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
                 </Link>
