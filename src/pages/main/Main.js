@@ -12,17 +12,27 @@ import AccompanyWrite from '../../components/plogging/accompany/AccompanyWrite';
 import AccompanyModify from '../../components/plogging/accompany/AccompanyModify';
 import Reviews from '../../components/plogging/reivews/Reviews';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Temp from '../../components/main/Temp';
 import MyPage from '../mypage/MyPage';
 import UserSignupIntro from '../../components/user/UserSignupIntro';
 import UserSignup from '../../components/user/UserSignup';
 import MessageDetail from '../mypage/MessageDetail';
 
+import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
+
 
 export default function Main() {
 
+  // 마이페이지 접근제한 위한 로그인 확인
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    const accessToken = getCookie('access-token');
+    if (accessToken) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -33,7 +43,7 @@ export default function Main() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/temp" element={<Temp />}></Route>
 
-            <Route path="/mypage/*" element={<MyPage />}></Route>
+            <Route path="/mypage/*" element={isAuthenticated ? <MyPage /> : <UserSignupIntro/> }></Route>
             <Route path="/messages" element={<MessageDetail />}></Route>
 
             <Route path="/accompanies" element={<AccompanyList />} />
