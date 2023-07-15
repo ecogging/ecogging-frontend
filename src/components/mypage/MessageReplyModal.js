@@ -3,6 +3,17 @@ import { useState } from "react";
 import { FaRegPaperPlane } from "react-icons/fa";
 import MyButton from "../common/MyButton";
 
+export const ModalBack = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  
+//   backdrop-filter: blur(10px);
+//   background-color: rgba(0, 0, 0, 0.4);
+`;
 
 export const ModalView = styled.div`
     width: 400px;
@@ -80,6 +91,7 @@ export const ModalView = styled.div`
 export default function MessageReplyModal({ onCloseModal }) {
     return (
       <>
+        <ModalBack onClick={onCloseModal} />
         <ModalView>
             <div className="replyTop">
                 <div className="replyTitle">

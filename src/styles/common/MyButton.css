@@ -199,7 +199,7 @@
     border:1px solid #838383;
     color:#838383;
     cursor:pointer;
-    font-size:16px;
+    font-size:20px;
     border-radius:10px;
     background-color: white;
 }
@@ -215,7 +215,7 @@
     height:40px;
     color:white;
     cursor:pointer;
-    font-size:16px;
+    font-size:20px;
     border-radius:10px;
     border:none;
     background-color: #9be4ce;
@@ -224,4 +224,20 @@
     color:white;
     font-weight: bolder;
     background-color:#88e4c8;
+}
+
+.MyButton_whiteMintWide3 {
+    width:47%;
+    height:40px;
+    font-size:20px;
+    cursor:pointer;
+    color:#8bceba;
+    border-radius:10px;
+    background-color: white;
+    border:1px solid #9BE4CE;
+}
+.MyButton_whiteMintWide3:hover {
+    color:white;
+    font-weight: bold;
+    background-color: #9BE4CE;
 }

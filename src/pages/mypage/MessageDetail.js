@@ -3,27 +3,49 @@ import React, { useState } from 'react';
 import MyButton from '../../components/common/MyButton';
 import '../../styles/mypage/MessageDetail.css';
 import MessageReplyModal from '../../components/mypage/MessageReplyModal';
+import MessageDeleteModal from '../../components/mypage/MessageDeleteModal';
 
 export default function MessageDetail() {
+
+    // 목록보기
     const goBack = useNavigate();
 
+    // 답장하기모달
     const [isOpen, setIsOpen] = useState(false);
     const openReplyModal = () => {
         setIsOpen(!isOpen);
     }
-
     const closeReplyModal = () => {
         if(isOpen){
             setIsOpen(false);
         }
     };
 
+    //삭제하기모달
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const openDeleteModal = () => {
+        setDeleteOpen(!deleteOpen);
+        document.body.style.overflow = 'hidden'; // 배경 스크롤 막기
+    }
+    const closeDeleteModal = () => {
+        if(deleteOpen){
+            setDeleteOpen(false);
+            document.body.style.overflow = 'auto'; // 배경 스크롤 다시 활성화
+        }   
+    };
+
+
     return(
         <div className="MessageDetail">
+
             {isOpen ? 
                 <MessageReplyModal onCloseModal={closeReplyModal} />
                 : null }
-            <div className='container_messageWrapper'  onClick={closeReplyModal}>
+            {deleteOpen ?
+                <MessageDeleteModal onCloseDeleteModal={ closeDeleteModal } />
+                : null }
+
+            <div className='container_messageWrapper'>
 
 
                 <div className='container_messageDetailHeader'>
@@ -42,7 +64,7 @@ export default function MessageDetail() {
                             <div className='container_msgBodyHeaderRight'>
                                 <div className='container_msgBodyHeaderBtns'>
                                     <MyButton text={'답장하기'} type={'mintWide2'} onClick={openReplyModal}/>
-                                    <MyButton text={'삭제하기'} type={'lightGrayWide2'}/>
+                                    <MyButton text={'삭제하기'} type={'lightGrayWide2'} onClick={openDeleteModal}/>
                                 </div>
                             </div>
                         </div>
