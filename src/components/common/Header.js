@@ -73,8 +73,10 @@ export default function Header () {
                 <nav className={`headerNav ${showNav ? 'show' : ''}`} onClick={clickMenu}>
                     <ul className='headerMenu'>
                         <li className='headerMenuList'>
-                            <Link to = {'/accompanies'} id='ploggingMenu'><div className='headerMenuLink' >플로깅</div></Link>
-                            <div className='ploggingNavContainer'>
+                            <Link to = {'/accompanies'} id='ploggingMenu'>
+                                <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div>
+                            </Link>
+                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                                 <ul className='ploggingNav'>
                                     <Link to={'/accompanies'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
                                     <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
@@ -91,8 +93,8 @@ export default function Header () {
                 </nav>
                 <ul className='userNav' onClick={clickMenu}>
                     <li className='userNavBox headerNotify'><FaRegBell /><div className='alaramCount'>12</div></li>
-                    <li className='userNavBox'><Link to={'/mypage'}><span className='nickName'>{userNickname}</span></Link> 님</li>
-                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"graySmall"} onClick={userLogout}></MyButton></li>
+                    <li className='userNavBox' id='headerNickname'><Link to={'/mypage'}><span className='nickName'>{userNickname}</span></Link> 님</li>
+                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
                 <div className='toggle' onClick={toggleNav} >
                     <GiHamburgerMenu />
@@ -111,7 +113,9 @@ export default function Header () {
             <nav className={`headerNav ${showNav ? 'show' : ''}`} onClick={clickMenu}>
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
-                    <Link to = {'/accompanies'} id='ploggingMenu'><div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div></Link>
+                        <Link to = {'/accompanies'} id='ploggingMenu'>
+                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div>
+                        </Link>
                         <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                             <ul className='ploggingNav'>
                                 <Link to={'/accompanies'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
