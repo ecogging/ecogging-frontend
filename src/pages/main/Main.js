@@ -17,6 +17,9 @@ import Temp from '../../components/main/Temp';
 import MyPage from '../mypage/MyPage';
 import UserSignupIntro from '../../components/user/UserSignupIntro';
 import UserSignup from '../../components/user/UserSignup';
+import ReviewDetail from '../../components/plogging/reivews/ReviewDetail';
+import ReviewModify from '../../components/plogging/reivews/ReviewModify';
+
 
 
 export default function Main() {
@@ -41,6 +44,9 @@ export default function Main() {
 
             <Route path="/signup-intro" element={<UserSignupIntro/>}/>
             <Route path="/signup" element={<UserSignup/>}/>
+
+            <Route path="/reviewInfo/:id" element={<ReviewDetail/>}/>
+            <Route path="/reviewInfoModify/:id" element={<ReviewModify/>}/>
           </Routes>
         </div>
         <Footer />  

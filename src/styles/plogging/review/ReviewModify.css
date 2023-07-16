@@ -1,0 +1,7 @@
+.reviewModify_mainLayout{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    margin: 120px auto;
+    width: 100%;
+}

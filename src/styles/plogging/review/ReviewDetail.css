@@ -1,0 +1,182 @@
+.reviewInfo_mainLayout{
+    display: flex;
+    justify-content: center;
+    /* background-color: aliceblue; */
+    margin: 120px auto;
+    width: 100%;
+}
+.reviewInfo_wrap{
+    width: 95%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: rgb(224, 203, 243); */
+}
+.reviewInfo_top{
+    /* background-color: rgb(163, 163, 233); */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.reviewInfo_title{
+    /* background-color: rgb(189, 233, 146); */
+    /* display: flex;
+    justify-content: start; */
+    font-size: 25px;
+}
+.reviewInfo_top_in{
+    /* background-color: rgb(61, 90, 61); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0px 5px 0px;
+}
+.reviewInfo_imageAndnickname{
+    /* background-color: rgb(79, 79, 236); */
+    display: flex;
+    font-size: 20px;
+}
+.reviewInfo_nickname{
+    cursor: pointer;
+}
+.reviewInfo_profil{
+    background-color: rgb(86, 216, 216);
+    margin: 0px 10px 0px 10px;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+.reviewInfo_dateAndviewsAndscrap{
+    /* background-color: coral; */
+    display: flex;
+}
+.reviewInfo_dateAndviewsAndscrap>div:not(:last-child){
+    margin-right: 5px;
+}
+.reviewInfo_layout{
+    /* background-color: rgb(100, 135, 165); */
+    width: 100%;
+    height: 410px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #838383;
+    /* border-bottom: 1px solid #838383; */
+    padding-top: 10px;
+}
+.reviewInfo_views{
+    display: flex;
+    align-items: center;
+}
+.view_icon{
+    margin-right: 2px;
+}
+.reviewInfo_scrap{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.BsFillBookmarkFill{
+    color: #9BE4CE;
+}
+.reviewInfo_img{
+    background-color: #838383;
+    box-sizing: border-box;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reviewInfo_content{
+    /* background-color: bisque; */
+    box-sizing: border-box;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #9BE4CE;
+}
+.reviewInfo_img_in{
+    background-color: rgb(204, 236, 127);
+    margin: 10px;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reviewInfo_content_in{
+    margin: 10px;
+    width: 90%;
+    height: 90%;
+    /* background-color: aqua; */
+    font-size: 17px;
+}
+.reviewInfoBtn_layout{
+    /* background-color: rgb(226, 156, 226); */
+    font-size: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.modifyAndDeleteBtn_layout_in{
+    display: flex;
+}
+.modifyBtn{
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #9BE4CE;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #9BE4CE;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.delBtn{
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #9BE4CE;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #9BE4CE;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;  
+}
+/* .modifyBtn.:hover{
+    background-color: #9BE4CE;
+    color: white;
+} */
+.reviewsBtn{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #9BE4CE;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #9BE4CE;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.reviewsBtn:hover{
+    background-color: #9BE4CE;
+    color: white;
+}
+.modifyBtn:hover{
+    background-color: #9BE4CE;
+    color: white;
+}
+.delBtn:hover{
+    background-color: #9BE4CE;
+    color: white;
+}
