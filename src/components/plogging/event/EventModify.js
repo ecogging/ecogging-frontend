@@ -1,12 +1,11 @@
 import { Table, Input, Button,Label } from 'reactstrap';
-import {useState} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { reqToken } from '../requestToken';
+//import { reqToken } from '../requestToken';
 import axios from 'axios';
 
-const Event = () => {
+const EventModify = () => {
     const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',id:'',fileName:''})
     const [file, setFile] = useState();
     const userId = useSelector(state=>state.userId);
