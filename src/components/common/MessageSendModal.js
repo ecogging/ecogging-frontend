@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import { FaRegPaperPlane } from "react-icons/fa";
 import MyButton from "../common/MyButton";
+import axios from "axios";
 
 
 export const ModalView = styled.div`
@@ -23,6 +24,7 @@ export const ModalView = styled.div`
     align-items: center;
 
     background-color:white;
+    z-index:555;
 
     .sendTop {
         width:100%;
@@ -84,7 +86,23 @@ export const ModalView = styled.div`
 `;
 
 
-export default function MessageSendModal({ onCloseModal }) {
+
+export default function MessageSendModal({ onCloseModal, receiverNick }) {
+    
+    const [msg, setMsg] = useState("");
+    const sendMessage = () => {
+        axios.post("/messages", {content:msg})
+        .then((response) => {
+            console.log('쪽지보내기 오나료 ^ ^ /');
+            onCloseModal();
+        })
+        .catch((error) => {
+            console.log('쪽지 안갔음 T-T', error);
+        });
+    }
+
+
+
     return (
       <>
         <ModalView>
@@ -96,12 +114,12 @@ export default function MessageSendModal({ onCloseModal }) {
             </div>
 
             <div className="sendMiddle">
-                <div className="receiverNick">받는 사람: 닉닉닉닉닉닉</div>
-                <textarea name="sendContents" className="sendContents" placeholder="쪽지 내용을 입력하세요..." autofocus/>
+                <div className="receiverNick">받는 사람: {receiverNick}</div>
+                <textarea name="sendContents" className="sendContents" placeholder="쪽지 내용을 입력하세요..." autoFocus/>
             </div>
 
             <div className="sendBottom">
-                <MyButton text={'보내기'} type={'mintWide3'}/>
+                <MyButton text={'보내기'} type={'mintWide3'} onClick={sendMessage}/>
                 <MyButton text={'취소'} type={'whiteGrayWide3'} onClick={onCloseModal}/>
             </div>
         </ModalView>

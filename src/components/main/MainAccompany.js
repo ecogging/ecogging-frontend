@@ -6,36 +6,17 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import MessageSendModal from '../../components/common/MessageSendModal';
+import useSendMessage from "../../hooks/useSendMessage";
 
 const { kakao } = window;
 
+
+
 export default function MainAccompany() {
 
-  function initMap() {
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-
-    // 주소로 좌표를 검색하고 지도에 표시합니다
-    geocoder.addressSearch('주소', function (result, status) {
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 지도 생성 및 옵션 설정
-        var map = new kakao.maps.Map(document.getElementById('map'), {
-          center: coords,
-          level: 3,
-        });
-
-        // 지도에 마커 표시
-        var marker = new kakao.maps.Marker({
-          position: coords,
-          map: map,
-        });
-      }
-    });
-  }
-
+  // 쪽지 보내기 모달
+  const { isModalOpen, selectedNick, openSendModal, closeSendModal } = useSendMessage();
 
   // 최신 3개 글 가져오기
   const [accomp, setAccomp] = useState(null);
@@ -52,56 +33,58 @@ export default function MainAccompany() {
       });
   }, []);
 
-  // 지도 가져오기
+  // 지도 생성
   useEffect(() => {
-    let cardHeaders = document.getElementsByClassName("box_map");
-    for (let cardHeader of cardHeaders) {
-      cardOnload(cardHeader, cardHeader.dataset.address);
+    let boxMaps = document.getElementsByClassName("box_map"); // 맵 넣을 컨테이너 선택
+    for(let boxMap of boxMaps) { 
+        mapOnload(boxMap, boxMap.dataset.address);
     }
-  }, [accomp]);
-  
-  const cardOnload = (e, address) => {
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
+  }, [accomp]); // accomp가 변경될 때마다 실행
 
-    geocoder.addressSearch(address, function (result, status) {
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
-        let lat = result[0].y;
-        let lon = result[0].x;
-
-        // 지도 중심 위치입니다
-        var center = new kakao.maps.LatLng(lat, lon);
-        const mapOption = {
-          center: center, // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
-        };
-
-        // 지도를 생성합니다
-        var map = new kakao.maps.Map(e, mapOption);
-        map.setZoomable(false);
-
-        // 마커 생성 & 지도 위 표시
-        var marker = new kakao.maps.Marker({
-          position: center
-        });
-        marker.setMap(map);
-
-        // 지도 드래그 방지
-        map.setDraggable(false);
-      }
-    });
-  };
-
+  // 데이터 로딩 중에 보여줄 내용
   if (accomp === null) {
-    // 데이터 로딩 중에 보여줄 내용
     return <div>Loading...</div>
   }
 
+  // 지도 생성 함수
+  const mapOnload = (e, address) => {
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(address, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) { 
+            let lat = result[0].y;
+            let lon = result[0].x; 
+            var center = new kakao.maps.LatLng(lat, lon);
+
+            const mapOption = {
+                center: center, 
+                level: 3 
+            };   
+
+            if (e) {
+            // kakao.js:31 Uncaught TypeError: Cannot read properties of null (reading 'currentStyle')
+            // DOM 요소에서 'currentStyle' 속성에 접근하려고 할 때 null/정의X 일 때 발생
+            // 메인일 때 말고 다른 페이지로 이동하면 발생-> box-map이 존재할 때만 지도 생성하도록 조건 걸어줌
+            var map = new kakao.maps.Map(e, mapOption);
+            map.setZoomable(false);
+
+            var marker = new kakao.maps.Marker({
+                position: center
+            });
+            marker.setMap(map);
+        }
+      }
+    });
+};
+
+const clicking = (e) => {
+  console.log(e.target);
+}
+
   return (
     <div className='container_mainAccompany'>
+      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick}/> : null}
 
-      <div className='container_part_mainAccompany'>
+      <div className='container_part_mainAccompany' onClick={closeSendModal}>
 
         <div className='container_title'>
           <div className='box_title'>RECENT MATES</div>
@@ -122,20 +105,18 @@ export default function MainAccompany() {
                 </div>
 
                   <div className='container_card_top_pic'>
-                    <div className='box_pic_circle'>
+                    <div className='box_pic_circle' onClick={clicking}>
                       <img src={picTemp} className='image_userPic_source'/>
                     </div>
                   </div>
 
                   <div className='container_card_middle'>
-                    <div className='box_nickname'>{item.nickname}</div>
+                    <div className='box_nickname' onClick={openSendModal}>{item.nickname}</div>
                     <Link to={`/accompaniesdetail/${item.id}`} ><div className='box_matesTitle'>{item.title}</div></Link>
                   </div>
 
                   <div className='container_card_bottom'>
-                    { item.location ? 
-                      <div className="box_map" id="box_map" data-address={item.location} ref={(e) => cardOnload(e, item.location)}></div> 
-                      : <div>{item.content}</div> }
+                      <div className="box_map" id="box_map" data-address={item.location} ref={(e) => mapOnload(e,item.location)}></div> 
                   </div>
               
                 </div>
