@@ -45,7 +45,21 @@
     font-weight: bolder;
     background-color:#88e4c8;
 }
-
+.MyButton_mintSmall {
+  width:70px;
+  height:25px;
+  border:none;
+  color:white;
+  font-size:10px;
+  cursor:pointer;
+  border-radius:10px;
+  background-color: #9be4ce;
+}
+.MyButton_mintSmall:hover {
+  color:white;
+  font-weight: bolder;
+  background-color:#88e4c8;
+}
 .MyButton_gray {
     width:135px;
     height:40px;
@@ -232,7 +246,7 @@
     font-size:20px;
     cursor:pointer;
     color:#8bceba;
-    border-radius:10px;
+    border-radius:8px;
     background-color: white;
     border:1px solid #9BE4CE;
 }
@@ -240,4 +254,37 @@
     color:white;
     font-weight: bold;
     background-color: #9BE4CE;
+}
+
+/* Xsmall */
+.MyButton_mintXSmall {
+  width:60px;
+  height:25px;
+  border:none;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  border-radius:12px;
+  background-color: #9be4ce;
+}
+.MyButton_mintXSmall:hover {
+  color:white;
+  font-weight: bolder;
+  background-color:#88e4c8;
+}
+
+.MyButton_whiteGrayXSmall {
+  width:60px;
+  height:25px;
+  border:1px solid #838383;
+  color:#838383;
+  cursor:pointer;
+  font-size:15px;
+  border-radius:12px;
+  background-color: white;
+}
+.MyButton_whiteGrayXSmall:hover {
+  color:white;
+  font-weight: bolder;
+  background-color: #666666;
 }
