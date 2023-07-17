@@ -1,5 +1,5 @@
-﻿import { BiCommentDetail } from 'react-icons/bi';
-import { FiTrash2 } from 'react-icons/fi';
+﻿import { FiTrash2 } from 'react-icons/fi';
+import commentNotificationItem from './CommentNotificationItem';
 import '../../styles/common/NotificationItem.css';
 /*
   {
@@ -11,22 +11,23 @@ import '../../styles/common/NotificationItem.css';
 */
 
 export default function NotificationItem({item}) {
-  console.log(item)
+  const {icon, typeName, content} = getNotiItem(item);
+
   return (
     <div className='notification-item'>
       <div className="item-header">
         <span className='header-left'>
-          <BiCommentDetail />
-          <span className='noti-type-text'>{convertNotificationTypeToMessageType(item.type)}</span>
+          {icon}
+          <span className='noti-type-text'>{typeName}</span>
           <span className='noti-date-gray'>{item.createdAt}</span>
         </span>
        
         <span className='header-right'>
-          <FiTrash2 />
+          {<FiTrash2 />}
         </span>
       </div>
       <div className="item-body">
-        {item.senderNickname + ", "+ convertNotificationTypeToMessageType(item.type) }
+        {content}
       </div>
     </div>
   )
@@ -41,4 +42,10 @@ function convertNotificationTypeToMessageType(notifcationType) {
     return '동행';
   else 
     return '알림';
+}
+
+function getNotiItem(item) {
+  const type = item.type;
+  if (type === 'COMMENT')
+    return commentNotificationItem(item);
 }
