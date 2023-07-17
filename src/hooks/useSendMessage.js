@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 
-export default function useSendMessage () {
+export default function useSendMessage ( ) {
   
   // 쪽지 보내기 모달 띄우고, 받는 사람 닉네임 동기화
   const [isModalOpen, setIsModalOpen] = useState(false);

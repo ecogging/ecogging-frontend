@@ -7,12 +7,20 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import MessageSendModal from '../../components/common/MessageSendModal';
-import { useSendMessage } from '../../hooks/useSendMessage';
-
+import useSendMessage from "../../hooks/useSendMessage";
 
 // const { kakao } = window;
 
 export default function MainAccompany() {
+
+    // 쪽지 보내기 모달
+
+    const {
+      isModalOpen,
+      selectedNick,
+      openSendModal,
+      closeSendModal,
+    } = useSendMessage();
 
   // 최신 3개 글 가져오기
   const [accomp, setAccomp] = useState(null);
@@ -33,20 +41,11 @@ export default function MainAccompany() {
     return <div>Loading...</div>
   }
 
-
-  // // 쪽지 보내기 모달
-  // const { isModalOpen, selectedNick, openSendModal, closeSendModal } = useSendMessage(); 
-  // const [receiverNick, setReceiverNick] = useState("");
-
-
-
-
   return (
     <div className='container_mainAccompany'>
-      {/* {isModalOpen ? <MessageSendModal receiverNick={receiverNick} /> : null} */}
+      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick}/> : null}
 
-      {/* <div className='container_part_mainAccompany' onClick={closeSendModal}> */}
-      <div className='container_part_mainAccompany'>
+      <div className='container_part_mainAccompany' onClick={closeSendModal}>
 
         <div className='container_title'>
           <div className='box_title'>RECENT MATES</div>
@@ -73,8 +72,7 @@ export default function MainAccompany() {
                   </div>
 
                   <div className='container_card_middle'>
-                    {/* <div className='box_nickname' onClick={openSendModal}>{item.nickname}</div> */}
-                    <div className='box_nickname'>{item.nickname}</div>
+                    <div className='box_nickname' onClick={openSendModal}>{item.nickname}</div>
                     <Link to={`/accompaniesdetail/${item.id}`} ><div className='box_matesTitle'>{item.title}</div></Link>
                   </div>
 
