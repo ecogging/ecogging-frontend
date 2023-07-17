@@ -9,18 +9,14 @@ import axios from 'axios';
 import MessageSendModal from '../../components/common/MessageSendModal';
 import useSendMessage from "../../hooks/useSendMessage";
 
-// const { kakao } = window;
+const { kakao } = window;
+
+
 
 export default function MainAccompany() {
 
-    // 쪽지 보내기 모달
-
-    const {
-      isModalOpen,
-      selectedNick,
-      openSendModal,
-      closeSendModal,
-    } = useSendMessage();
+  // 쪽지 보내기 모달
+  const { isModalOpen, selectedNick, openSendModal, closeSendModal } = useSendMessage();
 
   // 최신 3개 글 가져오기
   const [accomp, setAccomp] = useState(null);
@@ -36,10 +32,44 @@ export default function MainAccompany() {
         console.log(error);
       });
   }, []);
+
+  // 지도 생성
+  useEffect(() => {
+    let boxMaps = document.getElementsByClassName("box_map");
+    for(let boxMap of boxMaps) { 
+        mapOnload(boxMap, boxMap.dataset.address);
+    }
+  }, [accomp]); // accompanys가 변경될 때마다 실행
+
   // 데이터 로딩 중에 보여줄 내용
   if (accomp === null) {
     return <div>Loading...</div>
   }
+
+  // 지도 생성 함수
+  const mapOnload = (e, address) => {
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(address, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) { 
+            let lat = result[0].y;
+            let lon = result[0].x; 
+            var center = new kakao.maps.LatLng(lat, lon);
+
+            const mapOption = {
+                center: center, 
+                level: 3 
+            };   
+            var map = new kakao.maps.Map(e, mapOption);
+            map.setZoomable(false);
+
+            var marker = new kakao.maps.Marker({
+                position: center
+            });
+            marker.setMap(map);
+        }
+    });
+};
+
 
   return (
     <div className='container_mainAccompany'>
@@ -77,9 +107,9 @@ export default function MainAccompany() {
                   </div>
 
                   <div className='container_card_bottom'>
-                    {/* { item.location ? 
-                      <div className="box_map" id="box_map" data-address={item.location} ref={(e) => cardOnload(e, item.location)}></div> 
-                      : <div>{item.content}</div> } */}
+                    { item.location ? 
+                      <div className="box_map" id="box_map" data-address={item.location} ref={(e) => mapOnload(e, item.location)}></div> 
+                      : <div>{item.content}</div> }
                   </div>
               
                 </div>
