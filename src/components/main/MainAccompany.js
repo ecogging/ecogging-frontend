@@ -35,11 +35,11 @@ export default function MainAccompany() {
 
   // 지도 생성
   useEffect(() => {
-    let boxMaps = document.getElementsByClassName("box_map");
+    let boxMaps = document.getElementsByClassName("box_map"); // 맵 넣을 컨테이너 선택
     for(let boxMap of boxMaps) { 
         mapOnload(boxMap, boxMap.dataset.address);
     }
-  }, [accomp]); // accompanys가 변경될 때마다 실행
+  }, [accomp]); // accomp가 변경될 때마다 실행
 
   // 데이터 로딩 중에 보여줄 내용
   if (accomp === null) {
@@ -59,6 +59,11 @@ export default function MainAccompany() {
                 center: center, 
                 level: 3 
             };   
+
+            if (e) {
+            // kakao.js:31 Uncaught TypeError: Cannot read properties of null (reading 'currentStyle')
+            // DOM 요소에서 'currentStyle' 속성에 접근하려고 할 때 null/정의X 일 때 발생
+            // 메인일 때 말고 다른 페이지로 이동하면 발생-> box-map이 존재할 때만 지도 생성하도록 조건 걸어줌
             var map = new kakao.maps.Map(e, mapOption);
             map.setZoomable(false);
 
@@ -67,9 +72,13 @@ export default function MainAccompany() {
             });
             marker.setMap(map);
         }
+      }
     });
 };
 
+const clicking = (e) => {
+  console.log(e.target);
+}
 
   return (
     <div className='container_mainAccompany'>
@@ -96,7 +105,7 @@ export default function MainAccompany() {
                 </div>
 
                   <div className='container_card_top_pic'>
-                    <div className='box_pic_circle'>
+                    <div className='box_pic_circle' onClick={clicking}>
                       <img src={picTemp} className='image_userPic_source'/>
                     </div>
                   </div>
@@ -107,9 +116,7 @@ export default function MainAccompany() {
                   </div>
 
                   <div className='container_card_bottom'>
-                    { item.location ? 
-                      <div className="box_map" id="box_map" data-address={item.location} ref={(e) => mapOnload(e, item.location)}></div> 
-                      : <div>{item.content}</div> }
+                      <div className="box_map" id="box_map" data-address={item.location} ref={(e) => mapOnload(e,item.location)}></div> 
                   </div>
               
                 </div>
