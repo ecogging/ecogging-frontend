@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 import MyButton from '../../common/MyButton';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 const { kakao } = window;
 
 const AccompanyList = () => {
-
-
     const [page, setPage] = useState(1);
     const [accompanys, setAccompanys] = useState([]);
     const [hasNext, setHasNext] = useState(true);
     const [orderby, setOrderby] = useState("createdAt");
-
+    const userId = getCookie("userId");
     useEffect(() => {
         reqAccompany(page, orderby);
     }, []);
@@ -107,11 +106,11 @@ const AccompanyList = () => {
                 <h1 className="list-subject">동행 모집</h1>
                 <table className="list-info">
                     <tbody>
-                        <tr>
+                        {userId!=null && (<tr>
                             <td className="article-new"> 
-                                <Link to="/accompanieswrite"><MyButton text={'새 글 작성'}></MyButton></Link>
+                                <Link to="/accompanieswrite"><MyButton text={'모집글 작성'}></MyButton></Link>
                             </td>
-                        </tr>
+                        </tr>)}
                         <tr>
                             <td className="list-order">
                                 <button className={orderby=='createdAt'? "list-latest selected": "list-latest"}  onClick={()=>changeOrderby("createdAt")}>최신순 ∨</button>&nbsp;&nbsp;&nbsp;
