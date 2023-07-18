@@ -4,6 +4,7 @@ import moment from 'moment/moment';
 import axios from 'axios';
 import '../../../styles/plogging/review/Reviews.css';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import MyButton from "../../../components/common/MyButton.js";
 // import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
@@ -13,6 +14,7 @@ export default function ReviewList(){
     const [allPage, setAllPage]=useState(false);
     const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
+    const loginCheck=true;
     
     useEffect(() => {
         setCurPage(parseInt(curPage));
@@ -173,7 +175,15 @@ export default function ReviewList(){
                             </PaginationLink>
                         </PaginationItem>
                 </Pagination>
-                <div className='writeBtn'></div>
+                
+                <div className='writeBtn'>
+                    {
+                    loginCheck ? 
+                    <Link to={`/reviewWrite/${reviews.id}`}>
+                        <MyButton text={"글 작성"}/>
+                    </Link> : null
+                    }
+                </div>
             </div>
         </div>
     );

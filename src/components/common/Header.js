@@ -13,7 +13,7 @@ import UserLoginModal from '../user/UserLoginModal';
 import useLoginModal from '../../hooks/useLoginModal';
 
 function isValidTokenToLogin(token) {
-  return token != null && token != "";
+  return token != null && token !== "";
 }
 
 function removeTokenAndUserFromCookie() {
@@ -41,7 +41,7 @@ export default function Header () {
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
         if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
-            if(showNav == true) {
+            if(showNav === true) {
                 setShowNav(!showNav);
             }
         }
@@ -74,9 +74,9 @@ export default function Header () {
                     <ul className='headerMenu'>
                         <li className='headerMenuList'>
                             <Link to = {'/accompany'} id='ploggingMenu'><div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div></Link>
-                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu==='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                                 <ul className='ploggingNav'>
-                                    <Link to={'/accompany'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
+                                    <Link to={'/accompany'}><li className={ inMenu==='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
                                     <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
                                     <Link to={'/reviews'}><li className={inMenu === '후기' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>후기</li></Link>
                                 </ul>
@@ -112,9 +112,9 @@ export default function Header () {
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
                     <Link to = {'/accompany'} id='ploggingMenu'><div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div></Link>
-                        <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                        <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu==='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                             <ul className='ploggingNav'>
-                                <Link to={'/accompany'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
+                                <Link to={'/accompany'}><li className={ inMenu==='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
                                 <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
                                 <Link to={'/reviews'}><li className={inMenu === '후기' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>후기</li></Link>
                             </ul>

@@ -198,3 +198,9 @@ input{
     justify-content: space-between;
     /* background-color: darkgreen; */
 }
+.writeBtn{
+    /* background-color: aliceblue; */
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}

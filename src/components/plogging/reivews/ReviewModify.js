@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router";
 import '../../../styles/plogging/review/ReviewModify.css';
+import TextEditor from "./TextEditor";
 
 
 export default function ReviewModify(){
@@ -21,11 +22,25 @@ export default function ReviewModify(){
     },[])
     
 
-    return(
+    return( 
         <div className="reviewModify_mainLayout">
             <div className="reviewModify_wrap">
                 <div className="reviewModify_top">
-                    <div className="reviewModify_title">{reviewModify.title}</div>
+                    <div className="reviewModify_title">제목{reviewModify.title}</div>
+                </div>
+                <div className="reviewModify_layout">
+                    <div className="reviewModify_content">
+                        <div className="reviewModify_content_in">
+                            <TextEditor/>
+                        </div>
+                    </div>
+                    <div className="reviewModify_img">
+                        <div className="reviewModify_img_in">
+                            <div className="uploadImgBtn">
+                                이미지
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">

@@ -19,6 +19,7 @@ import UserSignupIntro from '../../components/user/UserSignupIntro';
 import UserSignup from '../../components/user/UserSignup';
 import ReviewDetail from '../../components/plogging/reivews/ReviewDetail';
 import ReviewModify from '../../components/plogging/reivews/ReviewModify';
+import ReviewWrite from '../../components/plogging/reivews/ReviewWrite';
 
 
 
@@ -47,6 +48,7 @@ export default function Main() {
 
             <Route path="/reviewInfo/:id" element={<ReviewDetail/>}/>
             <Route path="/reviewInfoModify/:id" element={<ReviewModify/>}/>
+            <Route path='/reviewWrite/:id' element={<ReviewWrite/>}/>
           </Routes>
         </div>
         <Footer />  
