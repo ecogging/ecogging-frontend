@@ -1,5 +1,6 @@
 ﻿import { FiTrash2 } from 'react-icons/fi';
-import commentNotificationItem from './CommentNotificationItem';
+import {
+  getCommentNotificationItem, getMessageNotificationItem, getAccompanyNotificationItem} from './NotificationItemBuilder';
 import '../../styles/common/NotificationItem.css';
 /*
   {
@@ -11,6 +12,7 @@ import '../../styles/common/NotificationItem.css';
 */
 
 export default function NotificationItem({item}) {
+  if (item == null || !item) return;
   const {icon, typeName, content} = getNotiItem(item);
 
   return (
@@ -33,19 +35,12 @@ export default function NotificationItem({item}) {
   )
 }
 
-function convertNotificationTypeToMessageType(notifcationType) {
-  if (notifcationType === 'COMMENT' || notifcationType === 'REPLYCOMMENT')
-    return '댓글';
-  else if (notifcationType === 'MESSAGE')
-    return '쪽지';
-  else if (notifcationType === 'ACCOMPANY')
-    return '동행';
-  else 
-    return '알림';
-}
-
 function getNotiItem(item) {
   const type = item.type;
-  if (type === 'COMMENT')
-    return commentNotificationItem(item);
+  if (type === 'COMMENT' || type === 'REPLYCOMMENT')
+    return getCommentNotificationItem(item);
+  if (type === 'MESSAGE')
+    return getMessageNotificationItem(item);
+  if (type === 'ACCOMPANY')
+    return getAccompanyNotificationItem(item);
 }

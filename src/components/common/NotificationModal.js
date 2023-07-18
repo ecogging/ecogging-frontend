@@ -5,14 +5,17 @@ import NotificationItem from './NotificationItem';
 
 import '../../styles/common/NotificationModal.css';
 
+import { getCookie } from '../../utils/CookieUtil';
 import axios from 'axios';
 import MyButton from '../common/MyButton';
+
+import { isValidAxiosResponse, getMaxValueOfKeyInArrayObect } from '../../utils/CustomUtil';
 
 export default function NotificationModal({ isOpen, closeModal }) {
   const notificaionBaseEndPoint = 'http://localhost:8080/notifications';
   const modalRef = useRef(null);
 
-  const [notifcations, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -20,25 +23,38 @@ export default function NotificationModal({ isOpen, closeModal }) {
     }
   };
 
-  const notificationExample = {
-    "type": "COMMENT",
-    "senderNickname": "kim",
-    "createdAt": "1분 전",
-    "detail": "제목은 요렇게"
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('request noti')
+      fetchData();
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const fetchData = () => {
+    axios
+      .get(notificaionBaseEndPoint, {
+        headers: {
+          'Authorization': 'Bearer ' + getCookie('access-token'),
+          'Content-Type': 'application/json',
+          'Last-Received-Noti-Id': getMaxValueOfKeyInArrayObect(notifications, 'id')
+        },
+      })
+      .then(response => {
+        // Process the received data and save it in the state
+        if (!isValidAxiosResponse(response))
+          return;
+
+        setNotifications([...notifications, ...response.data]);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
-  const notifcationList = [
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample,
-    notificationExample
-  ]
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -67,8 +83,8 @@ export default function NotificationModal({ isOpen, closeModal }) {
             </div>
             <div className="notifcation-list">
               {
-                notifcationList.map(noti => 
-                  <NotificationItem item={noti} />
+                notifications.map(noti => 
+                  <NotificationItem item={noti} key={noti.id}/>
                 )
               }
             </div>
