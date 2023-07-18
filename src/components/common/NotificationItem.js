@@ -11,9 +11,11 @@ import '../../styles/common/NotificationItem.css';
   };
 */
 
-export default function NotificationItem({item}) {
+export default function NotificationItem({item, deleteHandler}) {
   if (item == null || !item) return;
-  const {icon, typeName, content} = getNotiItem(item);
+  const {icon, typeName, content} = 
+  getNotiItem(item) ||  { icon: "-", typeName: "-", content: "-" };
+
 
   return (
     <div className='notification-item'>
@@ -25,7 +27,7 @@ export default function NotificationItem({item}) {
         </span>
        
         <span className='header-right'>
-          {<FiTrash2 />}
+          {<FiTrash2 onClick={() => deleteHandler(item.id)}/>}
         </span>
       </div>
       <div className="item-body">

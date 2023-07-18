@@ -3,6 +3,7 @@ import { AiOutlineMail } from 'react-icons/ai';
 import { GoPeople } from 'react-icons/go';
 
 function getCommentNotificationItem(item) {
+
   const icon = <BiCommentDetail />;
   const typeName = '댓글';
   const content = 
@@ -19,16 +20,18 @@ function getCommentNotificationItem(item) {
 }
 
 function getMessageNotificationItem(item) {
+
   const icon = <AiOutlineMail />;
   const typeName = '쪽지';
   const content = 
   <p>
     <b>{item.senderNickname}</b> 님이 쪽지를 보냈습니다.
   </p>
-  return {icon, typeName, content};
+  return {icon, typeName, content} 
 }
 
 function getAccompanyNotificationItem(item) {
+
   const icon = <GoPeople />;
   const typeName = '동행';
   const content = 

@@ -17,22 +17,45 @@ export default function NotificationModal({ isOpen, closeModal }) {
 
   const [notifications, setNotifications] = useState([]);
 
+  const [selectedType, setSelectedType] = useState("ALL");
+
+  const handleNotificationTypeFilter = (type) => {
+    setSelectedType(type);
+  };
+
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       closeModal();
     }
   };
 
+  const handleNotificationDelete = (id) => {
+    // Update the state locally by removing the item
+    const updatedNotifications = notifications.filter(item => item.id !== id);
+    setNotifications(updatedNotifications);
+
+    // Make the API call to request deletion from the backend
+    axios.delete(`${notificaionBaseEndPoint}/${id}`)
+      .then(response => {
+        // do nothing after delete
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
+    fetchData();
+
     const interval = setInterval(() => {
-      console.log('request noti')
       fetchData();
     }, 5000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [notifications]);
 
   const fetchData = () => {
     axios
@@ -53,6 +76,10 @@ export default function NotificationModal({ isOpen, closeModal }) {
       .catch(error => {
         console.error(error);
       });
+
+      console.log('----')
+      console.log(notifications)
+      console.log(getMaxValueOfKeyInArrayObect(notifications, 'id'))
   };
 
 
@@ -67,6 +94,17 @@ export default function NotificationModal({ isOpen, closeModal }) {
   // modal on/off
   if (!isOpen) return null;
 
+  const filteredNotifications = 
+  selectedType === "ALL" 
+  ? notifications 
+  : notifications.filter(item => {
+    if (item.type === 'REPLYCOMMENT') {
+      return 'COMMENT' === selectedType;
+    }
+    return item.type === selectedType;
+  }
+  );
+
   return (
     <div className='notification-modal' ref={modalRef}>
         <div className="modal-header">
@@ -76,15 +114,23 @@ export default function NotificationModal({ isOpen, closeModal }) {
         <div className="modal-body">
 
             <div className="notification-type-select">
-              <MyButton text={'전체'} type={'mintXSmall'}></MyButton>
-              <MyButton text={'동행'} type={'whiteGrayXSmall'}></MyButton>
-              <MyButton text={'댓글'} type={'whiteGrayXSmall'}></MyButton>
-              <MyButton text={'쪽지'} type={'whiteGrayXSmall'}></MyButton>
+              <MyButton text={'전체'} type={'mintXSmall'}
+                onClick={() => handleNotificationTypeFilter('ALL')}>
+              </MyButton>
+              <MyButton text={'동행'} type={'whiteGrayXSmall'}
+                onClick={() => handleNotificationTypeFilter('ACCOMPANY')}>
+              </MyButton>
+              <MyButton text={'댓글'} type={'whiteGrayXSmall'}
+                onClick={() => handleNotificationTypeFilter('COMMENT')}>
+              </MyButton>
+              <MyButton text={'쪽지'} type={'whiteGrayXSmall'}
+                onClick={() => handleNotificationTypeFilter('MESSAGE')}>
+              </MyButton>
             </div>
             <div className="notifcation-list">
               {
-                notifications.map(noti => 
-                  <NotificationItem item={noti} key={noti.id}/>
+                filteredNotifications.map(noti => 
+                  <NotificationItem item={noti} key={noti.id} deleteHandler={handleNotificationDelete}/>
                 )
               }
             </div>
