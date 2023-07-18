@@ -1,5 +1,6 @@
 import '../../../styles/plogging/accompany/AccompanyWrite.css';
 import MyButton from '../../common/MyButton';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import {useState} from 'react';
 import axios from 'axios';
 import { DatePicker, TimePicker } from 'antd';
@@ -20,8 +21,8 @@ const AccompanyWrite = () => {
 
     let todaystr = year+"-"+month+"-"+day;
     let curtime = hours+"::"+minutes+"::"+seconds;
-
-    const [accompany, setAccompany] = useState({title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:todaystr, meetingTime:hours+':'+minutes+':'+seconds});
+    const userId = getCookie("userId");
+    const [accompany, setAccompany] = useState({title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:todaystr, meetingTime:hours+':'+minutes+':'+seconds, userId:userId});
 
     const searchAddress = (e) => {
         new daum.Postcode({

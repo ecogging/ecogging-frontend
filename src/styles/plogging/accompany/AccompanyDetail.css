@@ -29,7 +29,18 @@
 }
 
 .article-title {
-    width: 94.5%;
+    width: 64.5%;
+    padding: 6px;
+    font-size: 15.5px;
+    border: none;
+    border-bottom: 1px solid #6DA997;
+    margin-bottom: 15px;
+    margin-right: 20px;
+    outline: none;
+}
+
+.article-writer {
+    width: 27.25%;
     padding: 6px;
     border: none;
     border-bottom: 1px solid #6DA997;
