@@ -1,5 +1,6 @@
 import '../../../styles/plogging/accompany/AccompanyWrite.css';
 import MyButton from '../../common/MyButton';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import {useState, useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -10,9 +11,8 @@ const { daum } = window;
 
 const AccompanyModify = () => {
     const {id} = useParams();
-
-    const [userId, setUserId] = useState(1);
     const [accompany, setAccompany] = useState({userId:0, title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:'', meetingTime:''});
+    const userId = getCookie("userId");
 
     useEffect(()=> {
         axios.post(`http://localhost:8080/accompaniesdetail`,{userId:userId, accompanyId:id})
