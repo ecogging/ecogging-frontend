@@ -12,7 +12,7 @@ const useCustomModal = () => {
     setModalOpen(false);
   };
 
-  return { isModalOpen, openModal, closeModal };
+  return [isModalOpen, openModal, closeModal];
 };
 
 export default useCustomModal;

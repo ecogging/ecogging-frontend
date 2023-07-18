@@ -164,7 +164,7 @@ header {
   font-size:1.75rem;
   width:50px;
 }
-.alaramCount {
+#alramCount {
   width:18px;
   height:12px;
   display:flex;
