@@ -11,9 +11,10 @@ import { useRef } from 'react';
 
 
 const EventWrite = () => {
-    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:1, save:false,views:0})
+    const [userId, setUserId] = useState(1);
+    //const userid = useSelector(state=>state.UserId);
+    const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:userId, save:false,management:'',views:0})
     const [file, setFile] = useState();
-    const userid = useSelector(state=>state.UserId);
     const token = useSelector(state=>state.Authorization);
     const [cookie, setCookie] = useCookies('[refreshToken]');
     const dispatch = useDispatch();
@@ -22,10 +23,6 @@ const EventWrite = () => {
         const { name, value } = e.target;
         setEvent((prevEvent) => ({ ...prevEvent, [name]: value }));
       };
-    
-    // const handleContentChange = (content) => {
-    // setEvent((prevEvent) => ({ ...prevEvent, content: content }));
-    // };  
 
     const submit = (e) => {
         if (e) {
@@ -40,13 +37,13 @@ const EventWrite = () => {
         formData.append('endDate', event.endDate);
         formData.append('corpName', event.corpName);
         formData.append('explanation', event.explanation);
-        formData.append('userId', event.userId);
+        formData.append('userId', userId);
         formData.append('save', event.save);
         formData.append('file', file);
         formData.append('views', event.views);
         formData.append('management', event.management);
 
-        axios.post('http://localhost:8080/eventWrite', formData,
+        axios.post('http://localhost:8080/eventWrite', formData
             // {headers: {Authorization:token},}
             )
         .then(res=> {
@@ -145,7 +142,6 @@ const EventWrite = () => {
     // 파일 저장
     const saveFileImage = (e) => {
         setFileImage(URL.createObjectURL(e.target.files[0]));
-        //setEvent((prevEvent) => ({ ...prevEvent, fileId: e.target.files[0].name }));
         setFile(e.target.files[0]);
     };
 
@@ -155,7 +151,6 @@ const EventWrite = () => {
         fileInput.current.value = "";
         setFileImage(null); // fileImage 초기화
         setFile(null); // input file 초기화
-        //setEvent((prevEvent) => ({ ...prevEvent, fileId: "" })); // fileId 초기화
     };
 
 const fileInput=useRef();
@@ -181,9 +176,9 @@ const fileInput=useRef();
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
-                            <td><Label for="corpName">주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;관</Label></td>
-                            <td><Input style={{width:'700px', height:'25px'}} type="text" id="corpName" name="corpName" onChange={change}
-                                 required="required" value={event.corpName} placeholder="주관명을 입력해 주세요(16자 이하)" maxLength='16'/></td>
+                            <td><Label for="management">주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;관</Label></td>
+                            <td><Input style={{width:'700px', height:'25px'}} type="text" id="management" name="management" onChange={change}
+                                 required="required" value={event.management} placeholder="주관명을 입력해 주세요(16자 이하)" maxLength='16'/></td>
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
@@ -258,6 +253,7 @@ const fileInput=useRef();
                         </tr>
                         <tr style={{height:'15px'}}>
                         <input type='hidden' name='save' id='save' value={event.save}/>
+                        <input type='hidden' name='userId' id='userId' value={event.userId}/>
                         </tr>
                     </tbody>
              </Table>
