@@ -37,14 +37,22 @@ export default function Header () {
     const userNickname = getCookie("nickname");
 
     // 모달 - 로그인
-    const loginModalHook = useCustomModal();
+    const [isLoginModalOpen, openLoginModal, closeLoginModal] = useCustomModal();
     const userLogout = () => {
       removeTokenAndUserFromCookie();
       navigate('/');
       alert('로그아웃 되었습니다.');
     }
     // 모달 - 알림
-    const notiModalHook = useCustomModal();
+    const [isNotiModalOpen, openNotiModal, closeNotiModal] = useCustomModal();
+    
+    const toggleNotiModal = () => {
+      if (isNotiModalOpen) {
+        closeNotiModal();
+      } else {
+        openNotiModal();
+      }
+    }
 
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
@@ -58,6 +66,7 @@ export default function Header () {
     const toggleNav = (e) => {
         setShowNav(!showNav);
     };
+    
 
     // click 효과
     const [inMenu, setInMenu] = useState('');
@@ -101,11 +110,13 @@ export default function Header () {
                 </nav>
                 <ul className='userNav' onClick={clickMenu}>
                     {/* 알림 */}
-                    <li className='userNavBox headerNotify' onClick={notiModalHook.openModal}><FaRegBell/><div className='alaramCount'>12</div></li>
+                    <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
+                      <div id='alramCount' className='headerNotify'>12</div>
+                    </li>
                     <li className='userNavBox' id='headerNickname'><Link to={'/mypage'}><span className='nickName'>{userNickname}</span></Link> 님</li>
                     <li className='userNavBox'><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
-                <NotificationModal isOpen={notiModalHook.isModalOpen} closeModal={notiModalHook.closeModal} />
+                <NotificationModal isOpen={isNotiModalOpen} closeModal={closeNotiModal} />
                 <div className='toggle' onClick={toggleNav} >
                     <GiHamburgerMenu />
                 </div>
@@ -143,10 +154,10 @@ export default function Header () {
             </nav>
             <ul className='loginNav' onClick={clickMenu}>
               <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
-              <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={loginModalHook.openModal}></MyButton></li>
+              <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={openLoginModal}></MyButton></li>
             </ul>
 
-            <UserLoginModal isOpen={loginModalHook.isModalOpen} closeModal={loginModalHook.closeModal} />
+            <UserLoginModal isOpen={isLoginModalOpen} closeModal={closeLoginModal} />
 
             <div className='toggle' onClick={toggleNav}>
                 <GiHamburgerMenu />

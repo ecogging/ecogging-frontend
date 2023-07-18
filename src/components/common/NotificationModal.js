@@ -25,6 +25,11 @@ export default function NotificationModal({ isOpen, closeModal }) {
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
+      const targetClassName = event.target.className;
+      const {baseVal} = targetClassName;
+      if (baseVal === 'headerNotify' || targetClassName === 'headerNotify')
+        return;
+      
       closeModal();
     }
   };
@@ -76,10 +81,6 @@ export default function NotificationModal({ isOpen, closeModal }) {
       .catch(error => {
         console.error(error);
       });
-
-      console.log('----')
-      console.log(notifications)
-      console.log(getMaxValueOfKeyInArrayObect(notifications, 'id'))
   };
 
 
@@ -95,16 +96,35 @@ export default function NotificationModal({ isOpen, closeModal }) {
   if (!isOpen) return null;
 
   const filteredNotifications = 
-  selectedType === "ALL" 
-  ? notifications 
-  : notifications.filter(item => {
-    if (item.type === 'REPLYCOMMENT') {
-      return 'COMMENT' === selectedType;
-    }
-    return item.type === selectedType;
-  }
-  );
+    selectedType === "ALL" 
+      ? notifications 
+      : notifications.filter(item => {
+          if (item.type === 'REPLYCOMMENT') {
+            return 'COMMENT' === selectedType;
+          }
+          return item.type === selectedType;
+      });
 
+  let buttonTextObject = [
+    {
+      type: 'ALL',
+      name: '전체'
+    },
+    {
+      type: 'ACCOMPANY',
+      name: '동행'
+    },
+    {
+      type: 'COMMENT',
+      name: '댓글'
+    },
+    {
+      type: 'MESSAGE',
+      name: '쪽지'
+    }
+  ];
+  
+  
   return (
     <div className='notification-modal' ref={modalRef}>
         <div className="modal-header">
@@ -114,18 +134,18 @@ export default function NotificationModal({ isOpen, closeModal }) {
         <div className="modal-body">
 
             <div className="notification-type-select">
-              <MyButton text={'전체'} type={'mintXSmall'}
-                onClick={() => handleNotificationTypeFilter('ALL')}>
-              </MyButton>
-              <MyButton text={'동행'} type={'whiteGrayXSmall'}
-                onClick={() => handleNotificationTypeFilter('ACCOMPANY')}>
-              </MyButton>
-              <MyButton text={'댓글'} type={'whiteGrayXSmall'}
-                onClick={() => handleNotificationTypeFilter('COMMENT')}>
-              </MyButton>
-              <MyButton text={'쪽지'} type={'whiteGrayXSmall'}
-                onClick={() => handleNotificationTypeFilter('MESSAGE')}>
-              </MyButton>
+              {
+                buttonTextObject.map((bt) => 
+                  <MyButton 
+                    key={bt.type} 
+                    text={bt.name} 
+                    type={selectedType === bt.type ? 'mintXSmall' : 'whiteGrayXSmall'}
+                    onClick={() => {
+                      handleNotificationTypeFilter(bt.type)
+                    }}
+                  />
+                )
+              }
             </div>
             <div className="notifcation-list">
               {
