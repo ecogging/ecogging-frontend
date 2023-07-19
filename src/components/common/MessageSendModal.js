@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaRegPaperPlane } from "react-icons/fa";
 import MyButton from "../common/MyButton";
 import axios from "axios";
+import { getCookie } from "../../utils/CookieUtil";
+import { useEffect } from "react";
 
 
 export const ModalView = styled.div`
@@ -87,11 +89,23 @@ export const ModalView = styled.div`
 
 
 
-export default function MessageSendModal({ onCloseModal, receiverNick }) {
+export default function MessageSendModal({ onCloseModal, receiverNick, receiverId }) {
     
+    const curEmail = getCookie("userId"); // 현재 로그인한 유저 id 프론트단에 저장
+    const [content, setContent] = useState(''); // 쪽지 내용 상태 저장
     const [msg, setMsg] = useState("");
+
+    const getContent = () => {
+        setContent(document.getElementById("sendContents").value); // 쪽지 내용 프론트단에 저장
+    }
+
     const sendMessage = () => {
-        axios.post("/messages", {content:msg})
+        const params = new URLSearchParams();
+        params.append('myId', curEmail);
+        params.append('content', content);
+        params.append('contactId', receiverId);  // 프론트단에 저장한 데이터 묶어서 
+
+        axios.post("/messagerooms", params) // 서버 컨트롤러로 전송
         .then((response) => {
             console.log('쪽지보내기 오나료 ^ ^ /');
             onCloseModal();
@@ -113,9 +127,11 @@ export default function MessageSendModal({ onCloseModal, receiverNick }) {
                 </div>
             </div>
 
+            <div>내 아이디: {curEmail}</div>
+
             <div className="sendMiddle">
                 <div className="receiverNick">받는 사람: {receiverNick}</div>
-                <textarea name="sendContents" className="sendContents" placeholder="쪽지 내용을 입력하세요..." autoFocus/>
+                <textarea name="sendContents" id="sendContents" className="sendContents" placeholder="쪽지 내용을 입력하세요..." onChange={getContent}/>
             </div>
 
             <div className="sendBottom">
