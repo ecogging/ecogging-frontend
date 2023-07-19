@@ -137,7 +137,8 @@ const UserSignup = () => {
     setEmailAuthConfirmRequested(true);
     const authNumber = emailAuthNumber;
     axios.post('http://localhost:8080/auth/email-auth-confirm', {
-          authNumber
+      email,
+      authNumber
     }).then(response => {
       const isConfirmed = response.data;
       if (isConfirmed) {
