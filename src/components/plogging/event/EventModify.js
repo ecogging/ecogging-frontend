@@ -41,7 +41,7 @@ const EventModify = () => {
         setEvent((prevEvent) => ({ ...prevEvent, [name]: value }));
       }
 
-      const eventModify = () => {
+      const eventModify = (psave) => {
         // if (e) {
         //     e.preventDefault();
         //   }
@@ -55,7 +55,7 @@ const EventModify = () => {
         formData.append('corpName', event.corpName);
         formData.append('explanation', event.explanation);
         formData.append('userId', userId);
-        formData.append('save', event.save);
+        formData.append('save', psave);
         formData.append('fileId', event.fileId);
         formData.append('file', file);
         formData.append('views', event.views);
@@ -94,7 +94,7 @@ const EventModify = () => {
     const handleTempSave = (e) => {
         e.preventDefault();
         setEvent((prevEvent) => ({ ...prevEvent, save: true }));
-        eventModify();
+        eventModify(true);
     };
     
     const handleRegister = (e) => {
@@ -144,7 +144,7 @@ const EventModify = () => {
             return;
         }
         setEvent((prevEvent) => ({ ...prevEvent, save: false }));
-        eventModify();
+        eventModify(false);
     };
 
     const modules = {
@@ -178,8 +178,10 @@ const EventModify = () => {
                   <tr style={{height:'10px'}}></tr>
                       <tr>
                           <td style={{width:'100px'}}><Label for="title">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</Label></td>
-                          <td><Input style={{width:'700px', height:'25px'}} name="title" type="text" onChange={change} id="title" required="required"
-                               value={event.title} placeholder="제목을 입력해 주세요(27자 이하)" maxLength='27'/></td>
+                          <td>
+                            <Input style={{width:'700px', height:'25px'}} name="title" type="text" onChange={change} id="title" required="required"
+                               value={event.title} placeholder="제목을 입력해 주세요(27자 이하)" maxLength='27'/>
+                          </td>
                       </tr>
                       <tr style={{height:'15px'}}></tr>
                       <tr>
@@ -254,8 +256,8 @@ const EventModify = () => {
                           <div>
                               {fileImage && (<img alt="" src={fileImage} style={{ margin: "auto", width:'290px',height:'210px'}}/>)}
                               <div style={{alignItems: "center", justifyContent: "center"}}>
-                              <input name="file" type="file" accept="image/*" ref={fileInput} onChange={saveFileImage} style={{cursor: "pointer"}} />
-                              <button style={{cursor: "pointer"}} onClick={() => deleteFileImage()}>삭제</button>
+                                <input name="file" type="file" accept="image/*" ref={fileInput} onChange={saveFileImage} style={{cursor: "pointer"}} />
+                                <button style={{cursor: "pointer"}} onClick={() => deleteFileImage()}>삭제</button>
                               </div>
                           </div>       
                           </td>
