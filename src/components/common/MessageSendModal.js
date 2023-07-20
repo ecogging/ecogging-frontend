@@ -5,6 +5,7 @@ import MyButton from "../common/MyButton";
 import axios from "axios";
 import { getCookie } from "../../utils/CookieUtil";
 import { useEffect } from "react";
+import API from "../../utils/BaseApi";
 
 
 export const ModalView = styled.div`
@@ -91,7 +92,7 @@ export const ModalView = styled.div`
 
 export default function MessageSendModal({ onCloseModal, receiverNick, receiverId }) {
     
-    const curEmail = getCookie("userId"); // 현재 로그인한 유저 id 프론트단에 저장
+    const curEmail = parseFloat(getCookie("userId")); // 현재 로그인한 유저 id 프론트단에 저장
     const [content, setContent] = useState(''); // 쪽지 내용 상태 저장
     const [msg, setMsg] = useState("");
 
@@ -100,17 +101,28 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
     }
 
     const sendMessage = () => {
-        const params = new URLSearchParams();
-        params.append('myId', curEmail);
-        params.append('content', content);
-        params.append('contactId', receiverId);  // 프론트단에 저장한 데이터 묶어서 
 
-        axios.post("/messagerooms", params) // 서버 컨트롤러로 전송
-        .then((response) => {
-            console.log('쪽지보내기 오나료 ^ ^ /');
-            onCloseModal();
-        })
-        .catch((error) => {
+        console.log('################SENDMESSAGE()###################')
+        console.log('내 아이디+'+curEmail);
+        let temp2 =  parseFloat(curEmail);
+        console.log(typeof temp2);
+        console.log('쪽지 내용+'+content);
+        console.log(typeof content);
+        console.log('상대 아이디+'+receiverId);
+        console.log(typeof receiverId);
+
+        const params = {
+            curId:curEmail,
+            content:content,
+            contactId:receiverId,
+        };
+
+        axios.post('http://localhost:8080/messagerooms', params) // 서버 컨트롤러로 전송
+            .then((response) => {
+                console.log(response.data);
+                console.log('쪽지 보내기 완료 ^-^');
+            })
+            .catch((error) => {
             console.log('쪽지 안갔음 T-T', error);
         });
     }
