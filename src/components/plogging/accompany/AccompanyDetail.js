@@ -103,6 +103,34 @@ const AccompanyDetail = () => {
                             <Link to="/accompanies"><MyButton text={'목록'}></MyButton></Link>
                             </td>
                         </tr>
+                        <tr>
+                            <td className="comment-write">
+                                <textarea className="comment-type-in" name="type-in" id="type-in" placeholder="댓글을 입력해 주세요"/>
+                                <button className="comment-complete">작성</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="comment-from">
+                                <div className="comment-from-container">
+                                    <div className="writer-picture"></div>
+                                    <div className="comment-from-info">
+                                        <div className="comment-writer">닉네임</div>
+                                        <div className="comment-date">2023-07-19</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="accompany-comment">
+                                <textarea className="comment-content" name="comm-content" id="comm-content" value="댓글댓글"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="comment-buttons">
+                                <button className="comment-reply">답글</button>
+                                <button className="comment-delete">삭제</button>
+                            </td>
+                        </tr>        
                     </tbody>
                 </table>
             </div>
