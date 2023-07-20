@@ -1,0 +1,266 @@
+
+.MyPageForumScrap {
+  width:100%;
+  height:100%;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+/* 검색 + 분류탭 */
+.container_myForumScrapHeader {
+  width:100%;
+  height:50px;
+  
+  display: flex;
+}
+
+/* 검색창 */
+.container_myForumScrapSearch {
+  width:25%;
+  height:85%;
+  
+  display: flex;
+  align-items: center;
+}
+.box_myScrapSearch {
+  width:95%;
+  height:100%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(230, 230, 230);
+}
+.dropbox_myScrapSearch{
+  width:50px;
+  height:100%;
+}
+.droplist_nowSearch {
+  width:50px;
+  height:100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(230, 230, 230);
+  color:rgb(75, 75, 75);
+}
+.droplist_myScrapSearch {
+  position: absolute;
+  width:50px;
+  height:95px;
+  background-color: rgb(230, 230, 230);
+  display: none;
+}
+.droplist_myScrapSearch_clicked {
+  position: absolute;
+  width:50px;
+  height:95px;
+  background-color: rgb(230, 230, 230);
+  display: block;
+}
+.drops_myScrapSearch {
+  width: 100%;
+  height:25px;
+  padding:2.5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:rgb(150, 150, 150);
+}
+.drops_myScrapSearch:hover {
+  cursor: pointer;
+  color:rgb(57, 57, 57);
+}
+.input_myForumScrapSearch {
+  border: none;
+  width:75%;
+  height:60%;
+  background-color: rgb(230, 230, 230);
+}
+.input_myForumScrapSearch:focus {
+  outline: none;
+}
+.btn_myForumScrapSearch {
+  width:60px;
+  height:100%;
+  border:none;
+  font-size:0.9rem;
+  background-color: rgb(230, 230, 230);
+}
+.btn_myForumScrapSearch:hover {
+  cursor: pointer;
+}
+
+
+
+
+/* 글 불러오는 영역 */
+.container_myforumScrapArea {
+  width:100%;
+  height:100%;
+
+  display: flex;
+  flex-direction: column;
+
+  margin:5px auto;
+  gap:5px;
+}
+
+
+/* 카드 */
+
+.container_mypageScrapWriting {
+  width:100%;
+  height:150px;
+
+  display: flex;
+  align-items: center;
+  border:1px solid rgb(204, 204, 204);
+  border-radius:10px;
+}
+
+/* 왼쪽 사진 */
+.container_myScrapLeft {
+  width:160px;
+  height:100%;
+  background-color: gray;
+  border-radius: 10px 0 0 10px;
+  object-fit: contain;
+}
+
+
+/* 오른쪽 */
+.container_myScrapRight {
+  width:100%;
+  height:100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container_myScrapWhole {
+  width:95%;
+  height:80%;
+}
+
+
+/* 진행상태 + 조회수 */
+.container_myScrapTop {
+  width:100%;
+  height:40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* 진행상태 */
+.container_myScrapState_ongoing {
+  width:130px;
+  height:75%;
+
+  border-radius:5px;
+  background-color: #9BE4CE;
+  color:white;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size:1.125rem;
+}
+.container_myScrapState_finish {
+  width:130px;
+  height:75%;
+
+  border-radius:5px;
+  background-color: #838383;
+  color:white;
+  
+  display: flex;
+  justify-content: center;
+
+  font-size:1.125rem;
+}
+/* 조회수 */
+.container_myScrapViews {
+  width:100px;
+  height:75%;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size:1.1rem;
+}
+
+/* 스크랩 토글 */
+.container_myScrapToggle {
+  width:60px;
+  height:60px;
+}
+.icon_myScrapToggle_scrap {
+  width:80px;
+  height:80px;
+  margin-top:-15px;
+  color:#9BE4CE;
+}
+.icon_myScrapToggle_unScrap {
+  width:80px;
+  height:80px;
+  margin-top:-15px;
+  color:#c2c2c2;
+}
+#icon_myRouteScrapToggle {
+  margin-top:-20px;
+}
+
+.icon_myScrapToggle_scrap:hover {
+  cursor: pointer;
+}
+.icon_myScrapToggle_unScrap:hover {
+  cursor: pointer;
+}
+
+/* 글제목 */
+.container_myScrapTitle {
+  width:100%;
+  height:40px;
+
+  font-size:1.6rem;
+  font-weight:bold;
+
+  display: flex;
+  align-items: center;
+}
+
+/* 하단 본문 + 수정삭제버튼 */
+.container_myScrapBottom {
+  width:100%;
+  height:37.5%;
+
+  display: flex;
+  align-items: center;
+  font-size:1.3rem;
+}
+
+/* 본문 */
+.container_myScrapContent {
+  width:100%;
+  height:100%;
+
+  display: flex;
+  align-items: center;
+}
+
+/* 하단 페이지네이션 */
+.container_myBottom {
+  width:100%;
+  height:100%;
+  margin-top: 2.5%;
+  display: flex;
+  justify-content: center;
+}
+.box_contensPlus {
+  font-size:1.325rem;
+  cursor:pointer;
+}

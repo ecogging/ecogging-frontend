@@ -1,0 +1,125 @@
+﻿/* 모달창을 화면 중앙. 최상단에 노출 */
+.UserLoginModal .modal-container {
+  /* 모달창 크기 */
+  width: 400px;
+  height: 450px;
+
+  /* 최상단 위치 */
+  z-index: 999;
+  
+  /* 중앙 배치 */
+  /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
+  /* translate는 본인의 크기 기준으로 작동한다. */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* 모달창 디자인 */
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+}
+
+/* 모달창 내부 X버튼 */
+.UserLoginModal .modal-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.UserLoginModal .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 55%;
+  width: 70%;
+  max-width: 300px;
+}
+
+.UserLoginModal .button-group {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UserLoginModal .modal-close {
+  border: none;
+  background-color: white;
+}
+.UserLoginModal .modal-image {
+  margin-bottom: 20px;
+  height: 45px;
+  width: 160px;
+}
+
+.UserLoginModal .login-input-group {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.UserLoginModal input {
+  padding-left: 10px;
+
+  width: 100%;
+  height: 45px;
+
+  border-color: #E9E9E9;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray;
+  opacity: 1; /* Firefox */
+}
+.UserLoginModal .input-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.UserLoginModal .login-button {
+  width: 100%;
+}
+
+
+.UserLoginModal .button-group {
+  width: 100%;
+}
+.UserLoginModal .button-group button {
+  margin-bottom: 5px;
+  width: 100%;
+  height: 45px;
+}
+
+.UserLoginModal .link-group {
+  margin-bottom: 20px;
+  font-size: small;
+  color: gray;
+}
+
+.UserLoginModal .kakao-login-image {
+  width: 280px;
+}
+
+.UserLoginModal .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+.link-in-modal {
+  color: inherit;
+  text-decoration: none;
+}

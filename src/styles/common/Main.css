@@ -1,0 +1,28 @@
+
+/* 기본 폰트 설정: 프리텐다드 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+
+* {
+    font: size 1rem;
+    font-family: 'Pretendard-Regular';
+}
+
+
+/* 레이아웃 설정 */
+ul {
+    margin:0px; padding:0px;
+}
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}

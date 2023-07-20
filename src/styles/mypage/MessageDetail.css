@@ -1,0 +1,153 @@
+
+.MessageDetail {
+    margin: 120px auto 5% auto;
+    max-width:100%;
+    height:100%;
+    background-color: #F3F3F3;
+}
+.container_messageWrapper {
+    width:88%;
+    height:100%;
+    margin:0 auto;
+
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+
+.container_msgSubWrapper {
+    width: 100%;
+    height: 100%;
+    margin:0 auto 2% auto;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/* 버튼헤더 */
+.container_messageDetailHeader {
+    width: 100%;
+    height:60px;
+    display: flex;
+    align-items: center;
+    margin: 2% auto 1% auto;
+}
+
+
+/* 닉네임+쪽지함 */
+.container_messageBody {
+    width:100%;
+    height:100%;
+}
+
+/* 쪽지헤더 */
+.container_msgBodyHeader {
+    width:96%;
+    height:150px;
+    margin:20px auto;
+    
+    display: flex;
+}
+/* 프사, 닉네임 */
+.container_msgBodyHeaderLeft {
+    width:350px;
+    height:100%;
+
+    display: flex;
+    align-items: center;
+    margin-right:1%;
+}
+.circle_msgSenderPic {
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    background-color: gray;
+    margin-right: 5%;
+}
+.txt_msgSenderNick {
+    width:220px;
+    height:100px;
+    font-size:2.5rem;
+
+    display: flex;
+    align-items: center;
+}
+
+/* 답장, 삭제버튼 */
+.container_msgBodyHeaderRight {
+    width:30%;
+    height:100%;
+    margin-left:auto;
+}
+
+.container_msgBodyHeaderBtns {
+    width:100%;
+    height:50%;
+
+    gap:10px;
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left:auto;
+}
+
+
+/* 쪽지 업데이트 영역 */
+.container_messageArea {
+    width:100%;
+    height:100%;
+    margin: 25px auto;
+}
+
+
+/* 쪽지 본체 */
+.container_msgOne {
+    width:100%;
+    height:100%;
+}
+.container_msgOneInner {
+    width: 96%;
+    height: 95%;
+    padding:5px 0 10px 0;
+    margin:30px auto;
+    border-bottom: 2px solid rgba(168, 168, 168, 0.607);
+}
+
+
+.box_msgOneTop {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.txt_msgState_receive {
+    width:150px;
+    height:100%;
+    color:#6DC1A8;
+    font-size:1.75rem;
+    font-weight:bold;
+}
+.txt_msgState_send {
+    width:150px;
+    height:100%;
+    color:#D8A522;
+    font-size:1.75rem;
+    font-weight:bold; 
+}
+.txt_msgWriteDate {
+    width:200px;
+    font-size:1.35rem;
+    display: flex;
+    justify-content: flex-end;
+    color:#838383;
+}
+
+
+.box_msgContentsBody {
+    width:100%;
+    height:100%;
+    font-size:1.7rem;
+    padding:10px 0 20px 0;
+    color:rgb(42, 42, 42);
+}

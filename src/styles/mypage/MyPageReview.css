@@ -1,0 +1,197 @@
+
+.container_mypageReview {
+    width:100%;
+    height:100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* 헤더 */
+.container_mypageRevHeader {
+    width:100%;
+    height:100%;
+    border-bottom:1px solid rgb(75, 75, 75);
+    display: flex;
+    align-items: flex-end;
+}
+
+.container_mypageRevTitleArea {
+    width:100%;
+    height:45px;
+    display: flex;
+}
+.box_mypageRevTitle {
+    margin-left:1%;
+    display: flex;
+    color:#9BE4CE;
+    align-items: center;
+}
+
+.box_mypageRevTitle {
+    width:150px;
+    height:100%;
+    font-size:1.9rem;
+    font-weight:bold;
+    align-items: flex-start;
+}
+
+/* 최신순 오래된순 */
+.container_mypageRevLine {
+    width:180px;
+    height:25px;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 1%;
+    margin-bottom:5px;
+    gap:10px;
+}
+.box_mypageRevLatest {
+    width: 60px;
+    height: 85%;
+    display: flex;
+    align-items: flex-end;
+}
+.box_mypageRevLatest:hover {
+    cursor:pointer;
+}
+.box_mypageRevOldest {
+    width: 75px;
+    height:85%;
+    display: flex;
+    align-items: flex-end;
+}
+.box_mypageRevOldest:hover {
+    cursor:pointer;
+}
+.box_revDropdown {
+    display: flex;
+    align-items: flex-end;
+    margin-left: 2%;
+}
+
+
+/* 플로깅 후기 게시글 */
+.container_wholeMyReviews {
+    width:100%;
+    height:100%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin:5px auto;
+    gap:5px;
+}
+.container_wholeMyReview {
+    width:100%;
+    height:130px;
+    margin-top:10px;
+
+    display: flex;
+    align-items: center;
+    border-bottom:1px solid rgb(204, 204, 204);
+}
+.container_myReview {
+    width:97%;
+    height:85%;
+
+    display: flex;
+    flex-direction: column;
+    margin:0 auto;
+}
+
+/* -- 후기 날짜, 조회수 */
+.container_revDateandViews {
+    width:100%;
+    height:30px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.txt_revDate {
+    width:200px;
+    font-size: 0.9rem;
+    color:rgb(65, 65, 65);
+}
+
+.txt_revViews {
+    width:150px;
+    height:100%;
+  
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    font-size:1.125rem;
+}
+
+
+/* -- 후기 제목, 본문 */
+.container_mypageRevContents {
+    width: 100%;
+    height:90%;
+    
+    display: flex;
+}
+.container_mypageBody {
+    width:100%;
+    height:65px;
+    display: flex;
+    justify-content: space-between;
+}
+.box_revTitle {
+    width:100%;
+    height:100%;
+    font-size:1.6rem;
+    font-weight:bold;
+
+    display: flex;
+    align-items: center;
+}
+
+.box_detailBtns {
+    width:165px;
+    height:100%;
+    
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap:10px;
+}
+.box_revBtn {
+    width:40px;
+    height:25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    font-size:1.2rem;
+    color:#838383;
+}
+.box_revBtn:hover{
+    cursor: pointer;
+}
+
+
+.box_revContents {
+    width:100%;
+    height:100%;
+    font-size:1.125rem;
+    color:rgb(71, 71, 71);
+
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* 하단 페이지네이션 */
+.container_mypageRevBottom {
+    width:100%;
+    height:100%;
+    margin-top: 2.5%;
+    display: flex;
+    justify-content: center;
+}

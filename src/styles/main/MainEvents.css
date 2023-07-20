@@ -1,0 +1,141 @@
+
+.container_mainEvents {
+  width:100%;
+  height:100%;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container_mainEvents_part {
+  width:90%;
+  height:100%;  
+
+  margin:0 auto;
+}
+
+
+/* 카드박스 */
+
+.container_EventsCards {
+  width:100%;
+  height:80%;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+  gap:1.5%;
+}
+
+
+/* 카드 */
+.box_EventsCards {
+  width:400px;
+  height:650px;
+  position: relative;
+  margin: 5% 0;
+}
+
+/* 카드커버 */
+.cover_EventsCard {
+  width:100%;
+  height:100%;
+  position: absolute;
+  background-color: rgba(43, 43, 43, 0.589);
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  z-index:10;
+
+  transition-property: transform;
+  transition-delay: 0.1s;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}
+
+
+
+/* 커버 텍스트 */
+.container_EventsCardCoverText {
+  width:95%;
+  height:40%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.box_EventsCard_title {
+  width:100%;
+  height:20%;
+
+  display: flex;
+  align-items: flex-end;
+
+  font-size:2rem;
+  font-weight:bold;
+}
+.box_EventsCard_date {
+  width:100%;
+  height:22%;
+  font-size:1.4rem;
+
+  display: flex;
+  align-items: center;
+}
+.icon_eventsDate {
+  margin-right: 2%;
+  font-size:1.4rem;
+}
+.box_EventsCard_writer {
+  width:100%;
+  height:10%;
+  font-size:1.2rem;
+
+  display: flex;
+  align-items: center;
+}
+
+
+/* 카드포스터 */
+.card_EventsWhole{
+  width:100%;
+  height:100%;
+
+  transition-property: transform;
+  transition-delay: 0.1s;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}
+.img_poster_source{
+  width:100%;
+  height:100%;
+  object-fit: fill;
+}
+
+
+/* hover */
+.cover_EventsCard:hover {
+  transform: scaleX(0.5) translateX(-50%);
+  transition-property: transform;
+  transition-delay: 0.1s;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+  z-index: 12;
+}
+.cover_EventsCard:hover + .card_EventsWhole {
+  position: absolute;
+  transform: translateX(15%) scaleX(1.25);
+  height:650px;
+  transition-property: transform;
+  transition-delay: 0.1s;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+  z-index: 11;
+} 
+
+

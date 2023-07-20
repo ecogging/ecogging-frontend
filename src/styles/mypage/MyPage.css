@@ -1,0 +1,124 @@
+
+.MyPage {
+  width:98%;
+  height:100%;
+  margin:120px auto 5% auto;
+  display:flex;
+}
+
+.container_myPageTabAll {
+  width:180px;
+  height:600px;
+  background-color: white;
+}
+
+.container_myPageTabNav {
+  width:100%;
+}
+
+
+/* 마이페이지 컨텐츠 */
+.MyPageContent {
+  width:88%;
+  height:100%;
+  margin:0 auto;
+}
+
+/* 단독메뉴 */
+.box_myPageTabMenu {
+  width:100%;
+  height:100%;
+  padding: 5% 0;
+  color:black;
+}
+.txt_myPageTabMenu {
+  width:95%;
+  margin-left:auto;
+  font-size: 1.25rem;
+}
+.box_myPageTabMenu:hover {
+  background-color: #9BE4CE;
+  color:white;
+}
+.box_myPageTabMenu_clicked{
+  width:100%;
+  height:100%;
+  padding: 5% 0;
+  background-color: #9BE4CE;
+  color:white;
+}
+
+.box_myPageTabMenuTitle {
+  width:100%;
+  height:100%;
+  padding:5% 0;
+}
+
+
+/* --------서브메뉴-------- */
+
+/* 플로깅 */
+.box_myPloggingList {
+  width:100%;
+  margin-top:5%;
+}
+.box_myPloggingMenu {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+  color:#838383;
+}
+.txt_myPloggingMenu {
+  margin-left:auto;
+  width:85%;
+  height:100%;
+  font-size:1.05rem;
+  display: flex;
+  align-items: center;
+}
+.box_myPloggingMenu:hover{
+  background-color: #9BE4CE;
+  color:white;
+}
+.box_myPloggingMenu_clicked {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+  background-color: #9BE4CE;
+  color:white;
+}
+
+/* 나의 커뮤니티 */
+.box_myForumList {
+  width:100%;
+  margin-top:5%;
+}
+.box_myForumMenu {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+  color:#838383;
+}
+.txt_myForumMenu{
+  margin-left:auto;
+  width:85%;
+  height:100%;
+  font-size:1.05rem;
+  display: flex;
+  align-items: center;
+}
+.box_myForumMenu:hover{
+  background-color: #9BE4CE;
+  color:white;
+}
+.box_myForumMenu_clicked {
+  width:100%;
+  height:40px;
+  display: flex;
+  align-items: center;
+  background-color: #9BE4CE;
+  color:white;
+}
