@@ -12,7 +12,7 @@ import UserLoginModal from './UserLoginModal';
 
 function UserSignupIntro() {
   // 모달BiCommentDetail
-  const {isModalOpen, openModal, closeModal} = useCustomModal();
+  const [isModalOpen, openModal, closeModal] = useCustomModal();
 
   const emailSignupText = (
     <span className='email_signup_text'>
