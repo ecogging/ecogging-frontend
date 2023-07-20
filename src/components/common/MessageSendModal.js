@@ -7,6 +7,7 @@ import { getCookie } from "../../utils/CookieUtil";
 import { useEffect } from "react";
 import API from "../../utils/BaseApi";
 
+import 'big-integer'; 
 
 export const ModalView = styled.div`
     width: 400px;
@@ -92,32 +93,39 @@ export const ModalView = styled.div`
 
 export default function MessageSendModal({ onCloseModal, receiverNick, receiverId }) {
     
-    const curEmail = parseFloat(getCookie("userId")); // 현재 로그인한 유저 id 프론트단에 저장
+    const accessToken = getCookie('access-token'); // 토큰 가져오기
+    const curId = getCookie("userId"); // 현재 로그인한 유저 id 프론트단에 저장
+    console.log("쿠키의 유저 아이디~"+curId);
     const [content, setContent] = useState(''); // 쪽지 내용 상태 저장
-    const [msg, setMsg] = useState("");
+    const rcvId = receiverId.toString();
+
+    const headers = {
+        'Authorization': 'Bearer ' + accessToken, // Bearer Scheme으로 토큰을 포함하여 헤더 설정
+        'Content-Type': 'application/json',
+    };
 
     const getContent = () => {
         setContent(document.getElementById("sendContents").value); // 쪽지 내용 프론트단에 저장
     }
 
+    // const params = new URLSearchParams(); // URLSearchParams 객체를 생성
+    // // 요청 파라미터를 URLSearchParams에 추가
+    // params.append("curId", curId);
+    // params.append("content", content);
+    // params.append("contactId", receiverId);
+
+    const data = {
+        curId: curId,
+        content: content,
+        contactId: rcvId,
+      };
+
+
     const sendMessage = () => {
 
-        console.log('################SENDMESSAGE()###################')
-        console.log('내 아이디+'+curEmail);
-        let temp2 =  parseFloat(curEmail);
-        console.log(typeof temp2);
-        console.log('쪽지 내용+'+content);
-        console.log(typeof content);
-        console.log('상대 아이디+'+receiverId);
-        console.log(typeof receiverId);
-
-        const params = {
-            curId:curEmail,
-            content:content,
-            contactId:receiverId,
-        };
-
-        axios.post('http://localhost:8080/messagerooms', params) // 서버 컨트롤러로 전송
+        axios.post('http://localhost:8080/messagerooms', data, {
+            headers: headers, // 설정한 헤더를 옵션으로 전달
+        })
             .then((response) => {
                 console.log(response.data);
                 console.log('쪽지 보내기 완료 ^-^');
@@ -138,8 +146,6 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
                     쪽지 보내기
                 </div>
             </div>
-
-            <div>내 아이디: {curEmail}</div>
 
             <div className="sendMiddle">
                 <div className="receiverNick">받는 사람: {receiverNick}</div>
