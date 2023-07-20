@@ -1,10 +1,9 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { FaAngleDown } from 'react-icons/fa';
-import '../../../styles/EventList.css';
+import '../../../styles/plogging/EventList.css';
 
 const EventList = () => {
   const {page=1,ptype="latest"} = useParams();
@@ -12,7 +11,7 @@ const EventList = () => {
   const [curPage, setCurPage] = useState(page);
   const [event, setEvent] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
-  const userid = useSelector((state) => state.UserId);
+//const userid = useSelector((state) => state.UserId);
   const [isLastPage, setIsLastPage] = useState(false); // isLastPage 상태 추가
   const [type, setType] = useState(ptype);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

@@ -1,7 +1,7 @@
 import { Table, Input, Button,Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {useState} from 'react';
-import { useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { reqToken } from '../../../requestToken';
 import axios from 'axios';
@@ -15,7 +15,7 @@ const EventWrite = () => {
     //const userid = useSelector(state=>state.UserId);
     const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:userId, save:false,management:'',views:0})
     const [file, setFile] = useState();
-    const token = useSelector(state=>state.Authorization);
+    //const token = useSelector(state=>state.Authorization);
     const [cookie, setCookie] = useCookies('[refreshToken]');
     const dispatch = useDispatch();
 

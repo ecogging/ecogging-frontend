@@ -1,7 +1,7 @@
 import { Table, Input, Button, Label } from 'reactstrap';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const EventDetail = () => {

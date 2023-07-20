@@ -1,5 +1,5 @@
 import { Table, Input, Button,Label } from 'reactstrap';
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ const EventModify = () => {
     const[event, setEvent] = useState({userId:userId,title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',fileId:'',save:false,management:''})
     const [file, setFile] = useState();
     //const userId = useSelector(state=>state.userId);
-    const token = useSelector(state=>state.Authorization);
+    //const token = useSelector(state=>state.Authorization);
     const [cookie, setCookie] = useCookies('[refreshToken]');
     const dispatch = useDispatch();
 
