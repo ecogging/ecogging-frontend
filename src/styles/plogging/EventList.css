@@ -1,6 +1,6 @@
 article, aside, details, figcaption, figure, footer, header, hgroup,
 menu, nav, section {
-	display: block;
+	/* display: block; */
 }
 
 blockquote, q {
@@ -74,13 +74,13 @@ h1 {
 
 }
 
-.card-body-header {
+.card-body1-header {
 	line-height: 25px;
 	margin: 10px 20px 0px 20px;
 	text-align: left;
 }
 
-.card-body-description {
+.card-body1-description {
 	text-align: left;
 	opacity: 0;
 	color: #757B82;
@@ -98,7 +98,7 @@ h1 {
 	word-wrap: break-word;
 }
 
-.card:hover .card-body-description {
+.card:hover .card-body1-description {
 	overflow: auto;
 	opacity: 1;
 	-webkit-transition: .5s ease-in-out;
@@ -112,12 +112,12 @@ h1 {
 
 
 
-.card-body-hashtag {
+.card-body1-hashtag {
 	font-size: medium;
 	margin: 0;
 }
 
-.card-body-footer {
+.card-body1-footer {
 	position: absolute;
 	margin-top: 15px;
 	margin-bottom: 7px;
@@ -248,7 +248,7 @@ ol ol,ul ul,ol ul,ul ol {
 	outline: 0;
 	box-shadow: var(--bs-pagination-focus-box-shadow);
   }
-  .page-link.active, .active > .page-link {
+  .page-link.active1, .active1 > .page-link {
 	z-index: 3;
 	color: var(--bs-pagination-active-color);
 	background-color: var(--bs-pagination-active-bg);

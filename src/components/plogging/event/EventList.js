@@ -1,20 +1,20 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaAngleDown } from 'react-icons/fa';
 import '../../../styles/plogging/EventList.css';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 
 const EventList = () => {
   const {page=1,ptype="latest"} = useParams();
-  const navigate = useNavigate(); 
   const [curPage, setCurPage] = useState(page);
   const [event, setEvent] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
-//const userid = useSelector((state) => state.UserId);
   const [isLastPage, setIsLastPage] = useState(false); // isLastPage 상태 추가
   const [type, setType] = useState(ptype);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const userId = getCookie("userId");
 
   useEffect(() => {
     getAllEventPage(curPage,type);
@@ -49,7 +49,7 @@ const EventList = () => {
 
   return (
     <>
-      <div style={{ margin: '0 auto', textAlign: 'center', width: '1280px' }}>
+      <div style={{ margin: '0 auto', marginTop:'100px', marginBottom:'50px', textAlign: 'center', width: '1280px' }}>
         <div className="container">
           <input id="dropdown" type="checkbox" checked={isDropdownOpen} />
           <label className="dropdownLabel" htmlFor="dropdown" onClick={toggleDropdown}>
@@ -57,7 +57,7 @@ const EventList = () => {
             <FaAngleDown className="caretIcon" />
           </label>
           <div className="content">
-            <ul className={isDropdownOpen ? 'active' : ''} style={{cursor:'pointer'}}>
+            <ul className={isDropdownOpen ? 'active1' : ''} style={{cursor:'pointer'}}>
               <li><a style={{color:'black', textDecoration:'none'}} href={`/eventList/${curPage}/latest`}>최신순</a></li>
               <li><a style={{color:'black', textDecoration:'none'}} href={`/eventList/${curPage}/oldest`}>오래된순</a></li>
               <li><a style={{color:'black', textDecoration:'none'}} href={`/eventList/${curPage}/popular`}>조회순</a></li>
@@ -106,26 +106,26 @@ const EventList = () => {
                     </div>
                   </div>
                   {/* 카드 바디 */}
-                  <div className="card-body">
+                  <div className="card-body1">
                     {/* 카드 바디 헤더 */}
-                    <div className="card-body-header">
+                    <div className="card-body1-header">
                       <h1>{event.title}</h1>
-                      <p className="card-body-hashtag" style={{ marginBottom: '5px', color: 'black' }}>
+                      <p className="card-body1-hashtag" style={{ marginBottom: '5px', color: 'black' }}>
                         {event.meetingDate} ~ {event.endDate}
                       </p>
                       <div>
-                        <span className="card-body-hashtag" style={{ color: 'black' }}>
+                        <span className="card-body1-hashtag" style={{ color: 'black' }}>
                           주최 : {event.corpName}{' '}
                         </span>
-                        <p className="card-body-hashtag" style={{ color: 'black' }}>
+                        <p className="card-body1-hashtag" style={{ color: 'black' }}>
                           지역 : {event.location}
                         </p>
                       </div>
                     </div>
                     {/* 카드 바디 본문 */}
-                    <p className="card-body-description">{event.explanation}</p>
+                    <p className="card-body1-description">{event.explanation}</p>
                     {/* 카드 바디 푸터 */}
-                    <div className="card-body-footer">
+                    <div className="card-body1-footer">
                       <hr
                         style={{
                           marginBottom: '8px',
@@ -151,7 +151,7 @@ const EventList = () => {
           </PaginationItem>
           {pageBtn.map((item) => {
             return (
-              <PaginationItem className={item == curPage ? 'active' : ''} key={item}>
+              <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
                 <PaginationLink id={item} href={`/eventList/${item}/${ptype}`}>
                   {item}
                 </PaginationLink>

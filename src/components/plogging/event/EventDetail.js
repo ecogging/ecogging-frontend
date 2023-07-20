@@ -1,17 +1,20 @@
 import { Table, Input, Button, Label } from 'reactstrap';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-//import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 
 const EventDetail = () => {
   const { eventId, page, ptype } = useParams();
-  const [userId, setUserId] = useState(1);
-  const [event, setEvent] = useState({eventId: 0,title: '',content: '',location: '',meetingDate: '',corpName: '',explanation: '',fileId: '',views: '',createdAt: '',management: '',});
   const [isScrapped, setIsScrapped] = useState(false);
+  const [event, setEvent] = useState({eventId: 0,title: '',content: '',location: '',meetingDate: '',corpName: '',explanation: '',fileId: '',views: '',createdAt: '',management: '',});
   const navigate = useNavigate();
   const [isImageModalOpen, setIsImageModalOpen] = useState(false); // 상태 변수 추가
   const [modalImageSrc, setModalImageSrc] = useState(''); // 상태 변수 추가
+  // const [userId, setUserId] = useState(1);
+  const userId = getCookie("userId");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
 
   useEffect(() => {
     axios
@@ -23,7 +26,6 @@ const EventDetail = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(event);
   }, []);
 
   const handleScrapToggle = () => {
@@ -50,9 +52,38 @@ const EventDetail = () => {
     setModalImageSrc('');
   };
 
+  const eventDelete = () => {
+    setIsDeleteModalOpen(true);
+  };
+  
+  const confirmDelete = () => {
+    axios
+      .delete(`http://localhost:8080/eventDelete/${eventId}`)
+      .then((res) => {
+        window.location.href = '/eventList';
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
+  const cancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+//   const eventDelete = () => {
+//     axios.get(`http://localhost:8080/eventDelete/${eventId}`)
+//     .then(res=> {
+//         window.location.href = '/eventList';            
+//     })
+//     .catch(err=> {
+//         console.log(err);
+//     })
+// }
+
   return (
     <>
-      <div style={{ margin: '0 auto', width: '1000px', height: '100%', border: '1px solid', borderRadius: '7px', padding: '10px' }}>
+      <div style={{ margin: '0 auto', marginTop:'140px', marginBottom:'60px',width: '1000px', height: '100%', border: '1px solid', borderRadius: '7px', padding: '10px' }}>
         <Table style={{ padding: '10px' }}>
           <tbody>
             <tr style={{ borderBottom: '1px solid', height: '30px' }}>
@@ -101,11 +132,9 @@ const EventDetail = () => {
                   <div style={{width:'380px'}}>{event.explanation}</div>
                 </div>
                 <p style={{ margin: '26px 0 0 0', textAlign: 'right' }}>
-                  <button style={{boxSizing: 'border-box',width: '100px',height: '33px',background: 'rgba(155, 228, 206, 1)', borderRadius: '7px',
-                    fontWeight: 'bold',borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer',}}
-                    className={`article-scrap ${isScrapped ? 'active' : ''}`} onClick={handleScrapToggle}>
-                    스크랩
-                  </button>
+                  {userId!=null && (
+                    <button className={`article-scrap ${isScrapped ? 'active' : ''}`} onClick={handleScrapToggle}>스크랩</button>
+                  )}  
                 </p>
               </td>
             </tr>
@@ -133,21 +162,45 @@ const EventDetail = () => {
           </tbody>
         </Table>
         <div style={{ textAlign: 'center', marginTop: '10px', marginBottom: '10px' }}>
-          <Link to={`/eventModify/${eventId}`} style={{ textDecoration: 'none', color: 'white' }}>
-            <Button style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',
-                      fontWeight: 'bold',borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}}>
-              수정하기
-            </Button>
-          </Link>
+          {userId!=null && userId == event.userId && (
+              <Button onClick={eventDelete} style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',
+                        fontWeight: 'bold',borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}}>
+                삭 제
+              </Button>)}
+          {userId!=null && userId == event.userId && (
+            <Link to={`/eventModify/${eventId}/${page}/${ptype}`} style={{ textDecoration: 'none', color: 'white' }}>
+              <Button style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',
+                        fontWeight: 'bold',borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}}>
+                수정하기
+              </Button>
+            </Link> )}
           <Button style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',fontWeight: 'bold',
                 borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}}onClick={() => {navigate('/eventList/' + page + '/' + ptype);}}>
-            목록
+            목 록
           </Button>
         </div>
       </div>
-      {isImageModalOpen && (
-        <div style={{position: 'fixed',top: '0',left: '0',right: '0',bottom: '0',zIndex: '9999', display: 'flex',
-                justifyContent: 'center',alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.7)',}} onClick={closeModal}>
+
+      {/* 삭제 및 이미지 확대 Modal */}
+      {isDeleteModalOpen && (
+        <div style={{position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', zIndex: '9999', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.7)',}}>
+          <div style={{ width:'250px', height:'100px',padding: '20px', backgroundColor: 'white', borderRadius: '10px', textAlign:'center'}}>
+            <p style={{fontSize:'25px', marginTop:'10px'}}><b>삭제 하시겠습니까?</b></p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button style={{marginRight: '25px', background: 'rgba(155, 228, 206, 1)', borderRadius: '7px', fontWeight: 'bold', borderStyle: 'none', border: 'white 1px solid', 
+                      color: 'white', cursor: 'pointer', fontSize:'17px', padding: '7px', width:'70px'}} onClick={() => {confirmDelete(); setIsDeleteModalOpen(false);}}>
+                확인
+              </Button>
+              <Button style={{background: 'rgba(155, 228, 206, 1)',borderRadius: '7px', fontWeight: 'bold',borderStyle: 'none', border: 'white 1px solid', color: 'white',
+                  cursor: 'pointer', fontSize:'17px', padding: '7px', width:'70px'}} onClick={cancelDelete}>
+                취소
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}            
+
+      {isImageModalOpen && (<div style={{position: 'fixed',top: '0',left: '0',right: '0',bottom: '0',zIndex: '9999', display: 'flex', justifyContent: 'center',alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.7)',}} onClick={closeModal}>
           <div style={{ position: 'relative', width: '95%', height: '95%', maxWidth: '100%', maxHeight: '100%',}}>
             <img src={modalImageSrc} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onClick={closeModal}/>
           </div>

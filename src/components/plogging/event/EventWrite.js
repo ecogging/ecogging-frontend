@@ -1,7 +1,7 @@
 import { Table, Input, Button,Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+//import {useDispatch} from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { reqToken } from '../../../requestToken';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const EventWrite = () => {
     const [file, setFile] = useState();
     //const token = useSelector(state=>state.Authorization);
     const [cookie, setCookie] = useCookies('[refreshToken]');
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     const change = (e) => {
         const { name, value } = e.target;
@@ -158,7 +158,7 @@ const fileInput=useRef();
 
     return (
         <>
-          <div style={{margin:'0 auto',width:'100%', border:'1px solid lightgray', borderRadius:'7px', padding:'10px', backgroundColor:'rgba(243, 243, 243, 1)'}}>  
+          <div style={{margin:'0 auto',width:'100%', marginTop:'140px', marginBottom:'30px',border:'1px solid lightgray', borderRadius:'7px', padding:'10px', backgroundColor:'rgba(243, 243, 243, 1)'}}>  
           <h1 style={{textAlign:'center', margin:'0 auto', marginTop:'20px'}}>행사 기획 작성</h1>
             <Table style={{margin:'0 auto',width:'860px', padding:'20px'}}>
                     <tbody>
@@ -258,7 +258,7 @@ const fileInput=useRef();
                     </tbody>
              </Table>
             </div>
-            <div style={{textAlign:'center', marginTop:'30px', marginBottom:'20px'}}>
+            <div style={{textAlign:'center', marginBottom:'60px'}}>
              <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', cursor:'pointer'}}><Link to={'/eventList'} style={{textDecoration:'none',color:'white'}}>목록</Link></Button>
              <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white', cursor:'pointer'}} onClick={handleTempSave}>임시저장</Button>
              <Button style={{boxSizing:'border-box', width:'150px', height:'33px', background:'rgba(155, 228, 206, 1)', borderRadius:'7px',fontWeight:'bold', borderStyle:'none', border:'rgba(155, 228, 206, 1) 1px solid',marginRight:'40px', color:'white', cursor:'pointer' }} onClick={handleRegister}>등록</Button>       
