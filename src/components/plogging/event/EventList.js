@@ -71,7 +71,6 @@ const EventList = () => {
             const createdAtDate = new Date(event.createdAt);
             const formattedDate = createdAtDate.toLocaleDateString();
             const cardHeaderStyle = {
-              //backgroundImage: `url(http://localhost:8080/eventImg/${event.fileId})`,
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
             };
