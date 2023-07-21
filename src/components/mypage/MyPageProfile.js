@@ -15,14 +15,15 @@ export default function MyPageProfile() {
   });
 
   // axios로 유저 정보 요청 
+  let a = 1;
 
   axios.get(requestUrl, {
     headers: {
       'Authorization': 'Bearer ' + getCookie('access-token'),
     }
   }).then(response => {
-    console.log(response)
-    // setUserProfile(response.data);
+    setUserProfile(response.data);
+    // console.log(userProfile);
   })
 
   return (
