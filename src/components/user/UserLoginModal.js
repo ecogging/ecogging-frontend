@@ -77,6 +77,8 @@ function UserLoginModal({ isOpen, closeModal }) {
   
         // Close the modal
         closeModal();
+        window.location.reload();
+
       } catch (error) {
         // Handle login error
         setError('Invalid email or password');
