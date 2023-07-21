@@ -1,11 +1,35 @@
 import { Pagination } from 'antd';
 import MyButton from '../common/MyButton';
 import '../../styles/mypage/MyPageMessages.css';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function MyPageMessages() {
+  const { userId } = useParams();
+  const [msgRooms, setMegRooms] = useState([]);
+  useEffect(() => {
+    const url = `/mypage/${userId}/messagerooms`;
+
+    axios.get(url)
+      .then((response) => {
+        setMegRooms(response.data);
+      })
+      .catch((err) => {
+        console.log('쪽지함 불러오기 실패 - _ -',err);
+      })
+  }, []);
+
+
+
+
   return (
     <div className="MyPageMessages">
+
+      <div>
+        <h1>userID: {userId} </h1>
+        데이터: {msgRooms}
+      </div>
 
       <div className='container_myMessagesHeader'>
         <div className='containver_myMessagesUnread'>

@@ -42,7 +42,7 @@ export default function Main() {
   return (
     <BrowserRouter>
       <div className='Main'>
-        <Header/> 
+        <Header userId={userId} /> 
         <div className='mainContents'>
           <Routes>
             <Route path="/" element={<Home />}></Route>
