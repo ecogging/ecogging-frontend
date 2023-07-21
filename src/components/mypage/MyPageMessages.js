@@ -4,24 +4,18 @@ import '../../styles/mypage/MyPageMessages.css';
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import moment from 'moment'; // 명확하게 한국 시간 임포트
 import detailDate from '../../utils/GetDayMinuteCounter ';
-
 
 export default function MyPageMessages() {
   const { userId } = useParams();
   const [msgRooms, setMegRooms] = useState([]);
-
-  // format에 맞게 출력된다.
-  const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
-  console.log(nowTime);
 
   useEffect(() => {
     const url = `/mypage/${userId}/messagerooms`;
 
     axios.get(url)
       .then((response) => {
-        setMegRooms(response.data.data);
+        setMegRooms(response.data);
       })
       .catch((err) => {
         console.log('쪽지함 불러오기 실패 - _ -',err);
