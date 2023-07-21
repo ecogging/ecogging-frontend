@@ -7,7 +7,7 @@ import { getCookie } from "../../utils/CookieUtil";
 import { useEffect } from "react";
 import API from "../../utils/BaseApi";
 
-import 'big-integer'; 
+// import 'big-integer'; 
 
 export const ModalView = styled.div`
     width: 400px;

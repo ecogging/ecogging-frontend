@@ -8,14 +8,14 @@ import MyPageRecommend from "../../components/mypage/MyPageRecommend";
 import MyPageForumScrap from "../../components/mypage/MyPageForumScrap";
 import MyPageMessages from "../../components/mypage/MyPageMessages";
 
-export default function MyPage() {
+export default function MyPage( {userId} ) {
   return (
     <div className="MyPage">
-      <MyPageTab />
+      <MyPageTab userId={userId} />
       <div className="MyPageContent">
         <Routes>
           <Route path="/temp2" element={<Temp />}></Route>
-          <Route path="/messages" element={<MyPageMessages />}></Route>
+          <Route path="/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
           <Route path="/reviews" element={<MyPageReview />}></Route>

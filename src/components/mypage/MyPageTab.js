@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getCookie } from "../../utils/CookieUtil";
 
 
-export default function MyPageTab() {
+export default function MyPageTab( {userId} ) {
 
   const [clicked, setClicked] = useState('계정 정보'); // 기본값 계정 정보로 시작 
   const [prev, setPrev] = useState('box_myPageTabMenu_clicked');
@@ -34,19 +35,21 @@ export default function MyPageTab() {
       setClicked(click.textContent);      
     } 
     setPrev(clickParentClass);
+
   }
-
-
+  
+  
   // 일반로그인 마이페이지 탭
   return(
     <div className="myPageTab">
+
       <nav className="container_myPageTabAll">
 
         <ul className="container_myPageTabNav" onClick={onClicked}>
           <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
             <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
           </Link>
-          <Link to={'/mypage/messages'} className="link_myPageTabMenu">
+          <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu">
             <li className={clicked === '쪽지함' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">쪽지함</div></li>
           </Link>
 

@@ -27,10 +27,15 @@ export default function Main() {
 
   // 마이페이지 접근제한 위한 로그인 확인
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null); // userId 상태 추가
+
   useEffect(() => {
     const accessToken = getCookie('access-token');
+    const userId = getCookie('userId');
+
     if (accessToken) {
       setIsAuthenticated(true);
+      setUserId(userId); // userId 설정
     }
   }, []);
 
@@ -43,7 +48,7 @@ export default function Main() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/temp" element={<Temp />}></Route>
 
-            <Route path="/mypage/*" element={isAuthenticated ? <MyPage /> : <UserSignupIntro/> }></Route>
+            <Route path="/mypage/:userId/*" element={isAuthenticated ? <MyPage userId={userId} /> : <UserSignupIntro/> } />
             <Route path="/messages" element={<MessageDetail />}></Route>
 
             <Route path="/accompanies" element={<AccompanyList />} />
