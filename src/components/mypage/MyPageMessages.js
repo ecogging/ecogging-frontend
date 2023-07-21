@@ -15,7 +15,7 @@ export default function MyPageMessages() {
 
     axios.get(url)
       .then((response) => {
-        setMegRooms(response.data);
+        setMegRooms(response.data.data);
       })
       .catch((err) => {
         console.log('쪽지함 불러오기 실패 - _ -',err);
