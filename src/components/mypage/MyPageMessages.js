@@ -1,11 +1,42 @@
 import { Pagination } from 'antd';
 import MyButton from '../common/MyButton';
 import '../../styles/mypage/MyPageMessages.css';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import moment from 'moment'; // 명확하게 한국 시간 임포트
+import detailDate from '../../utils/GetDayMinuteCounter ';
+
 
 export default function MyPageMessages() {
+  const { userId } = useParams();
+  const [msgRooms, setMegRooms] = useState([]);
+
+  // format에 맞게 출력된다.
+  const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+  console.log(nowTime);
+
+  useEffect(() => {
+    const url = `/mypage/${userId}/messagerooms`;
+
+    axios.get(url)
+      .then((response) => {
+        setMegRooms(response.data.data);
+      })
+      .catch((err) => {
+        console.log('쪽지함 불러오기 실패 - _ -',err);
+      })
+    }, [userId]); // userId가 변경될 때마다 데이터를 가져오도록 useEffect의 의존성 배열에 추가합니다.
+
+    // msgRooms 상태를 사용하여 원하는 방식으로 데이터를 렌더링하고 처리합니다.
+
+
   return (
     <div className="MyPageMessages">
+
+      <div>
+        <h1>userID: {userId} </h1>
+      </div>
 
       <div className='container_myMessagesHeader'>
         <div className='containver_myMessagesUnread'>
@@ -18,26 +49,28 @@ export default function MyPageMessages() {
 
       <div className='container_myMessagesArea'>
 
-        <div className='container_MessageOne'>
-          <div className='con_MessageLeft'>
-            <div className='con_MessageSender'>
-              <div className='box_senderPic'></div>
-              <div className='txt_senderNick'>닉닉닉닉닉닉</div>
+      {msgRooms.map((item, idx) => (
+
+          <div className='container_MessageOne' key={item.messageRoomId}>
+            <div className='con_MessageLeft'>
+              <div className='con_MessageSender'>
+                <div className='box_senderPic'></div>
+                <div className='txt_senderNick'>{item.contactNickname}</div>
+              </div>
+            </div>
+
+            <Link to={'/messages'} className='link_messageDetail'>
+              <div className='con_MessageMiddle'>
+                <div className='txt_MessageContent'>{item.lastMessageContent}</div>
+              </div>
+            </Link>
+
+            <div className='con_MessageRight'>
+              <div className='txt_MessageDate'>{detailDate(item.lastMessageSentTime)}</div>
             </div>
           </div>
 
-          <Link to={'/messages'} className='link_messageDetail'>
-            <div className='con_MessageMiddle'>
-              <div className='txt_MessageContent'>최신 쪽지 내용 ...</div>
-            </div>
-          </Link>
-
-          <div className='con_MessageRight'>
-            <div className='txt_MessageDate'> 2분 전 </div>
-          </div>
-        </div>
-
-
+        ))}
 
 
        

@@ -28,13 +28,14 @@ const reloading = () => {
     window.location.reload();
 };
 
-export default function Header () {
+export default function Header ( {userId} ) {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
     // 임시 로그인 처리
     const isLogin = isValidTokenToLogin(accessToken);
 
     const userNickname = getCookie("nickname");
+
 
     // 모달 - 로그인
     const [isLoginModalOpen, openLoginModal, closeLoginModal] = useCustomModal();
@@ -113,7 +114,7 @@ export default function Header () {
                     <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
                       <div id='alramCount' className='headerNotify'>12</div>
                     </li>
-                    <li className='userNavBox' id='headerNickname'><Link to={'/mypage'}><span className='nickName'>{userNickname}</span></Link> 님</li>
+                    <li className='userNavBox' id='headerNickname'><Link to={`/mypage/${userId}/temp2`}><span className='nickName'>{userNickname}</span></Link> 님</li>
                     <li className='userNavBox'><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
                 <NotificationModal isOpen={isNotiModalOpen} closeModal={closeNotiModal} />

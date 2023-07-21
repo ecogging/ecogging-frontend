@@ -37,12 +37,12 @@ export default function Main() {
       setIsAuthenticated(true);
       setUserId(userId); // userId 설정
     }
-  }, []);
+  }, [userId]);
 
   return (
     <BrowserRouter>
       <div className='Main'>
-        <Header/> 
+        <Header userId={userId} /> 
         <div className='mainContents'>
           <Routes>
             <Route path="/" element={<Home />}></Route>
