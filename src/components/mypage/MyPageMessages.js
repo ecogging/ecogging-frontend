@@ -24,7 +24,6 @@ export default function MyPageMessages() {
 
     // msgRooms 상태를 사용하여 원하는 방식으로 데이터를 렌더링하고 처리합니다.
 
-
   return (
     <div className="MyPageMessages">
 
@@ -55,7 +54,7 @@ export default function MyPageMessages() {
 
             <Link to={`/${userId}/messageroom/${item.messageRoomId}`} className='link_messageDetail'>
               <div className='con_MessageMiddle'>
-                <div className='txt_MessageContent'>{item.lastMessageContent}</div>
+                <div className='txt_MessageContent'>{item.lastMessageContent.substring(0,50)}...</div>
               </div>
             </Link>
 

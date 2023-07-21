@@ -4,6 +4,7 @@ import MyButton from '../../components/common/MyButton';
 import '../../styles/mypage/MessageDetail.css';
 import MessageReplyModal from '../../components/mypage/MessageReplyModal';
 import MessageDeleteModal from '../../components/mypage/MessageDeleteModal';
+import moment from 'moment';
 import axios from 'axios';
 
 export default function MessageDetail() {
@@ -103,11 +104,14 @@ export default function MessageDetail() {
 
                             { msgs.map((msg, idx) => (
 
-                                    <div className='container_msgOne'>
+                                    <div className='container_msgOne' key={msg.id}>
                                         <div className='container_msgOneInner'>
                                             <div className='box_msgOneTop'>
-                                                <div className='txt_msgState_receive'>받은 쪽지</div>
-                                                <div className='txt_msgWriteDate'>{msg.createdAt}</div>
+                                                { msg.isReceived === 1 ?
+                                                    <div className='txt_msgState_receive'>받은 쪽지</div>
+                                                    :   <div className='txt_msgState_send'>보낸 쪽지</div>
+                                                }   
+                                                <div className='txt_msgWriteDate'>{moment(msg.createdAt).format('YY.MM.D h:mm a')}</div>
                                             </div>
                                             <div className='box_msgContentsBody'>
                                                 {msg.content}
