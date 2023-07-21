@@ -1,11 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import MyButton from '../../components/common/MyButton';
 import '../../styles/mypage/MessageDetail.css';
 import MessageReplyModal from '../../components/mypage/MessageReplyModal';
 import MessageDeleteModal from '../../components/mypage/MessageDeleteModal';
+import axios from 'axios';
 
 export default function MessageDetail() {
+    const { userId } = useParams();
+    const { messageRoomId } = useParams();
 
     // 목록보기
     const goBack = useNavigate();
@@ -35,8 +38,35 @@ export default function MessageDetail() {
     };
 
 
-    return(
+    const[msgs, setMsgs] = useState([]);
+    const[conNick, setConNick] = useState();
+    useEffect(() => {
+        const url = `/${userId}/messageroom/${messageRoomId}`;
+
+        axios.get(url)
+        .then((response) => {
+            setMsgs(response.data.data.messages.content); 
+            console.log(response.data.data);
+            console.log('쪽지 불러오기 완료 ㅋㅋ');
+            setConNick(response.data.data.contactNickname);
+        })
+        .catch((err) => {
+            console.log('쪽지 불러오기 실패 ㅋㅋ', err);
+        })
+    }, []);
+
+    console.log('------------');
+    console.log(msgs);
+    console.log('------------');
+
+        console.log(msgs.length);
+        console.log(conNick);
+    
+
+
+    return (
         <div className="MessageDetail">
+
 
             {isOpen ? 
                 <MessageReplyModal onCloseModal={closeReplyModal} />
@@ -59,7 +89,7 @@ export default function MessageDetail() {
                         <div className='container_msgBodyHeader'>
                             <div className='container_msgBodyHeaderLeft'>
                                 <div className='circle_msgSenderPic'></div>
-                                <div className='txt_msgSenderNick'>닉닉닉닉닉닉</div>
+                                <div className='txt_msgSenderNick'>{conNick}</div>
                             </div>
                             <div className='container_msgBodyHeaderRight'>
                                 <div className='container_msgBodyHeaderBtns'>
@@ -70,69 +100,28 @@ export default function MessageDetail() {
                         </div>
 
                         <div className='container_messageArea'>
- 
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_receive'>받은 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
-                                    </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                        쪽지 내용
-                                    </div>
-                                </div>
-                            </div>
 
-                            {/* 임시 */}
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_send'>보낸 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
+                            { msgs.map((msg, idx) => (
+
+                                    <div className='container_msgOne'>
+                                        <div className='container_msgOneInner'>
+                                            <div className='box_msgOneTop'>
+                                                <div className='txt_msgState_receive'>받은 쪽지</div>
+                                                <div className='txt_msgWriteDate'>{msg.createdAt}</div>
+                                            </div>
+                                            <div className='box_msgContentsBody'>
+                                                {msg.content}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                        쪽지 내용
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_receive'>받은 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
-                                    </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_send'>보낸 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
-                                    </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                        쪽지 내용
-                                    </div>
-                                </div>
-                            </div>
+
+                                ))                               
+                            }
 
                         </div>
-
-
                     </div>
-
                 </div>
-
-
-
             </div>           
-
-
         </div>
     );
 }

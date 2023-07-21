@@ -49,7 +49,7 @@ export default function Main() {
             <Route path="/temp" element={<Temp />}></Route>
 
             <Route path="/mypage/:userId/*" element={isAuthenticated ? <MyPage userId={userId} /> : <UserSignupIntro/> } />
-            <Route path="/messages" element={<MessageDetail />}></Route>
+            <Route path="/:userId/messageroom/:messageRoomId" element={<MessageDetail />}></Route>
 
             <Route path="/accompanies" element={<AccompanyList />} />
             <Route path="/accompaniesdetail/:id" element={<AccompanyDetail />} />

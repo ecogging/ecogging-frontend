@@ -53,7 +53,7 @@ export default function MyPageMessages() {
               </div>
             </div>
 
-            <Link to={'/messages'} className='link_messageDetail'>
+            <Link to={`/${userId}/messageroom/${item.messageRoomId}`} className='link_messageDetail'>
               <div className='con_MessageMiddle'>
                 <div className='txt_MessageContent'>{item.lastMessageContent}</div>
               </div>
