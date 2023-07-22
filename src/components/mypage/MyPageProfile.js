@@ -165,7 +165,7 @@ export default function MyPageProfile() {
               {/* Custom styled file input button */}
               {
                 isEditting &&
-                (<MyButton type={'graySmall'} text={'변경하기'} onClick={handleFileButtonClick} >
+                (<MyButton type={'gray'} text={'변경하기'} onClick={handleFileButtonClick} >
                 </MyButton>)
               }
               
@@ -215,8 +215,8 @@ export default function MyPageProfile() {
         isEditting ?
           (
             <div className='horizontal-buttons'>
-              <MyButton onClick={handleEditSubmit} text={'수정완료'} type={'mint'}></MyButton>
-              <MyButton onClick={handleCancel} text={'취소하기'} type={'whiteGray'}></MyButton>
+              <MyButton onClick={handleEditSubmit} text={'수정완료'} type={'mintWide2'}></MyButton>
+              <MyButton onClick={handleCancel} text={'취소하기'} type={'whiteGrayWide2'}></MyButton>
             </div>
           )
           :
