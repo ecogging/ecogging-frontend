@@ -20,6 +20,11 @@ function setUserToCookie (data) {
 };
 
 function UserLoginModal({ isOpen, closeModal }) {
+    // 새로고침
+    const reloading = () => {
+      window.location.reload();
+    };
+
     const navigate = useNavigate();
     const loginEndPoint = 'http://localhost:8080/auth/login';
 
@@ -38,6 +43,7 @@ function UserLoginModal({ isOpen, closeModal }) {
     const userLoginByToken = (data) => {
       setUserToCookie(data);
       navigate('/');
+      reloading(); // userId 업데이트 지연 -> 임시로 새로고침으로..
     }
 
     // 모달 끄기 

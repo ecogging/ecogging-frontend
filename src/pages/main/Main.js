@@ -27,28 +27,27 @@ export default function Main() {
 
   // 마이페이지 접근제한 위한 로그인 확인
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userId, setUserId] = useState(null); // userId 상태 추가
-
+  const [userId, setUserId] = useState(null); 
   useEffect(() => {
     const accessToken = getCookie('access-token');
-    const userId = getCookie('userId');
-
+    setUserId(getCookie('userId')); // userId 설정
     if (accessToken) {
       setIsAuthenticated(true);
-      setUserId(userId); // userId 설정
     }
+    console.log('USEEFFECT__'+userId);
   }, [userId]);
+
 
   return (
     <BrowserRouter>
       <div className='Main'>
-        <Header userId={userId} /> 
+        <Header userId={userId}  /> 
         <div className='mainContents'>
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Home />} ></Route>
             <Route path="/temp" element={<Temp />}></Route>
 
-            <Route path="/mypage/:userId/*" element={isAuthenticated ? <MyPage userId={userId} /> : <UserSignupIntro/> } />
+            <Route path="/mypage/:userId/*" element={isAuthenticated ? <MyPage userId={userId} setUserId={setUserId}/> : <UserSignupIntro/> } />
             <Route path="/:userId/messageroom/:messageRoomId" element={<MessageDetail />}></Route>
 
             <Route path="/accompanies" element={<AccompanyList />} />

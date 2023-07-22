@@ -7,8 +7,10 @@ import MyPageShare from "../../components/mypage/MyPageShare";
 import MyPageRecommend from "../../components/mypage/MyPageRecommend";
 import MyPageForumScrap from "../../components/mypage/MyPageForumScrap";
 import MyPageMessages from "../../components/mypage/MyPageMessages";
+import { getCookie } from "../../utils/CookieUtil";
 
-export default function MyPage( {userId} ) {
+export default function MyPage( {userId , setUserId } ) {
+
   return (
     <div className="MyPage">
       <MyPageTab userId={userId} />

@@ -16,6 +16,7 @@ export default function MyPageMessages() {
     axios.get(url)
       .then((response) => {
         setMegRooms(response.data.data);
+        console.log(msgRooms);
       })
       .catch((err) => {
         console.log('쪽지함 불러오기 실패 - _ -',err);
@@ -26,10 +27,6 @@ export default function MyPageMessages() {
 
   return (
     <div className="MyPageMessages">
-
-      <div>
-        <h1>userID: {userId} </h1>
-      </div>
 
       <div className='container_myMessagesHeader'>
         <div className='containver_myMessagesUnread'>

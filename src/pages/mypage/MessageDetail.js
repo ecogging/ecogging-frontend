@@ -7,6 +7,8 @@ import MessageDeleteModal from '../../components/mypage/MessageDeleteModal';
 import moment from 'moment';
 import axios from 'axios';
 
+import useDeleteMessageRoom from "../../hooks/useDeleteMessageRoom";
+
 export default function MessageDetail() {
     const { userId } = useParams();
     const { messageRoomId } = useParams();
@@ -14,6 +16,8 @@ export default function MessageDetail() {
     // 목록보기
     const goBack = useNavigate();
 
+    // 삭제하기 모달
+    const { deleteOpen, openDeleteModal, closeDeleteModal } = useDeleteMessageRoom();
     // 답장하기모달
     const [isOpen, setIsOpen] = useState(false);
     const openReplyModal = () => {
@@ -25,20 +29,7 @@ export default function MessageDetail() {
         }
     };
 
-    //삭제하기모달
-    const [deleteOpen, setDeleteOpen] = useState(false);
-    const openDeleteModal = () => {
-        setDeleteOpen(!deleteOpen);
-        document.body.style.overflow = 'hidden'; // 배경 스크롤 막기
-    }
-    const closeDeleteModal = () => {
-        if(deleteOpen){
-            setDeleteOpen(false);
-            document.body.style.overflow = 'auto'; // 배경 스크롤 다시 활성화
-        }   
-    };
-
-
+    // 서버에서 데이터 받아오기
     const[msgs, setMsgs] = useState([]);
     const[conNick, setConNick] = useState();
     useEffect(() => {
@@ -62,16 +53,21 @@ export default function MessageDetail() {
 
         console.log(msgs.length);
         console.log(conNick);
+
+        console.log(userId);
+        console.log(messageRoomId);
     
 
 
     return (
         <div className="MessageDetail">
 
-
+            {/* 답장모달 */}
             {isOpen ? 
                 <MessageReplyModal onCloseModal={closeReplyModal} />
                 : null }
+
+            {/* 삭제모달 */}
             {deleteOpen ?
                 <MessageDeleteModal onCloseDeleteModal={ closeDeleteModal } />
                 : null }
