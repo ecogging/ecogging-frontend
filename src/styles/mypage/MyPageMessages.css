@@ -69,12 +69,25 @@
 
   /* 왼쪽 */
   .con_MessageLeft {
-    width: 180px;
+    width: 200px;
     height: 100%;
-
     display: flex;
     align-items: center;
   }
+
+  .box_checkMsg {
+    width:50px;
+    height:100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #check_eachMsg {
+    width:18px;
+    height:18px;
+  }
+
   .con_MessageSender {
     width: 150px;
     height: 80%;

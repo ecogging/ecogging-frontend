@@ -25,6 +25,18 @@ export default function MyPageMessages() {
       })
     }, [userId]); 
 
+    // 체크박스 체크 -> 선택값 변화
+    const [checkedList, setCheckedList] = useState([]);
+    const onCheckedItem = ((e)=> {
+        const nowChecked = e.target.value;
+        if(e.target.checked) {
+          setCheckedList((prevValues) => [...prevValues, nowChecked]);
+        } else {
+          setCheckedList((prevValues) => prevValues.filter((item) => item !== nowChecked));
+        }
+      });
+    console.log(checkedList);
+  
   return (
     <div className="MyPageMessages">
 
@@ -43,6 +55,9 @@ export default function MyPageMessages() {
 
           <div className='container_MessageOne' key={item.messageRoomId}>
             <div className='con_MessageLeft'>
+              <div className='box_checkMsg'>
+                <input type="checkbox" id="check_eachMsg" name='check_eachMsg' value={item.messageRoomId} onChange={onCheckedItem}/>
+              </div>
               <div className='con_MessageSender'>
                 <div className='box_senderPic'></div>
                 <div className='txt_senderNick'>{item.contactNickname}</div>
