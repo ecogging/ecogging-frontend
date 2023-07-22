@@ -33,9 +33,10 @@ export default function MessageDetail() {
     const[msgs, setMsgs] = useState([]);
     const[conNick, setConNick] = useState('');
     const[conId, setConId] = useState('');
+    
+    // 처음 글 불러오기
     useEffect(() => {
         const url = `/${userId}/messageroom/${messageRoomId}`;
-
         axios.get(url)
         .then((response) => {
             setMsgs(response.data.data.messages.content); 

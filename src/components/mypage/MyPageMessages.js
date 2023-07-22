@@ -17,13 +17,13 @@ export default function MyPageMessages() {
       .then((response) => {
         setMegRooms(response.data.data);
         console.log(msgRooms);
+        console.log('-------------------');
+        console.log(response.data);
       })
       .catch((err) => {
         console.log('쪽지함 불러오기 실패 - _ -',err);
       })
-    }, [userId]); // userId가 변경될 때마다 데이터를 가져오도록 useEffect의 의존성 배열에 추가합니다.
-
-    // msgRooms 상태를 사용하여 원하는 방식으로 데이터를 렌더링하고 처리합니다.
+    }, [userId]); 
 
   return (
     <div className="MyPageMessages">

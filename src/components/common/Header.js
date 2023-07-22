@@ -124,9 +124,9 @@ export default function Header ({userId, setUserId}) {
 
     return (
         <header onClick={closeToggle}>
-            <Link to = {'/'}>
-                <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
-            </Link>
+                <Link to = {'/'}>
+                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
+                </Link>
             <nav className={`headerNav ${showNav ? 'show' : ''}`} onClick={clickMenu}>
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
