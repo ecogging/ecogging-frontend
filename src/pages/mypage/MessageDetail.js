@@ -18,7 +18,7 @@ export default function MessageDetail() {
 
     // 삭제하기 모달
     const { deleteOpen, openDeleteModal, closeDeleteModal } = useDeleteMessageRoom();
-    // 답장하기모달
+    // 답장하기 모달
     const [isOpen, setIsOpen] = useState(false);
     const openReplyModal = () => {
         setIsOpen(!isOpen);
@@ -31,7 +31,8 @@ export default function MessageDetail() {
 
     // 서버에서 데이터 받아오기
     const[msgs, setMsgs] = useState([]);
-    const[conNick, setConNick] = useState();
+    const[conNick, setConNick] = useState('');
+    const[conId, setConId] = useState('');
     useEffect(() => {
         const url = `/${userId}/messageroom/${messageRoomId}`;
 
@@ -41,18 +42,20 @@ export default function MessageDetail() {
             console.log(response.data.data);
             console.log('쪽지 불러오기 완료 ㅋㅋ');
             setConNick(response.data.data.contactNickname);
+            setConId(response.data.data.contactId);
         })
         .catch((err) => {
             console.log('쪽지 불러오기 실패 ㅋㅋ', err);
         })
     }, []);
-
+    
     console.log('------------');
     console.log(msgs);
     console.log('------------');
-
-        console.log(msgs.length);
-        console.log(conNick);
+    
+    console.log(msgs.length);
+    console.log(conNick);
+    console.log('아이디~'+conId);
 
         console.log(userId);
         console.log(messageRoomId);
@@ -64,7 +67,7 @@ export default function MessageDetail() {
 
             {/* 답장모달 */}
             {isOpen ? 
-                <MessageReplyModal onCloseModal={closeReplyModal} />
+                <MessageReplyModal onCloseModal={ closeReplyModal } conId={conId} />
                 : null }
 
             {/* 삭제모달 */}
