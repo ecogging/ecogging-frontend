@@ -95,20 +95,14 @@ export default function MessageReplyModal({ onCloseModal, conId }) {
 
     const {userId} = useParams();
     const {messageRoomId} = useParams();
-    console.log('================');
-    console.log(userId);
-    console.log(messageRoomId);
 
     // 답장 보낼 내용 확보: 상대 id, 답장 내용
     const [content, setContent] = useState('');
     const getContent = () => {
         setContent(document.getElementById('replyContents').value);
     }
-
     const accessToken = getCookie('access-token'); // 토큰 가져오기
-    const curId = userId;
     const rcvId = conId.toString();
-
     const data = {
         content: content,
         contactId: rcvId
@@ -117,7 +111,7 @@ export default function MessageReplyModal({ onCloseModal, conId }) {
         'Authorization': 'Bearer ' + accessToken, // Bearer Scheme으로 토큰을 포함하여 헤더 설정
         'Content-Type': 'application/json',
     };
-
+    // 답장 보내기
     const sendMessage = () => {
 
         axios.post(`/${userId}/messageroom/${messageRoomId}/messages`, data, {
@@ -126,6 +120,7 @@ export default function MessageReplyModal({ onCloseModal, conId }) {
             .then((response) => {
                 console.log(response.data);
                 console.log('쪽지 보내기 완료 ^-^');
+                onCloseModal();
             })
             .catch((error) => {
             console.log('쪽지 안갔음 T-T', error);

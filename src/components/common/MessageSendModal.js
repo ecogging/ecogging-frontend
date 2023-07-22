@@ -128,6 +128,7 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
             .then((response) => {
                 console.log(response.data);
                 console.log('쪽지 보내기 완료 ^-^');
+                onCloseModal();
             })
             .catch((error) => {
             console.log('쪽지 안갔음 T-T', error);
