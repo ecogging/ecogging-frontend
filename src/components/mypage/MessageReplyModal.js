@@ -93,6 +93,12 @@ export const ModalView = styled.div`
 
 export default function MessageReplyModal({ onCloseModal, conId }) {
 
+    const {userId} = useParams();
+    const {messageRoomId} = useParams();
+    console.log('================');
+    console.log(userId);
+    console.log(messageRoomId);
+
     // 답장 보낼 내용 확보: 상대 id, 답장 내용
     const [content, setContent] = useState('');
     const getContent = () => {
@@ -100,11 +106,10 @@ export default function MessageReplyModal({ onCloseModal, conId }) {
     }
 
     const accessToken = getCookie('access-token'); // 토큰 가져오기
-    const curId = getCookie('userId');
+    const curId = userId;
     const rcvId = conId.toString();
 
     const data = {
-        curId: curId,
         content: content,
         contactId: rcvId
     };
@@ -115,7 +120,7 @@ export default function MessageReplyModal({ onCloseModal, conId }) {
 
     const sendMessage = () => {
 
-        axios.post('http://localhost:8080/messagerooms', data, {
+        axios.post(`/${userId}/messageroom/${messageRoomId}/messages`, data, {
             headers: headers, // 설정한 헤더를 옵션으로 전달
         })
             .then((response) => {
