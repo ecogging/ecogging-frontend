@@ -51,7 +51,9 @@ export default function MyPageMessages() {
 
             <Link to={`/${userId}/messageroom/${item.messageRoomId}`} className='link_messageDetail'>
               <div className='con_MessageMiddle'>
+                { item.lastMessageContent.length > 50 ? 
                 <div className='txt_MessageContent'>{item.lastMessageContent.substring(0,50)}...</div>
+                  :  <div className='txt_MessageContent'>{item.lastMessageContent}</div> }
               </div>
             </Link>
 

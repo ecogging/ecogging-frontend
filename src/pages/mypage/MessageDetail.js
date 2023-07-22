@@ -49,19 +49,6 @@ export default function MessageDetail() {
             console.log('쪽지 불러오기 실패 ㅋㅋ', err);
         })
     }, [msgs]);
-    
-    console.log('------------');
-    console.log(msgs);
-    console.log('------------');
-    
-    console.log(msgs.length);
-    console.log(conNick);
-    console.log('아이디~'+conId);
-
-        console.log(userId);
-        console.log(messageRoomId);
-    
-
 
     return (
         <div className="MessageDetail">
