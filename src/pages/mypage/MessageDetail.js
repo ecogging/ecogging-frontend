@@ -48,7 +48,7 @@ export default function MessageDetail() {
         .catch((err) => {
             console.log('쪽지 불러오기 실패 ㅋㅋ', err);
         })
-    }, []);
+    }, [msgs]);
     
     console.log('------------');
     console.log(msgs);
