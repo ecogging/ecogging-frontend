@@ -156,7 +156,7 @@ const UserSignup = () => {
 
   // password auth
   const isValidPassword = (password) => {
-    return password.length > 5 && password.length < 17;
+    return password.length > 7 && password.length < 17;
   }
 
   const handlePasswordChange = (event) => {
@@ -202,7 +202,7 @@ const UserSignup = () => {
   };
 
   const isValidTelephone = (telephone) => {
-    return telephone.length >= 10;
+    return telephone.length >= 10 && telephone.length <= 11;
   }
 
   const handleTelephoneChange = (event) => {
@@ -211,7 +211,7 @@ const UserSignup = () => {
 
     setTelephone(telephone);
     if (!isValidTelephone(telephone)) {
-      setTelephoneError('최소 10자 이상이어야 합니다.');
+      setTelephoneError('최소 10자 이상, 11자 이하여야 합니다.');
     } else {
       setTelephoneError('');
     }

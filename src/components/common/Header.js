@@ -31,17 +31,16 @@ const reloading = () => {
 export default function Header () {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
-    // 임시 로그인 처리
-    let isLogin = isValidTokenToLogin(accessToken);
-
-    const userNickname = getCookie("nickname");
+    // 로그인 처리
+    const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));
+    const [nickname, setNickname] = useState(getCookie('nickname'));
 
     // 모달 - 로그인
     const [isLoginModalOpen, openLoginModal, closeLoginModal] = useCustomModal();
     const userLogout = () => {
       removeTokenAndUserFromCookie();
       navigate('/');
-      isLogin = false;
+      setIsLogin(false);
       alert('로그아웃 되었습니다.');
     }
     // 모달 - 알림
@@ -80,6 +79,10 @@ export default function Header () {
         setInMenu(nowMenuClass);
     }
 
+    useEffect(() => {
+      setNickname(getCookie('nickname'));
+    },[])
+
     if(isLogin){
         return (
             <header className='header' onClick={closeToggle}>
@@ -114,7 +117,7 @@ export default function Header () {
                     <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
                       <div id='alramCount' className='headerNotify'>12</div>
                     </li>
-                    <li className='userNavBox' id='headerNickname'><Link to={'/mypage/profile'}><span className='nickName'>{userNickname}</span></Link> 님</li>
+                    <li className='userNavBox' id='headerNickname'><Link to={'/mypage/profile'}><span className='nickName'>{nickname}</span></Link> 님</li>
                     <li className='userNavBox'><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
                 <NotificationModal isOpen={isNotiModalOpen} closeModal={closeNotiModal} />

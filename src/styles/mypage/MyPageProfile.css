@@ -1,0 +1,50 @@
+﻿.profile-edit-container {
+  margin: 0 auto;
+  width: 60%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.profile-edit-container .input-wrapper {
+  width: 50%;
+  height: 100%;
+  border: 2px solid gray;
+
+}
+
+#mypage-profile-image {
+  margin: 0 auto;
+  border: 1px solid gray;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.profile-image-edit {
+  margin-bottom: 30px;
+}
+
+.horizontal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.horizontal-buttons button:last-child {
+  margin-left: 20px;
+}
+.profile-edit-container #email-readonly {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-edit-container label {
+  font-weight: bold;
+}
+
+
+.profile-edit-container .input-section {
+  margin: 10px 0;
+}
