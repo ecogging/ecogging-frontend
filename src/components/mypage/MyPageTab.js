@@ -45,19 +45,18 @@ export default function MyPageTab( {userId} ) {
 
       <nav className="container_myPageTabAll">
 
-        <ul className="container_myPageTabNav" onClick={onClicked}>
-          <Link to={'/mypage/profile'} className="link_myPageTabMenu">
+        <ul className="container_myPageTabNav">
+          <Link to={'/mypage/profile'} className="link_myPageTabMenu" onClick={onClicked}>
             <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
           </Link>
-          <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu">
+          <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu" onClick={onClicked}>
             <li className={clicked === '쪽지함' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">쪽지함</div></li>
           </Link>
 
           <li className="box_myPageTabMenuTitle">
             <div className="txt_myPageTabMenu">플로깅</div>
             
-            <ul className="box_myPloggingList">
-
+            <ul className="box_myPloggingList" onClick={onClicked}>
               <Link to={`/mypage/${userId}/plogging/recruitPlogging`} className="link_myPageTabMenu">
                 <li className={clicked === '내가 모집한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 모집한 플로깅</div></li>
               </Link>
@@ -70,10 +69,10 @@ export default function MyPageTab( {userId} ) {
               <Link to={`/mypage/${userId}/plogging/scrapPlogging`} className="link_myPageTabMenu">
                 <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
               </Link>
-              <Link to={`/mypage/${userId}/temp2`} className="link_myPageTabMenu">
+              <Link to={`/mypage/${userId}/reviews`} className="link_myPageTabMenu">
                 <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
               </Link>
-              <Link to={'/mypage/plogging/savePlogging'} className="link_myPageTabMenu">
+              <Link to={`/mypage/${userId}/plogging/savePlogging`} className="link_myPageTabMenu">
                 <li className={clicked === '임시저장함' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">임시저장함</div></li>
               </Link>
             </ul>
@@ -82,7 +81,7 @@ export default function MyPageTab( {userId} ) {
           <li className="box_myPageTabMenuTitle">
             <div className="txt_myPageTabMenu">나의 커뮤니티</div>
             
-            <ul className="box_myForumList">
+            <ul className="box_myForumList" onClick={onClicked}>
               <Link to={`/mypage/${userId}/shares`} className="link_myPageTabMenu">
               <li className={clicked === '무료 나눔' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">무료 나눔</div></li>
               </Link>
