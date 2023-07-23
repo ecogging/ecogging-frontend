@@ -14,17 +14,7 @@ import kakaoLoginImage from '../../assets/kakao_login_medium_wide.png'
 import '../../styles/user/UserLoginModal.css'
 
 
-function setUserToCookie (data) {
-    setCookie('userId', data.userId)
-    setCookie('nickname', data.nickname);
-};
-
-function UserLoginModal({ isOpen, closeModal }) {
-    // 새로고침
-    const reloading = () => {
-      window.location.reload();
-    };
-
+function UserLoginModal({isOpen, closeModal, setIsLogin}) {
     const navigate = useNavigate();
     const loginEndPoint = 'http://localhost:8080/auth/login';
 
@@ -40,12 +30,6 @@ function UserLoginModal({ isOpen, closeModal }) {
       setPassword(event.target.value);
     };
 
-    const userLoginByToken = (data) => {
-      setUserToCookie(data);
-      navigate('/');
-      reloading(); // userId 업데이트 지연 -> 임시로 새로고침으로..
-    }
-
     // 모달 끄기 
     const modalRef = useRef(null);
 
@@ -53,6 +37,11 @@ function UserLoginModal({ isOpen, closeModal }) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         closeModal();
       }
+    };
+
+    // 새로고침
+    const reloading = () => {
+      window.location.reload();
     };
 
     // 로그인 request 
@@ -74,7 +63,8 @@ function UserLoginModal({ isOpen, closeModal }) {
         // Decode the token
         const decodedToken = jwtDecode(token);
         // set userinfo in token to cooke
-        userLoginByToken(decodedToken);
+        setCookie('userId', decodedToken.userId)
+        setCookie('nickname', decodedToken.nickname);
 
         // Clear the form fields and any error messages
         setEmail('');
@@ -83,6 +73,10 @@ function UserLoginModal({ isOpen, closeModal }) {
   
         // Close the modal
         closeModal();
+
+        navigate('/');
+        reloading();
+
       } catch (error) {
         // Handle login error
         setError('Invalid email or password');

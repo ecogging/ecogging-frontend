@@ -46,7 +46,7 @@ export default function MyPageTab( {userId} ) {
       <nav className="container_myPageTabAll">
 
         <ul className="container_myPageTabNav" onClick={onClicked}>
-          <Link to={`/mypage/${userId}/temp2`} className="link_myPageTabMenu">
+          <Link to={'/mypage/profile'} className="link_myPageTabMenu">
             <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
           </Link>
           <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu">
