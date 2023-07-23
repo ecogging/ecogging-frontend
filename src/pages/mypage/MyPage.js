@@ -32,20 +32,18 @@ export default function MyPage( {userId , setUserId } ) {
           <Route path="/:userId/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
-          <Route path="/plogging/recruitPlogging" element={<RecruitPlogging/>}/>
-          <Route path="/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
-          
-          <Route path="/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
-          <Route path="/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
-          <Route path="/plogging/scrapPlogging" element={<ScrapPlogging/>}/>
-          <Route path="/reviews" element={<MyPageReview />}></Route>
-          <Route path="/plogging/savePlogging" element={<SavePlogging/>}/>
+          <Route path="/:userId/plogging/recruitPlogging" element={<RecruitPlogging/>}/>
+          <Route path="/:userId/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
+          <Route path="/:userId/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
+          <Route path="/:userId/plogging/scrapPlogging" element={<ScrapPlogging/>}/>
+          <Route path="/:userId/reviews" element={<MyPageReview />}></Route>
+          <Route path="/:userId/plogging/savePlogging" element={<SavePlogging/>}/>
           
 
           {/* 나의 커뮤니티 */}
-          <Route path="/shares" element={<MyPageShare />}></Route>
-          <Route path="/recommendations" element={<MyPageRecommend />}></Route>
-          <Route path="/forumscraps" element={<MyPageForumScrap />}></Route>
+          <Route path="/:userId/shares" element={<MyPageShare />}></Route>
+          <Route path="/:userId/recommendations" element={<MyPageRecommend />}></Route>
+          <Route path="/:userId/forumscraps" element={<MyPageForumScrap />}></Route>
         </Routes>
       </div>
 
