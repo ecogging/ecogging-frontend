@@ -2,6 +2,11 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import MyButton from "../common/MyButton";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useParams } from "react-router";
+import axios from "axios";
+
+import { useNavigate } from "react-router";
+import { getCookie } from "../../utils/CookieUtil";
 
 
 export const DeleteModalBack = styled.div`
@@ -72,7 +77,38 @@ export const DeleteModalView = styled.div`
   }
 `;
 
-export default function MessageDeleteModal( {onCloseDeleteModal}) {
+export default function MessageDeleteModal( {onCloseDeleteModal} ) {
+
+  // 삭제 컨트롤러에 필요한 파라미터 확보
+  const {userId} = useParams();
+  const {messageRoomId} = useParams();
+
+  const navigate = useNavigate();
+  const navigateBack = () => {
+    navigate(-1); 
+  };
+
+  const url = `/${userId}/messageroom/${messageRoomId}`;
+  const accessToken = getCookie('access-token'); 
+  const headers = {
+    'Authorization': 'Bearer ' + accessToken, 
+    'Content-Type': 'application/json',
+  };
+
+  const deleteMsgRoom = (() => {
+    axios.delete(url, {
+      headers:headers,
+    })
+    .then((res) => {
+      console.log('삭제완료');
+      onCloseDeleteModal();
+      navigateBack();
+    })
+    .catch((err) => {
+      console.log('삭제실패');
+    });
+  });
+
 
   return (
     <>
@@ -89,7 +125,7 @@ export default function MessageDeleteModal( {onCloseDeleteModal}) {
         </div>
 
         <div className="sendBottom">
-          <MyButton text={'삭제'} type={'whiteMintWide3'} />
+          <MyButton text={'삭제'} type={'whiteMintWide3'} onClick={deleteMsgRoom} />
           <MyButton text={'취소'} type={'whiteGrayWide3'} onClick={onCloseDeleteModal} />
         </div>
       </DeleteModalView>
