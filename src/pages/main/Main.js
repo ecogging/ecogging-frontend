@@ -41,7 +41,6 @@ export default function Main() {
     if (accessToken) {
       setIsAuthenticated(true);
     }
-    console.log('USEEFFECT__'+userId);
   }, [userId]);
 
 

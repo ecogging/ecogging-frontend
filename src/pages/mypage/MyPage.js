@@ -34,8 +34,6 @@ export default function MyPage( {userId , setUserId } ) {
           {/* 플로깅 */}
           <Route path="/plogging/recruitPlogging" element={<RecruitPlogging/>}/>
           <Route path="/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
-          
-          <Route path="/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
           <Route path="/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
           <Route path="/plogging/scrapPlogging" element={<ScrapPlogging/>}/>
           <Route path="/reviews" element={<MyPageReview />}></Route>
