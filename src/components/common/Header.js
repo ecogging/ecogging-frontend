@@ -157,7 +157,9 @@ export default function Header () {
                 </ul>
             </nav>
             <ul className='loginNav' onClick={clickMenu}>
-              <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+              <Link to={'/corp-login'}>
+                <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+              </Link>
               <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={openLoginModal}></MyButton></li>
             </ul>
 

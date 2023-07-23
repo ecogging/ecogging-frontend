@@ -8,26 +8,24 @@ import '../../styles/corporate/CorpSignUp.css';
 import MyButton from '../common/MyButton';
 import { isValidAxiosResponse } from '../../utils/CustomUtil';
 
-const CoprSignUp = () => {
+const CorpSignUp = () => {
   const navigate = useNavigate();
 
   // Form Input
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reEnteredPassword, setReEnteredPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+
   const [telephone, setTelephone] = useState('');
   // Form validation
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [reEnteredPasswordError, setReEnteredPasswordError] = useState('');
-  const [nicknameError, setNicknameError] = useState('');
   // Form validation - success
   const [passwordSuccess, setPasswordSuccess] = useState(false);
   const [reEnteredPasswordSuccess, setReEnteredPasswordSuccess] = useState(false);
-  const [nicknameSuccess, setNicknameSuccess] = useState(false);
   
-  const [telephoneError, setTelephoneError] = useState(false);
+  const [telephoneError, setTelephoneError] = useState('');
   // email form validation & auth
   const [emailAuthMessage, setEmailAuthMessage] = useState('');
   const [emailSuccess, setEmailSuccess] = useState(false); // 이메일 형식
@@ -36,6 +34,13 @@ const CoprSignUp = () => {
   const [emailAuthConfirmRequested, setEmailAuthConfirmRequested] = useState(false); // 인증번호확인 클릭여부
   const [emailAuthConfirmed, setEmailAuthConfirmed] = useState(false); // 인증완료 여부
   const [emailAuthConfirmMessage, setEmailAuthConfirmMessage] = useState('');
+
+  // corporate
+  const [corpName, setCorpName] = useState('');
+  const [corpRegisterNumber, setCorpRegisterNumber] = useState('');
+  const [corpRepresentative, setCorpRepresentative] = useState('');
+  const [corpRegisterNumberError, setCorpRegisterNumberError] = useState('');
+
 
   // Polich Check
   const [agreeAll, setAgreeAll] = useState(false);
@@ -184,25 +189,12 @@ const CoprSignUp = () => {
     }
   };
 
-  const isValidNickname = (nickname) => {
-    const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,6}$/;
-    return nicknameRegex.test(nickname);
-  }
-
-  const handleNicknameChange = (event) => {
-    const { value } = event.target;
-    setNickname(event.target.value);
-    if (!isValidNickname(value)) {
-      setNicknameError('올바른 닉네임 형식이 아닙니다.')
-      setNicknameSuccess(false);
-    } else {
-      setNicknameError('');
-      setNicknameSuccess(true);
-    }
-  };
-
   const isValidTelephone = (telephone) => {
     return telephone.length >= 10 && telephone.length <= 11;
+  }
+
+  const isValidCorpRegisterNumber = (number) => {
+    return number.length == 0 || number.length == 10;
   }
 
   const handleTelephoneChange = (event) => {
@@ -217,6 +209,29 @@ const CoprSignUp = () => {
     }
   };
 
+  const handleCorpName = (event) => {
+    const input = event.target.value;
+    setCorpName(input);
+  }
+  const handleCorpRegisterNumber = (event) => {
+    const input = event.target.value;
+
+    const number = input.replace(/\D/g, ""); // Remove all non-numeric characters
+
+    setCorpRegisterNumber(number);
+
+    if (!isValidCorpRegisterNumber(number)) {
+      setCorpRegisterNumberError('올바른 사업자등록번호 형식이 아닙니다.');
+    } else {
+      setCorpRegisterNumberError('');
+    }
+
+  }
+  const handleCorpRepresentative = (event) => {
+    const input = event.target.value;
+    setCorpRepresentative(input);
+  }
+
   const allRequirementSatisfied = () => {
     if (!emailAuthConfirmed) {
       alert("이메일 인증이 필요합니다.")
@@ -226,12 +241,13 @@ const CoprSignUp = () => {
       alert("비밀번호를 다시 확인해주세요.")
       return false;
     }
-    if (!nicknameSuccess) {
-      alert("닉네임을 다시 확인해주세요.")
-      return false;
-    } 
     if (telephoneError) {
       alert("휴대폰 번호를 다시 확인해주세요.");
+      return false;
+    } 
+
+    if (corpRegisterNumberError) {
+      alert("사업자등록번호를 다시 확인해주세요.");
       return false;
     } 
     if (!agreeOption1 || !agreeOption2) {
@@ -249,22 +265,26 @@ const CoprSignUp = () => {
       return;
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/signup', {
+      const response = await axios.post('http://localhost:8080/auth/corp/signup', {
         email,
         password,
-        nickname,
-        telephone
+        telephone,
+        corpName,
+        corpRegisterNumber,
+        corpRepresentative
       });
 
-      // Handle successful signup
 
       // Clear the form fields and any error messages
       setEmail('');
       setEmailAuthNumber('');
       setPassword('');
       setReEnteredPassword('');
-      setNickname('');
       setTelephone('');
+      setCorpName('');
+      setCorpRegisterNumber('');
+      setCorpRegisterNumberError('');
+      setCorpRepresentative('');
       setCommonError('');
       // Redirect to the main page
       alert('회원가입에 성공하였습니다.');
@@ -276,12 +296,15 @@ const CoprSignUp = () => {
   };
 
   return (
-    <div className='UserSignup'>
-      <h1>회원가입</h1>
+    <div className='corp-signup-container'>
+      <h2>기업 회원가입</h2>
+      <hr />
+
+      <h4>담당자 정보</h4>
       <div className="input-wrapper">
         {/* 이메일 */}
         <div className='input-section'>
-          <label htmlFor="email">이메일</label>
+          <label htmlFor="email">담당자 이메일</label>
           <div className='email-input-section'>
             <input type="email" id="email" value={email} onChange={handleEmailChange} required/>
             <MyButton text={emailAuthRequested ? '인증번호 재요청' : '인증번호 요청'} id="request-email-auth"
@@ -342,19 +365,10 @@ const CoprSignUp = () => {
           {reEnteredPasswordSuccess && <div className='valid-input-message'>패스워드가 일치합니다.</div>}
         
         </div>
-
-        {/* 닉네임 */}
-        <div className='input-section'>
-          <label htmlFor="nickname">닉네임</label>
-          <span className='label-requirement'>(2~6자, 특수문자 제외)</span>
-          <input type="text" id="nickname" value={nickname} onChange={handleNicknameChange} required/>
-          {/* validation */}
-          {nicknameError && <div className='invalid-input-message'>{nicknameError}</div>}
-          {nicknameSuccess && <div className='valid-input-message'>사용 가능한 닉네임입니다.</div>}
-        </div>
+      
         {/* 핸드폰번호 */}
         <div className='input-section'>
-          <label htmlFor="telephone">휴대폰 번호</label>
+          <label htmlFor="telephone">담당자 휴대폰 번호</label>
           <span className='label-requirement'>('-' 제외하고 입력)</span>
 
           <div id='telephone-input-section'>
@@ -363,6 +377,38 @@ const CoprSignUp = () => {
           {
             telephoneError && <div className='invalid-input-message'>{telephoneError}</div>
           }
+        </div>
+      </div>
+
+      {/* ---------------- 기업 정보 ---------------- */}
+      <hr />
+      <h4>기업 상세 정보</h4>
+      <div className="input-wrapper">
+
+        {/* 기업명 */}
+        <div className='input-section'>
+          <label htmlFor="corpName">기업명</label>
+          <input type="text" id="corpName" value={corpName} onChange={handleCorpName} required/>
+        </div>
+        {/* 사업자등록번호 */}
+        <div className='input-section'>
+          <label htmlFor="corpRegisterNumber">사업자등록번호</label>
+          <span className='label-requirement'>(미입력 가능, 입력 시 '-' 제외하고 입력)</span>
+
+          <div>
+            <input type="text" id="corpRegisterNumber" value={corpRegisterNumber} onChange={handleCorpRegisterNumber} />
+          </div>
+          {
+            corpRegisterNumberError && <div className='invalid-input-message'>{corpRegisterNumberError}</div>
+          }
+        </div>
+        {/* 사업자등록번호 */}
+        <div className='input-section'>
+          <label htmlFor="corpRepresentative">대표자명</label>
+
+          <div>
+            <input type="text" id="corpRepresentative" value={corpRepresentative} onChange={handleCorpRepresentative} />
+          </div>
         </div>
       </div>
 
@@ -406,4 +452,4 @@ const CoprSignUp = () => {
   );
 };
 
-export default CoprSignUp;
+export default CorpSignUp;

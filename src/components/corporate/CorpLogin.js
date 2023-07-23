@@ -65,30 +65,30 @@ const CorpLogin = () => {
       console.log(error);
     }
   };
-  return 
+
+  return (
     <div className='corp-login-container'>  
-      <div className="login-input-group">
-        <div className="input-field">
+    <h1>기업회원 로그인</h1>
+      <div className="input-wrapper">
+        <div className="input-section">
           <input type="text" value={email} onChange={handleEmailChange} placeholder="email" name="email" id="user-email" required/>
         </div>
-        <div className="input-field">
+        <div className="input-section">
           <input type="password" value={password} onChange={handlePasswordChange} placeholder="password" name="password" id="user-password" required/>
         </div>
-      </div>
 
       <div className="button-group">
-        <MyButton text={'로그인'} onClick={handleSubmit}></MyButton>
+        <MyButton text={'로그인'} type={'mintWide2'} onClick={handleSubmit}></MyButton>
         {error && <p className="error">{error}</p>}
         <div className="link-group">
           <span> 아이디 찾기 </span> |
           <span> 비밀번호 찾기 </span> |
-          <Link to={'/corp-signup'}><span> 회원가입 </span></Link>
+          <Link to={'/corp-signup'} className='text-link'><span> 회원가입 </span></Link>
         </div>
-
-      <img src={kakaoLoginImage} alt='kakaoLoginImage' className='kakao-login-image'/>
-        
       </div>
-    </div>;
+      </div>
+
+    </div>);
 }
 
 export default CorpLogin;
