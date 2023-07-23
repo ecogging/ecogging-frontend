@@ -5,23 +5,30 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import detailDate from '../../utils/GetDayMinuteCounter ';
+import { getCookie } from '../../utils/CookieUtil';
 
 export default function MyPageMessages() {
   const { userId } = useParams();
   const [msgRooms, setMegRooms] = useState([]);
 
+  const accessToken = getCookie('access-token'); 
+  const headers = {
+    'Authorization': 'Bearer ' + accessToken,
+    'Content-Type': 'application/json',
+  };
+
+
   // 쪽지함 데이터 불러오기
   useEffect(() => {
     const url = `/mypage/${userId}/messagerooms`;
-    axios.get(url)
+    axios.get(url, {
+      headers:headers,
+    })
       .then((response) => {
         setMegRooms(response.data.data);
-        console.log(msgRooms);
-        console.log('-------------------');
-        console.log(response.data);
       })
       .catch((err) => {
-        console.log('쪽지함 불러오기 실패 - _ -',err);
+        console.log('쪽지함 목록 불러오기 실패',err);
       })
     }, [userId]); 
 
@@ -35,10 +42,12 @@ export default function MyPageMessages() {
       setCheckedList(checkedList.filter((item) => item !== value)); // 배열에서 해당 value와 일치하지 않는 항목으로 만든 새로운 배열 반환
     }
   };
+
   // 체크/체크해제할 때마다 카운트
   useEffect(() => {
     setCountChecekd(checkedList.length);
   }, [checkedList]);
+
   // 전체 선택
   let allCheckedAr = [];
   const setAllChecked = () => {
@@ -50,21 +59,21 @@ export default function MyPageMessages() {
     }
   }
 
-  console.log(checkedList);
-
   // 쪽지함 삭제
   const url = `/mypage/${userId}/messagerooms`;
   const deleteMsgRooms = (() => {
     axios.delete(url, {
       data: checkedList
+    },
+    {
+      headers:headers,
     })
     .then((res) => {
-      console.log('삭제완료~');
       const updatedMsgRooms = msgRooms.filter((item) => !checkedList.includes(item.messageRoomId+''));
       setMegRooms(updatedMsgRooms);
     })
     .catch((err) => {
-      console.log('삭제실패~');
+      console.log('삭제 실패');
     });
   });
 

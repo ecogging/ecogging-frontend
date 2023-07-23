@@ -94,7 +94,6 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
     
     const accessToken = getCookie('access-token'); // 토큰 가져오기
     const curId = getCookie("userId"); // 현재 로그인한 유저 id 프론트단에 저장
-    console.log("쿠키의 유저 아이디~"+curId);
     const [content, setContent] = useState(''); // 쪽지 내용 상태 저장
     const rcvId = receiverId.toString();
 
@@ -107,31 +106,21 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
         setContent(document.getElementById("sendContents").value); // 쪽지 내용 프론트단에 저장
     }
 
-    // const params = new URLSearchParams(); // URLSearchParams 객체를 생성
-    // // 요청 파라미터를 URLSearchParams에 추가
-    // params.append("curId", curId);
-    // params.append("content", content);
-    // params.append("contactId", receiverId);
-
     const data = {
         curId: curId,
         content: content,
         contactId: rcvId,
       };
 
-
     const sendMessage = () => {
-
         axios.post('http://localhost:8080/messagerooms', data, {
             headers: headers, // 설정한 헤더를 옵션으로 전달
         })
             .then((response) => {
-                console.log(response.data);
-                console.log('쪽지 보내기 완료 ^-^');
                 onCloseModal();
             })
             .catch((error) => {
-            console.log('쪽지 안갔음 T-T', error);
+            console.log('쪽지 전송 실패', error);
         });
     }
 

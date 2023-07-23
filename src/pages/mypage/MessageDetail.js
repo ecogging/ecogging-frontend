@@ -8,6 +8,7 @@ import moment from 'moment';
 import axios from 'axios';
 
 import useDeleteMessageRoom from "../../hooks/useDeleteMessageRoom";
+import { getCookie } from '../../utils/CookieUtil';
 
 export default function MessageDetail() {
     const { userId } = useParams();
@@ -29,6 +30,12 @@ export default function MessageDetail() {
         }
     };
 
+    const accessToken = getCookie('access-token'); 
+    const headers = {
+      'Authorization': 'Bearer ' + accessToken, 
+      'Content-Type': 'application/json',
+    };
+
     // 서버에서 데이터 받아오기
     const[msgs, setMsgs] = useState([]);
     const[conNick, setConNick] = useState('');
@@ -37,16 +44,16 @@ export default function MessageDetail() {
     // 처음 글 불러오기
     useEffect(() => {
         const url = `/${userId}/messageroom/${messageRoomId}`;
-        axios.get(url)
+        axios.get(url, {
+            headers:headers,
+        })
         .then((response) => {
             setMsgs(response.data.data.messages.content); 
-            console.log(response.data.data);
-            console.log('쪽지 불러오기 완료 ㅋㅋ');
             setConNick(response.data.data.contactNickname);
             setConId(response.data.data.contactId);
         })
         .catch((err) => {
-            console.log('쪽지 불러오기 실패 ㅋㅋ', err);
+            console.log('쪽지 불러오기 실패', err);
         })
     }, [msgs]);
 

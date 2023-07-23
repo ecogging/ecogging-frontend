@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 
 import { useNavigate } from "react-router";
+import { getCookie } from "../../utils/CookieUtil";
 
 
 export const DeleteModalBack = styled.div`
@@ -82,19 +83,22 @@ export default function MessageDeleteModal( {onCloseDeleteModal} ) {
   const {userId} = useParams();
   const {messageRoomId} = useParams();
 
-  console.log('모달모달----------');
-  console.log(userId);
-  console.log(messageRoomId);
-  console.log('모달모달----------');
-
   const navigate = useNavigate();
   const navigateBack = () => {
-    navigate(-1); // -1을 전달하면 이전 페이지로 이동합니다.
+    navigate(-1); 
   };
 
   const url = `/${userId}/messageroom/${messageRoomId}`;
+  const accessToken = getCookie('access-token'); 
+  const headers = {
+    'Authorization': 'Bearer ' + accessToken, 
+    'Content-Type': 'application/json',
+  };
+
   const deleteMsgRoom = (() => {
-    axios.delete(url)
+    axios.delete(url, {
+      headers:headers,
+    })
     .then((res) => {
       console.log('삭제완료');
       onCloseDeleteModal();
