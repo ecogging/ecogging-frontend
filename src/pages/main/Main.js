@@ -27,7 +27,9 @@ import UserSignup from '../../components/user/UserSignup';
 import MessageDetail from '../mypage/MessageDetail';
 
 import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
-
+import CorpLogin from '../../components/corporate/CorpLogin';
+import CorpSignUp from '../../components/corporate/CorpSignUp';
+import CorpMyPage from '../mypage/CorpMyPage';
 
 
 export default function Main() {
@@ -57,6 +59,11 @@ export default function Main() {
             <Route path="/mypage/*" element={isAuthenticated ? <MyPage userId={userId} setUserId={setUserId}/> : <UserSignupIntro/> } />
             <Route path="/:userId/messageroom/:messageRoomId" element={<MessageDetail />}></Route>
 
+            <Route path="/corporate/mypage/*" element=
+            {isAuthenticated ? <CorpMyPage /> : <CorpLogin /> } 
+            />
+
+
             <Route path="/accompanies" element={<AccompanyList />} />
             <Route path="/accompaniesdetail/:id" element={<AccompanyDetail />} />
             <Route path="/accompanieswrite" element={<AccompanyWrite />} />
@@ -73,6 +80,9 @@ export default function Main() {
 
             <Route path="/signup-intro" element={<UserSignupIntro/>}/>
             <Route path="/signup" element={<UserSignup/>}/>
+
+            <Route path="/corp-login" element={<CorpLogin />}/>
+            <Route path="/corp-signup" element={<CorpSignUp />}/>
           </Routes>
         </div>
         <Footer />  

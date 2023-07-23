@@ -19,4 +19,9 @@ function getMaxValueOfKeyInArrayObect(array, key) {
   return maxId;
 }
 
-export { isValidAxiosResponse, getMaxValueOfKeyInArrayObect };
+// 새로고침
+function reloading() {
+  window.location.reload();
+};
+
+export { isValidAxiosResponse, getMaxValueOfKeyInArrayObect, reloading };
