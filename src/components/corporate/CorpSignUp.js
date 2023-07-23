@@ -14,6 +14,8 @@ const CorpSignUp = () => {
   // Form Input
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+
   const [reEnteredPassword, setReEnteredPassword] = useState('');
 
   const [telephone, setTelephone] = useState('');
@@ -21,10 +23,12 @@ const CorpSignUp = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [reEnteredPasswordError, setReEnteredPasswordError] = useState('');
+  const [nicknameError, setNicknameError] = useState('');
+
   // Form validation - success
   const [passwordSuccess, setPasswordSuccess] = useState(false);
   const [reEnteredPasswordSuccess, setReEnteredPasswordSuccess] = useState(false);
-  
+  const [nicknameSuccess, setNicknameSuccess] = useState(false);
   const [telephoneError, setTelephoneError] = useState('');
   // email form validation & auth
   const [emailAuthMessage, setEmailAuthMessage] = useState('');
@@ -209,6 +213,23 @@ const CorpSignUp = () => {
     }
   };
 
+  const isValidNickname = (nickname) => {
+    const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,6}$/;
+    return nicknameRegex.test(nickname);
+  }
+
+  const handleNicknameChange = (event) => {
+    const { value } = event.target;
+    setNickname(event.target.value);
+    if (!isValidNickname(value)) {
+      setNicknameError('올바른 닉네임 형식이 아닙니다.')
+      setNicknameSuccess(false);
+    } else {
+      setNicknameError('');
+      setNicknameSuccess(true);
+    }
+  };
+  
   const handleCorpName = (event) => {
     const input = event.target.value;
     setCorpName(input);
@@ -269,6 +290,7 @@ const CorpSignUp = () => {
         email,
         password,
         telephone,
+        nickname,
         corpName,
         corpRegisterNumber,
         corpRepresentative
@@ -365,7 +387,15 @@ const CorpSignUp = () => {
           {reEnteredPasswordSuccess && <div className='valid-input-message'>패스워드가 일치합니다.</div>}
         
         </div>
-      
+        {/* 닉네임 */}
+        <div className='input-section'>
+          <label htmlFor="nickname">닉네임</label>
+          <span className='label-requirement'>(2~6자, 특수문자 제외)</span>
+          <input type="text" id="nickname" value={nickname} onChange={handleNicknameChange} required/>
+          {/* validation */}
+          {nicknameError && <div className='invalid-input-message'>{nicknameError}</div>}
+          {nicknameSuccess && <div className='valid-input-message'>사용 가능한 닉네임입니다.</div>}
+        </div>
         {/* 핸드폰번호 */}
         <div className='input-section'>
           <label htmlFor="telephone">담당자 휴대폰 번호</label>

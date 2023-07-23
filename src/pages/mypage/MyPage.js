@@ -29,7 +29,7 @@ export default function MyPage( {userId , setUserId } ) {
       <div className="MyPageContent">
         <Routes>
           <Route path="/profile" element={<MyPageProfile />}></Route>
-          <Route path="/messagerooms" element={<MyPageMessages />}></Route>
+          <Route path="/:userId/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
           <Route path="/plogging/recruitPlogging" element={<RecruitPlogging/>}/>
