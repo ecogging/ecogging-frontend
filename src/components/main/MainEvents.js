@@ -34,7 +34,7 @@ export default function MainEvents() {
     <div className='container_mainEvents'>
       <div className='container_mainEvents_part'>
         <div className='container_title'>
-          <div className='box_title'>UPCOMING EVENTS</div>
+          <div className='box_title'>NEW EVENTS</div>
         </div>
 
         {/* 카드 */}
@@ -44,14 +44,30 @@ export default function MainEvents() {
 
 
 
-<Link to={`/eventDetail/${item.evtid}`} >
+          <Link to={`/eventDetail/${item.evtid}`} >
             <div className='box_EventsCards' key={item.evtId}>
                 
                 <div className='cover_EventsCard'>
+
                   <div className='container_EventsCardCoverText'>
-                    <div className='box_EventsCard_title'>{item.evtTitle}</div>
-                    <div className='box_EventsCard_date'><BiCalendarCheck className="icon_eventsDate"/>{item.evtStartDate} ~ {item.evtEndDate}</div>
-                    <div className='box_EventsCard_writer'>{item.nickname}</div>
+                    
+                    <div className="cont_EventsCardCoverTop">
+                      { (item.active) ?  <div className="box_EventsCard_state_ing">진행중</div>
+                      :  <div className="box_EventsCard_state_fin">마감</div>}
+                    </div>
+
+                    <div className="cont_EventsCardCoverMiddle">
+                      <div className='box_EventsCard_title'>
+                          {(item.evtTitle.length>10) ? item.evtTitle.substring(0,8)+'...' : item.evtTitle}
+                      </div>
+                      <div className='box_EventsCard_date'><BiCalendarCheck className="icon_eventsDate"/>{item.evtStartDate} ~ {item.evtEndDate}</div>
+                      <div className='box_EventsCard_writer'>{item.nickname}</div>
+                    </div>
+
+                    <div className="cont_EventsCardCoverBottom">
+                      <div className="box_EventsCard_location">{item.evtLocation}</div>
+                    </div>
+
                   </div>
                 </div>
 
