@@ -50,6 +50,23 @@ export default function MyPageMessages() {
     }
   }
 
+  console.log(checkedList);
+
+  // 쪽지함 삭제
+  const url = `/mypage/${userId}/messagerooms`;
+  const deleteMsgRooms = (() => {
+    axios.delete(url, {
+      data: checkedList
+    })
+    .then((res) => {
+      console.log('삭제완료~');
+      const updatedMsgRooms = msgRooms.filter((item) => !checkedList.includes(item.messageRoomId+''));
+      setMegRooms(updatedMsgRooms);
+    })
+    .catch((err) => {
+      console.log('삭제실패~');
+    });
+  });
 
 
 
@@ -109,7 +126,7 @@ export default function MyPageMessages() {
         <div className='container_MessageBtns'>
 
           <MyButton text={'모두 선택'} type={'whiteGray'} onClick={setAllChecked} />
-          <MyButton text={'삭제'} type={'gray'} />
+          <MyButton text={'삭제'} type={'gray'} onClick={deleteMsgRooms} />
         </div>
       </div>
       <div className='container_mypageRevBottom'>
