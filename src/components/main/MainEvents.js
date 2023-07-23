@@ -2,12 +2,33 @@ import { BiCalendarCheck } from "react-icons/bi";
 import '../../styles/main/MainEvents.css';
 import posterTemp from '../../assets/poster.png';
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getCookie } from "../../utils/CookieUtil";
 
 export default function MainEvents() {
+  const {userId} = getCookie('userId');
 
-  const printTarget = (e) => {
-    alert(e.target.className);
-  }
+  const [curPage, setCurPage] = useState(1); // curPage의 초기값을 1로 설정합니다.
+  const [type, setType] = useState("latest"); // type의 초기값을 "latest"로 설정합니다.
+
+
+  const [evts, setEvts] = useState(null);
+
+  // 행사 최신글 4개 불러오기
+  const url = '/main/events';
+  useEffect(() => {
+    axios.get(url)
+      .then((res) => {
+        console.log('행사 불러오기 완료~');
+        console.log(res.data);
+        setEvts(res.data.data);
+      })
+      .catch((err) => {
+        console.log('행사 불러오기 실패', err);
+      });
+  }, []);
+
 
   return(
     <div className='container_mainEvents'>
@@ -19,25 +40,32 @@ export default function MainEvents() {
         {/* 카드 */}
         <div className='container_EventsCards'>
 
+        {evts && evts.map((item, idx) => (
 
-          <Link to={"/temp"}>
-            <div className='box_EventsCards'>
+
+
+<Link to={`/eventDetail/${item.evtid}`} >
+            <div className='box_EventsCards' key={item.evtId}>
                 
                 <div className='cover_EventsCard'>
                   <div className='container_EventsCardCoverText'>
-                    <div className='box_EventsCard_title'>행사 제목</div>
-                    <div className='box_EventsCard_date'><BiCalendarCheck className="icon_eventsDate"/>YY.MM.DD ~ YY.MM.DD</div>
-                    <div className='box_EventsCard_writer'>행사 주관처</div>
+                    <div className='box_EventsCard_title'>{item.evtTitle}</div>
+                    <div className='box_EventsCard_date'><BiCalendarCheck className="icon_eventsDate"/>{item.evtStartDate} ~ {item.evtEndDate}</div>
+                    <div className='box_EventsCard_writer'>{item.nickname}</div>
                   </div>
                 </div>
 
                 <div className='card_EventsWhole'>
                   <img src={posterTemp} className='img_poster_source' />
+                  {/* <img src={`http://localhost:8080/eventImg/${item.fileId}`} className='img_poster_source' /> */}
                 </div>
             
             </div>
           </Link>
 
+
+
+        ))}
 
         </div>
 
