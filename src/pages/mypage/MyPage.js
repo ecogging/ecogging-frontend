@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import Temp from "../../components/main/Temp";
 import MyPageTab from "../../components/mypage/MyPageTab";
+
 import '../../styles/mypage/MyPage.css';
 import '../../styles/mypage/MyPagePlogging.css';
 
@@ -8,6 +9,8 @@ import RecruitPlogging from '../../components/mypage/plogging/RecruitPlogging';
 import RecruitEventPlogging from '../../components/mypage/plogging/RecruitEventPlogging';
 import ParticipationPlogging from '../../components/mypage/plogging/ParticipationPlogging';
 import ScrapPlogging from '../../components/mypage/plogging/ScrapPlogging';
+
+import MyPageProfile from '../../components/mypage/MyPageProfile';
 import MyPageReview from "../../components/mypage/MyPageReview";
 import SavePlogging from '../../components/mypage/plogging/SavePlogging';
 
@@ -16,14 +19,17 @@ import MyPageRecommend from "../../components/mypage/MyPageRecommend";
 import MyPageForumScrap from "../../components/mypage/MyPageForumScrap";
 import MyPageMessages from "../../components/mypage/MyPageMessages";
 
-export default function MyPage() {
+import { getCookie } from "../../utils/CookieUtil";
+
+export default function MyPage( {userId , setUserId } ) {
+
   return (
     <div className="MyPage">
-      <MyPageTab />
+      <MyPageTab userId={userId} />
       <div className="MyPageContent">
         <Routes>
-          <Route path="/temp2" element={<Temp />}></Route>
-          <Route path="/messages" element={<MyPageMessages />}></Route>
+          <Route path="/profile" element={<MyPageProfile />}></Route>
+          <Route path="/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
           <Route path="/plogging/recruitPlogging" element={<RecruitPlogging/>}/>

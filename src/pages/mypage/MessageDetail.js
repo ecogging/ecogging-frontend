@@ -1,16 +1,25 @@
-import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import MyButton from '../../components/common/MyButton';
 import '../../styles/mypage/MessageDetail.css';
 import MessageReplyModal from '../../components/mypage/MessageReplyModal';
 import MessageDeleteModal from '../../components/mypage/MessageDeleteModal';
+import moment from 'moment';
+import axios from 'axios';
+
+import useDeleteMessageRoom from "../../hooks/useDeleteMessageRoom";
+import { getCookie } from '../../utils/CookieUtil';
 
 export default function MessageDetail() {
+    const { userId } = useParams();
+    const { messageRoomId } = useParams();
 
     // 목록보기
     const goBack = useNavigate();
 
-    // 답장하기모달
+    // 삭제하기 모달
+    const { deleteOpen, openDeleteModal, closeDeleteModal } = useDeleteMessageRoom();
+    // 답장하기 모달
     const [isOpen, setIsOpen] = useState(false);
     const openReplyModal = () => {
         setIsOpen(!isOpen);
@@ -21,26 +30,42 @@ export default function MessageDetail() {
         }
     };
 
-    //삭제하기모달
-    const [deleteOpen, setDeleteOpen] = useState(false);
-    const openDeleteModal = () => {
-        setDeleteOpen(!deleteOpen);
-        document.body.style.overflow = 'hidden'; // 배경 스크롤 막기
-    }
-    const closeDeleteModal = () => {
-        if(deleteOpen){
-            setDeleteOpen(false);
-            document.body.style.overflow = 'auto'; // 배경 스크롤 다시 활성화
-        }   
+    const accessToken = getCookie('access-token'); 
+    const headers = {
+      'Authorization': 'Bearer ' + accessToken, 
+      'Content-Type': 'application/json',
     };
 
+    // 서버에서 데이터 받아오기
+    const[msgs, setMsgs] = useState([]);
+    const[conNick, setConNick] = useState('');
+    const[conId, setConId] = useState('');
+    
+    // 처음 글 불러오기
+    useEffect(() => {
+        const url = `/${userId}/messageroom/${messageRoomId}`;
+        axios.get(url, {
+            headers:headers,
+        })
+        .then((response) => {
+            setMsgs(response.data.data.messages.content); 
+            setConNick(response.data.data.contactNickname);
+            setConId(response.data.data.contactId);
+        })
+        .catch((err) => {
+            console.log('쪽지 불러오기 실패', err);
+        })
+    }, [msgs]);
 
-    return(
+    return (
         <div className="MessageDetail">
 
+            {/* 답장모달 */}
             {isOpen ? 
-                <MessageReplyModal onCloseModal={closeReplyModal} />
+                <MessageReplyModal onCloseModal={ closeReplyModal } conId={conId} />
                 : null }
+
+            {/* 삭제모달 */}
             {deleteOpen ?
                 <MessageDeleteModal onCloseDeleteModal={ closeDeleteModal } />
                 : null }
@@ -59,7 +84,7 @@ export default function MessageDetail() {
                         <div className='container_msgBodyHeader'>
                             <div className='container_msgBodyHeaderLeft'>
                                 <div className='circle_msgSenderPic'></div>
-                                <div className='txt_msgSenderNick'>닉닉닉닉닉닉</div>
+                                <div className='txt_msgSenderNick'>{conNick}</div>
                             </div>
                             <div className='container_msgBodyHeaderRight'>
                                 <div className='container_msgBodyHeaderBtns'>
@@ -70,69 +95,31 @@ export default function MessageDetail() {
                         </div>
 
                         <div className='container_messageArea'>
- 
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_receive'>받은 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
-                                    </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                        쪽지 내용
-                                    </div>
-                                </div>
-                            </div>
 
-                            {/* 임시 */}
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_send'>보낸 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
+                            { msgs.map((msg, idx) => (
+
+                                    <div className='container_msgOne' key={msg.id}>
+                                        <div className='container_msgOneInner'>
+                                            <div className='box_msgOneTop'>
+                                                { msg.isReceived === 1 ?
+                                                    <div className='txt_msgState_receive'>받은 쪽지</div>
+                                                    :   <div className='txt_msgState_send'>보낸 쪽지</div>
+                                                }   
+                                                <div className='txt_msgWriteDate'>{moment(msg.createdAt).format('YY.MM.D h:mm a')}</div>
+                                            </div>
+                                            <div className='box_msgContentsBody'>
+                                                {msg.content}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                        쪽지 내용
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_receive'>받은 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
-                                    </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='container_msgOne'>
-                                <div className='container_msgOneInner'>
-                                    <div className='box_msgOneTop'>
-                                        <div className='txt_msgState_send'>보낸 쪽지</div>
-                                        <div className='txt_msgWriteDate'>23/06/27 00:12</div>
-                                    </div>
-                                    <div className='box_msgContentsBody'>
-                                        쪽지 내용<br/>
-                                        쪽지 내용
-                                    </div>
-                                </div>
-                            </div>
+
+                                ))                               
+                            }
 
                         </div>
-
-
                     </div>
-
                 </div>
-
-
-
             </div>           
-
-
         </div>
     );
 }
