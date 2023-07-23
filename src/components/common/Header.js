@@ -28,9 +28,10 @@ const reloading = () => {
     window.location.reload();
 };
 
-export default function Header () {
+export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
+  
     // 로그인 처리
     const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));
     const [nickname, setNickname] = useState(getCookie('nickname'));
@@ -86,11 +87,9 @@ export default function Header () {
     if(isLogin){
         return (
             <header className='header' onClick={closeToggle}>
-                <div className='logoContainer' onClick={reloading}>
-                    <Link to = {'/'}>
-                        <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
-                    </Link>
-                </div>
+                <Link to = {'/'}>
+                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
+                </Link>
                 <nav className={`headerNav ${showNav ? 'show' : ''}`} onClick={clickMenu}>
                     <ul className='headerMenu'>
                         <li className='headerMenuList'>
@@ -130,11 +129,9 @@ export default function Header () {
 
     return (
         <header onClick={closeToggle}>
-            <div className='logoContainer' onClick={reloading}>
                 <Link to = {'/'}>
                     <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
                 </Link>
-            </div>
             <nav className={`headerNav ${showNav ? 'show' : ''}`} onClick={clickMenu}>
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>

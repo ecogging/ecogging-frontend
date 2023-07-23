@@ -3,7 +3,10 @@ import { useState } from "react";
 import { FaRegPaperPlane } from "react-icons/fa";
 import MyButton from "../common/MyButton";
 import axios from "axios";
+import { getCookie } from "../../utils/CookieUtil";
+import { useEffect } from "react";
 
+// import 'big-integer'; 
 
 export const ModalView = styled.div`
     width: 400px;
@@ -87,17 +90,37 @@ export const ModalView = styled.div`
 
 
 
-export default function MessageSendModal({ onCloseModal, receiverNick }) {
+export default function MessageSendModal({ onCloseModal, receiverNick, receiverId }) {
     
-    const [msg, setMsg] = useState("");
+    const accessToken = getCookie('access-token'); // 토큰 가져오기
+    const curId = getCookie("userId"); // 현재 로그인한 유저 id 프론트단에 저장
+    const [content, setContent] = useState(''); // 쪽지 내용 상태 저장
+    const rcvId = receiverId.toString();
+
+    const headers = {
+        'Authorization': 'Bearer ' + accessToken, // Bearer Scheme으로 토큰을 포함하여 헤더 설정
+        'Content-Type': 'application/json',
+    };
+
+    const getContent = () => {
+        setContent(document.getElementById("sendContents").value); // 쪽지 내용 프론트단에 저장
+    }
+
+    const data = {
+        curId: curId,
+        content: content,
+        contactId: rcvId,
+      };
+
     const sendMessage = () => {
-        axios.post("/messages", {content:msg})
-        .then((response) => {
-            console.log('쪽지보내기 오나료 ^ ^ /');
-            onCloseModal();
+        axios.post('http://localhost:8080/messagerooms', data, {
+            headers: headers, // 설정한 헤더를 옵션으로 전달
         })
-        .catch((error) => {
-            console.log('쪽지 안갔음 T-T', error);
+            .then((response) => {
+                onCloseModal();
+            })
+            .catch((error) => {
+            console.log('쪽지 전송 실패', error);
         });
     }
 
@@ -115,7 +138,7 @@ export default function MessageSendModal({ onCloseModal, receiverNick }) {
 
             <div className="sendMiddle">
                 <div className="receiverNick">받는 사람: {receiverNick}</div>
-                <textarea name="sendContents" className="sendContents" placeholder="쪽지 내용을 입력하세요..." autoFocus/>
+                <textarea name="sendContents" id="sendContents" className="sendContents" placeholder="쪽지 내용을 입력하세요..." onChange={getContent}/>
             </div>
 
             <div className="sendBottom">

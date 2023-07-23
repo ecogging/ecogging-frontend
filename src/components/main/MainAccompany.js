@@ -16,7 +16,7 @@ const { kakao } = window;
 export default function MainAccompany() {
 
   // 쪽지 보내기 모달
-  const { isModalOpen, selectedNick, openSendModal, closeSendModal } = useSendMessage();
+  const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
 
   // 최신 3개 글 가져오기
   const [accomp, setAccomp] = useState(null);
@@ -82,7 +82,7 @@ const clicking = (e) => {
 
   return (
     <div className='container_mainAccompany'>
-      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick}/> : null}
+      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
 
       <div className='container_part_mainAccompany' onClick={closeSendModal}>
 
@@ -111,7 +111,7 @@ const clicking = (e) => {
                   </div>
 
                   <div className='container_card_middle'>
-                    <div className='box_nickname' onClick={openSendModal}>{item.nickname}</div>
+                    <div className='box_nickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
                     <Link to={`/accompaniesdetail/${item.id}`} ><div className='box_matesTitle'>{item.title}</div></Link>
                   </div>
 
