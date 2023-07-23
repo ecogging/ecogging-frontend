@@ -10,6 +10,12 @@ import AccompanyList from '../../components/plogging/accompany/AccompanyList';
 import AccompanyDetail from '../../components/plogging/accompany/AccompanyDetail';
 import AccompanyWrite from '../../components/plogging/accompany/AccompanyWrite';
 import AccompanyModify from '../../components/plogging/accompany/AccompanyModify';
+
+import EventList from '../../components/plogging/event/EventList';
+import EventWrite from '../../components/plogging/event/EventWrite';
+import EventDetail from '../../components/plogging/event/EventDetail';
+import EventModify from '../../components/plogging/event/EventModify';
+
 import Reviews from '../../components/plogging/reivews/Reviews';
 
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -21,6 +27,7 @@ import UserSignup from '../../components/user/UserSignup';
 import MessageDetail from '../mypage/MessageDetail';
 
 import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
+
 
 
 export default function Main() {
@@ -54,6 +61,14 @@ export default function Main() {
             <Route path="/accompaniesdetail/:id" element={<AccompanyDetail />} />
             <Route path="/accompanieswrite" element={<AccompanyWrite />} />
             <Route path="/accompaniesmodify/:id" element={<AccompanyModify />} />
+
+            <Route exact path='/eventDetail/:eventId/:page/:ptype' element={<EventDetail/>}/>
+            <Route exact path='/eventDetail/:eventId' element={<EventDetail/>}/>
+            <Route exact path='/eventList' element={<EventList/>}/> 
+            <Route exact path='/eventList/:page/:ptype' element={<EventList/>}/>
+            <Route exact path='/eventWrite' element={<EventWrite/>}/> 
+            <Route exact path='/eventModify/:eventId/:page/:ptype' element={<EventModify/>}/>
+
             <Route path="/reviews" element={<Reviews/>}/>
 
             <Route path="/signup-intro" element={<UserSignupIntro/>}/>

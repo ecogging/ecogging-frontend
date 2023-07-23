@@ -99,7 +99,7 @@ export default function Header ({userId, setUserId}) {
                             <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                                 <ul className='ploggingNav'>
                                     <Link to={'/accompanies'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
-                                    <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
+                                    <Link to={'/eventList'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
                                     <Link to={'/reviews'}><li className={inMenu === '후기' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>후기</li></Link>
                                 </ul>
                             </div>
@@ -141,7 +141,7 @@ export default function Header ({userId, setUserId}) {
                         <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
                             <ul className='ploggingNav'>
                                 <Link to={'/accompanies'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>모임</li></Link>
-                                <Link to={'/temp'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
+                                <Link to={'/eventList'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>행사</li></Link>
                                 <Link to={'/reviews'}><li className={inMenu === '후기' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'}>후기</li></Link>
                             </ul>
                         </div>
