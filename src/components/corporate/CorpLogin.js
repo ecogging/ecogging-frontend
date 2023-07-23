@@ -15,7 +15,7 @@ import MyButton from '../common/MyButton';
 
 const CorpLogin = () => {
   const navigate = useNavigate();
-  const loginEndPoint = 'http://localhost:8080/auth/corp/login';
+  const loginEndPoint = 'http://localhost:8080/auth/corporate/login';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,8 +50,8 @@ const CorpLogin = () => {
       // set userinfo in token to cooke
       setCookie('userId', decodedToken.userId)
       setCookie('nickname', decodedToken.nickname);
+      setCookie('isCorporate', true)
 
-      // Clear the form fields and any error messages
       setEmail('');
       setPassword('');
       setError('');

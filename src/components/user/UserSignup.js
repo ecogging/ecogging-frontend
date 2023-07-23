@@ -249,7 +249,7 @@ const UserSignup = () => {
       return;
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/signup', {
+      const response = await axios.post('http://localhost:8080/auth/signUp', {
         email,
         password,
         nickname,

@@ -234,6 +234,7 @@ const CorpSignUp = () => {
     const input = event.target.value;
     setCorpName(input);
   }
+
   const handleCorpRegisterNumber = (event) => {
     const input = event.target.value;
 
@@ -282,11 +283,11 @@ const CorpSignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!allRequirementSatisfied())
+    if (!allRequirementSatisfied()) 
       return;
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/corp/signup', {
+      const response = await axios.post('http://localhost:8080/auth/corporate/signUp', {
         email,
         password,
         telephone,
@@ -426,18 +427,20 @@ const CorpSignUp = () => {
           <span className='label-requirement'>(미입력 가능, 입력 시 '-' 제외하고 입력)</span>
 
           <div>
-            <input type="text" id="corpRegisterNumber" value={corpRegisterNumber} onChange={handleCorpRegisterNumber} />
+            <input type="text" id="corpRegisterNumber" 
+              value={corpRegisterNumber} onChange={handleCorpRegisterNumber} required/>
           </div>
           {
             corpRegisterNumberError && <div className='invalid-input-message'>{corpRegisterNumberError}</div>
           }
         </div>
-        {/* 사업자등록번호 */}
+        {/* 대표자명 */}
         <div className='input-section'>
           <label htmlFor="corpRepresentative">대표자명</label>
 
           <div>
-            <input type="text" id="corpRepresentative" value={corpRepresentative} onChange={handleCorpRepresentative} />
+            <input type="text" id="corpRepresentative" 
+              value={corpRepresentative} onChange={handleCorpRepresentative} required/>
           </div>
         </div>
       </div>
