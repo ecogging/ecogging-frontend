@@ -41,6 +41,7 @@ export default function Main() {
     if (accessToken) {
       setIsAuthenticated(true);
     }
+    console.log('USEEFFECT__'+userId);
   }, [userId]);
 
 
@@ -53,7 +54,7 @@ export default function Main() {
             <Route path="/" element={<Home />} ></Route>
             <Route path="/temp" element={<Temp />}></Route>
 
-            <Route path="/mypage/:userId/*" element={isAuthenticated ? <MyPage userId={userId} setUserId={setUserId}/> : <UserSignupIntro/> } />
+            <Route path="/mypage/*" element={isAuthenticated ? <MyPage userId={userId} setUserId={setUserId}/> : <UserSignupIntro/> } />
             <Route path="/:userId/messageroom/:messageRoomId" element={<MessageDetail />}></Route>
 
             <Route path="/accompanies" element={<AccompanyList />} />
