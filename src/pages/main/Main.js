@@ -21,6 +21,8 @@ import UserSignup from '../../components/user/UserSignup';
 import MessageDetail from '../mypage/MessageDetail';
 
 import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
+import CorpLogin from '../../components/corporate/CorpLogin';
+import CoprSignUp from '../../components/corporate/CorpSignUp';
 
 
 export default function Main() {
@@ -54,6 +56,9 @@ export default function Main() {
 
             <Route path="/signup-intro" element={<UserSignupIntro/>}/>
             <Route path="/signup" element={<UserSignup/>}/>
+
+            <Route path="/corp-login" element={<CorpLogin />}/>
+            <Route path="/corp-signup" element={<CoprSignUp />}/>
           </Routes>
         </div>
         <Footer />  
