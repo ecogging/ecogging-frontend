@@ -109,6 +109,7 @@ const AccompanyDetail = () => {
                                 <button className="comment-complete">작성</button>
                             </td>
                         </tr>
+                        {/* 댓글 시작 */}
                         <tr>
                             <td className="comment-from">
                                 <div className="comment-from-container">
@@ -130,7 +131,8 @@ const AccompanyDetail = () => {
                                 <button className="comment-reply">답글</button>
                                 <button className="comment-delete">삭제</button>
                             </td>
-                        </tr>        
+                        </tr>
+                        {/* 댓글 끝 */}
                     </tbody>
                 </table>
             </div>

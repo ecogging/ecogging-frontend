@@ -67,6 +67,9 @@ function UserLoginModal({isOpen, closeModal, setIsLogin}) {
         setCookie('nickname', decodedToken.nickname);
         setCookie('isCorporate', false);
 
+        const profileImageUrl = response.data.profileImageUrl;
+        setCookie('profileImageUrl', profileImageUrl);
+
         // Clear the form fields and any error messages
         setEmail('');
         setPassword('');
