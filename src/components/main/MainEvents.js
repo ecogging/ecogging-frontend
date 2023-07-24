@@ -14,8 +14,6 @@ export default function MainEvents() {
   useEffect(() => {
     axios.get(url)
       .then((res) => {
-        console.log('행사 불러오기 완료~');
-        console.log(res.data);
         setEvts(res.data.data);
       })
       .catch((err) => {
