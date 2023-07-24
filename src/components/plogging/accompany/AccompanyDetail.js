@@ -26,6 +26,7 @@ const AccompanyDetail = () => {
     }, []);
 
     const handleScrapToggle = () => {
+        if(accompany.active==false) return;
         axios.post(`http://localhost:8080/accompaniesscrap`,{userId:userId, accompanyId:id})
         .then(res=> {
             setIsScrapped(res.data);
@@ -36,6 +37,7 @@ const AccompanyDetail = () => {
     };
 
     const handleParticipationToggle = () => {
+        if(accompany.active==false) return;
         axios.post(`http://localhost:8080/participation`,{userId:userId, accompanyId:id})
         .then(res=> {
             setIsParticipated(res.data);

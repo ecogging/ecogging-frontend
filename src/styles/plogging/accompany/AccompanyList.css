@@ -185,4 +185,5 @@
     font-weight: bold;
     cursor: pointer;
     margin-top: 20px; 
+    outline: none;
 }
