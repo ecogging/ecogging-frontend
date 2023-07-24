@@ -13,12 +13,17 @@ const AccompanyDetail = () => {
         numOfPeople:0,active:true,views:0,save:false,location:'',locationDetail:'',joincnt:0,nickname:'', userId:''})
     const userId = getCookie("userId");
 
+    const [comments, setComments] = useState([]);
+
     useEffect(()=> {
         axios.post(`http://localhost:8080/accompaniesdetail`,{userId:userId, accompanyId:id})
             .then(res=> {
                 setAccompany(res.data.accompany);
                 setIsParticipated(res.data.isParticipation);
                 setIsScrapped(res.data.isAccompanyscrap);
+                setComments(res.data.comments);
+                console.log(res.data)
+                console.log(res.data.comments)
             })
             .catch(err=> {
                 console.log(err);
