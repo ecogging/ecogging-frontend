@@ -6,6 +6,7 @@ import MessageReplyModal from '../../components/mypage/MessageReplyModal';
 import MessageDeleteModal from '../../components/mypage/MessageDeleteModal';
 import moment from 'moment';
 import axios from 'axios';
+import picTemp from '../../assets/defaultProfile.PNG';
 
 import useDeleteMessageRoom from "../../hooks/useDeleteMessageRoom";
 import { getCookie } from '../../utils/CookieUtil';
@@ -40,6 +41,7 @@ export default function MessageDetail() {
     const[msgs, setMsgs] = useState([]);
     const[conNick, setConNick] = useState('');
     const[conId, setConId] = useState('');
+    const[conPic, setConPic] = useState('');
     
     // 처음 글 불러오기
     useEffect(() => {
@@ -51,6 +53,7 @@ export default function MessageDetail() {
             setMsgs(response.data.data.messages.content); 
             setConNick(response.data.data.contactNickname);
             setConId(response.data.data.contactId);
+            setConPic(response.data.data.contactPicUrl)
         })
         .catch((err) => {
             console.log('쪽지 불러오기 실패', err);
@@ -83,7 +86,12 @@ export default function MessageDetail() {
 
                         <div className='container_msgBodyHeader'>
                             <div className='container_msgBodyHeaderLeft'>
-                                <div className='circle_msgSenderPic'></div>
+                                <div className='circle_msgSenderPic'>
+                                    {(conPic) ? 
+                                    <img src={conPic} className='msgSender_PicSource' />
+                                    : <img src={picTemp} className='msgSender_PicSource' />
+                                    }
+                                </div>
                                 <div className='txt_msgSenderNick'>{conNick}</div>
                             </div>
                             <div className='container_msgBodyHeaderRight'>

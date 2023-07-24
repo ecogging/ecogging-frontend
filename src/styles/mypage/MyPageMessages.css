@@ -102,6 +102,11 @@
     border-radius: 50%;
     background-color: gray;
   }
+  .image_senderPic_source {
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+  }
   .txt_senderNick {
     width: 110px;
     height: 30px;

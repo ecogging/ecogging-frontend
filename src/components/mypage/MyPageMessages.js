@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import detailDate from '../../utils/GetDayMinuteCounter ';
 import { getCookie } from '../../utils/CookieUtil';
+import picTemp from '../../assets/defaultProfile.PNG';
 
 export default function MyPageMessages() {
   const { userId } = useParams();
@@ -26,6 +27,7 @@ export default function MyPageMessages() {
     })
       .then((response) => {
         setMegRooms(response.data.data);
+        console.log(response.data);
       })
       .catch((err) => {
         console.log('쪽지함 목록 불러오기 실패',err);
@@ -104,10 +106,12 @@ export default function MyPageMessages() {
                   onChange={(e) => {onCheckedItem(e.target.checked, e.target.value)}} 
                   checked={ checkedList.includes(item.messageRoomId+'') ? true:false} />
               </div>
-              {console.log('======================================')}
-              {console.log(item.messageRoomId)}
               <div className='con_MessageSender'>
-                <div className='box_senderPic'></div>
+                <div className='box_senderPic'>
+                  { (item.contactPicUrl) ?
+                  <img src={item.contactPicUrl}  className='image_senderPic_source'/> : <img src={picTemp}  className='image_senderPic_source'/>
+                  }
+                </div>
                 <div className='txt_senderNick'>{item.contactNickname}</div>
               </div>
             </div>
