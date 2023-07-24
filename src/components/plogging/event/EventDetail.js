@@ -52,6 +52,7 @@ const EventDetail = () => {
     setModalImageSrc('');
   };
 
+  //삭제 버튼 모달
   const eventDelete = () => {
     setIsDeleteModalOpen(true);
   };
@@ -70,16 +71,6 @@ const EventDetail = () => {
   const cancelDelete = () => {
     setIsDeleteModalOpen(false);
   };
-
-//   const eventDelete = () => {
-//     axios.get(`http://localhost:8080/eventDelete/${eventId}`)
-//     .then(res=> {
-//         window.location.href = '/eventList';            
-//     })
-//     .catch(err=> {
-//         console.log(err);
-//     })
-// }
 
   return (
     <>
