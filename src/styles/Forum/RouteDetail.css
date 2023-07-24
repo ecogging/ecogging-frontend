@@ -1,59 +1,59 @@
-.reviewInfo_mainLayout{
+.routeInfo_mainLayout{
     display: flex;
     justify-content: center;
-    /* background-color: aliceblue; */
+    background-color: aliceblue;
     margin: 120px auto;
     width: 100%;
 }
-.reviewInfo_wrap{
+.routeInfo_wrap{
     width: 95%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* background-color: rgb(224, 203, 243); */
+    background-color: rgb(224, 203, 243);
 }
-.reviewInfo_top{
-    /* background-color: rgb(163, 163, 233); */
+.routeInfo_top{
+    background-color: rgb(163, 163, 233);
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-.reviewInfo_title{
+.routeInfo_title{
     /* background-color: rgb(189, 233, 146); */
     /* display: flex;
     justify-content: start; */
     font-size: 25px;
 }
-.reviewInfo_top_in{
+.routeInfo_top_in{
     /* background-color: rgb(61, 90, 61); */
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 5px 0px 5px 0px;
 }
-.reviewInfo_imageAndnickname{
+.routeInfo_imageAndnickname{
     /* background-color: rgb(79, 79, 236); */
     display: flex;
     font-size: 20px;
 }
-.reviewInfo_nickname{
+.routeInfo_nickname{
     cursor: pointer;
 }
-.reviewInfo_profil{
+.routeInfo_profil{
     background-color: rgb(86, 216, 216);
     margin: 0px 10px 0px 10px;
     box-sizing: border-box;
     border-radius: 50%;
 }
-.reviewInfo_dateAndviewsAndscrap{
+.routeInfo_dateAndviewsAndscrap{
     /* background-color: coral; */
     display: flex;
 }
-.reviewInfo_dateAndviewsAndscrap>div:not(:last-child){
+.routeInfo_dateAndviewsAndscrap>div:not(:last-child){
     margin-right: 5px;
 }
-.reviewInfo_layout{
-    /* background-color: rgb(100, 135, 165); */
+.routeInfo_layout{
+    background-color: rgb(5, 136, 252);
     width: 100%;
     height: 410px;
     display: flex;
@@ -62,14 +62,14 @@
     /* border-bottom: 1px solid #838383; */
     padding-top: 10px;
 }
-.reviewInfo_views{
+.routeInfo_views{
     display: flex;
     align-items: center;
 }
 .view_icon{
     margin-right: 2px;
 }
-.reviewInfo_scrap{
+.routeInfo_scrap{
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -77,16 +77,16 @@
 .BsFillBookmarkFill{
     color: #9BE4CE;
 }
-.reviewInfo_img{
+/* .routeInfo_img{
     background-color: #838383;
     box-sizing: border-box;
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.reviewInfo_content{
-    /* background-color: bisque; */
+} */
+.routeInfo_content{
+    background-color: rgb(189, 13, 13);
     box-sizing: border-box;
     width: 100%;
     display: flex;
@@ -95,7 +95,7 @@
     border-radius: 10px;
     border: 1px solid #9BE4CE;
 }
-.reviewInfo_img_in{
+/* .reviewInfo_img_in{
     background-color: rgb(204, 236, 127);
     margin: 10px;
     height: 90%;
@@ -103,15 +103,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.reviewInfo_content_in{
+} */
+.routeInfo_content_in{
     margin: 10px;
-    width: 90%;
-    height: 90%;
-    background-color: aqua;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(165, 230, 46);
     font-size: 17px;
+    display: flex;
 }
-.reviewInfoBtn_layout{
+.content_Detail_view{
+    width: 50%;
+    background-color: darkviolet;
+}
+.map_Detail_view{
+    width: 50%;
+    background-color: bisque;
+}
+
+/* .routeView{
+    z-index: 1000;
+} */
+.content_view_in{
+    z-index: 1000;
+}
+
+.routeInfoBtn_layout{
     /* background-color: rgb(226, 156, 226); */
     font-size: 20px;
     margin-top: 20px;
@@ -154,7 +171,7 @@
     background-color: #9BE4CE;
     color: white;
 } */
-.reviewsBtn{
+.routeListBtn{
     background-color: rgb(255, 255, 255);
     border: 1px solid #9BE4CE;
     border-radius: 5px;
@@ -168,7 +185,7 @@
     cursor: pointer;
     margin-left: 10px;
 }
-.reviewsBtn:hover{
+.routeListBtn:hover{
     background-color: #9BE4CE;
     color: white;
 }

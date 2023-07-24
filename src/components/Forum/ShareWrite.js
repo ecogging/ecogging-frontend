@@ -2,21 +2,20 @@ import React, { useEffect, useState , useRef} from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router";
-import '../../../styles/plogging/review/ReviewWrite.css';
-import TextEditor from "../../common/TextEditor";
+import '../../styles/Forum/ShareWrite.css';
+import TextEditor from "../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
-import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 
-export default function ReviewWrite(){
+export default function ShareWrite(){
     const [editorData,setEditorData]=useState('');
-    // const {userId}=useParams();
+    const {userId}=useParams();
     const [titleVal, setTitleVal]=useState('');
     const navigate = useNavigate();
-    const userId = getCookie("userId");
+
  
     
 
-    const handleReviewSave=async(temp,userId)=>{
+    const handleShareSave=async()=>{
         try {
             //작성된 글과 이미지를 폼 데이터로 변환
             // const formData=new FormData();
@@ -28,14 +27,14 @@ export default function ReviewWrite(){
                 title:titleVal,
             };
             
-            const response=await axios.post(`http://localhost:8080/reviewWrite/${temp}/${userId}`, requestData,
+            const response=await axios.post(`http://localhost:8080/sharewWrite`, requestData,
             {
                 headers:{'Content-Type': 'application/json'},
                 withCredentials:true
             })
             // const url=`/images/${response.data.filename}`;
             console.log(response.data);
-            navigate('/reviews');
+            navigate('/shares');
         } catch (error) {
             console.log(error);
         }
@@ -68,10 +67,10 @@ export default function ReviewWrite(){
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={handleReviewSave(1)}>
+                        <div className="tmepBtn">
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={handleReviewSave(0)}>
+                        <div className="complBtn" onClick={handleShareSave}>
                                 등록
                         </div>
                     </div>

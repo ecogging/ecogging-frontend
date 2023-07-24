@@ -20,7 +20,13 @@ import UserSignup from '../../components/user/UserSignup';
 import ReviewDetail from '../../components/plogging/reivews/ReviewDetail';
 import ReviewModify from '../../components/plogging/reivews/ReviewModify';
 import ReviewWrite from '../../components/plogging/reivews/ReviewWrite';
-
+import ShareWrite from '../../components/Forum/ShareWrite';
+import Shares from '../../components/Forum/Shares';
+import ShareDetail from '../../components/Forum/ShareDetail';
+import ShareModify from '../../components/Forum/ShareModify';
+import RouteList from '../../components/Forum/RouteList';
+import RouteDetail from '../../components/Forum/RouteDetail';
+import RouteWrite from '../../components/Forum/RouteWrite';
 
 
 export default function Main() {
@@ -47,8 +53,16 @@ export default function Main() {
             <Route path="/signup" element={<UserSignup/>}/>
 
             <Route path="/reviewInfo/:id" element={<ReviewDetail/>}/>
+            <Route path="/shareInfo/:id" element={<ShareDetail/>}/>
             <Route path="/reviewInfoModify/:id" element={<ReviewModify/>}/>
-            <Route path='/reviewWrite/:id' element={<ReviewWrite/>}/>
+            <Route path="/shareInfoModify/:id" element={<ShareModify/>}/>
+            <Route path="/reviewWrite/:userId" element={<ReviewWrite/>}/>
+            <Route path="/shareWrite/:userId" element={<ShareWrite/>}/>
+            <Route path="/routeWrite/:userId" element={<RouteWrite/>}/>
+            <Route path="/shares" element={<Shares/>}/>
+            <Route path="/routeList" element={<RouteList/>}/>
+            <Route path="/routeInfo/:id" element={<RouteDetail/>}/>
+
           </Routes>
         </div>
         <Footer />  

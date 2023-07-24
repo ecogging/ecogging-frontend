@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router";
-import '../../../styles/plogging/review/ReviewModify.css';
-import TextEditor from "../../common/TextEditor";
+import '../../styles/Forum/ShareModify.css';
+import TextEditor from "../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ReviewModify(){
+export default function ShareModify(){
     // const [reviewModify, setReviewModity]=useState([]);
     const [editorData,setEditorData]=useState('');
     const [titleVal, setTitleVal]=useState('');
@@ -15,16 +15,16 @@ export default function ReviewModify(){
     const {id}=useParams();
     const editorRef=useRef();
     const [userId,setUserId]=useState(1);
-    const [reviewInfo, setReviewInfo]=useState([]);
+    const [shareInfo, setShareInfo]=useState([]);
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/reviewInfo`,{id:id})
+        .post(`http://localhost:8080/shareInfo`,{id:id})
         .then(res=>{
-            setReviewInfo(res.data.reviewInfo);
-            console.log(res.data.reviewInfo);
-            setTitleVal(res.data.reviewInfo.title);
-            setEditorData(res.data.reviewInfo.content);
+            setShareInfo(res.data.shareInfo);
+            console.log(res.data.shareInfo);
+            setTitleVal(res.data.shareInfo.title);
+            setEditorData(res.data.shareInfo.content);
             // console.log("setEditorData : "+editorData);
             // console.log("reviewInfo : "+reviewInfo.content);
             // console.log("result"+result);
@@ -41,13 +41,13 @@ export default function ReviewModify(){
                 content:editorData,
                 title:titleVal
             };
-            const res=await axios.post(`http://localhost:8080/reviewModify/${id}`, requestData,
+            const res=await axios.post(`http://localhost:8080/shareModify/${id}`, requestData,
             {
                 headers:{'Content-Type': 'application/json'},
                 withCredentials:true
             })
             console.log(res.data);
-            navigate('/reviews');
+            navigate('/shares');
         } catch (error) {
             console.log(error);
         }

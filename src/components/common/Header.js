@@ -82,7 +82,7 @@ export default function Header () {
                                 </ul>
                             </div>
                         </li>
-                        <Link to={'/temp'}>
+                        <Link to={'/shares'}>
                             <li className='headerMenuList'>
                                 <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                             </li>
@@ -120,7 +120,7 @@ export default function Header () {
                             </ul>
                         </div>
                     </li>
-                    <Link to={'/temp'}>
+                    <Link to={'/shares'}>
                         <li className='headerMenuList'>
                             <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                         </li>
