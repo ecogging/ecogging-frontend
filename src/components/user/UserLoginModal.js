@@ -12,6 +12,7 @@ import ecoggingLogo from '../../assets/ecoggingLogo.png';
 import kakaoLoginImage from '../../assets/kakao_login_medium_wide.png'
 
 import '../../styles/user/UserLoginModal.css'
+import { useTheme } from 'styled-components';
 
 
 function UserLoginModal({isOpen, closeModal, setIsLogin}) {
@@ -65,7 +66,10 @@ function UserLoginModal({isOpen, closeModal, setIsLogin}) {
         // set userinfo in token to cooke
         setCookie('userId', decodedToken.userId)
         setCookie('nickname', decodedToken.nickname);
-        setCookie('isCorporate', false);
+
+
+        const userType = response.data.userType;
+        setCookie('userType', userType);
 
         const profileImageUrl = response.data.profileImageUrl;
         setCookie('profileImageUrl', profileImageUrl);
