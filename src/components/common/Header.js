@@ -64,7 +64,7 @@ export default function Header ({userId, setUserId}) {
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
         if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
-            if(showNav == true) {
+            if(showNav === true) {
                 setShowNav(!showNav);
             }
         }
@@ -108,7 +108,7 @@ export default function Header ({userId, setUserId}) {
                                 </ul>
                             </div>
                         </li>
-                        <Link to={'/temp'}>
+                        <Link to={'/shares'}>
                             <li className='headerMenuList' onClick={clickMenu} >
                                 <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                             </li>
@@ -154,7 +154,7 @@ export default function Header ({userId, setUserId}) {
                             </ul>
                         </div>
                     </li>
-                    <Link to={'/temp'}>
+                    <Link to={'/shares'}>
                         <li className='headerMenuList' onClick={clickMenu}>
                             <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                         </li>
