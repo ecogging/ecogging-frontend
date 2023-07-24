@@ -1,5 +1,5 @@
 .accompany-new {
-    width: 1280px;
+    width: 100%;
     margin: 120px auto;
 }
 
@@ -31,11 +31,13 @@
 .accompany-title {
     width: 94.5%;
     padding: 6px;
-    border: 1px solid #9be4ce;
+    border: 1px solid #6DA997;
     border-radius: 3.5px;
     margin-top: 20px;
     margin-bottom: 15px;
 }
+
+.accompany-title:focus {outline: none;}
 
 .accompany-loc-detail {
     width: 45%;
@@ -46,6 +48,8 @@
     margin-right: 15px;
 }
 
+.accompany-loc-detail:focus {outline: none;}
+
 .accompany-location {
     width: 36.5%;
     padding: 6px;
@@ -54,6 +58,8 @@
     margin-bottom: 15px;
     margin-right: 15px;
 }
+
+.accompany-location:focus {outline: none;}
 
 .find-address {
     margin-bottom: 15px;
@@ -74,6 +80,8 @@
     margin-bottom: 15px;
 }
 
+.accompany-headcount:focus {outline: none;}
+
 .accomp-date {
     width: 30%;
     border: 1px solid lightgray;
@@ -92,12 +100,14 @@
 .accompany-content {
     width: 95%;
     height: 200px;
-    border: 1px solid #9be4ce;
+    border: 1px solid #6DA997;
     border-radius: 3.5px;
     resize: none;
     outline: none;
     margin-bottom: 30px;
 }
+
+.accompany-content:focus {outline: none;}
 
 .accompany-buttons {
     display: flex;

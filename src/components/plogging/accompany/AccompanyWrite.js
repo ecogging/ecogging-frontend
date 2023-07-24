@@ -1,5 +1,6 @@
 import '../../../styles/plogging/accompany/AccompanyWrite.css';
 import MyButton from '../../common/MyButton';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import {useState} from 'react';
 import axios from 'axios';
 import { DatePicker, TimePicker } from 'antd';
@@ -9,7 +10,19 @@ const { daum } = window;
 
 const AccompanyWrite = () => {
 
-    const [accompany, setAccompany] = useState({title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:'',meetingTime:''});
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = ('0'+(today.getMonth()+1)).slice(-2);
+    let day = ('0'+today.getDate()).slice(-2);
+
+    let hours = ('0'+today.getHours()).slice(-2);
+    let minutes = ('0'+today.getMinutes()).slice(-2);
+    let seconds = ('0'+today.getSeconds()).slice(-2);
+
+    let todaystr = year+"-"+month+"-"+day;
+    let curtime = hours+"::"+minutes+"::"+seconds;
+    const userId = getCookie("userId");
+    const [accompany, setAccompany] = useState({title:'',content:'',numOfPeople:0, location:'',locationDetail:'',meetingDate:todaystr, meetingTime:hours+':'+minutes+':'+seconds, userId:userId});
 
     const searchAddress = (e) => {
         new daum.Postcode({
@@ -41,9 +54,10 @@ const AccompanyWrite = () => {
     }
 
     const accompanyWrite = (temp) => {
-        axios.post(`http://localhost:8080/accompanywrite/${temp}`,accompany)
+        axios.post(`http://localhost:8080/accompanieswrite/${temp}`,accompany)
         .then(res=> {
             console.log(res)
+            window.location.href = '/accompanies';
         })
         .catch(err=> {
             console.log(err);
@@ -63,16 +77,16 @@ const AccompanyWrite = () => {
                         </tr>
                         <tr>
                             <td className="accompany-cell">
-                                <input className="accompany-loc-detail" type="text" name="locationDetail" id="locationDetail" placeholder="주소" onChange={changeInput}/>
-                                <input className="accompany-location" type="text" name="location" id="location" placeholder="장소" readOnly/>
+                                <input className="accompany-loc-detail" type="text" name="locationDetail" id="locationDetail" placeholder="장소" onChange={changeInput}/>
+                                <input className="accompany-location" type="text" name="location" id="location" placeholder="주소" readOnly/>
                                 <button className="find-address" onClick={searchAddress}>주소 찾기</button>
                             </td>
                         </tr>
                         <tr>
                             <td className="accompany-cell">
                                 <input className="accompany-headcount" type="text" name="numOfPeople" id="numOfPeople" placeholder="모집 인원" onChange={changeInput}/>
-                                <DatePicker className="accomp-date" defaultValue={dayjs('2023-01-01', 'YYYY-MM-DD') }  onChange={(date, dateString)=> {setAccompany({...accompany, meetingDate:dateString})}}/>
-                                <TimePicker className="accomp-time" defaultValue={dayjs('00-00-00', 'HH::mm::ss') }  onChange={(time, timeString)=> {setAccompany({...accompany, meetingTime:timeString})}}/>
+                                <DatePicker className="accomp-date" allowClear={false}  defaultValue={dayjs(todaystr, 'YYYY-MM-DD') }  onChange={(date, dateString)=> {setAccompany({...accompany, meetingDate:dateString})}}/>
+                                <TimePicker className="accomp-time" allowClear={false}  defaultValue={dayjs(curtime, 'HH::mm::ss') }  onChange={(time, timeString)=> {setAccompany({...accompany, meetingTime:timeString})}}/>
                             </td>
                         </tr>
                         <tr>

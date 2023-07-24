@@ -1,9 +1,19 @@
 import '../../styles/mypage/MyPageForumScrap.css';
 import '../../styles/mypage/MyPageShare.css';
 import '../../styles/mypage/MyPageRecommend.css';
-import { RxBookmarkFilled, RxBookmark } from "react-icons/rx";
+import { RxBookmarkFilled } from "react-icons/rx";
+import { useState } from 'react';
 
 export default function MyPageForumScrap() {
+
+  // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
+  const [isScrapped, SetIsScrapped] = useState([true, true, true]);
+  const scrapClick = (index) => {
+    const newIsScrapped = [...isScrapped];
+    newIsScrapped[index] = !newIsScrapped[index];
+    SetIsScrapped(newIsScrapped);
+  }
+
   return(
     <div className="MyPageForumScrap">
 
@@ -41,6 +51,13 @@ export default function MyPageForumScrap() {
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
+                
+                <div className='container_myScrapToggle'
+                onClick={() => scrapClick(0)}>
+                  <RxBookmarkFilled className={isScrapped[0] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
+                </div>
+
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -69,6 +86,11 @@ export default function MyPageForumScrap() {
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
+                <div className='container_myScrapToggle'
+                onClick={() => scrapClick(1)}>
+                  <RxBookmarkFilled className={isScrapped[1] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
+                </div>
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -100,7 +122,14 @@ export default function MyPageForumScrap() {
                   경로 추천글 제목
                 </div>
                 <div className='container_myViews'>조회수 1004</div>
+                <div className='container_myWriteDate_Recom'>2023. 07. 16 03:46</div>
+
+                <div className='container_myScrapToggle'
+                onClick={() => scrapClick(2)}>
+                  <RxBookmarkFilled className={isScrapped[2] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'} id='icon_myRouteScrapToggle'/>
+                </div>
               </div>
+
               <div className='container_myRecomBottom'>
                 <div className='container_myRecomContent'>
                   본문

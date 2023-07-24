@@ -11,15 +11,11 @@ import MyButton from '../common/MyButton';
 import ecoggingLogo from '../../assets/ecoggingLogo.png';
 import kakaoLoginImage from '../../assets/kakao_login_medium_wide.png'
 
-import '../../styles/common/UserLoginModal.css'
+import '../../styles/user/UserLoginModal.css'
+import { useTheme } from 'styled-components';
 
 
-function setUserToCookie (data) {
-    setCookie('userId', data.userId)
-    setCookie('nickname', data.nickname);
-};
-
-function UserLoginModal({ isOpen, closeModal }) {
+function UserLoginModal({isOpen, closeModal, setIsLogin}) {
     const navigate = useNavigate();
     const loginEndPoint = 'http://localhost:8080/auth/login';
 
@@ -35,11 +31,6 @@ function UserLoginModal({ isOpen, closeModal }) {
       setPassword(event.target.value);
     };
 
-    const userLoginByToken = (data) => {
-      setUserToCookie(data);
-      navigate('/');
-    }
-
     // 모달 끄기 
     const modalRef = useRef(null);
 
@@ -47,6 +38,11 @@ function UserLoginModal({ isOpen, closeModal }) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         closeModal();
       }
+    };
+
+    // 새로고침
+    const reloading = () => {
+      window.location.reload();
     };
 
     // 로그인 request 
@@ -68,7 +64,15 @@ function UserLoginModal({ isOpen, closeModal }) {
         // Decode the token
         const decodedToken = jwtDecode(token);
         // set userinfo in token to cooke
-        userLoginByToken(decodedToken);
+        setCookie('userId', decodedToken.userId)
+        setCookie('nickname', decodedToken.nickname);
+
+
+        const userType = response.data.userType;
+        setCookie('userType', userType);
+
+        const profileImageUrl = response.data.profileImageUrl;
+        setCookie('profileImageUrl', profileImageUrl);
 
         // Clear the form fields and any error messages
         setEmail('');
@@ -77,6 +81,10 @@ function UserLoginModal({ isOpen, closeModal }) {
   
         // Close the modal
         closeModal();
+
+        navigate('/');
+        reloading();
+
       } catch (error) {
         // Handle login error
         setError('Invalid email or password');
@@ -123,7 +131,7 @@ function UserLoginModal({ isOpen, closeModal }) {
                 <div className="link-group">
                   <span> 아이디 찾기 </span> |
                   <span> 비밀번호 찾기 </span> |
-                  <Link to={'/signup-intro'} onClick={closeModal}><span> 회원가입 </span></Link>
+                  <Link to={'/signup-intro'} onClick={closeModal} className='link-in-modal'><span> 회원가입 </span></Link>
                 </div>
 
               <img src={kakaoLoginImage} alt='kakaoLoginImage' className='kakao-login-image'/>

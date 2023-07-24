@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 import MyButton from '../../common/MyButton';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 const { kakao } = window;
 
 const AccompanyList = () => {
-
-
     const [page, setPage] = useState(1);
     const [accompanys, setAccompanys] = useState([]);
     const [hasNext, setHasNext] = useState(true);
     const [orderby, setOrderby] = useState("createdAt");
-
+    const userId = getCookie("userId");
     useEffect(() => {
         reqAccompany(page, orderby);
     }, []);
@@ -27,11 +26,12 @@ const AccompanyList = () => {
 
     const changeOrderby = (porder) => {
         reqAccompany(1,porder);
+        setPage(1);
         setOrderby(porder);
     }    
 
     const reqAccompany = (page, order) => {
-        axios.get(`http://localhost:8080/accompany/${page}?orderby=${order}`)
+        axios.get(`http://localhost:8080/accompanies/${page}?orderby=${order}`)
             .then(res => {
                 console.log(res);
                 setHasNext(res.data.hasNext);
@@ -106,15 +106,16 @@ const AccompanyList = () => {
                 <h1 className="list-subject">동행 모집</h1>
                 <table className="list-info">
                     <tbody>
-                        <tr>
+                        {userId!=null && (<tr>
                             <td className="article-new"> 
-                                <Link to="/accompanywrite"><MyButton text={'새 글 작성'}></MyButton></Link>
+                                <Link to="/accompanieswrite"><MyButton text={'모집글 작성'}></MyButton></Link>
                             </td>
-                        </tr>
+                        </tr>)}
                         <tr>
                             <td className="list-order">
                                 <button className={orderby=='createdAt'? "list-latest selected": "list-latest"}  onClick={()=>changeOrderby("createdAt")}>최신순 ∨</button>&nbsp;&nbsp;&nbsp;
-                                <button className={orderby=='meetingDate'? "almost-done selected": "almost-done"} onClick={()=>changeOrderby("meetingDate")}>모집임박순 ∨</button>
+                                <button className={orderby=='meetingDate'? "almost-done selected": "almost-done"} onClick={()=>changeOrderby("meetingDate")}>모집임박순 ∨</button>&nbsp;&nbsp;&nbsp;
+                                <button className={orderby=='activeFalse'? "almost-done selected": "almost-done"} onClick={()=>changeOrderby("activeFalse")}>모집완료 보기 ∨</button>
                             </td>
                         </tr>
                         <tr className="card-container"> 
@@ -129,7 +130,7 @@ const AccompanyList = () => {
                                                         {card.active && <div className="card-progress">모집중</div>}
                                                         {!card.active && <div className="progress-over">모집완료</div>}
                                                     </div>
-                                                    <Link to="/accompanydetail" className="move-to-detail">
+                                                    <Link to={`/accompaniesdetail/${card.id}`} className="move-to-detail">
                                                         <p className="card-body-title">{card.title}</p>
                                                     </Link>
                                                     <div className="card-body-writer">{card.nickname}</div>

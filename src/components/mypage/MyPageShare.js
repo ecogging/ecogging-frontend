@@ -20,6 +20,7 @@ export default function MyPageShare() {
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -37,8 +38,6 @@ export default function MyPageShare() {
           </div>
         </div>
 
-
-        
         <div className="container_mypageShareWriting">
           {/* 사진 */}
           <div className="container_myShareLeft">
@@ -50,6 +49,7 @@ export default function MyPageShare() {
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -66,18 +66,18 @@ export default function MyPageShare() {
             </div>
           </div>
         </div>
-        
         <div className="container_mypageShareWriting">
           {/* 사진 */}
-          <div className="container_myShareLeft">
+          {/* <div className="container_myShareLeft"> */}
             {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
+          {/* </div> */}
 
           <div className="container_myShareRight">
             <div className='container_myShareWhole'>
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -94,18 +94,18 @@ export default function MyPageShare() {
             </div>
           </div>
         </div>
-        
         <div className="container_mypageShareWriting">
           {/* 사진 */}
-          <div className="container_myShareLeft">
+          {/* <div className="container_myShareLeft"> */}
             {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
+          {/* </div> */}
 
           <div className="container_myShareRight">
             <div className='container_myShareWhole'>
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -122,18 +122,18 @@ export default function MyPageShare() {
             </div>
           </div>
         </div>
-        
         <div className="container_mypageShareWriting">
           {/* 사진 */}
-          <div className="container_myShareLeft">
+          {/* <div className="container_myShareLeft"> */}
             {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
+          {/* </div> */}
 
           <div className="container_myShareRight">
             <div className='container_myShareWhole'>
               <div className='container_myShareTop'>
                 <div className='container_myShareState_ongoing'>진행중</div>
                 <div className='container_myShareViews'>조회수 1004</div>
+                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
               </div>
               <div className='container_myShareTitle'>
                 무료 나눔글 제목
@@ -150,6 +150,9 @@ export default function MyPageShare() {
             </div>
           </div>
         </div>
+
+        
+    
 
       </div>
 

@@ -1,10 +1,10 @@
 ﻿.UserSignup {
-  width:30%;
-  height:100%;
-  margin:120px auto 5% auto;
+  width: 30%;
+  height: 100%;
+  margin: 120px auto 5% auto;
 }
 
-.input-wrapper {
+.user-input-wrapper {
   border-radius: 8px;
   border: 1px solid lightgray;
   display:flex;
@@ -13,7 +13,7 @@
   margin-bottom: 50px;
 }
 
-.input-wrapper input {
+.user-input-wrapper input {
   padding-left: 10px;
 
   width: 100%;
@@ -30,29 +30,35 @@
 .UserSignup .input-section {
   margin-bottom: 20px;
 }
-#telephone-input-section {
+
+.user-input-wrapper #password {
+  margin-bottom: 5px;
+}
+
+.user-input-wrapper label {
+  margin-bottom: 8px;
+  display:inline-block;
+}
+
+.user-input-wrapper .email-input-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
 }
-.input-wrapper #password {
-  margin-bottom: 5px;
-}
 
-.input-wrapper label {
-  margin-bottom: 8px;
-  display:inline-block;
-}
-
-
-#telephone {
+#email {
   width: 65%;
 }
-#request-tel-auth {
+#email-auth-number {
+  width: 65%;
+}
+#request-email-auth {
   width: 25%;
 }
-
+#confirm-email-auth {
+  width: 25%;
+}
 .policies {
   padding: 0 5px;
   margin-bottom: 50px;
@@ -69,4 +75,24 @@
 
 .checkboxOptionSection {
   margin-bottom: 10px;
+}
+
+.invalid-input-message {
+  font-size: 14px;
+  color: red;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.valid-input-message {
+  font-size: 14px;
+  color: blue;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.label-requirement {
+  margin-left: 5px;
+  font-size: 16px;
+  color: gray;
 }

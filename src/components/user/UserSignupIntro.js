@@ -7,12 +7,12 @@ import kakao_start from '../../assets/kakao_start.png';
 import ecoggingLogo from '../../assets/ecoggingLogo.png';
 
 import { TfiEmail }  from 'react-icons/tfi';
-import useLoginModal from '../../hooks/useLoginModal';
+import useCustomModal from '../../hooks/useCustomModal';
 import UserLoginModal from './UserLoginModal';
 
 function UserSignupIntro() {
-  // 모달
-  const {isLoginModalOpen, openLoginModal, closeLoginModal} = useLoginModal();
+  // 모달BiCommentDetail
+  const [isModalOpen, openModal, closeModal] = useCustomModal();
 
   const emailSignupText = (
     <span className='email_signup_text'>
@@ -30,10 +30,10 @@ function UserSignupIntro() {
       <img src={kakao_start} alt='kakao-start'/>
 
       <p>
-        이미 계정이 있으신가요? <button className='signup-login' onClick={openLoginModal}>로그인</button>
+        이미 계정이 있으신가요? <button className='signup-login' onClick={openModal}>로그인</button>
       </p>
 
-     <UserLoginModal isOpen={isLoginModalOpen} closeModal={closeLoginModal} />
+     <UserLoginModal isOpen={isModalOpen} closeModal={closeModal} />
     </div>
   );
 }
