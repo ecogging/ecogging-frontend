@@ -50,7 +50,9 @@ const CorpLogin = () => {
       // set userinfo in token to cooke
       setCookie('userId', decodedToken.userId)
       setCookie('nickname', decodedToken.nickname);
-      setCookie('isCorporate', true)
+
+      const userType = response.data.userType;
+      setCookie('userType', userType);
 
       setEmail('');
       setPassword('');
