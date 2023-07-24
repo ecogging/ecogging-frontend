@@ -7,11 +7,6 @@ import axios from "axios";
 import { getCookie } from "../../utils/CookieUtil";
 
 export default function MainEvents() {
-  const {userId} = getCookie('userId');
-
-  const [curPage, setCurPage] = useState(1); // curPage의 초기값을 1로 설정합니다.
-  const [type, setType] = useState("latest"); // type의 초기값을 "latest"로 설정합니다.
-
 
   const [evts, setEvts] = useState(null);
 
