@@ -126,36 +126,43 @@
 .container_myShareBottom {
   width:100%;
   height:30%;
-
   display: flex;
   align-items: flex-end;
   font-size:1.3rem;
+
+}
+
+.container_myShareBottom2 {
+  width: 90%;
+  display: flex;
+  align-items: center;
 }
 
 /* 본문 */
 .container_myShareContent {
-  width:10%;
+  width: 180px !important;
   height:100%;
   display: flex;
   align-items: center;
+  /* font-size: 10px; */
+  white-space:nowrap;
 }
 
 /* 버튼 */
 .container_myDetailBtns_Share {
   width:165px;
-  height:100%;
+  height:24px;
   display: flex;
   justify-content: flex-end;
   gap:10px;
+  float: right !important; 
 }
 .txt_myBtn_Share {
   width:40px;
   height:100%;
-
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
   font-size:1.2rem;
   color:#838383;
 }

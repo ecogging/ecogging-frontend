@@ -9,6 +9,7 @@ import RecruitPlogging from '../../components/mypage/plogging/RecruitPlogging';
 import RecruitEventPlogging from '../../components/mypage/plogging/RecruitEventPlogging';
 import ParticipationPlogging from '../../components/mypage/plogging/ParticipationPlogging';
 import ScrapPlogging from '../../components/mypage/plogging/ScrapPlogging';
+import ScrapEventPlogging from '../../components/mypage/plogging/ScrapEventPlogging';
 
 import MyPageProfile from '../../components/mypage/MyPageProfile';
 import MyPageReview from "../../components/mypage/MyPageReview";
@@ -32,13 +33,16 @@ export default function MyPage( {userId , setUserId } ) {
           <Route path="/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
-          <Route path="/plogging/recruitPlogging" element={<RecruitPlogging/>}/>
+          <Route path="/plogging/recruitPlogging/:page" element={<RecruitPlogging/>}/>
           <Route path="/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
           
-          <Route path="/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
-          <Route path="/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
-          <Route path="/plogging/scrapPlogging" element={<ScrapPlogging/>}/>
+          <Route path="/plogging/participationPlogging/:page" element={<ParticipationPlogging/>}/>
+
+          <Route path="/plogging/scrapPlogging/:page" element={<ScrapPlogging/>}/>
+          <Route path="/plogging/scrapEventPlogging/:page" element={<ScrapEventPlogging/>}/>
+
           <Route path="/reviews" element={<MyPageReview />}></Route>
+
           <Route path="/plogging/savePlogging" element={<SavePlogging/>}/>
           
 

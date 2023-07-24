@@ -96,7 +96,7 @@ const EventList = () => {
               <a href={'/eventDetail/' + event.eventId+"/"+curPage+"/"+type} key={event.eventId}>
                 <div className="card">
                   {/* 카드 헤더 */}
-                  <div className="card-header" style={cardHeaderStyle}>
+                  <div className="card-header1" style={cardHeaderStyle}>
                     <div className="card-header-img" style={{ position: 'relative' }}>
                     <img src={`http://localhost:8080/eventImg/${event.fileId}`} style={{width:'290px', height:'210px'}}/>
                     </div>

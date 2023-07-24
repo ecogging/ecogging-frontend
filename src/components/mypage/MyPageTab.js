@@ -58,16 +58,13 @@ export default function MyPageTab( {userId} ) {
             
             <ul className="box_myPloggingList">
 
-              <Link to={`/mypage/${userId}/plogging/recruitPlogging`} className="link_myPageTabMenu">
+              <Link to={`/mypage/${userId}/plogging/recruitPlogging/1`} className="link_myPageTabMenu">
                 <li className={clicked === '내가 모집한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 모집한 플로깅</div></li>
               </Link>
-              <Link to={`/mypage/${userId}/plogging/recruitEventPlogging/1`} className="link_myPageTabMenu">
-                <li className={clicked === '이벤트 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu"> 이벤트 플로깅</div></li>
-              </Link>
-              <Link to={`/mypage/${userId}/plogging/participationPlogging`} className="link_myPageTabMenu">
+              <Link to={`/mypage/${userId}/plogging/participationPlogging/1`} className="link_myPageTabMenu">
                 <li className={clicked === '내가 참여한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 참여한 플로깅</div></li>
               </Link>
-              <Link to={`/mypage/${userId}/plogging/scrapPlogging`} className="link_myPageTabMenu">
+              <Link to={`/mypage/${userId}/plogging/scrapPlogging/1`} className="link_myPageTabMenu">
                 <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
               </Link>
               <Link to={`/mypage/${userId}/temp2`} className="link_myPageTabMenu">

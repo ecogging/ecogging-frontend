@@ -1,28 +1,24 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-
 
 export default function RecruitEventPlogging() {
-  const { page} = useParams();
-  const [curPage, setCurPage] = useState(1);
+  const { page=1} = useParams();
+  const [curPage, setCurPage] = useState(page);
   const [event, setEvent] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
-  const [isLastPage, setIsLastPage] = useState(false); 
-  // const [hasNext, setHasNext] = useState(true);
-  // const [orderby, setOrderby] = useState("createdAt");
   const userId = getCookie("userId");
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    RecruitPloggingPage();
+    RecruitEventPloggingPage();
   }, []);
 
-  const RecruitPloggingPage = () => {
+  const RecruitEventPloggingPage = () => {
     axios
         .post(`http://localhost:8080/myevent`,{userId:userId, page:page})
         .then((res) => {
@@ -34,21 +30,28 @@ export default function RecruitEventPlogging() {
           btn.push(i);
         }
         setPageBtn(btn);
-        //setIsLastPage(res.data.isLastPage);
+        setCurPage(pageInfo.curPage);
+        setTotalPages(pageInfo.allPage);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const changePage = (e) => {
-      setCurPage(e.target.value);
-      RecruitPloggingPage(e.target.id);
-    }
+  const formatDate = (date) => {
+    const year = String(date.getFullYear()).slice(-2);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  
 
   return (
     <>
     <div style={{margin: ' 0 100px'}}>
+      <Link style={{margin:'20px', fontSize:'20px', fontWeight:'bold', color:'lightgray'}} to={`/mypage/${userId}/plogging/recruitPlogging/1`} className="link_myPageTabMenu">모임</Link>  
+      <Link style={{margin:'30px', fontSize:'20px', fontWeight:'bold', color:'black'}} to={`/mypage/${userId}/plogging/recruitEventPlogging/1`} className="link_myPageTabMenu">행사</Link>
+      <hr style={{ height: '10px', border: '0', boxShadow: '0 10px 10px -10px #bbb inset' }} />
       {event.length !== 0 && event.map((event) => {
         const createdAtDate = new Date(event.createdAt);
         const formattedDate = createdAtDate.toLocaleDateString();
@@ -70,9 +73,9 @@ export default function RecruitEventPlogging() {
                 };
               }
             } 
-            return(
-            <a href={'/eventDetail/' + event.eventId} key={event.eventId}>            
-              <div className="MyPageShare">
+            return( 
+            <a href={'/eventDetail/' + event.eventId} key={event.eventId} style={{color:'black'}}>            
+            <div className="MyPageShare">
                 {/* 글 목록 업데이트 영역 -- 5개 */}
                 <div className="container_myShareArea"> 
                   <div className="container_mypageShareWriting">
@@ -94,49 +97,51 @@ export default function RecruitEventPlogging() {
                           {event.title}
                         </div>
                         <div className='container_myShareBottom'>
-                          <div className='container_myShareContent'>
-                            주최 : {event.corpName}
+                          <div className='container_myShareBottom2'> 
+                            <div className='container_myShareContent'>
+                              주최 : {event.corpName}
+                            </div>
+                            <div className='container_myShareContent'>
+                              주최 : {event.management}
+                            </div>
+                            <div className='container_myShareContent'>
+                              지역 : {event.location} 
+                            </div>
+                            <div className='container_myShareContent'>
+                              기간 :   {formatDate(eventMeetingDate)} ~ {formatDate(eventEndDate)}
                           </div>
-                          <div className='container_myShareContent'>
-                            주최 : {event.management}
-                          </div>
-                          <div className='container_myShareContent'>
-                            지역 : {event.location} 
-                          </div>
-                          <div className='container_myShareContent'>
-                            기간 : {event.meetingDate} ~ {event.endDate}
-                          </div>
-                          <div className='container_myDetailBtns_Share'>
-                            <div className='txt_myBtn_Share'>수정</div>
-                            <div className='txt_myBtn_Share'>삭제</div>
+                           </div> 
+                          <div className='container_myDetailBtns_Share' style={{float:'right', width:'10%'}}>
+                            <div className='txt_myBtn_Share'><a href={'/eventModify/'+ event.eventId } style={{color:'black'}}>수정</a></div>
+                            <div className='txt_myBtn_Share'><a href={'/eventDetail/'+ event.eventId } style={{color:'black'}}>삭제</a></div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>    
               </div> 
-            </a>  ); 
+            </a>); 
         })}
 
       <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
-          <PaginationLink aria-label="Previous" href={'#'}>
+          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/recruitEventPlogging/${curPage-1}`}>
             <span aria-hidden="true">‹</span>
           </PaginationLink>
         </PaginationItem>
         {pageBtn.map(item => {
           return (
             <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
-              <PaginationLink onClick={changePage} id={item} >
+              <PaginationLink id={item} href={`/mypage/${userId}/plogging/recruitEventPlogging/${item}`} >
                 {item}
               </PaginationLink>
             </PaginationItem>
           );
         })
         }
-        <PaginationItem disabled={isLastPage}>
-          <PaginationLink  aria-label="Next" href={`#`}>
+        <PaginationItem disabled={curPage === totalPages}>
+          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/recruitEventPlogging/${curPage+1}`}>
             <span aria-hidden="true">›</span>
           </PaginationLink>
         </PaginationItem>

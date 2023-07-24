@@ -6,7 +6,7 @@ import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
 import React from 'react';
 
-export default function ScrapPlogging() {
+export default function ScrapEventPlogging() {
   const { page=1} = useParams();
   const [curPage, setCurPage] = useState(page);
   const [accompany, setAccompany] = useState([]);
@@ -15,11 +15,11 @@ export default function ScrapPlogging() {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    ScrapPloggingPage();
+    ScrapEventPloggingPage();
   }, []);
 
-  const ScrapPloggingPage = () => {
-    axios.post(`http://localhost:8080/myaccompaniesscrap`,{userId:userId, page:page})
+  const ScrapEventPloggingPage = () => {
+    axios.post(`http://localhost:8080/myaeventscrap`,{userId:userId, page:page})
       .then((res) => {
           let pageInfo = res.data.pageInfo;
           let list = res.data.list;
@@ -101,14 +101,14 @@ export default function ScrapPlogging() {
 
     <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
-          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/scrapPlogging/${curPage-1}`}>
+          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/scrapEventPlogging/${curPage-1}`}>
             <span aria-hidden="true">‹</span>
           </PaginationLink>
         </PaginationItem>
         {pageBtn.map(item => {
           return (
             <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
-              <PaginationLink id={item} href={`/mypage/${userId}/plogging/scrapPlogging/${item}`} >
+              <PaginationLink id={item} href={`/mypage/${userId}/plogging/scrapEventPlogging/${item}`} >
                 {item}
               </PaginationLink>
             </PaginationItem>
@@ -116,7 +116,7 @@ export default function ScrapPlogging() {
         })
         }
         <PaginationItem disabled={curPage === totalPages}>
-          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/scrapPlogging/${curPage+1}`}>
+          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/scrapEventPlogging/${curPage+1}`}>
             <span aria-hidden="true">›</span>
           </PaginationLink>
         </PaginationItem>

@@ -62,11 +62,12 @@ export default function Main() {
             <Route path="/accompanieswrite" element={<AccompanyWrite />} />
             <Route path="/accompaniesmodify/:id" element={<AccompanyModify />} />
 
-            <Route exact path='/eventDetail/:eventId/:page/:ptype' element={<EventDetail/>}/>
             <Route exact path='/eventDetail/:eventId' element={<EventDetail/>}/>
+            <Route exact path='/eventDetail/:eventId/:page/:ptype' element={<EventDetail/>}/>
             <Route exact path='/eventList' element={<EventList/>}/> 
             <Route exact path='/eventList/:page/:ptype' element={<EventList/>}/>
             <Route exact path='/eventWrite' element={<EventWrite/>}/> 
+            <Route exact path='/eventModify/:eventId' element={<EventModify/>}/>
             <Route exact path='/eventModify/:eventId/:page/:ptype' element={<EventModify/>}/>
 
             <Route path="/reviews" element={<Reviews/>}/>
