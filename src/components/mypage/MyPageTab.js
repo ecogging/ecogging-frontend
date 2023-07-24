@@ -5,7 +5,7 @@ import { getCookie } from "../../utils/CookieUtil";
 
 export default function MyPageTab( {userId} ) {
 
-  const isCorporate = getCookie('isCorporate');
+  const isCorporate = getCookie('userType') === 'CORPORATE';
 
   const [clicked, setClicked] = useState('계정 정보'); // 기본값 계정 정보로 시작 
   const [prev, setPrev] = useState('box_myPageTabMenu_clicked');

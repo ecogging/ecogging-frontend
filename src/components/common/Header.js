@@ -32,7 +32,7 @@ const reloading = () => {
 export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
-    const isCorporate = getCookie('isCorporate');
+    const isCorporate = getCookie('userType') === 'CORPORATE';
 
     // 로그인 처리
     const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));

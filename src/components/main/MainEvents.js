@@ -7,7 +7,6 @@ import axios from "axios";
 import { getCookie } from "../../utils/CookieUtil";
 
 export default function MainEvents() {
-
   const [evts, setEvts] = useState(null);
 
   // 행사 최신글 4개 불러오기
