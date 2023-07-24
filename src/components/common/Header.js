@@ -20,7 +20,8 @@ function isValidTokenToLogin(token) {
 function removeTokenAndUserFromCookie() {
   removeCookie('access-token');
   removeCookie('userId');
-  removeCookie('nickname')
+  removeCookie('nickname');
+  removeCookie('isCorporate');
 }
 
 // 새로고침
@@ -31,7 +32,8 @@ const reloading = () => {
 export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
-  
+    const isCorporate = getCookie('isCorporate');
+
     // 로그인 처리
     const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));
     const [nickname, setNickname] = useState(getCookie('nickname'));
@@ -113,7 +115,11 @@ export default function Header ({userId, setUserId}) {
                     <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
                       <div id='alramCount' className='headerNotify'>12</div>
                     </li>
-                    <li className='userNavBox' id='headerNickname'><Link to={'/mypage/profile'}><span className='nickName' onClick={clickMenu} >{nickname}</span></Link> 님</li>
+                    <li className='userNavBox' id='headerNickname'>
+                      <Link to={ isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
+                        <span className='nickName' onClick={clickMenu} >{nickname}</span>
+                      </Link> 님
+                    </li>
                     <li className='userNavBox' onClick={clickMenu} ><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
                 <NotificationModal isOpen={isNotiModalOpen} closeModal={closeNotiModal} />
@@ -151,7 +157,9 @@ export default function Header ({userId, setUserId}) {
                 </ul>
             </nav>
             <ul className='loginNav' onClick={clickMenu}>
-              <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+              <Link to={'/corp-login'}>
+                <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+              </Link>
               <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={openLoginModal}></MyButton></li>
             </ul>
 

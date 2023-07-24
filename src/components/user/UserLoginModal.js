@@ -65,6 +65,7 @@ function UserLoginModal({isOpen, closeModal, setIsLogin}) {
         // set userinfo in token to cooke
         setCookie('userId', decodedToken.userId)
         setCookie('nickname', decodedToken.nickname);
+        setCookie('isCorporate', false);
 
         // Clear the form fields and any error messages
         setEmail('');

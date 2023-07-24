@@ -6,9 +6,9 @@ import '../../styles/mypage/MyPageProfile.css';
 
 import { getCookie, setCookie } from '../../utils/CookieUtil';
 
-export default function MyPageProfile() {
+export default function CorporateMyPageProfile() {
   const navigate = useNavigate();
-  const requestUrl = "http://localhost:8080/mypage";
+  const requestUrl = "http://localhost:8080/corporate/mypage";
 
   const [nickname, setNickname] = useState('');
   const [nicknameError, setNicknameError] = useState('');
@@ -21,8 +21,14 @@ export default function MyPageProfile() {
 
   const [profileImageFile, setProfileImageFile] = useState(null);
 
-  const fileInputRef = useRef(null);
 
+  // 기업 정보
+  const [corpName, setCorpName] = useState('');
+  const [corpRegisterNumber, setCorpRegisterNumber] = useState('');
+  const [corpRepresentative, setCorpRepresentative] = useState('');
+  const [corpRegisterNumberError, setCorpRegisterNumberError] = useState('');
+
+  const fileInputRef = useRef(null);
   const [profile, setProfile] = useState({});
 
   const [isEditting, setIsEditting] = useState(false);
@@ -47,6 +53,10 @@ export default function MyPageProfile() {
       setNickname(responseProfile.nickname);
       setTelephone(responseProfile.telephone);
       setProfileImageUrl(responseProfile.profileImageUrl);
+      setCorpName(responseProfile.corpName);
+      setCorpRegisterNumber(responseProfile.corpRegisterNumber);
+      setCorpRepresentative(responseProfile.corpRepresentative);
+    
     })
   }
 
@@ -110,6 +120,34 @@ export default function MyPageProfile() {
     }
   };
 
+  const handleCorpName = (event) => {
+    const input = event.target.value;
+    setCorpName(input);
+  }
+
+  const handleCorpRegisterNumber = (event) => {
+    const input = event.target.value;
+
+    const number = input.replace(/\D/g, ""); // Remove all non-numeric characters
+
+    setCorpRegisterNumber(number);
+
+    if (!isValidCorpRegisterNumber(number)) {
+      setCorpRegisterNumberError('올바른 사업자등록번호 형식이 아닙니다.');
+    } else {
+      setCorpRegisterNumberError('');
+    }
+
+  }
+  const handleCorpRepresentative = (event) => {
+    const input = event.target.value;
+    setCorpRepresentative(input);
+  }
+
+  const isValidCorpRegisterNumber = (number) => {
+    return number.length == 0 || number.length == 10;
+  }
+  
   const handleEditSubmit = async (event) => {
     event.preventDefault();
 
@@ -118,6 +156,9 @@ export default function MyPageProfile() {
       nickname: nickname,
       email: email,
       telephone: telephone,
+      corpName: corpName,
+      corpRegisterNumber: corpRegisterNumber,
+      corpRepresentative: corpRepresentative
     };
 
     const formDataToSubmit = new FormData();
@@ -211,8 +252,42 @@ export default function MyPageProfile() {
               </>
             }
           </div>
-        </div>
+          {/* 기업 이름 */}
+          <div className='input-section'>
+            <label htmlFor="telephone">기업 이름</label>
+            { isEditting && 
+              <span className='label-requirement'>('-' 제외하고 입력)</span>
+            }
+            <div id='telephone-edit-section'>
+              <input type="text" id="corpName" value={corpName} onChange={handleCorpName} required readOnly={!isEditting}/>
+            </div>
+          </div>
 
+          {/* 사업자등록번호 */}
+          <div className='input-section'>
+            <label htmlFor="corpRegisterNumber">사업자등록번호</label>
+            { isEditting &&   
+            <span className='label-requirement'>(미입력 가능, 입력 시 '-' 제외하고 입력)</span>
+            } 
+            <div>
+              <input type="text" id="corpRegisterNumber" 
+                value={corpRegisterNumber} onChange={handleCorpRegisterNumber} required readOnly={!isEditting}/>
+            </div>
+            {
+              isEditting &&
+              corpRegisterNumberError && <div className='invalid-input-message'>{corpRegisterNumberError}</div>
+            }
+          </div>
+          {/* 대표자명 */}
+          <div className='input-section'>
+            <label htmlFor="corpRepresentative">대표자명</label>
+
+            <div>
+              <input type="text" id="corpRepresentative" 
+                value={corpRepresentative} onChange={handleCorpRepresentative} required readOnly={!isEditting}/>
+            </div>
+          </div>
+        </div>
         {
         isEditting ?
           (

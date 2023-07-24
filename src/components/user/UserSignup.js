@@ -249,7 +249,7 @@ const UserSignup = () => {
       return;
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/signup', {
+      const response = await axios.post('http://localhost:8080/auth/signUp', {
         email,
         password,
         nickname,
@@ -278,7 +278,7 @@ const UserSignup = () => {
   return (
     <div className='UserSignup'>
       <h1>회원가입</h1>
-      <div className="input-wrapper">
+      <div className="user-input-wrapper">
         {/* 이메일 */}
         <div className='input-section'>
           <label htmlFor="email">이메일</label>
