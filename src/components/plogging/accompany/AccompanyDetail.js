@@ -189,7 +189,7 @@ const AccompanyDetail = () => {
                         </tr>
                         {/* 댓글 시작 */}
                         {
-                          comments.map((comment) => {
+                          comments && comments.map((comment) => {
                             return (
                               <Comment
                                 comment={comment}

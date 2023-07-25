@@ -1,4 +1,5 @@
 ﻿import { FiTrash2 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import {
   getCommentNotificationItem,
   getMessageNotificationItem,
@@ -17,12 +18,13 @@ import detailDate from '../../utils/GetDayMinuteCounter ';
   };
 */
 
-export default function NotificationItem({item, deleteHandler}) {
+export default function NotificationItem({item, deleteHandler, closeModal}) {
+  
   if (item == null || !item) return;
-  const {icon, typeName, content} = 
-    getNotiItem(item) ||  { icon: "-", typeName: "-", content: "-" };
+  const {icon, typeName, content, link} = 
+    getNotiItem(item) ||  { icon: "-", typeName: "-", content: "-", link: "/" };
 
-
+  console.log(item)
   return (
     <div className='notification-item'>
       <div className="item-header">
@@ -36,9 +38,11 @@ export default function NotificationItem({item, deleteHandler}) {
           {<FiTrash2 onClick={() => deleteHandler(item.id)}/>}
         </span>
       </div>
-      <div className="item-body">
-        {content}
-      </div>
+      <Link to={link} onClick={closeModal} className='noti-link'>
+        <div className="item-body">
+          {content}
+        </div>
+      </Link>
     </div>
   )
 }
