@@ -96,7 +96,7 @@ export default function ParticipationPlogging() {
       </div>
       </a>  ); 
      })} 
-
+    <br/><br/>
     <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
           <PaginationLink aria-label="Previous" href={'/mypage/${userId}/plogging/participationPlogging/${curPage-1}'}>

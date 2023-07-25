@@ -49,17 +49,17 @@ export default function RecruitPlogging() {
 
     return(
       <a href={'/accompaniesdetail/' + accompany.id} key={accompany.id} style={{color:'black'}}>         
-      <div className="MyPageShare">  
+      <div className="MyPageShare1">  
         {/* 글 목록 업데이트 영역 -- 5개 */}
-        <div className="container_myShareArea"> 
-          <div className="container_mypageShareWriting">
+        <div className="container_myShareArea1"> 
+          <div className="container_mypageShareWriting1">
             {/* 사진 */}
             {/* <div className="container_myShareLeft"> */}
               {/* <img src={temptemp}  className='temptemp'/> */}
             {/* </div> */}
 
-            <div className="container_myShareRight">
-              <div className='container_myShareWhole'>
+            <div className="container_myShareRight1">
+              <div className='container_myShareWhole1'>
                 <div className='container_myShareTop'>
                   <div className='container_myShareState_ongoing'>
                     {accompany.active && <div>모집 중</div>}
@@ -98,7 +98,7 @@ export default function RecruitPlogging() {
       </div>
       </a>  ); 
      })} 
-
+    <br/><br/>
     <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
           <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/recruitPlogging/${curPage-1}`}>

@@ -122,6 +122,7 @@ export default function ScrapEventPlogging() {
               </div> 
             </a>); 
         })}
+        <br/><br/>
     <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
           <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/scrapEventPlogging/${curPage-1}`}>

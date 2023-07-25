@@ -34,18 +34,18 @@ export default function MyPage( {userId , setUserId } ) {
           <Route path="/:userId/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
-          <Route path="/plogging/recruitPlogging/:page" element={<RecruitPlogging/>}/>
-          <Route path="/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
+          <Route path="/:userId/plogging/recruitPlogging/:page" element={<RecruitPlogging/>}/>
+          <Route path="/:userId/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
           
-          <Route path="/plogging/participationPlogging/:page" element={<ParticipationPlogging/>}/>
+          <Route path="/:userId/plogging/participationPlogging/:page" element={<ParticipationPlogging/>}/>
 
-          <Route path="/plogging/scrapPlogging/:page" element={<ScrapPlogging/>}/>
-          <Route path="/plogging/scrapEventPlogging/:page" element={<ScrapEventPlogging/>}/>
+          <Route path="/:userId/plogging/scrapPlogging/:page" element={<ScrapPlogging/>}/>
+          <Route path="/:userId/plogging/scrapEventPlogging/:page" element={<ScrapEventPlogging/>}/>
 
-          <Route path="/reviews" element={<MyPageReview />}></Route>
+          <Route path="/:userId/reviews" element={<MyPageReview />}></Route>
 
-          <Route path="/plogging/savePlogging/:page" element={<SavePlogging/>}/>
-          <Route path="/plogging/saveEventPlogging/:page" element={<SaveEventPlogging/>}/>
+          <Route path="/:userId/plogging/savePlogging/:page" element={<SavePlogging/>}/>
+          <Route path="/:userId/plogging/saveEventPlogging/:page" element={<SaveEventPlogging/>}/>
           {/* 나의 커뮤니티 */}
           <Route path="/:userId/shares" element={<MyPageShare />}></Route>
           <Route path="/:userId/recommendations" element={<MyPageRecommend />}></Route>
