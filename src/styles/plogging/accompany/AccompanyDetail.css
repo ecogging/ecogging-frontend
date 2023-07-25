@@ -247,3 +247,7 @@
     color: white;
     cursor: pointer;
 }
+
+tr.reply td{
+  padding-left: 30px;
+}
