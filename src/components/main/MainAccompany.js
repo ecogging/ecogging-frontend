@@ -57,6 +57,7 @@ export default function MainAccompany() {
 
             const mapOption = {
                 center: center, 
+                draggable: false,
                 level: 3 
             };   
 

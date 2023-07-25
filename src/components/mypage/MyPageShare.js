@@ -70,31 +70,34 @@ export default function MyPageShare() {
           null
           }
 
-          <div className="container_myShareRight">
-            <div className='container_myShareWhole'>
-              <div className='container_myShareTop'>
+            <div className="container_myShareRight">
+              <div className='container_myShareWhole'>
+                <div className='container_myShareTop'>
 
-                {/* 진행상태 따라 컴포넌트 변경 */}
-                <div className='container_myShareState_ongoing'>진행중</div>
+                  {/* 진행상태 따라 컴포넌트 변경 */}
+                  <div className='container_myShareState_ongoing'>진행중</div>
 
-                <div className='container_myShareViews'>조회수 {item.views}</div>
-                <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
-              </div>
-              <div className='container_myShareTitle'>
-                {item.title}
-              </div>
-              <div className='container_myShareBottom'>
-                <div className='container_myShareContent'>
-                  {item.content}
+                  <div className='container_myShareViews'>조회수 {item.views}</div>
+                  <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
                 </div>
-                <div className='container_myDetailBtns_Share'>
-                  <Link to={`/shareInfoModify/${item.forumId}`}><div className='txt_myBtn_Share'>수정</div></Link>
-                  <div className='txt_myBtn_Share' onClick={() => handelShareDel(item.forumId)}>삭제</div>
+                <Link to={`/shareInfo/${item.forumId}`} className='link_toShareDetail'>
+                  <div className='container_myShareTitle'>
+                    {item.title}
+                  </div>
+                </Link>
+
+                <div className='container_myShareBottom'>
+                  <div className='container_myShareContent'>
+                    {item.content}
+                  </div>
+                  <div className='container_myDetailBtns_Share'>
+                    <Link to={`/shareInfoModify/${item.forumId}`} ><div className='txt_myBtn_Share'>수정</div></Link>
+                    <div className='txt_myBtn_Share' onClick={() => handelShareDel(item.forumId)}>삭제</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
         ))}
     
