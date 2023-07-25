@@ -4,29 +4,54 @@ import MyButton from '../../common/MyButton';
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import MessageSendModal from '../../common/MessageSendModal';
+import useSendMessage from '../../../hooks/useSendMessage';
+
+import Comment from '../../comment/Comment';
 
 const AccompanyDetail = () => {
+    const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
+
     const {id} = useParams();
+    const accompanyId = id;
+
+    console.log("accompany(at first): " + accompanyId);
+
     const [isScrapped, setIsScrapped] = useState(false);
     const [isParticipated, setIsParticipated] = useState(false);
     const [accompany, setAccompany] = useState({id:0,title:'',content:'',meetingDate:'',meetingTime:'',
         numOfPeople:0,active:true,views:0,save:false,location:'',locationDetail:'',joincnt:0,nickname:'', userId:''})
     const userId = getCookie("userId");
 
-    useEffect(()=> {
-        axios.post(`http://localhost:8080/accompaniesdetail`,{userId:userId, accompanyId:id})
+    const [comments, setComments] = useState([]);
+
+    const [commentTypeIn, setCommentTypeIn] = useState('');
+
+
+    const fetchAccompanyData = (userId, accompanyId) => {
+      console.log("fetch..." + userId + ", " + accompanyId);
+      axios.post(`http://localhost:8080/accompaniesdetail`,{userId:userId, accompanyId:accompanyId})
             .then(res=> {
                 setAccompany(res.data.accompany);
                 setIsParticipated(res.data.isParticipation);
                 setIsScrapped(res.data.isAccompanyscrap);
+                setComments(res.data.comments);
+                console.log(res.data)
+                console.log(res.data.comments)
             })
             .catch(err=> {
                 console.log(err);
             })
+    }
+
+    useEffect(()=> {
+      console.log("use effect")
+      fetchAccompanyData(userId, accompanyId);
     }, []);
 
     const handleScrapToggle = () => {
-        axios.post(`http://localhost:8080/accompaniesscrap`,{userId:userId, accompanyId:id})
+        if(accompany.active==false) return;
+        axios.post(`http://localhost:8080/accompaniesscrap`,{userId:userId, accompanyId:accompanyId})
         .then(res=> {
             setIsScrapped(res.data);
         })
@@ -35,8 +60,41 @@ const AccompanyDetail = () => {
         })    
     };
 
+    // 댓글 작성 
+    const commentSaveHandler = (event) => {
+      event.preventDefault();
+      axios.post('http://localhost:8080/comments',{
+        content: commentTypeIn,
+        articleId: accompanyId,
+        parentId: null
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + getCookie('access-token'),
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(res=> {
+          console.log("save in accompanydetail");
+          setCommentTypeIn('')
+          fetchAccompanyData(userId, accompanyId);
+        })
+        .catch(err=> {
+            console.log(err);
+        })  
+    }
+
+    const commentInputChangeHandler = (event) => {
+      const input = event.target.value;
+
+      setCommentTypeIn(input)
+    }
+
+
+    // ------------------------
+
     const handleParticipationToggle = () => {
-        axios.post(`http://localhost:8080/participation`,{userId:userId, accompanyId:id})
+        if(accompany.active==false) return;
+        axios.post(`http://localhost:8080/participation`,{userId:userId, accompanyId: accompanyId})
         .then(res=> {
             setIsParticipated(res.data);
         })
@@ -56,8 +114,28 @@ const AccompanyDetail = () => {
         })
     }
 
+
+
+    const handleCommentDelete = (id) => {
+      axios.delete(`http://localhost:8080/comments/${id}`, {
+        headers: {
+        'Authorization': 'Bearer ' + getCookie('access-token'),
+        'Content-Type': 'application/json'
+      }})
+      .then(response => {
+        console.log("handle comment delete")
+        fetchAccompanyData(userId, accompanyId);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+
+
     return (
         <div className="accompany-article">
+     {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
+
             <div className="article-container">
                 <h1 className="article-subject">동행 모집</h1>
                 <table className="article-info">
@@ -85,7 +163,7 @@ const AccompanyDetail = () => {
                         <tr>
                             <td className="article-cell">
                                 <input className="article-title" type="text" name="title" id="title" value={accompany.title}/>
-                                <input className="article-writer" type="text" name="writer" id="writer" value={accompany.nickname}/>
+                                <input className="article-writer" onClick={() => openSendModal(accompany.userId, accompany.nickname)} type="text" name="writer" id="writer" value={accompany.nickname}/>
                             </td>
                         </tr>
                         <tr>
@@ -95,7 +173,7 @@ const AccompanyDetail = () => {
                         </tr>
                         <tr>
                             <td className="buttons-bottom">
-                                {userId!=null && userId==accompany.userId && (
+                                {userId!=null && userId == accompany.userId && (
                                     <>
                                     <Link to={`/accompaniesmodify/${id}`}><MyButton text={'수정'}></MyButton></Link>&nbsp;&nbsp;&nbsp;
                                     <MyButton onClick={accompaniesDelete} text={'삭제'}></MyButton>&nbsp;&nbsp;&nbsp;</>
@@ -105,32 +183,23 @@ const AccompanyDetail = () => {
                         </tr>
                         <tr>
                             <td className="comment-write">
-                                <textarea className="comment-type-in" name="type-in" id="type-in" placeholder="댓글을 입력해 주세요"/>
-                                <button className="comment-complete">작성</button>
+                                <textarea className="comment-type-in" onChange={commentInputChangeHandler} value={commentTypeIn} name="type-in" id="type-in" placeholder="댓글을 입력해 주세요"/>
+                                <button className="comment-complete" onClick={commentSaveHandler}>작성</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td className="comment-from">
-                                <div className="comment-from-container">
-                                    <div className="writer-picture"></div>
-                                    <div className="comment-from-info">
-                                        <div className="comment-writer">닉네임</div>
-                                        <div className="comment-date">2023-07-19</div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="accompany-comment">
-                                <textarea className="comment-content" name="comm-content" id="comm-content" value="댓글댓글"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="comment-buttons">
-                                <button className="comment-reply">답글</button>
-                                <button className="comment-delete">삭제</button>
-                            </td>
-                        </tr>        
+                        {/* 댓글 시작 */}
+                        {
+                          comments.map((comment) => {
+                            return (
+                              <Comment
+                                comment={comment}
+                                deleteHandler={handleCommentDelete}
+                                fetchAccompanyData={fetchAccompanyData}
+                              />
+                            )
+                          })
+                        }
+                        
                     </tbody>
                 </table>
             </div>

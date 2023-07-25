@@ -4,9 +4,13 @@ import MyButton from '../../common/MyButton';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
+import MessageSendModal from '../../common/MessageSendModal';
+import useSendMessage from '../../../hooks/useSendMessage';
 const { kakao } = window;
 
 const AccompanyList = () => {
+    const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
+
     const [page, setPage] = useState(1);
     const [accompanys, setAccompanys] = useState([]);
     const [hasNext, setHasNext] = useState(true);
@@ -102,6 +106,8 @@ const AccompanyList = () => {
 
     return (
         <div className="accompany-board">
+        {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
+
             <div className="board-container">
                 <h1 className="list-subject">동행 모집</h1>
                 <table className="list-info">
@@ -133,7 +139,7 @@ const AccompanyList = () => {
                                                     <Link to={`/accompaniesdetail/${card.id}`} className="move-to-detail">
                                                         <p className="card-body-title">{card.title}</p>
                                                     </Link>
-                                                    <div className="card-body-writer">{card.nickname}</div>
+                                                    <div className="card-body-writer" onClick={() => openSendModal(card.userId, card.nickname)}>{card.nickname}</div>
                                                 </div>
                                                 <div className="card-footer">
                                                     <div className="plogging-date">{card.meetingDate}</div>

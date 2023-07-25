@@ -5,6 +5,8 @@ import { getCookie } from "../../utils/CookieUtil";
 
 export default function MyPageTab( {userId} ) {
 
+  const isCorporate = getCookie('userType') === 'CORPORATE';
+
   const [clicked, setClicked] = useState('계정 정보'); // 기본값 계정 정보로 시작 
   const [prev, setPrev] = useState('box_myPageTabMenu_clicked');
 
@@ -40,10 +42,11 @@ export default function MyPageTab( {userId} ) {
   
   
   // 일반로그인 마이페이지 탭
-  return(
-    <div className="myPageTab">
+  if (!isCorporate) {
+    return(
+      <div className="myPageTab">
 
-      <nav className="container_myPageTabAll">
+        <nav className="container_myPageTabAll">
 
         <ul className="container_myPageTabNav" onClick={onClicked}>
           <Link to={'/mypage/profile'} className="link_myPageTabMenu">
@@ -75,42 +78,44 @@ export default function MyPageTab( {userId} ) {
               </Link>
             </ul>
           </li>
-
           <li className="box_myPageTabMenuTitle">
-            <div className="txt_myPageTabMenu">나의 커뮤니티</div>
-            
-            <ul className="box_myForumList">
-              <Link to={`/mypage/${userId}/shares`} className="link_myPageTabMenu">
-              <li className={clicked === '무료 나눔' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">무료 나눔</div></li>
-              </Link>
-              <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
-              <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
-              </Link>
-              <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
-              <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
-              </Link>
-            </ul>
-          </li>
-        </ul>
+              <div className="txt_myPageTabMenu">나의 커뮤니티</div>
+              
+              <ul className="box_myForumList" onClick={onClicked}>
+                <Link to={`/mypage/${userId}/shares`} className="link_myPageTabMenu">
+                <li className={clicked === '무료 나눔' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">무료 나눔</div></li>
+                </Link>
+                <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
+                <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
+                </Link>
+                <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
+                <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
+                </Link>
+              </ul>
+            </li>
+          </ul>
 
-      </nav>
-    </div>
-  );
+        </nav>
+      </div>
+    );
+  }
+  else {
 
+    //기업로그인 마이페이지 탭
+    return(
+      <div className="myPageTab">
+        <nav className="container_myPageTabAll">
+          <ul className="container_myPageTabNav" onClick={onClicked}>
+            <Link to={'/corporate/mypage/profile'} className="link_myPageTabMenu">
+              <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
+            </Link>
+            <Link to={'/corporate/mypage/profile'} className="link_myPageTabMenu">
+              <li className={clicked === '작성한 게시글' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">작성한 게시글</div></li>
+            </Link>
+          </ul>
+        </nav>
+      </div>
+    );
+  } 
 
-  //기업로그인 마이페이지 탭
-  // return(
-  //   <div className="myPageTab">
-  //     <nav className="container_myPageTabAll">
-  //       <ul className="container_myPageTabNav" onClick={onClicked}>
-  //         <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
-  //           <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
-  //         </Link>
-  //         <Link to={'/mypage/temp2'} className="link_myPageTabMenu">
-  //           <li className={clicked === '작성한 게시글' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">작성한 게시글</div></li>
-  //         </Link>
-  //       </ul>
-  //     </nav>
-  //   </div>
-  // );
 }

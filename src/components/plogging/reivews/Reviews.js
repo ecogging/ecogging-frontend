@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
-import { useParams } from 'react-router';
-import {useNavigate, useLocation} from 'react-router-dom';
 import axios from 'axios';
-import '../../../styles/plogging/Reviews.css';
+import '../../../styles/plogging/review/Reviews.css';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import MyButton from "../../../components/common/MyButton.js";
 // import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
 export default function ReviewList(){
     const [reviews,setReviews]=useState([]);
-    const {page}=useParams();
-    const [curPage,setCurPage]=useState(page);
-    const [lastPage, setLastPage]=useState(false);
+    const [curPage,setCurPage]=useState(1);
+    const [allPage, setAllPage]=useState(false);
     const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
-    // const [formattedDate,setFormattedDate]=useState('');
+    // const Data=
+    // const [sortedList, setSortedList]=useState([...]);
+    const loginCheck=true;
+    const userId="9842615";
+    const [initialReviews, setInitialReviews]=useState([]);
     
-    // const navigate=useNavigate();
-    // navigate("/reviews/{page}",{state:page});
-    // const location=useLocation();
-    // page=location.state;
     useEffect(() => {
-        console.log("page : "+page);
         setCurPage(parseInt(curPage));
         fetchReviews(parseInt(curPage));
     },[]);
@@ -34,18 +32,17 @@ export default function ReviewList(){
                 let pageInfo=res.data.pageInfo;
                 let list=res.data.reviews;
                 setReviews([...list]);
-                console.log(list);
+                setInitialReviews([...list]);
                 let btn=[];
                 for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
                     btn.push(i);
             }
             setCurPage(pageInfo.curPage);
             setPageBtn(btn);
-            setLastPage(res.data.pageInfo.allPage);
+            //setLastPage(res.data.pageInfo.allPage);
             console.log("fetchReviews curPage : "+curPage);
             console.log("fetchReviews pageBtn : "+pageBtn);
-            console.log("fetchReviews lastPage : "+lastPage);
-            // return list;
+            return list;
         })
             .catch ((err)=> {
                 console.log(err);
@@ -59,43 +56,52 @@ export default function ReviewList(){
 
     };
 
-    const handleSort=(e, selectedValue)=>{
+    const handleSort=(e, type)=>{
         console.log("리뷰 정렬");
-        if(selectedValue === '조회순'){
+        
+        if(type === '조회순'){
             console.log("조회순");
-        }else if(selectedValue === '최신순'){
+            // const sortByViews=[...reviews].sort((a,b)=>a.views-b.views);
+            // setReviews(sortByViews);
+            const sortByView = [...reviews].sort((a, b) => b.views - a.views);
+            setReviews(sortByView);
+
+        }else if(type === '최신순'){
             console.log("최신순");
+            // const sortByDate=[...reviews].sort((a,b)=>b.createdAt-a.createdAt);
+            // setReviews(sortByDate);
+            // console.log(reviews);
+            setReviews([...initialReviews]);
         }else{
             return ;
         }
     };
 
     const handlePageChange=(e)=>{
-        console.log("handlePageChange page : "+page);
         setCurPage(e.target.id);
-        console.log("handlePageChange curPage : "+curPage);
         fetchReviews(e.target.id);
     };
 
 
     const goToPreviousPage = () => {
-        console.log("curPage : "+curPage);
         
         if (curPage === 1) 
         return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
         setCurPage(curPage - 1);
+        console.log("curPage : "+curPage);
         fetchReviews(curPage - 1);
     }
 
     
     const goToNextPage = () => {
-        console.log("goToNextPage curPage : "+curPage);
-        if (curPage === lastPage) return ;
+        if (curPage === allPage) 
+        return ;
         setCurPage(curPage + 1);
+        console.log("goToNextPage curPage : "+curPage);
         fetchReviews(curPage + 1);
     }
    
-
+    console.log(reviews);
     return (
         <div className="reviews_mainLayout">
             <div className="review_wrap">
@@ -109,11 +115,11 @@ export default function ReviewList(){
                         <div className='sortAndSearchIn'>
                             <div className="review_sort">
                                 <ul className="review_sort_ul">
-                                    <li onClick={(e)=>handleSort(e, "조회순")}>
-                                        조회순
-                                    </li>
                                     <li onClick={(e)=>handleSort(e,"최신순")}>
                                         최신순
+                                    </li>
+                                    <li onClick={(e)=>handleSort(e, "조회순")}>
+                                        조회순
                                     </li>
                                 </ul>
                             </div>
@@ -130,14 +136,14 @@ export default function ReviewList(){
                             const createdAt=moment(review.createdAt);
                             const formattedDate=createdAt.format('YYYY-MM-DD');
                             return (
-                                <div className="listItem" key={review.forumid} id={review.forumid}>
+                                <div className="listItem"  key={review.id}>
                                     <div className='listItem_detail'>
                                         <div className="review_nickname">{review.userId}</div>
                                         <div className='review_detail'>
-                                            <a href="./${review.forumId}">
+                                            <Link to={`/reviewInfo/${review.id}`}>
                                                 <div className="review_title">{review.title}</div>
                                                 <div className="review_content">{review.content}</div>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div className="review_footer">
@@ -155,26 +161,43 @@ export default function ReviewList(){
                         })
                     }
                 </div>
+                {/* <div>
+                <Link to="{/reviewInfo}">
+                    상세
+                    </Link>
+                </div> */}
                 <Pagination className='pagination'>
-                        <PaginationItem>
-                        <PaginationLink onClick={goToPreviousPage} id={page} key={page}>previous</PaginationLink>
+                        <PaginationItem disabled={curPage===1}>
+                            <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
+                            <span aria-hidden="true">‹</span>
+                            </PaginationLink>
                         </PaginationItem>
                         {
-                            pageBtn.map(page=>{
+                            pageBtn.map(item=>{
                                 return(
-                                    <PaginationItem className={page===curPage?'active':''} key={page}>
-                                        <PaginationLink onClick={handlePageChange} id={page}>
-                                            {page}
+                                    <PaginationItem className={item===curPage?'active':''} key={item}>
+                                        <PaginationLink onClick={handlePageChange} id={item}>
+                                            {item}
                                         </PaginationLink>
                                     </PaginationItem>
                                 )
                             })
                         }
-                        <PaginationItem>
-                            <PaginationLink onClick={goToNextPage} id={page} key={page}>next</PaginationLink>
+                        <PaginationItem disabled={allPage}>
+                            <PaginationLink onClick={goToNextPage} aria-label='Next'>
+                                <span aria-hidden>›</span>
+                            </PaginationLink>
                         </PaginationItem>
                 </Pagination>
-                <div className='writeBtn'></div>
+                
+                <div className='writeBtn'>
+                    {
+                    loginCheck ? 
+                    <Link to={`/reviewWrite/${userId}`}>
+                        <MyButton text={"글 작성"}/>
+                    </Link> : null
+                    }
+                </div>
             </div>
         </div>
     );

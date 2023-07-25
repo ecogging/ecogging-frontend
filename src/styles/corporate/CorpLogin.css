@@ -1,0 +1,53 @@
+﻿.corp-login-container {
+  height: 100%;
+  width: 40%;
+  margin: 200px auto 5% auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.corp-login-container button {
+  width: 100%;
+}
+.input-wrapper {
+  border-radius: 8px;
+  border: 1px solid lightgray;
+  width: 40%;
+  display:flex;
+  flex-direction: column;
+  padding: 25px 50px;
+  margin-bottom: 50px;
+}
+
+.input-wrapper input {
+  padding-left: 10px;
+
+  width: 100%;
+  height: 45px;
+
+  border-color: lightgray;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+.corp-login-container .link-group {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: medium;
+  color: gray;
+  display: flex;
+  justify-content: space-around;
+}
+
+.corp-login-container .text-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.corp-login-container .input-section {
+  margin-bottom: 20px;
+}

@@ -190,10 +190,17 @@ const EventDetail = () => {
                 수정하기
               </Button>
             </Link> )}
+          { (page && ptype) ? 
           <Button style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',fontWeight: 'bold',
                 borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}} onClick={handleListClick} >
             목 록
-          </Button>
+          </Button> 
+          :
+          <Button style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',fontWeight: 'bold',
+          borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}}onClick={() => {navigate('/eventList/');}}>
+            목 록
+          </Button> 
+          }
         </div>
       </div>
 

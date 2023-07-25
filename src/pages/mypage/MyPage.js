@@ -31,7 +31,7 @@ export default function MyPage( {userId , setUserId } ) {
       <div className="MyPageContent">
         <Routes>
           <Route path="/profile" element={<MyPageProfile />}></Route>
-          <Route path="/messagerooms" element={<MyPageMessages />}></Route>
+          <Route path="/:userId/messagerooms" element={<MyPageMessages />}></Route>
 
           {/* 플로깅 */}
           <Route path="/plogging/recruitPlogging/:page" element={<RecruitPlogging/>}/>
@@ -46,13 +46,10 @@ export default function MyPage( {userId , setUserId } ) {
 
           <Route path="/plogging/savePlogging/:page" element={<SavePlogging/>}/>
           <Route path="/plogging/saveEventPlogging/:page" element={<SaveEventPlogging/>}/>
-          
-          
-
           {/* 나의 커뮤니티 */}
-          <Route path="/shares" element={<MyPageShare />}></Route>
-          <Route path="/recommendations" element={<MyPageRecommend />}></Route>
-          <Route path="/forumscraps" element={<MyPageForumScrap />}></Route>
+          <Route path="/:userId/shares" element={<MyPageShare />}></Route>
+          <Route path="/:userId/recommendations" element={<MyPageRecommend />}></Route>
+          <Route path="/:userId/forumscraps" element={<MyPageForumScrap />}></Route>
         </Routes>
       </div>
 

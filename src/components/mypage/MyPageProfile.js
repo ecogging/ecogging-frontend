@@ -151,6 +151,8 @@ export default function MyPageProfile() {
     navigate('/mypage/profile');
   }
 
+  console.log(getCookie('isCorporate'))
+
   return (
     <div className='profile-edit-container'>
       <div className="input-wrapper">

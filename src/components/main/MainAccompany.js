@@ -1,6 +1,6 @@
 import '../../styles/main/MainAccompany.css';
 import imgTemp from '../../assets/123213.png';
-import picTemp from '../../assets/cat.png';
+import picTemp from '../../assets/defaultProfile.PNG';
 import { Link } from 'react-router-dom';
 
 import React, { useEffect, useState } from 'react';
@@ -105,10 +105,17 @@ const clicking = (e) => {
                 </div>
 
                   <div className='container_card_top_pic'>
+
                     <div className='box_pic_circle' onClick={clicking}>
+                      { (item.userPicUrl) ? 
+                      <img src={item.userPicUrl} className='image_userPic_source'/>
+                      :
                       <img src={picTemp} className='image_userPic_source'/>
-                    </div>
+                      }
+                      </div>
+                  
                   </div>
+
 
                   <div className='container_card_middle'>
                     <div className='box_nickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>

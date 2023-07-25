@@ -1,0 +1,99 @@
+﻿.corp-signup-container {
+  width:30%;
+  height:100%;
+  margin:120px auto 5% auto;
+}
+
+.corp-signup-container .input-wrapper {
+  border-radius: 8px;
+  border: 1px solid lightgray;
+  display:flex;
+  flex-direction: column;
+  padding: 25px 50px;
+  margin-bottom: 50px;
+  width: 80%;
+}
+
+.corp-signup-container .input-wrapper input {
+  padding-left: 10px;
+
+  width: 100%;
+  height: 45px;
+
+  border-color: lightgray;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+
+.corp-signup-container .input-section {
+  margin-bottom: 20px;
+}
+
+.input-wrapper #password {
+  margin-bottom: 5px;
+}
+
+.input-wrapper label {
+  margin-bottom: 8px;
+  display:inline-block;
+}
+
+.email-input-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+#email {
+  width: 65%;
+}
+#email-auth-number {
+  width: 65%;
+}
+#request-email-auth {
+  width: 25%;
+}
+#confirm-email-auth {
+  width: 25%;
+}
+.policies {
+  padding: 0 5px;
+  margin-bottom: 50px;
+}
+.policies label {
+  margin-left: 5px;
+  font-size: medium;
+  color: gray;
+}
+
+.policies hr {
+  margin: 20px 0;
+}
+
+.checkboxOptionSection {
+  margin-bottom: 10px;
+}
+
+.invalid-input-message {
+  font-size: 14px;
+  color: red;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.valid-input-message {
+  font-size: 14px;
+  color: blue;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.label-requirement {
+  margin-left: 5px;
+  font-size: 16px;
+  color: gray;
+}
