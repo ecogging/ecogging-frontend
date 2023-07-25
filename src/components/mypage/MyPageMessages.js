@@ -10,6 +10,8 @@ import picTemp from '../../assets/defaultProfile.PNG';
 
 export default function MyPageMessages() {
   const { userId } = useParams();
+  console.log('---------------------');
+  console.log(typeof(userId));
   const [msgRooms, setMegRooms] = useState([]);
 
   const accessToken = getCookie('access-token'); 
