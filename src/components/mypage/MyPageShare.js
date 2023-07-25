@@ -12,37 +12,46 @@ import { Link } from 'react-router-dom';
 export default function MyPageShare() {
   const navigate = useNavigate();
 
+
+  // 페이징 ---------------------------------------------------------------
+  const [totPages, setTotPages] = useState(0); // 전체 페이지
+  const [nowPage, setNowPage] = useState(1); // 현재 페이지
+  const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+    setNowPage(no);
+  }
+
+
+  // 데이터 불러오기 ------------------------------------------------------
   const { userId } = useParams();
-  console.log(userId);
-  console.log(typeof(userId));
   const accessToken = getCookie('access-token'); 
   const headers = {
     'Authorization': 'Bearer ' + accessToken,
     'Content-Type': 'application/json',
   };
 
-  // 포럼 데이터 불러오기
   const [shares, setShares] = useState(null);
   useEffect(() => {
     const url = `/mypage/${userId}/shares`;
     axios.get(url, {
       headers:headers,
+      params: {
+        pageNo: nowPage, // 현재 페이지 서버로 전송 ( Back: @RequestParam )
+      }
     })
     .then((res) => {
-      console.log('내 나눔 불러오기 완료');
       setShares(res.data.data);
-      console.log(res.data.data);
+      setTotPages(res.data.allCount); // 전체 개수 설정
     })
     .catch((err) => {
       console.log('내 나눔 불러오기 실패', err);
     });
-  }, []);
+  }, [nowPage]);
 
-  // 포럼 글 삭제
+
+// 글 삭제 ------------------------------------------------------------
   const handelShareDel=(id)=>{
     axios.post(`http://localhost:8080/shareDel/${id}`)
     .then((res)=>{
-        console.log("내 나눔 삭제 완료");
         navigate(`http://localhost:8080/mypage/${userId}/shares`);
     }).catch((err)=>{
         console.log('내 나눔 삭제 실패', err);
@@ -105,9 +114,7 @@ export default function MyPageShare() {
       </div>
 
       <div className='container_myBottom'>
-        <div className='box_contensPlus'>
-            더보기  
-        </div>
+          <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
       </div>
 
     </div>
