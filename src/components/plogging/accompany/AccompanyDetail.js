@@ -4,8 +4,12 @@ import MyButton from '../../common/MyButton';
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import MessageSendModal from '../../common/MessageSendModal';
+import useSendMessage from '../../../hooks/useSendMessage';
 
 const AccompanyDetail = () => {
+    const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
+
     const {id} = useParams();
     const [isScrapped, setIsScrapped] = useState(false);
     const [isParticipated, setIsParticipated] = useState(false);
@@ -60,6 +64,8 @@ const AccompanyDetail = () => {
 
     return (
         <div className="accompany-article">
+     {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
+
             <div className="article-container">
                 <h1 className="article-subject">동행 모집</h1>
                 <table className="article-info">
@@ -87,7 +93,7 @@ const AccompanyDetail = () => {
                         <tr>
                             <td className="article-cell">
                                 <input className="article-title" type="text" name="title" id="title" value={accompany.title}/>
-                                <input className="article-writer" type="text" name="writer" id="writer" value={accompany.nickname}/>
+                                <input className="article-writer" onClick={() => openSendModal(accompany.userId, accompany.nickname)} type="text" name="writer" id="writer" value={accompany.nickname}/>
                             </td>
                         </tr>
                         <tr>
