@@ -43,7 +43,7 @@ function getMessageNotificationItem(item) {
   <p>
     <b>{item.senderNickname}</b> 님이 쪽지를 보냈습니다.
   </p>
-  const link = `/mypage/${item.receiverId}/messagerooms`;
+  const link = `/${item.receiverId}/messageroom/${item.targetId}`;
   return {icon, typeName, content, link};
 }
 

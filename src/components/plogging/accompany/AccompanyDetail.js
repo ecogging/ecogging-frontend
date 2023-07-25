@@ -36,8 +36,8 @@ const AccompanyDetail = () => {
                 setIsParticipated(res.data.isParticipation);
                 setIsScrapped(res.data.isAccompanyscrap);
                 setComments(res.data.comments);
+                console.log("res.data: ");
                 console.log(res.data)
-                console.log(res.data.comments)
             })
             .catch(err=> {
                 console.log(err);
@@ -131,7 +131,8 @@ const AccompanyDetail = () => {
       })
     }
 
-
+    console.log("comments: ")
+    console.log(comments)
     return (
         <div className="accompany-article">
      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}

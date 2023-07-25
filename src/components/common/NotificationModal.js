@@ -40,8 +40,11 @@ export default function NotificationModal({ isOpen, closeModal }) {
     setNotifications(updatedNotifications);
 
     // Make the API call to request deletion from the backend
-    axios.delete(`${notificaionBaseEndPoint}/${id}`)
-      .then(response => {
+    axios.delete(`${notificaionBaseEndPoint}/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + getCookie('access-token')
+      },
+    }).then(response => {
         // do nothing after delete
       })
       .catch(error => {
