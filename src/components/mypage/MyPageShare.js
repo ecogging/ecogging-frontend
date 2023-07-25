@@ -80,7 +80,7 @@ export default function MyPageShare() {
                   <div className='container_myShareViews'>조회수 {item.views}</div>
                   <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
                 </div>
-                <Link to={`/shareInfo/${item.forumId}`} className='link_toDetail'>
+                <Link to={`/shareInfo/${item.forumId}`} className='link_toShareDetail'>
                   <div className='container_myShareTitle'>
                     {item.title}
                   </div>
