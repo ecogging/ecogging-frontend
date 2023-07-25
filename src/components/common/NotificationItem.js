@@ -2,6 +2,9 @@
 import {
   getCommentNotificationItem, getMessageNotificationItem, getAccompanyNotificationItem} from './NotificationItemBuilder';
 import '../../styles/common/NotificationItem.css';
+import detailDate from '../../utils/GetDayMinuteCounter ';
+
+
 /*
   {
       "type": "COMMENT",
@@ -23,7 +26,7 @@ export default function NotificationItem({item, deleteHandler}) {
         <span className='header-left'>
           {icon}
           <span className='noti-type-text'>{typeName}</span>
-          <span className='noti-date-gray'>{item.createdAt}</span>
+          <span className='noti-date-gray'>{detailDate(item.createdAt)}</span>
         </span>
        
         <span className='header-right'>
