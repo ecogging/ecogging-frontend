@@ -149,8 +149,12 @@ export default function NotificationModal({ isOpen, closeModal }) {
             </div>
             <div className="notifcation-list">
               {
-                filteredNotifications.map(noti => 
-                  <NotificationItem item={noti} key={noti.id} deleteHandler={handleNotificationDelete}/>
+                filteredNotifications && filteredNotifications.map(noti => 
+                  <NotificationItem
+                    item={noti}
+                    key={noti.id}
+                    deleteHandler={handleNotificationDelete}
+                    closeModal={closeModal}/>
                 )
               }
             </div>

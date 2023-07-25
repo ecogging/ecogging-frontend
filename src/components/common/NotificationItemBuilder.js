@@ -2,8 +2,22 @@
 import { AiOutlineMail } from 'react-icons/ai';
 import { GoPeople } from 'react-icons/go';
 
-function getCommentNotificationItem(item) {
+function getBoardResourceNameFromBoardType(boardType) {
+  if (boardType === 'ACCOMPANY') 
+    return 'accompaniesdetail';
+  if (boardType === 'FORUM')
+    return 'forums';
+  if (boardType === 'SHARE')
+    return 'shares';
+  if (boardType === 'EVENT')
+    return 'events'
+  if (boardType === 'ROUTE')
+    return 'routes';
 
+  return 'accompaniesdetail'; // default board type
+}
+
+function getCommentNotificationItem(item) {
   const icon = <BiCommentDetail />;
   const typeName = '댓글';
   const content = 
@@ -16,7 +30,9 @@ function getCommentNotificationItem(item) {
         댓글에 <b>대댓글</b>이 달렸습니다.
       </p>);
 
-  return {icon, typeName, content};
+  const boardResource = getBoardResourceNameFromBoardType(item.boardType);
+  const link = `/${boardResource}/${item.targetId}`;
+  return {icon, typeName, content, link};
 }
 
 function getMessageNotificationItem(item) {
@@ -27,7 +43,8 @@ function getMessageNotificationItem(item) {
   <p>
     <b>{item.senderNickname}</b> 님이 쪽지를 보냈습니다.
   </p>
-  return {icon, typeName, content} 
+  const link = `/mypage/${item.receiverId}/messagerooms`;
+  return {icon, typeName, content, link};
 }
 
 function getAccompanyNotificationItem(item) {
@@ -38,11 +55,12 @@ function getAccompanyNotificationItem(item) {
   <p>
     <b>{item.senderNickname}</b> 님이 <b>[{item.detail}]</b> 동행에 참여했습니다.
   </p>
-
-  return {icon, typeName, content};
+  const link = `/mypage/${item.receiverId}/plogging/recruitPlogging/1`;
+  return {icon, typeName, content, link};
 }
 
 
-export {getCommentNotificationItem, 
+export {
+  getCommentNotificationItem, 
   getMessageNotificationItem, 
   getAccompanyNotificationItem}
