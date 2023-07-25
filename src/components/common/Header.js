@@ -21,7 +21,7 @@ function removeTokenAndUserFromCookie() {
   removeCookie('access-token');
   removeCookie('userId');
   removeCookie('nickname');
-  removeCookie('isCorporate');
+  removeCookie('userType');
 }
 
 // 새로고침
@@ -29,13 +29,17 @@ const reloading = () => {
     window.location.reload();
 };
 
+function isCorporateUser() {
+  return getCookie('userType') === 'CORPORATE';
+}
+
 export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
-    const isCorporate = getCookie('userType') === 'CORPORATE';
 
     // 로그인 처리
     const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));
+    const [isCorporate, setIsCorporate] = useState(isCorporateUser());
     const [nickname, setNickname] = useState(getCookie('nickname'));
 
     // 모달 - 로그인
@@ -60,7 +64,7 @@ export default function Header ({userId, setUserId}) {
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
         if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
-            if(showNav == true) {
+            if(showNav === true) {
                 setShowNav(!showNav);
             }
         }
@@ -81,6 +85,7 @@ export default function Header ({userId, setUserId}) {
 
     useEffect(() => {
       setNickname(getCookie('nickname'));
+      setIsCorporate(isCorporateUser);
     },[])
 
     if(isLogin){
@@ -103,7 +108,7 @@ export default function Header ({userId, setUserId}) {
                                 </ul>
                             </div>
                         </li>
-                        <Link to={'/temp'}>
+                        <Link to={'/shares'}>
                             <li className='headerMenuList' onClick={clickMenu} >
                                 <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                             </li>
@@ -149,7 +154,7 @@ export default function Header ({userId, setUserId}) {
                             </ul>
                         </div>
                     </li>
-                    <Link to={'/temp'}>
+                    <Link to={'/shares'}>
                         <li className='headerMenuList' onClick={clickMenu}>
                             <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
                         </li>

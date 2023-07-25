@@ -26,7 +26,6 @@ export default function MainAccompany() {
       .then((data) => {
         if (data && Array.isArray(data.list)) {
           setAccomp(data.list);
-          console.log(data.list);
         }
       })
       .catch((error) => {

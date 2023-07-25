@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
-import '../../../styles/plogging/review/Reviews.css';
+import '../../styles/Forum/Shares.css';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import MyButton from "../../../components/common/MyButton.js";
+import { useNavigate } from 'react-router-dom';
+import MyButton from "../../components/common/MyButton.js";
 // import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
-export default function ReviewList(){
-    const [reviews,setReviews]=useState([]);
+export default function ShareList(){
+    const [shares,setShares]=useState([]);
     const [curPage,setCurPage]=useState(1);
     const [allPage, setAllPage]=useState(false);
     const [pageBtn, setPageBtn]=useState([]);
@@ -18,21 +19,23 @@ export default function ReviewList(){
     // const [sortedList, setSortedList]=useState([...]);
     const loginCheck=true;
     const userId="9842615";
-    const [initialReviews, setInitialReviews]=useState([]);
+    const navigate = useNavigate();
+    const [initialShares, setInitialShares]=useState([]);
     
     useEffect(() => {
         setCurPage(parseInt(curPage));
-        fetchReviews(parseInt(curPage));
+        fetchShares(parseInt(curPage));
     },[]);
         
-    const fetchReviews=async (p_page)=>{
+    const fetchShares=async (p_page)=>{
         axios
-            .get(`http://localhost:8080/reviews/${p_page}`)
+            .get(`http://localhost:8080/shares/${p_page}`)
             .then((res)=>{
                 let pageInfo=res.data.pageInfo;
-                let list=res.data.reviews;
-                setReviews([...list]);
-                setInitialReviews([...list]);
+                let list=res.data.shares;
+                setShares([...list]);
+                setInitialShares([...list]);
+                console.log(list);
                 let btn=[];
                 for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
                     btn.push(i);
@@ -61,17 +64,18 @@ export default function ReviewList(){
         
         if(type === '조회순'){
             console.log("조회순");
-            // const sortByViews=[...reviews].sort((a,b)=>a.views-b.views);
-            // setReviews(sortByViews);
-            const sortByView = [...reviews].sort((a, b) => b.views - a.views);
-            setReviews(sortByView);
+            // const sortByViews=[...shares].sort((a,b)=>a.views-b.views);
+            // setShares(sortByViews);
+            const sortByView = [...shares].sort((a, b) => b.views - a.views);
+            setShares(sortByView);
 
         }else if(type === '최신순'){
             console.log("최신순");
-            // const sortByDate=[...reviews].sort((a,b)=>b.createdAt-a.createdAt);
-            // setReviews(sortByDate);
-            // console.log(reviews);
-            setReviews([...initialReviews]);
+            // const sortByDate=[...shares].sort((a,b)=>b.createdAt-a.createdAt);
+            // setShares(sortByDate);
+            // console.log(shares);
+            // navigate('/shares');
+            setShares([...initialShares]);
         }else{
             return ;
         }
@@ -79,7 +83,7 @@ export default function ReviewList(){
 
     const handlePageChange=(e)=>{
         setCurPage(e.target.id);
-        fetchReviews(e.target.id);
+        fetchShares(e.target.id);
     };
 
 
@@ -89,7 +93,7 @@ export default function ReviewList(){
         return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
         setCurPage(curPage - 1);
         console.log("curPage : "+curPage);
-        fetchReviews(curPage - 1);
+        fetchShares(curPage - 1);
     }
 
     
@@ -98,17 +102,28 @@ export default function ReviewList(){
         return ;
         setCurPage(curPage + 1);
         console.log("goToNextPage curPage : "+curPage);
-        fetchReviews(curPage + 1);
+        fetchShares(curPage + 1);
+    }
+
+    const handleClickShares=()=>{
+        console.log("shares");
+        setShares([...initialShares]);
+    }
+
+    const handelClickRoutes=()=>{
+        console.log("routes");
+        navigate('/routeList');
     }
    
-    console.log(reviews);
+    console.log(shares);
     return (
         <div className="reviews_mainLayout">
             <div className="review_wrap">
                 <div className="reviews_top">
                     <div className="review_top_title">
-                        <div className='review_top_title2'>
-                            REVIEWS
+                        <div className='review_top_tap'>
+                            <div className='share_tap' onClick={handleClickShares}>Shares</div>
+                            <div className='route_tap' onClick={handelClickRoutes}>Routes</div>
                         </div>
                     </div>
                     <div className='sortAndSearch'>
@@ -132,17 +147,17 @@ export default function ReviewList(){
                 </div>
                 <div className="listLayout">
                     {
-                        reviews.length !== 0 && reviews.map(review => {
-                            const createdAt=moment(review.createdAt);
+                        shares.length !== 0 && shares.map(shares => {
+                            const createdAt=moment(shares.createdAt);
                             const formattedDate=createdAt.format('YYYY-MM-DD');
                             return (
-                                <div className="listItem"  key={review.id}>
+                                <div className="listItem"  key={shares.id}>
                                     <div className='listItem_detail'>
-                                        <div className="review_nickname">{review.userId}</div>
+                                        <div className="review_nickname">{shares.userId}</div>
                                         <div className='review_detail'>
-                                            <Link to={`/reviewInfo/${review.id}`}>
-                                                <div className="review_title">{review.title}</div>
-                                                <div className="review_content">{review.content}</div>
+                                            <Link to={`/shareInfo/${shares.id}`}>
+                                                <div className="review_title">{shares.title}</div>
+                                                <div className="review_content">{shares.content}</div>
                                             </Link>
                                         </div>
                                     </div>
@@ -151,7 +166,7 @@ export default function ReviewList(){
                                             <div className="viewLayout">
                                                 {/* <div><BsEye className="view_icon"/></div> */}
                                                 <div className='review_span'>조회수</div>
-                                                <div className="review_views">{review.views}</div>
+                                                <div className="review_views">{shares.views}</div>
                                             </div>
                                             <div className="review_created_at">{formattedDate}</div>
                                         </div>
@@ -193,7 +208,7 @@ export default function ReviewList(){
                 <div className='writeBtn'>
                     {
                     loginCheck ? 
-                    <Link to={`/reviewWrite/${userId}`}>
+                    <Link to={`/shareWrite/${userId}`}>
                         <MyButton text={"글 작성"}/>
                     </Link> : null
                     }
