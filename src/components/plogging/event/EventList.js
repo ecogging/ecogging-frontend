@@ -49,7 +49,7 @@ const EventList = () => {
 
   return (
     <>
-      <div style={{ margin: '0 auto', marginTop:'100px', marginBottom:'50px', textAlign: 'center', width: '1280px' }}>
+      <div style={{ margin: '0 auto', marginTop:'100px', marginBottom:'50px', textAlign: 'center', width: '1680px' }}>
         <div className="container">
           <input id="dropdown" type="checkbox" checked={isDropdownOpen} />
           <label className="dropdownLabel" htmlFor="dropdown" onClick={toggleDropdown}>
