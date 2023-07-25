@@ -1,0 +1,22 @@
+.link-icon { 
+    position: relative; 
+    display: inline-block; 
+    width: auto;    
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #333; 
+    margin-right: 10px; 
+    padding-top: 45px; 
+}
+.link-icon.twitter { 
+    background-image: url(../../assets/icon-twitter.png); 
+    background-repeat: no-repeat; 
+}
+.link-icon.facebook { 
+    background-image: url(../../assets/icon-facebook.png); 
+    background-repeat: no-repeat; 
+} 
+.link-icon.kakao { 
+    background-image: url(../../assets/icon-kakao.png); 
+    background-repeat: no-repeat; 
+}

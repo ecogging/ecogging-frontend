@@ -1,12 +1,12 @@
 
-.MyPageShare {
+.MyPageShare1 {
   width:100%;
   height:100%;
   
   display: flex;
   flex-direction: column;
 }
-.container_myShareArea {
+.container_myShareArea1 {
   width:100%;
   height:100%;
 
@@ -20,7 +20,7 @@
 
 /* 카드 */
 
-.container_mypageShareWriting {
+.container_mypageShareWriting1 {
   width:100%;
   height:150px;
 
@@ -31,7 +31,7 @@
 }
 
 /* 왼쪽 사진 */
-.container_myShareLeft {
+.container_myShareLeft1 {
   width:250px;
   height:100%;
   background-color: gray;
@@ -41,14 +41,14 @@
 
 
 /* 오른쪽 */
-.container_myShareRight {
+.container_myShareRight1 {
   width:100%;
   height:100%;
 
   display: flex;
   align-items: center;
 }
-.container_myShareWhole {
+.container_myShareWhole1 {
   width:96%;
   height:80%;
   margin:0 40px;
@@ -56,7 +56,7 @@
 
 
 /* 진행상태 + 조회수 */
-.container_myShareTop {
+.container_myShareTop1 {
   width:100%;
   height:40px;
   display: flex;
@@ -64,34 +64,29 @@
   align-items: center;
 }
 /* 진행상태 */
-.container_myShareState_ongoing {
+.container_myShareState_ongoing1 {
   width:130px;
   height:75%;
   border-radius:5px;
   background-color: #9BE4CE;
   color:white;
-  
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-size:1.125rem;
 }
-.container_myShareState_finish {
+.container_myShareState_finish1 {
   width:130px;
   height:75%;
-
   border-radius:5px;
   background-color: #838383;
   color:white;
-  
   display: flex;
   justify-content: center;
-
   font-size:1.125rem;
 }
 /* 조회수 */
-.container_myShareViews {
+.container_myShareViews1 {
   width:150px;
   height:75%;
   display: flex;
@@ -101,7 +96,7 @@
   font-size:1.125rem;
 }
 
-.container_myWriteDate_share {
+.container_myWriteDate_share1 {
   width:190px;
   height:75%;
   display: flex;
@@ -111,7 +106,7 @@
 }
 
 /* 글제목 */
-.container_myShareTitle {
+.container_myShareTitle1 {
   width:100%;
   height:40px;
 
@@ -123,39 +118,46 @@
 }
 
 /* 하단 본문 + 수정삭제버튼 */
-.container_myShareBottom {
+.container_myShareBottom1 {
   width:100%;
   height:30%;
-
   display: flex;
   align-items: flex-end;
   font-size:1.3rem;
+
+}
+
+.container_myShareBottom2 {
+  width: 90%;
+  display: flex;
+  align-items: center;
 }
 
 /* 본문 */
-.container_myShareContent {
-  width:10%;
+.container_myShareContent1 {
+  width: 450px !important;
   height:100%;
   display: flex;
   align-items: center;
+  /* font-size: 10px; */
+  white-space:nowrap;
 }
 
 /* 버튼 */
 .container_myDetailBtns_Share {
   width:165px;
-  height:100%;
+  height:24px;
   display: flex;
   justify-content: flex-end;
   gap:10px;
+  float: right !important; 
 }
 .txt_myBtn_Share {
   width:40px;
   height:100%;
-
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
   font-size:1.2rem;
   color:#838383;
 }
@@ -193,4 +195,8 @@
 .box_contensPlus {
   font-size:1.325rem;
   cursor:pointer;
+}
+
+.card-header-is_closed {
+	background-color: #5bce0ec4;
 }

@@ -126,6 +126,16 @@
     cursor: pointer;
 }
 
+.event-scrap {
+    padding: 5px 25px;
+    margin-right: 10px;
+    border: 1px solid #838383;
+    border-radius: 5px;
+    background-color: white;
+    color: #838383;
+    cursor: pointer;
+}
+
 .buttons-above {
     display: flex;
     justify-content: flex-start;
