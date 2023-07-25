@@ -162,6 +162,14 @@
     width: 95%;
 }
 
+.comment-write.reply {
+  margin-top: 10px;
+}
+.comment-write.reply textarea {
+  line-height: 1.4;
+  font-size: 14px;
+}
+
 .accompany-comment {
     display: flex;
     align-items: center;
@@ -176,18 +184,40 @@
     outline: none;
     margin-right: 15px;
     font-size: 16px;
-
+}
+tr.reply .comment-type-in {
+  margin-left: 55px;
+  width: 80%;
 }
 
 .comment-complete {
-    padding: 15px 30px;
+    padding: 15px 25px;
     border: none;
     border-radius: 5px;
     background-color: gray;
     color: white;
     cursor: pointer;
     font-size: 16px;
+}
 
+tr.reply .comment-complete {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+tr.reply .comment-cancel {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightgray;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .comment-from {
@@ -265,6 +295,13 @@ tr.reply td {
 tr.reply td.comment-buttons {
   padding-left: inherit;
 }
+
+.reply-comment-buttons {
+  width: 95%;
+  display: flex;
+  justify-content:right;
+}
+
 .comment-buttons {
   width: 95%;
   display: flex;
