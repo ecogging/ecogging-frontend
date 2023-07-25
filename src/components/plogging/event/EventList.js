@@ -1,10 +1,11 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaAngleDown } from 'react-icons/fa';
 import '../../../styles/plogging/EventList.css';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
+import MyButton from '../../common/MyButton';
 
 const EventList = () => {
   const {page=1,ptype="latest"} = useParams();
@@ -49,7 +50,14 @@ const EventList = () => {
 
   return (
     <>
-      <div style={{ margin: '0 auto', marginTop:'100px', marginBottom:'50px', textAlign: 'center', width: '1280px' }}>
+      <div style={{ margin: '120px auto', marginTop:'110px', marginBottom:'50px', width: '100%'}}>
+        <div style={{width:'93%', margin:'0 auto', marginBottom:'50px'}}> 
+        <div style={{float:'left', marginBottom:'10px'}}>
+        <h1 className="list-subject1">행사 모집</h1>
+        <br/>
+          {userId!=null && (<Link to="/eventWrite"><MyButton text={'행사글 작성'}/></Link>)}
+        </div>
+        <br/><br/><br/><br/>
         <div className="container">
           <input id="dropdown" type="checkbox" checked={isDropdownOpen} />
           <label className="dropdownLabel" htmlFor="dropdown" onClick={toggleDropdown}>
@@ -96,9 +104,9 @@ const EventList = () => {
               <a href={'/eventDetail/' + event.eventId+"/"+curPage+"/"+type} key={event.eventId}>
                 <div className="card">
                   {/* 카드 헤더 */}
-                  <div className="card-header" style={cardHeaderStyle}>
+                  <div className="card-header1" style={cardHeaderStyle}>
                     <div className="card-header-img" style={{ position: 'relative' }}>
-                    <img src={`http://localhost:8080/eventImg/${event.fileId}`} style={{width:'290px', height:'210px'}}/>
+                    <img src={`http://localhost:8080/eventImg/${event.fileId}`} style={{width:'330px', height:'260px'}}/>
                     </div>
                     <div className="card-header-is_closed" style={{ position: 'absolute', top: -5, right: -7, ...cardHeaderIsClosedStyle }}>
                       <div className="card-header-text">{cardHeaderText}</div>
@@ -130,7 +138,7 @@ const EventList = () => {
                           marginBottom: '8px',
                           opacity: '0.5',
                           borderColor: '#EF5A31',
-                          width: '260px',
+                          width: '300px',
                         }}
                       />
                       <span style={{ float: 'left', marginLeft: '15px' }}>조회수 : {event.views}</span>
@@ -142,7 +150,8 @@ const EventList = () => {
               </a>
             );
           })}
-        <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
+          </div>
+        <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', marginTop:'70px',marginBottom:'50px',width: '900px', justifyContent: 'center'}}>
           <PaginationItem disabled={curPage === 1}>
             <PaginationLink aria-label="Previous" href={`/eventList/${curPage - 1}/${ptype}`}>
               <span aria-hidden="true">‹</span>
@@ -163,7 +172,7 @@ const EventList = () => {
             </PaginationLink>
           </PaginationItem>
         </Pagination>
-      </div>
+        </div>
     </>
   );
 };

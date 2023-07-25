@@ -72,7 +72,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
         : 
         (<>
           <tr key={comment.id} className={isReply? "reply" : ""}>
-            
+
             <td className="comment-from">
                 <div className="comment-from-container">
                       <img src={comment.profileImageUrl} className="writer-picture"/>
@@ -82,7 +82,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
                     </div>
                 </div>
             </td>
-            
+
           </tr>
           <tr className={isReply? "reply" : ""}>
               <td className="accompany-comment">
@@ -104,7 +104,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
 
       {!isReply && showReplyInput &&
             <tr className="comment-write">
-              
+
               <textarea className="comment-type-in"
                 onChange={handleReplyCommentInputChange}
                 value={replyCommentTypeIn}
