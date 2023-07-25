@@ -118,7 +118,6 @@ export default function Header ({userId, setUserId}) {
                 <ul className='userNav' >
                     {/* 알림 */}
                     <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
-                      <div id='alramCount' className='headerNotify'>12</div>
                     </li>
                     <li className='userNavBox' id='headerNickname'>
                       <Link to={ isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
