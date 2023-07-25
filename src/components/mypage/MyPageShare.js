@@ -80,7 +80,7 @@ export default function MyPageShare() {
                   <div className='container_myShareViews'>조회수 {item.views}</div>
                   <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
                 </div>
-                <Link to={`/shareInfo/${item.forumId}`}>
+                <Link to={`/shareInfo/${item.forumId}`} className='link_toDetail'>
                   <div className='container_myShareTitle'>
                     {item.title}
                   </div>
@@ -91,7 +91,7 @@ export default function MyPageShare() {
                     {item.content}
                   </div>
                   <div className='container_myDetailBtns_Share'>
-                    <Link to={`/shareInfoModify/${item.forumId}`}><div className='txt_myBtn_Share'>수정</div></Link>
+                    <Link to={`/shareInfoModify/${item.forumId}`} ><div className='txt_myBtn_Share'>수정</div></Link>
                     <div className='txt_myBtn_Share' onClick={() => handelShareDel(item.forumId)}>삭제</div>
                   </div>
                 </div>
