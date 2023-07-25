@@ -87,7 +87,7 @@ export default function RecruitEventPlogging() {
                     <div className="container_myShareRight">
                       <div className='container_myShareWhole'>
                         <div className='container_myShareTop'>
-                          <div className='container_myShareState_ongoing'>
+                          <div className='container_myShareState_ongoing'  style={cardHeaderIsClosedStyle}>
                             {cardHeaderText}
                           </div>
                           <div className='container_myShareViews'>조회수 {event.views}</div>
@@ -105,10 +105,10 @@ export default function RecruitEventPlogging() {
                               주최 : {event.management}
                             </div>
                             <div className='container_myShareContent'>
-                              지역 : {event.location} 
+                              기간 :   {formatDate(eventMeetingDate)} ~ {formatDate(eventEndDate)}
                             </div>
                             <div className='container_myShareContent'>
-                              기간 :   {formatDate(eventMeetingDate)} ~ {formatDate(eventEndDate)}
+                              지역 : {event.location}
                           </div>
                            </div> 
                           <div className='container_myDetailBtns_Share' style={{float:'right', width:'10%'}}>

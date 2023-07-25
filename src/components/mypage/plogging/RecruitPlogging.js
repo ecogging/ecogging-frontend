@@ -19,7 +19,7 @@ export default function RecruitPlogging() {
   }, []);
 
   const RecruitPloggingPage = () => {
-    axios.post(`http://localhost:8080/myaccompaniesscrap`,{userId:userId, page:page})
+    axios.post(`http://localhost:8080/myaccompanies`,{userId:userId, page:page})
       .then((res) => {
           let pageInfo = res.data.pageInfo;
           let list = res.data.list;
@@ -80,10 +80,10 @@ export default function RecruitPlogging() {
                       시간 : {accompany.meetingTime}
                     </div>
                     <div className='container_myShareContent'>
-                      인원 : {accompany.numOfPeople}
+                      장소 : {accompany.location}
                     </div>
                     <div className='container_myShareContent'>
-                      장소 : {accompany.location} 
+                      인원 : {accompany.numOfPeople} 
                     </div>
                   </div>
                   <div className='container_myDetailBtns_Share' style={{float:'right', width:'10%'}}>

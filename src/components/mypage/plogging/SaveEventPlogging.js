@@ -6,7 +6,7 @@ import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
 import React from 'react';
 
-export default function ScrapEventPlogging() {
+export default function SaveEventPlogging() {
   const { page=1} = useParams();
   const [curPage, setCurPage] = useState(page);
   const [event, setEvent] = useState([]);
@@ -15,11 +15,11 @@ export default function ScrapEventPlogging() {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    ScrapEventPloggingPage();
+    saveEventPloggingPage();
   }, []);
 
-  const ScrapEventPloggingPage = () => {
-    axios.post(`http://localhost:8080/myaeventscrap`,{userId:userId, page:page})
+  const saveEventPloggingPage = () => {
+    axios.post(`http://localhost:8080/myeventtemp`,{userId:userId, page:page})
       .then((res) => {
           let pageInfo = res.data.pageInfo;
           let list = res.data.list;
@@ -108,7 +108,7 @@ export default function ScrapEventPlogging() {
                             </div>
                             <div className='container_myShareContent'>
                               지역 : {event.location}
-                          </div>
+                            </div>
                            </div> 
                           <div className='container_myDetailBtns_Share' style={{float:'right', width:'10%'}}>
                             <div className='txt_myBtn_Share'><a href={'/eventModify/'+ event.eventId } style={{color:'black'}}>수정</a></div>
@@ -121,17 +121,18 @@ export default function ScrapEventPlogging() {
                 </div>    
               </div> 
             </a>); 
-        })}
+        })} 
+
     <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
-          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/scrapEventPlogging/${curPage-1}`}>
+          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/saveEventPlogging/${curPage-1}`}>
             <span aria-hidden="true">‹</span>
           </PaginationLink>
         </PaginationItem>
         {pageBtn.map(item => {
           return (
             <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
-              <PaginationLink id={item} href={`/mypage/${userId}/plogging/scrapEventPlogging/${item}`} >
+              <PaginationLink id={item} href={`/mypage/${userId}/plogging/saveEventPlogging/${item}`} >
                 {item}
               </PaginationLink>
             </PaginationItem>
@@ -139,7 +140,7 @@ export default function ScrapEventPlogging() {
         })
         }
         <PaginationItem disabled={curPage === totalPages}>
-          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/scrapEventPlogging/${curPage+1}`}>
+          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/saveEventPlogging/${curPage+1}`}>
             <span aria-hidden="true">›</span>
           </PaginationLink>
         </PaginationItem>

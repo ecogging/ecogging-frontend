@@ -3,6 +3,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
+import '../../../styles/plogging/EventDetail.css';
+// import SocialShare from '../../../utils/SocialShare';
+import { shareTwitter, shareFacebook, shareKakao } from '../../../utils/SocialShare'; // SocialShare.js 파일에서 함수들을 import
+
 
 const EventDetail = () => {
   const { eventId, page, ptype } = useParams();
@@ -20,8 +24,9 @@ const EventDetail = () => {
     axios
       .post(`http://localhost:8080/eventDetail`, { userId: userId, eventId: eventId })
       .then((res) => {
+        console.log(res.data);
         setEvent(res.data.event);
-        setIsScrapped(res.data.iseventScrap);
+        setIsScrapped(res.data.isEventscrap);
       })
       .catch((err) => {
         console.log(err);
@@ -29,6 +34,7 @@ const EventDetail = () => {
   }, []);
 
   const handleScrapToggle = () => {
+    if(event.active==false) return;
     axios
       .post(`http://localhost:8080/eventScrap`, { userId: userId, eventId: eventId })
       .then((res) => {
@@ -70,6 +76,18 @@ const EventDetail = () => {
   
   const cancelDelete = () => {
     setIsDeleteModalOpen(false);
+  };
+
+  // 이벤트 목록 페이지로 이동하는 함수
+  const handleListClick = () => {
+    // 현재 페이지 주소 형식에 따라 목록 버튼을 클릭했을 때 이동할 주소를 조정
+    if (page && ptype) {
+      // 페이지 주소 형식이 'eventDetail/eventId/page/ptype'인 경우
+      navigate(`/eventList/${page}/${ptype}`);
+    } else {
+      // 페이지 주소 형식이 'eventDetail/eventId'인 경우
+      navigate('/eventList');
+    }
   };
 
   return (
@@ -123,8 +141,15 @@ const EventDetail = () => {
                   <div style={{width:'380px'}}>{event.explanation}</div>
                 </div>
                 <p style={{ margin: '26px 0 0 0', textAlign: 'right' }}>
+                  <span>
+                    <a style={{width:'40px'}} className="link-icon twitter" href="javascript:void(0)" onClick={shareTwitter}></a>
+                    <a style={{width:'40px'}} className="link-icon facebook" href="javascript:void(0)" onClick={shareFacebook}></a>
+                    <a style={{width:'40px'}} className="link-icon kakao" href="javascript:void(0)" onClick={shareKakao}></a>
+                  </span>
                   {userId!=null && (
-                    <button className={`article-scrap ${isScrapped ? 'active' : ''}`} onClick={handleScrapToggle}>스크랩</button>
+                    <div style={{}}>
+                      <button className={`event-scrap ${isScrapped ? 'active' : ''}`} onClick={handleScrapToggle}>스크랩</button>
+                    </div>
                   )}  
                 </p>
               </td>
@@ -166,7 +191,7 @@ const EventDetail = () => {
               </Button>
             </Link> )}
           <Button style={{boxSizing: 'border-box',width: '150px',height: '33px',background: 'rgba(155, 228, 206, 1)',borderRadius: '7px',fontWeight: 'bold',
-                borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}}onClick={() => {navigate('/eventList/' + page + '/' + ptype);}}>
+                borderStyle: 'none',border: 'white 1px solid',marginRight: '40px',color: 'white',cursor: 'pointer'}} onClick={handleListClick} >
             목 록
           </Button>
         </div>

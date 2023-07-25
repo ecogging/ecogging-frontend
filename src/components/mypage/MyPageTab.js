@@ -70,7 +70,7 @@ export default function MyPageTab( {userId} ) {
               <Link to={`/mypage/${userId}/temp2`} className="link_myPageTabMenu">
                 <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
               </Link>
-              <Link to={'/mypage/plogging/savePlogging'} className="link_myPageTabMenu">
+              <Link to={`/mypage/${userId}/plogging/savePlogging/1`} className="link_myPageTabMenu">
                 <li className={clicked === '임시저장함' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">임시저장함</div></li>
               </Link>
             </ul>

@@ -14,6 +14,7 @@ import ScrapEventPlogging from '../../components/mypage/plogging/ScrapEventPlogg
 import MyPageProfile from '../../components/mypage/MyPageProfile';
 import MyPageReview from "../../components/mypage/MyPageReview";
 import SavePlogging from '../../components/mypage/plogging/SavePlogging';
+import SaveEventPlogging from '../../components/mypage/plogging/SaveEventPlogging';
 
 import MyPageShare from "../../components/mypage/MyPageShare";
 import MyPageRecommend from "../../components/mypage/MyPageRecommend";
@@ -43,7 +44,9 @@ export default function MyPage( {userId , setUserId } ) {
 
           <Route path="/reviews" element={<MyPageReview />}></Route>
 
-          <Route path="/plogging/savePlogging" element={<SavePlogging/>}/>
+          <Route path="/plogging/savePlogging/:page" element={<SavePlogging/>}/>
+          <Route path="/plogging/saveEventPlogging/:page" element={<SaveEventPlogging/>}/>
+          
           
 
           {/* 나의 커뮤니티 */}
