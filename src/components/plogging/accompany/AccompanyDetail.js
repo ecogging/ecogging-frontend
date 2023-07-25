@@ -9,8 +9,6 @@ import useSendMessage from '../../../hooks/useSendMessage';
 
 import Comment from '../../comment/Comment';
 
-import Comment from '../../comment/Comment';
-
 const AccompanyDetail = () => {
     const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
 
