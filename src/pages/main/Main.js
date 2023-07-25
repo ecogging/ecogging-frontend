@@ -24,6 +24,16 @@ import Temp from '../../components/main/Temp';
 import MyPage from '../mypage/MyPage';
 import UserSignupIntro from '../../components/user/UserSignupIntro';
 import UserSignup from '../../components/user/UserSignup';
+import ReviewDetail from '../../components/plogging/reivews/ReviewDetail';
+import ReviewModify from '../../components/plogging/reivews/ReviewModify';
+import ReviewWrite from '../../components/plogging/reivews/ReviewWrite';
+import ShareWrite from '../../components/Forum/ShareWrite';
+import Shares from '../../components/Forum/Shares';
+import ShareDetail from '../../components/Forum/ShareDetail';
+import ShareModify from '../../components/Forum/ShareModify';
+import RouteList from '../../components/Forum/RouteList';
+import RouteDetail from '../../components/Forum/RouteDetail';
+import RouteWrite from '../../components/Forum/RouteWrite';
 import MessageDetail from '../mypage/MessageDetail';
 
 import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
@@ -80,6 +90,17 @@ export default function Main() {
 
             <Route path="/signup-intro" element={<UserSignupIntro/>}/>
             <Route path="/signup" element={<UserSignup/>}/>
+
+            <Route path="/reviewInfo/:id" element={<ReviewDetail/>}/>
+            <Route path="/shareInfo/:id" element={<ShareDetail/>}/>
+            <Route path="/reviewInfoModify/:id" element={<ReviewModify/>}/>
+            <Route path="/shareInfoModify/:id" element={<ShareModify/>}/>
+            <Route path="/reviewWrite/:userId" element={<ReviewWrite/>}/>
+            <Route path="/shareWrite/:userId" element={<ShareWrite/>}/>
+            <Route path="/routeWrite/:userId" element={<RouteWrite/>}/>
+            <Route path="/shares" element={<Shares/>}/>
+            <Route path="/routeList" element={<RouteList/>}/>
+            <Route path="/routeInfo/:id" element={<RouteDetail/>}/>
 
             <Route path="/corp-login" element={<CorpLogin />}/>
             <Route path="/corp-signup" element={<CorpSignUp />}/>
