@@ -15,6 +15,7 @@ export default function MainEvents() {
     axios.get(url)
       .then((res) => {
         setEvts(res.data.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log('행사 불러오기 실패', err);
@@ -33,9 +34,8 @@ export default function MainEvents() {
         <div className='container_EventsCards'>
 
         {evts && evts.map((item, idx) => (
-
-
-
+          
+            
           <Link to={`/eventDetail/${item.evtid}`} >
             <div className='box_EventsCards' key={item.evtId}>
                 
@@ -64,8 +64,11 @@ export default function MainEvents() {
                 </div>
 
                 <div className='card_EventsWhole'>
-                  <img src={posterTemp} className='img_poster_source' />
-                  {/* <img src={`http://localhost:8080/eventImg/${item.fileId}`} className='img_poster_source' /> */}
+                    {item.filePath ? (
+                      <img src={`http://localhost:8080/eventImg/${item.fileId}`} className='img_poster_source' />
+                    ) : (
+                      <img src={posterTemp} className='img_poster_source' />
+                    )}
                 </div>
             
             </div>
