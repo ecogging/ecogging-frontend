@@ -7,85 +7,98 @@ import { useNavigate, useParams } from 'react-router';
 import { getCookie } from '../../utils/CookieUtil';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 
 const { kakao } = window;
 
 export default function MyPageRecommend() {
   const navigate = useNavigate();
 
-    // 데이터 불러오기
-    const {userId} = useParams();
-    const accessToken = getCookie('access-token'); 
-    const headers = {
-      'Authorization': 'Bearer ' + accessToken,
-      'Content-Type': 'application/json',
-    };
-    const [routes, setRoutes] = useState(null);
-    useEffect(() => {
-      const url = `/mypage/${userId}/recommendations`;
-      axios.get(url, {
-        headers:headers,
-      })
-      .then((res) => {
-        setRoutes(res.data.data);
-        console.log('내 경로 불러오기 완료');
-        console.log(res.data.data);
-      })
-      .catch((err) => {
-        console.log('내 경로 불러오기 실패');
-      });
-    }, []);
 
-    // 지도
-    useEffect(() => {
-      let boxMaps = document.getElementsByClassName("container_myRecomLeft");
-      for(let boxMap of boxMaps) { 
-          mapOnload(boxMap, boxMap.dataset.address);
-      }
-    }, [routes]); 
-
-    if (routes === null) {
-      return <div>Loading...</div>
-    }
-
-    const mapOnload = (e, address) => {
-      var geocoder = new kakao.maps.services.Geocoder();
-      geocoder.addressSearch(address, (result, status) => {
-          if (status === kakao.maps.services.Status.OK) { 
-              let lat = result[0].y;
-              let lon = result[0].x; 
-              var center = new kakao.maps.LatLng(lat, lon);
-
-              const mapOption = {
-                  center: center, 
-                  draggable: false,
-                  level: 4 
-              };   
-
-              if (e) {
-              var map = new kakao.maps.Map(e, mapOption);
-              map.setZoomable(false);
-
-              var marker = new kakao.maps.Marker({
-                  position: center
-              });
-              marker.setMap(map);
-          }
-        }
-      });
-  };
-  
-  // 글 삭제
-  const handelShareDel=(id)=>{
-    axios
-    .post(`http://localhost:8080/shareDel/${id}`)
-    .then((res)=>{
-        console.log("내 경로 삭제 완료");
-        navigate(`http://localhost:8080/mypage/${userId}/recommendations`);
-    }).catch((err)=>{
-        console.log("내 경로 삭제 실패", err);
-    });
+  // 페이징 ---------------------------------------------------------------
+  const [totPages, setTotPages] = useState(0); // 전체 페이지
+  const [nowPage, setNowPage] = useState(1); // 현재 페이지
+  const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+    setNowPage(no);
   }
+
+
+  // 데이터 불러오기 ------------------------------------------------------
+  const {userId} = useParams();
+  const accessToken = getCookie('access-token'); 
+  const headers = {
+    'Authorization': 'Bearer ' + accessToken,
+    'Content-Type': 'application/json',
+  };
+  const [routes, setRoutes] = useState(null);
+  useEffect(() => {
+    const url = `/mypage/${userId}/recommendations`;
+    axios.get(url, {
+      headers:headers, 
+      params: {
+        pageNo: nowPage, // 현재 페이지 서버로 전송 ( Back: @RequestParam )
+      }
+    })
+    .then((res) => {
+      setRoutes(res.data.data); // 데이터 설정
+      setTotPages(res.data.allCount); // 전체 개수 설정
+    })
+    .catch((err) => {
+      console.log('내 경로 불러오기 실패');
+    });
+  }, [nowPage]);
+
+  
+  // 지도 ------------------------------------------------------------------
+  useEffect(() => {
+    let boxMaps = document.getElementsByClassName("container_myRecomLeft");
+    for(let boxMap of boxMaps) { 
+        mapOnload(boxMap, boxMap.dataset.address);
+    }
+  }, [routes]); 
+
+  if (routes === null) {
+    return <div>Loading...</div>
+  }
+
+  const mapOnload = (e, address) => {
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(address, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) { 
+            let lat = result[0].y;
+            let lon = result[0].x; 
+            var center = new kakao.maps.LatLng(lat, lon);
+
+            const mapOption = {
+                center: center, 
+                draggable: false,
+                level: 4 
+            };   
+
+            if (e) {
+            var map = new kakao.maps.Map(e, mapOption);
+            map.setZoomable(false);
+
+            var marker = new kakao.maps.Marker({
+                position: center
+            });
+            marker.setMap(map);
+        }
+      }
+    });
+};
+
+
+// 글 삭제 ------------------------------------------------------------
+const handelShareDel=(id)=>{
+  axios
+  .post(`http://localhost:8080/shareDel/${id}`)
+  .then((res)=>{
+      navigate(`http://localhost:8080/mypage/${userId}/recommendations`);
+  }).catch((err)=>{
+      console.log("내 경로 삭제 실패", err);
+  });
+}
 
 
 
@@ -135,9 +148,7 @@ export default function MyPageRecommend() {
       </div>
 
       <div className='container_myBottom'>
-        <div className='box_contensPlus'>
-            더보기  
-        </div>
+          <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
       </div>
 
     </div>
