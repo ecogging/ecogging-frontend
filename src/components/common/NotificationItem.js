@@ -1,6 +1,9 @@
 ﻿import { FiTrash2 } from 'react-icons/fi';
 import {
-  getCommentNotificationItem, getMessageNotificationItem, getAccompanyNotificationItem} from './NotificationItemBuilder';
+  getCommentNotificationItem,
+  getMessageNotificationItem,
+  getAccompanyNotificationItem
+} from './NotificationItemBuilder';
 import '../../styles/common/NotificationItem.css';
 import detailDate from '../../utils/GetDayMinuteCounter ';
 
@@ -17,7 +20,7 @@ import detailDate from '../../utils/GetDayMinuteCounter ';
 export default function NotificationItem({item, deleteHandler}) {
   if (item == null || !item) return;
   const {icon, typeName, content} = 
-  getNotiItem(item) ||  { icon: "-", typeName: "-", content: "-" };
+    getNotiItem(item) ||  { icon: "-", typeName: "-", content: "-" };
 
 
   return (
