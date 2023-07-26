@@ -12,7 +12,7 @@ import MyButton from '../common/MyButton';
 import { isValidAxiosResponse, getMaxValueOfKeyInArrayObect } from '../../utils/CustomUtil';
 
 export default function NotificationModal({ isOpen, closeModal }) {
-  const notificaionBaseEndPoint = 'http://localhost:8080/notifications';
+  const notificationBaseEndPoint = 'http://localhost:8080/notifications';
   const modalRef = useRef(null);
 
   const [notifications, setNotifications] = useState([]);
@@ -40,7 +40,7 @@ export default function NotificationModal({ isOpen, closeModal }) {
     setNotifications(updatedNotifications);
 
     // Make the API call to request deletion from the backend
-    axios.delete(`${notificaionBaseEndPoint}/${id}`, {
+    axios.delete(`${notificationBaseEndPoint}/${id}`, {
       headers: {
         'Authorization': 'Bearer ' + getCookie('access-token')
       },
@@ -65,9 +65,33 @@ export default function NotificationModal({ isOpen, closeModal }) {
     };
   }, [notifications]);
 
+  const handleNotificationItemClick = (id) => {
+    closeModal();
+    const updateReadNotifications = notifications.map(noti =>
+      noti.id === id ? { ...noti, read: true } : noti
+    );
+                                                  
+    setNotifications(updateReadNotifications);
+
+    console.log('rqeuest url')
+    console.log(`${notificationBaseEndPoint}/${id}`);
+
+    axios
+      .post(`${notificationBaseEndPoint}/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + getCookie('access-token'),
+        },
+      })
+      .then()
+      .catch(error => {
+        console.error(error);
+      });
+      
+  }
+
   const fetchData = () => {
     axios
-      .get(notificaionBaseEndPoint, {
+      .get(notificationBaseEndPoint, {
         headers: {
           'Authorization': 'Bearer ' + getCookie('access-token'),
           'Content-Type': 'application/json',
@@ -75,11 +99,14 @@ export default function NotificationModal({ isOpen, closeModal }) {
         },
       })
       .then(response => {
+        // console.log("resp");
+        console.log(response.data);
         // Process the received data and save it in the state
         if (!isValidAxiosResponse(response))
           return;
 
-        setNotifications([...notifications, ...response.data]);
+        setNotifications([...notifications, ...response.data]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
       })
       .catch(error => {
         console.error(error);
@@ -106,7 +133,7 @@ export default function NotificationModal({ isOpen, closeModal }) {
             return 'COMMENT' === selectedType;
           }
           return item.type === selectedType;
-      });
+      })
 
   let buttonTextObject = [
     {
@@ -127,7 +154,8 @@ export default function NotificationModal({ isOpen, closeModal }) {
     }
   ];
   
-  
+
+
   return (
     <div className='notification-modal' ref={modalRef}>
         <div className="modal-header">
@@ -157,7 +185,7 @@ export default function NotificationModal({ isOpen, closeModal }) {
                     item={noti}
                     key={noti.id}
                     deleteHandler={handleNotificationDelete}
-                    closeModal={closeModal}/>
+                    clickHandler={handleNotificationItemClick}/>
                 )
               }
             </div>
