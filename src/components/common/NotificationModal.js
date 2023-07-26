@@ -99,11 +99,14 @@ export default function NotificationModal({ isOpen, closeModal }) {
         },
       })
       .then(response => {
+        // console.log("resp");
+        console.log(response.data);
         // Process the received data and save it in the state
         if (!isValidAxiosResponse(response))
           return;
 
-        setNotifications([...notifications, ...response.data]);
+        setNotifications([...notifications, ...response.data]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
       })
       .catch(error => {
         console.error(error);
@@ -130,7 +133,7 @@ export default function NotificationModal({ isOpen, closeModal }) {
             return 'COMMENT' === selectedType;
           }
           return item.type === selectedType;
-      });
+      })
 
   let buttonTextObject = [
     {
@@ -151,7 +154,8 @@ export default function NotificationModal({ isOpen, closeModal }) {
     }
   ];
   
-  
+
+
   return (
     <div className='notification-modal' ref={modalRef}>
         <div className="modal-header">
