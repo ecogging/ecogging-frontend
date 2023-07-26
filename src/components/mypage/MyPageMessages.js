@@ -38,8 +38,6 @@
         }
       })
         .then((res) => {
-          console.log('-----------------------!');
-          console.log(res.data);
           setMegRooms(res.data.data);
           setUnReads(res.data.unReads);
           setTotPages(res.data.allCount); // 전체 개수 설정
