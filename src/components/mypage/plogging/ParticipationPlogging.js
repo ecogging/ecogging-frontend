@@ -48,7 +48,7 @@ export default function ParticipationPlogging() {
     return(
       <a href={'/accompaniesdetail/' + accompany.id} key={accompany.id} style={{color:'black'}}>         
       <div className="MyPageShare">  
-        {/* 글 목록 업데이트 영역 -- 5개 */}
+        {/* 글 목록 업데이트 영역 -- 5개씩 */}
         <div className="container_myShareArea"> 
           <div className="container_mypageShareWriting">
             {/* 사진 */}
