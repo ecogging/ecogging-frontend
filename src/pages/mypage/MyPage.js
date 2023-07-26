@@ -22,6 +22,7 @@ import MyPageForumScrap from "../../components/mypage/MyPageForumScrap";
 import MyPageMessages from "../../components/mypage/MyPageMessages";
 
 import { getCookie } from "../../utils/CookieUtil";
+import CorRecruitPlogging from "../../components/mypage/plogging/CorRecruitPlogging";
 
 export default function MyPage( {userId , setUserId } ) {
 
@@ -35,6 +36,7 @@ export default function MyPage( {userId , setUserId } ) {
 
           {/* 플로깅 */}
           <Route path="/:userId/plogging/recruitPlogging/:page" element={<RecruitPlogging/>}/>
+          <Route path="/:userId/plogging/correcruitPlogging/:page" element={<CorRecruitPlogging/>}/>
           <Route path="/:userId/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
           
           <Route path="/:userId/plogging/participationPlogging/:page" element={<ParticipationPlogging/>}/>
