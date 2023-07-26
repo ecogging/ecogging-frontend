@@ -57,15 +57,29 @@
   }
 
   /* 쪽지 리스트 */
-  .container_MessageOne {
+  .container_MessageOne_unRead {
     width:100%;
     height: 50px;
     display: flex;
     border-bottom:1px solid rgba(214, 214, 214, 0.575);
-}
-  .container_MessageOne:hover {
-    background-color: rgba(240, 240, 240, 0.63);
+    background-color: white;
   }
+  .container_MessageOne_read {
+    width:100%;
+    height: 50px;
+    display: flex;
+    border-bottom:1px solid rgba(214, 214, 214, 0.575);
+    background-color: rgb(230, 230, 230);
+  }
+  .container_MessageOne_unRead:hover {
+    font-weight:bold;
+    background-color: rgba(230, 230, 230, 0.63);
+  }
+  .container_MessageOne_read:hover {
+    color:white;
+    background-color: rgba(131, 131, 131, 0.63);
+  }
+  
 
   /* 왼쪽 */
   .con_MessageLeft {
@@ -123,6 +137,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
   }
   .link_messageDetail {
     width:100%;
@@ -135,6 +150,10 @@
     font-size: 1.1rem;
     display: flex;
     align-items: center;
+    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   /* 오른쪽 */
