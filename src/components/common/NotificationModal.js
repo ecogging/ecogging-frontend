@@ -54,16 +54,16 @@ export default function NotificationModal({ isOpen, closeModal }) {
   };
 
   useEffect(() => {
-    // fetchData();
+    fetchData();
 
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 5000);
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, [notifications]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleNotificationItemClick = (id) => {
     closeModal();
@@ -180,13 +180,15 @@ export default function NotificationModal({ isOpen, closeModal }) {
             </div>
             <div className="notifcation-list">
               {
-                filteredNotifications && filteredNotifications.map(noti => 
+                filteredNotifications ? filteredNotifications.map(noti => 
                   <NotificationItem
                     item={noti}
                     key={noti.id}
                     deleteHandler={handleNotificationDelete}
                     clickHandler={handleNotificationItemClick}/>
                 )
+                :
+                <h3>새로운 알림이 없습니다.~_~</h3>
               }
             </div>
 
