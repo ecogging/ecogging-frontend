@@ -27,6 +27,12 @@ const EventDetail = () => {
         console.log(res.data);
         setEvent(res.data.event);
         setIsScrapped(res.data.isEventscrap);
+        //카카오
+        const script = document.createElement("script");
+        script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+        script.async = true;
+        document.body.appendChild(script);
+        return () => document.body.removeChild(script);
       })
       .catch((err) => {
         console.log(err);
@@ -144,7 +150,7 @@ const EventDetail = () => {
                   <span>
                     <a style={{width:'40px'}} className="link-icon twitter" href="javascript:void(0)" onClick={shareTwitter}></a>
                     <a style={{width:'40px'}} className="link-icon facebook" href="javascript:void(0)" onClick={shareFacebook}></a>
-                    <a style={{width:'40px'}} className="link-icon kakao" href="javascript:void(0)" onClick={shareKakao}></a>
+                    <a style={{width:'40px'}} className="link-icon kakao"  onClick={shareKakao}></a>
                   </span>
                   {userId!=null && (
                     <div style={{}}>
