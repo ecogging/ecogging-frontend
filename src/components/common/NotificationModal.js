@@ -54,15 +54,15 @@ export default function NotificationModal({ isOpen, closeModal }) {
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
 
-    const interval = setInterval(() => {
-      fetchData();
-    }, 5000);
+    // const interval = setInterval(() => {
+    //   fetchData();
+    // }, 5000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, [notifications]);
 
   const handleNotificationItemClick = (id) => {
