@@ -56,7 +56,7 @@ export default function MyPageReview () {
             
             <div className='container_wholeMyReviews'>
 
-                {forumList.map((forum) => (
+                {forumList && forumList.map((forum) => (
                     <div className='container_wholeMyReview' key={forum.createdAt}>
                         <div className='container_myReview'>
                             <div className='container_revDateandViews'>

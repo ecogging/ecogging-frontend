@@ -126,9 +126,9 @@ const AccompanyList = () => {
                         </tr>
                         <tr className="card-container"> 
                             <td className="accompany-card">
-                                {cardRows.map((row, rowIndex) => (
+                                {cardRows && cardRows.map((row, rowIndex) => (
                                     <div key={rowIndex} className="card-row">
-                                        {row.map((card, cardIndex) => (
+                                        {row && row.map((card, cardIndex) => (
                                             <div key={cardIndex} className="card-info">
                                                 <div className="card-header" data-address={card.location}></div>
                                                 <div className="card-body">
