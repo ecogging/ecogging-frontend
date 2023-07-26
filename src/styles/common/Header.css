@@ -164,18 +164,16 @@ header {
   font-size:1.75rem;
   width:50px;
 }
-#alramCount {
-  width:18px;
-  height:12px;
+#notificationCount {
+  width:7px;
+  height:7px;
   display:flex;
-  color:white;
-  margin-left:30px;
+  margin-left:25px;
   position:absolute;
-  border-radius:35%;
-  font-size: 0.6rem;
+  border-radius:50%;
   justify-content: center;
   align-items: center;
-  background-color: rgba(235, 1, 1, 0.829);
+  background-color: rgba(255, 1, 1, 0.829);
 }
 #headerNickname {
   width:160px;

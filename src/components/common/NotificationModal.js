@@ -11,7 +11,7 @@ import MyButton from '../common/MyButton';
 
 import { isValidAxiosResponse, getMaxValueOfKeyInArrayObect } from '../../utils/CustomUtil';
 
-export default function NotificationModal({ isOpen, closeModal }) {
+export default function NotificationModal({ isOpen, closeModal, setHasUnReadNotifications }) {
   const notificationBaseEndPoint = 'http://localhost:8080/notifications';
   const modalRef = useRef(null);
 
@@ -34,11 +34,14 @@ export default function NotificationModal({ isOpen, closeModal }) {
     }
   };
 
+  const deleteNotificationById = (id) => {
+    setNotifications(notifications.filter(noti => noti.id !== id));
+  }
+
   const handleNotificationDelete = (id) => {
     // Update the state locally by removing the item
-    const updatedNotifications = notifications.filter(item => item.id !== id);
-    setNotifications(updatedNotifications);
-
+    deleteNotificationById(id);
+    
     // Make the API call to request deletion from the backend
     axios.delete(`${notificationBaseEndPoint}/${id}`, {
       headers: {
@@ -65,16 +68,15 @@ export default function NotificationModal({ isOpen, closeModal }) {
     };
   }, []);
 
+  const setNotificationReadById = (id) => {
+    setNotifications(notifications && notifications.map(noti =>
+    noti.id === id ? { ...noti, read: true } : noti));
+  }
+
   const handleNotificationItemClick = (id) => {
     closeModal();
-    const updateReadNotifications = notifications.map(noti =>
-      noti.id === id ? { ...noti, read: true } : noti
-    );
-                                                  
-    setNotifications(updateReadNotifications);
-
-    console.log('rqeuest url')
-    console.log(`${notificationBaseEndPoint}/${id}`);
+                                    
+    setNotificationReadById(id);
 
     axios
       .post(`${notificationBaseEndPoint}/${id}`, {
@@ -87,6 +89,10 @@ export default function NotificationModal({ isOpen, closeModal }) {
         console.error(error);
       });
       
+  }
+
+  const setNotificationsAfterSort= (inputArray) => {
+    setNotifications(inputArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
   }
 
   const fetchData = () => {
@@ -105,8 +111,7 @@ export default function NotificationModal({ isOpen, closeModal }) {
         if (!isValidAxiosResponse(response))
           return;
 
-        setNotifications([...notifications, ...response.data]
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        setNotificationsAfterSort([...notifications, ...response.data]);
       })
       .catch(error => {
         console.error(error);
@@ -120,10 +125,6 @@ export default function NotificationModal({ isOpen, closeModal }) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  // 모달 끄기 
-  // modal on/off
-  if (!isOpen) return null;
 
   const filteredNotifications = 
     selectedType === "ALL" 
@@ -153,8 +154,18 @@ export default function NotificationModal({ isOpen, closeModal }) {
       name: '쪽지'
     }
   ];
-  
 
+  const checkUnReadExist = () => {
+    setHasUnReadNotifications(!!notifications.find(n => n.read == false));
+  }
+
+  useEffect(()=> {
+    checkUnReadExist();
+  },[notifications])
+
+  // 모달 끄기 
+  // modal on/off
+  if (!isOpen) return null;
 
   return (
     <div className='notification-modal' ref={modalRef}>
