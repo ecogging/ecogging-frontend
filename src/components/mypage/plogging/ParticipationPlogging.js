@@ -1,7 +1,6 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
