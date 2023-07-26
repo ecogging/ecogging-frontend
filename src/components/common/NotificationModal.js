@@ -70,8 +70,7 @@ export default function NotificationModal({ isOpen, closeModal, setHasUnReadNoti
 
   const setNotificationReadById = (id) => {
     setNotifications(notifications && notifications.map(noti =>
-    noti.id === id ? { ...noti, read: true } : noti
-  ));
+    noti.id === id ? { ...noti, read: true } : noti));
   }
 
   const handleNotificationItemClick = (id) => {
@@ -192,13 +191,15 @@ export default function NotificationModal({ isOpen, closeModal, setHasUnReadNoti
             </div>
             <div className="notifcation-list">
               {
-                filteredNotifications && filteredNotifications.map(noti => 
+                filteredNotifications ? filteredNotifications.map(noti => 
                   <NotificationItem
                     item={noti}
                     key={noti.id}
                     deleteHandler={handleNotificationDelete}
                     clickHandler={handleNotificationItemClick}/>
                 )
+                :
+                <h3>새로운 알림이 없습니다.~_~</h3>
               }
             </div>
 
