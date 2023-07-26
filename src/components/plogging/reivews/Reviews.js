@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
+import { Viewer } from '@toast-ui/react-editor';
 import '../../../styles/plogging/review/Reviews.css';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import MyButton from "../../../components/common/MyButton.js";
 // import { BsEye } from "react-icons/bs";
@@ -16,9 +18,10 @@ export default function ReviewList(){
     const [bsearch, setBsearch]=useState(false);
     // const Data=
     // const [sortedList, setSortedList]=useState([...]);
-    const loginCheck=true;
-    const userId="9842615";
     const [initialReviews, setInitialReviews]=useState([]);
+    const userId = getCookie("userId");
+    const [view, setView] = useState(false);
+
     
     useEffect(() => {
         setCurPage(parseInt(curPage));
@@ -27,12 +30,13 @@ export default function ReviewList(){
         
     const fetchReviews=async (p_page)=>{
         axios
-            .get(`http://localhost:8080/reviews/${p_page}`)
+            .get(`http://localhost:8080/reviews/${p_page}/${userId}`)
             .then((res)=>{
-                let pageInfo=res.data.pageInfo;
-                let list=res.data.reviews;
-                setReviews([...list]);
-                setInitialReviews([...list]);
+                let pageInfo=res.data.reviews.pageInfo;
+                let list=res.data.reviews.content;
+                setReviews(list);
+                setInitialReviews(list);
+                setView(true);
                 let btn=[];
                 for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
                     btn.push(i);
@@ -140,9 +144,10 @@ export default function ReviewList(){
                                     <div className='listItem_detail'>
                                         <div className="review_nickname">{review.userId}</div>
                                         <div className='review_detail'>
-                                            <Link to={`/reviewInfo/${review.id}`}>
+                                            <Link to={`/reviewInfo/${review.forumId}`}>
                                                 <div className="review_title">{review.title}</div>
-                                                <div className="review_content">{review.content}</div>
+                                                {/* <div className="review_content">{review.content}</div> */}
+                                                {view && <Viewer initialValue={review.content} style={{width:"300px", height:"300px"}}/> }
                                             </Link>
                                         </div>
                                     </div>
@@ -190,14 +195,14 @@ export default function ReviewList(){
                         </PaginationItem>
                 </Pagination>
                 
-                <div className='writeBtn'>
+                {/* <div className='writeBtn'>
                     {
                     loginCheck ? 
                     <Link to={`/reviewWrite/${userId}`}>
                         <MyButton text={"글 작성"}/>
                     </Link> : null
                     }
-                </div>
+                </div> */}
             </div>
         </div>
     );

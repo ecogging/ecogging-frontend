@@ -1,6 +1,7 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
@@ -86,6 +87,10 @@ export default function ParticipationPlogging() {
                   인원{accompany.numOfPeople}
                 </div>
                 <div className='container_myDetailBtns_Share'>
+                {/* <Link to={`/reviewWrite/${accompany.id}`}> */}
+                <Link to={`/reviewWrite/${accompany.id}`}>
+                    후기작성
+                </Link>
                   <div className='txt_myBtn_Share'>수정</div>
                   <div className='txt_myBtn_Share'>삭제</div>
                 </div>

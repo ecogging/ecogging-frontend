@@ -33,6 +33,7 @@ import ShareDetail from '../../components/Forum/ShareDetail';
 import ShareModify from '../../components/Forum/ShareModify';
 import RouteList from '../../components/Forum/RouteList';
 import RouteDetail from '../../components/Forum/RouteDetail';
+import RouteModify from '../../components/Forum/RouteModify';
 import RouteWrite from '../../components/Forum/RouteWrite';
 import MessageDetail from '../mypage/MessageDetail';
 
@@ -86,21 +87,24 @@ export default function Main() {
             <Route exact path='/eventWrite' element={<EventWrite/>}/> 
             <Route exact path='/eventModify/:eventId/:page/:ptype' element={<EventModify/>}/>
 
-            <Route path="/reviews" element={<Reviews/>}/>
 
             <Route path="/signup-intro" element={<UserSignupIntro/>}/>
             <Route path="/signup" element={<UserSignup/>}/>
 
-            <Route path="/reviewInfo/:id" element={<ReviewDetail/>}/>
-            <Route path="/shareInfo/:id" element={<ShareDetail/>}/>
-            <Route path="/reviewInfoModify/:id" element={<ReviewModify/>}/>
-            <Route path="/shareInfoModify/:id" element={<ShareModify/>}/>
-            <Route path="/reviewWrite/:userId" element={<ReviewWrite/>}/>
-            <Route path="/shareWrite/:userId" element={<ShareWrite/>}/>
-            <Route path="/routeWrite/:userId" element={<RouteWrite/>}/>
             <Route path="/shares" element={<Shares/>}/>
+            <Route path="/shareInfo/:forumId" element={<ShareDetail/>}/>
+            <Route path="/shareWrite" element={<ShareWrite/>}/>
+            <Route path="/shareInfoModify/:forumId" element={<ShareModify/>}/>
+            
             <Route path="/routeList" element={<RouteList/>}/>
-            <Route path="/routeInfo/:id" element={<RouteDetail/>}/>
+            <Route path="/routeInfo/:forumId" element={<RouteDetail/>}/>
+            <Route path="/routeWrite" element={<RouteWrite/>}/>
+            <Route path="/routeInfoModify/:forumId" element={<RouteModify/>}/>
+            
+            <Route path="/reviews" element={<Reviews/>}/>
+            <Route path="/reviewInfo/:forumId" element={<ReviewDetail/>}/>
+            <Route path="/reviewWrite/:forumId" element={<ReviewWrite/>}/>
+            <Route path="/reviewInfoModify/:forumId" element={<ReviewModify/>}/>
 
             <Route path="/corp-login" element={<CorpLogin />}/>
             <Route path="/corp-signup" element={<CorpSignUp />}/>
