@@ -36,7 +36,7 @@ export default function MyPage( {userId , setUserId } ) {
           <Route path="/:userId/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
           <Route path="/:userId/plogging/participationPlogging" element={<ParticipationPlogging/>}/>
           <Route path="/:userId/plogging/scrapPlogging" element={<ScrapPlogging/>}/>
-          <Route path="/:userId/reviews" element={<MyPageReview />}></Route>
+          <Route path="/:userId/reviews/:page" element={<MyPageReview />}></Route>
           <Route path="/:userId/plogging/savePlogging" element={<SavePlogging/>}/>
           
 
