@@ -22,6 +22,7 @@ import MyPageForumScrap from "../../components/mypage/MyPageForumScrap";
 import MyPageMessages from "../../components/mypage/MyPageMessages";
 
 import { getCookie } from "../../utils/CookieUtil";
+import CorRecruitPlogging from "../../components/mypage/plogging/CorRecruitPlogging";
 
 export default function MyPage( {userId , setUserId } ) {
 
@@ -35,6 +36,7 @@ export default function MyPage( {userId , setUserId } ) {
 
           {/* 플로깅 */}
           <Route path="/:userId/plogging/recruitPlogging/:page" element={<RecruitPlogging/>}/>
+          <Route path="/:userId/plogging/correcruitPlogging/:page" element={<CorRecruitPlogging/>}/>
           <Route path="/:userId/plogging/recruitEventPlogging/:page" element={<RecruitEventPlogging/>}/>
           
           <Route path="/:userId/plogging/participationPlogging/:page" element={<ParticipationPlogging/>}/>
@@ -42,7 +44,7 @@ export default function MyPage( {userId , setUserId } ) {
           <Route path="/:userId/plogging/scrapPlogging/:page" element={<ScrapPlogging/>}/>
           <Route path="/:userId/plogging/scrapEventPlogging/:page" element={<ScrapEventPlogging/>}/>
 
-          <Route path="/:userId/reviews" element={<MyPageReview />}></Route>
+          <Route path="/:userId/reviews/:page" element={<MyPageReview />}></Route>
 
           <Route path="/:userId/plogging/savePlogging/:page" element={<SavePlogging/>}/>
           <Route path="/:userId/plogging/saveEventPlogging/:page" element={<SaveEventPlogging/>}/>

@@ -40,9 +40,6 @@ export default function RecruitPlogging() {
   return (
     <>
     <div style={{margin: '0 100px'}}>
-      <Link style={{margin:'20px', fontSize:'20px', fontWeight:'bold', color:'black'}} to={`/mypage/${userId}/plogging/recruitPlogging/1`} className="link_myPageTabMenu">모임</Link>  
-      <Link style={{margin:'30px', fontSize:'20px', fontWeight:'bold', color:'lightgray'}} to={`/mypage/${userId}/plogging/recruitEventPlogging/1`} className="link_myPageTabMenu">행사</Link>
-      <hr style={{ height: '10px', border: '0', boxShadow: '0 10px 10px -10px #bbb inset' }} />
     {accompany.length !== 0 && accompany.map((accompany) => { 
       const createdAtDate = new Date(accompany.createdAt);
       const formattedDate = createdAtDate.toLocaleDateString();

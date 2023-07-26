@@ -96,7 +96,7 @@
     border: 1px solid #9BE4CE;
 }
 .reviewInfo_img_in{
-    background-color: rgb(204, 236, 127);
+    /* background-color: rgb(204, 236, 127); */
     margin: 10px;
     height: 90%;
     width: 90%;

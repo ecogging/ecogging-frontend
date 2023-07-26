@@ -2,6 +2,7 @@ import React, { useEffect, useState , useRef} from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router";
+import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import '../../styles/Forum/RouteWrite.css';
 import TextEditor from "../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
@@ -10,10 +11,11 @@ const {daum}=window;
 
 export default function RouteWrite(){
     const [editorData,setEditorData]=useState('');
-    const {userId}=useParams();
+    // const {userId}=useParams();
     const [titleVal, setTitleVal]=useState('');
     const navigate = useNavigate();
     const [locationVal,setLocationVal]=useState();
+    const userId = getCookie("userId");
 
     function sample5_execDaumPostcode() {
         console.log("sample5_execDaumPostcode");
@@ -76,7 +78,7 @@ export default function RouteWrite(){
                 route_location:locationVal
             };
             
-            const response=await axios.post(`http://localhost:8080/routeWrite`, requestData,
+            const response=await axios.post(`http://localhost:8080/routeWrite/${userId}`, requestData,
             {
                 headers:{'Content-Type': 'application/json'},
                 withCredentials:true

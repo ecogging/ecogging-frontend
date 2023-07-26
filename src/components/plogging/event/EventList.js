@@ -16,6 +16,7 @@ const EventList = () => {
   const [type, setType] = useState(ptype);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const userId = getCookie("userId");
+  const isCorporate = getCookie('userType') === 'CORPORATE';
 
   useEffect(() => {
     getAllEventPage(curPage,type);
@@ -55,7 +56,7 @@ const EventList = () => {
         <div style={{float:'left', marginBottom:'10px'}}>
         <h1 className="list-subject1">행사 모집</h1>
         <br/>
-          {userId!=null && (<Link to="/eventWrite"><MyButton text={'행사글 작성'}/></Link>)}
+          {isCorporate &&  (<Link to={'/eventWrite'}><MyButton text={'행사글 작성'} /></Link>)}
         </div>
         <br/><br/><br/><br/>
         <div className="container">
@@ -157,7 +158,7 @@ const EventList = () => {
               <span aria-hidden="true">‹</span>
             </PaginationLink>
           </PaginationItem>
-          {pageBtn.map((item) => {
+          {pageBtn && pageBtn.map((item) => {
             return (
               <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
                 <PaginationLink id={item} href={`/eventList/${item}/${ptype}`}>

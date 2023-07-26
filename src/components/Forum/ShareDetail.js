@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from "react-router";
 import moment from 'moment/moment';
 import '../../styles/Forum/ShareDetail.css';
+import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import { HiOutlineEye } from "react-icons/hi2";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
@@ -13,19 +14,23 @@ import { useNavigate } from 'react-router-dom';
  
 
 export default function ShareDetail(){
-    const [shareInfo, setShareInfo]=useState([]);
-    const {id} = useParams();
+    const [shareInfo, setShareInfo]=useState("");
+    const {forumId} = useParams();
     const createdAt=moment(shareInfo.createdAt);
     const formattedDate=createdAt.format('YYYY-MM-DD');
     const navigate = useNavigate();
-    const loginCheck=true;
+    // const loginCheck=true;
+    const [view, setView] = useState(false);
+    const userId = getCookie("userId");
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/shareInfo`,{id:id})
+        .post(`http://localhost:8080/shareInfo/${forumId}`)
         .then(res=>{
             setShareInfo(res.data.shareInfo);
+            setView(true);
             console.log(res.data.shareInfo);
+            console.log(res.data.shareInfo.content);
             // console.log("reviewInfo : "+reviewInfo.content);
             // console.log("result"+result);
         }).catch(err=>{
@@ -33,8 +38,8 @@ export default function ShareDetail(){
         })
     },[])
     
-    const result=shareInfo.content;
-    console.log("result:"+result);
+    // const result=shareInfo.content;
+    // console.log("result:"+result);
     // const html=reviewInfo;
     // console.log(html);
 
@@ -44,10 +49,17 @@ export default function ShareDetail(){
 
     const handleScrap=()=>{
         console.log("스크랩");
+        axios.post(`http://localhost:8080/forumscrap/${forumId}/${userId}`)
+        .then(res=> {
+            // setIsScrapped(res.data);
+        })
+        .catch(err=> {
+            console.log(err);
+        })    
     }
     const handelShareDel=()=>{
         axios
-        .post(`http://localhost:8080/shareDel/${id}`)
+        .post(`http://localhost:8080/shareDel/${forumId}`)
         .then(res=>{
             console.log("삭제 완료");
             navigate('/shares');
@@ -57,6 +69,8 @@ export default function ShareDetail(){
     }
     return(
         <div className="reviewInfo_mainLayout">
+            <div>
+            </div>
             <div className="reviewInfo_wrap">
                 <div className="reviewInfo_top">
                     <div className="reviewInfo_title">{shareInfo.title}</div>
@@ -73,11 +87,9 @@ export default function ShareDetail(){
                     </div>
                 </div>
                 <div className="reviewInfo_layout">
-                    <div className="reviewInfo_content">
-                        {/* <div className="reviewInfo_content_in"> */}
-                            <Viewer initialValue={shareInfo.content}/>
-                        {/* </div> */}
-                    </div>
+                    {view && <Viewer initialValue={shareInfo.content} style={{width:"300px", height:"300px"}}/> }
+                    {/* <div className="reviewInfo_content">
+                    </div> */}
                 </div>
                 <div className="reviewInfoBtn_layout">
                     <div className="reviewsBtn_layout">
@@ -86,9 +98,9 @@ export default function ShareDetail(){
                         </Link>
                     </div>
                         {
-                        loginCheck ?
+                        userId!==null ?
                             <div className="modifyAndDeleteBtn_layout_in">
-                                <Link to={`/shareInfoModify/${shareInfo.id}`} className="modifyBtn">
+                                <Link to={`/shareInfoModify/${shareInfo.forumId}`} className="modifyBtn">
                                         수정
                                 </Link>
                                 {/* <Link to={`/reviewInfoDel/${reviewInfo.id}`} className="delBtn"> */}

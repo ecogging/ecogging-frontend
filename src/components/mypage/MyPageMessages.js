@@ -16,7 +16,7 @@
     const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
       setNowPage(no);
     }
-
+    
     // 데이터 불러오기 ------------------------------------------------------
     const { userId } = useParams();
     const [msgRooms, setMegRooms] = useState([]);
