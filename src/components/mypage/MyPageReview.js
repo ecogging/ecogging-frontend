@@ -34,7 +34,11 @@ export default function MyPageReview () {
     const reviewsDelete = (id) => {
         axios.get(`http://localhost:8080/reviewsdelete/${id}`)
         .then(res=> {
-            window.location.href = '/mypagereview';            
+            let list = forumList.filter(item=> {
+                return item.forumId!=id
+            })
+            setForumList([...list]);
+                   
         })
         .catch(err=> {
             console.log(err);
@@ -60,21 +64,27 @@ export default function MyPageReview () {
                     <div className='container_wholeMyReview' key={forum.createdAt}>
                         <div className='container_myReview'>
                             <div className='container_revDateandViews'>
-                                <div className='box_revDate'>
+                                {/* <div className='box_revDate'>
                                     <div className='txt_revDate'>{forum.createdAt.substring(0,10)}</div>
-                                </div>
+                                    </div> */}
                             </div>
                             <div className='container_mypageBody'>
-                                <div className='container_myrevTitle'>
-                                    <Link to={`/reviewDetail/${forum.forumId}`}><div className='box_revTitle'>{forum.title}</div></Link>
+                            <div className='box_revDate'>
+                                    <div className='txt_revDate'>작성일:&nbsp;{forum.createdAt.substring(0,10)}</div>
                                 </div>
+                                { /* <div className='container_myrevTitle'>
+                                    <Link to={`/reviewDetail/${forum.forumId}`}><div className='box_revTitle'>{forum.title}</div></Link>
+                                </div> */}
                                 <div className='box_revViews'>
                                     <div className='txt_revViews'>조회수&nbsp;{forum.views}</div>
                                 </div>
                             </div>
 
                             <div className='container_mypageRevContents'>
-                                <div className='box_revContents'>{forum.content}</div>
+                            { /* <div className='box_revContents'>{forum.content}</div> */ }
+                            <div className='container_myrevTitle'>
+                                    <Link to={`/reviewDetail/${forum.forumId}`}><div className='box_revTitle'>{forum.title}</div></Link>
+                                </div>
                                 <div className='box_detailBtns'>
                                     <Link to={`/reviewModify/${forum.forumId}`}><div className='box_revBtn'>수정</div></Link>
                                     <div className='box_revBtn' onClick={()=>reviewsDelete(forum.forumId)}>삭제</div>

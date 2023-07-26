@@ -75,7 +75,7 @@
 
 /* 플로깅 후기 게시글 */
 .container_wholeMyReviews {
-    width:100%;
+    width:90%;
     height:100%;
 
     display: flex;
@@ -93,7 +93,7 @@
     align-items: center;
     /* border-bottom:1px solid rgb(204, 204, 204); */
     border: 1px solid lightgray;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
@@ -130,6 +130,7 @@
     justify-content: flex-end;
     align-items: flex-start;
     font-size:1.125rem;
+    margin-right: 3px;
 }
 
 
@@ -139,6 +140,7 @@
     height:90%;
     
     display: flex;
+    justify-content: space-between;
 }
 .container_mypageBody {
     width:100%;
