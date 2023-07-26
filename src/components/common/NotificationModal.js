@@ -70,9 +70,10 @@ export default function NotificationModal({ isOpen, closeModal, setHasUnReadNoti
 
 
   const setNotificationReadById = (id) => {
-    setNotifications(notifications && notifications.map(noti =>
-    noti.id === id ? { ...noti, read: true } : noti
-  ));
+    setNotifications(notifications &&
+      notifications.map(noti => (noti.id === id )
+        ? { ...noti, read: true } 
+        : noti));
   }
 
   const handleNotificationItemClick = (id) => {
