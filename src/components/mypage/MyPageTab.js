@@ -48,42 +48,36 @@ export default function MyPageTab( {userId} ) {
 
         <nav className="container_myPageTabAll">
 
-          <ul className="container_myPageTabNav">
-            <Link to={'/mypage/profile'} className="link_myPageTabMenu" onClick={onClicked}>
-              <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
-            </Link>
+        <ul className="container_myPageTabNav" onClick={onClicked}>
+          <Link to={'/mypage/profile'} className="link_myPageTabMenu">
+            <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
+          </Link>
+          <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu">
+            <li className={clicked === '쪽지함' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">쪽지함</div></li>
+          </Link>
 
-            
-            <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu" onClick={onClicked}>
-              <li className={clicked === '쪽지함' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">쪽지함</div></li>
-            </Link>
-          
-            <li className="box_myPageTabMenuTitle">
-              <div className="txt_myPageTabMenu">플로깅</div>
-              
-              <ul className="box_myPloggingList" onClick={onClicked}>
-                <Link to={`/mypage/${userId}/plogging/recruitPlogging`} className="link_myPageTabMenu">
-                  <li className={clicked === '내가 모집한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 모집한 플로깅</div></li>
-                </Link>
-                <Link to={'/mypage/${userId}/plogging/recruitEventPlogging/1'} className="link_myPageTabMenu">
-                  <li className={clicked === '이벤트 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu"> 이벤트 플로깅</div></li>
-                </Link>
-                <Link to={`/mypage/${userId}/plogging/participationPlogging`} className="link_myPageTabMenu">
-                  <li className={clicked === '내가 참여한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 참여한 플로깅</div></li>
-                </Link>
-                <Link to={`/mypage/${userId}/plogging/scrapPlogging`} className="link_myPageTabMenu">
-                  <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
-                </Link>
-                <Link to={`/mypage/${userId}/reviews/1`} className="link_myPageTabMenu">
+          <li className="box_myPageTabMenuTitle">
+            <div className="txt_myPageTabMenu">플로깅</div>
+            <ul className="box_myPloggingList">
+
+              <Link to={`/mypage/${userId}/plogging/recruitPlogging/1`} className="link_myPageTabMenu">
+                <li className={clicked === '내가 모집한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 모집한 플로깅</div></li>
+              </Link>
+              <Link to={`/mypage/${userId}/plogging/participationPlogging/1`} className="link_myPageTabMenu">
+                <li className={clicked === '내가 참여한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 참여한 플로깅</div></li>
+              </Link>
+              <Link to={`/mypage/${userId}/plogging/scrapPlogging/1`} className="link_myPageTabMenu">
+                <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
+              </Link>
+              <Link to={`/mypage/${userId}/reviews/1`} className="link_myPageTabMenu">
                   <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
-                </Link>
-                <Link to={`/mypage/${userId}/plogging/savePlogging`} className="link_myPageTabMenu">
-                  <li className={clicked === '임시저장함' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">임시저장함</div></li>
-                </Link>
-              </ul>
-            </li>
-
-            <li className="box_myPageTabMenuTitle">
+              </Link>
+              <Link to={`/mypage/${userId}/plogging/savePlogging/1`} className="link_myPageTabMenu">
+                <li className={clicked === '임시저장함' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">임시저장함</div></li>
+              </Link>
+            </ul>
+          </li>
+          <li className="box_myPageTabMenuTitle">
               <div className="txt_myPageTabMenu">나의 커뮤니티</div>
               
               <ul className="box_myForumList" onClick={onClicked}>
@@ -109,17 +103,58 @@ export default function MyPageTab( {userId} ) {
     //기업로그인 마이페이지 탭
     return(
       <div className="myPageTab">
-        <nav className="container_myPageTabAll">
-          <ul className="container_myPageTabNav" onClick={onClicked}>
-            <Link to={'/corporate/mypage/profile'} className="link_myPageTabMenu">
-              <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
+
+      <nav className="container_myPageTabAll">
+
+      <ul className="container_myPageTabNav" onClick={onClicked}>
+        <Link to={'/mypage/profile'} className="link_myPageTabMenu">
+          <li className={clicked === '계정 정보' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">계정 정보</div></li>
+        </Link>
+        <Link to={`/mypage/${userId}/messagerooms`} className="link_myPageTabMenu">
+          <li className={clicked === '쪽지함' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">쪽지함</div></li>
+        </Link>
+
+        <li className="box_myPageTabMenuTitle">
+          <div className="txt_myPageTabMenu">플로깅</div>
+          
+          <ul className="box_myPloggingList">
+
+            <Link to={`/mypage/${userId}/plogging/correcruitPlogging/1`} className="link_myPageTabMenu">
+              <li className={clicked === '내가 모집한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 모집한 플로깅</div></li>
             </Link>
-            <Link to={'/corporate/mypage/profile'} className="link_myPageTabMenu">
-              <li className={clicked === '작성한 게시글' ? 'box_myPageTabMenu_clicked' : 'box_myPageTabMenu'}><div className="txt_myPageTabMenu">작성한 게시글</div></li>
+            <Link to={`/mypage/${userId}/plogging/participationPlogging/1`} className="link_myPageTabMenu">
+              <li className={clicked === '내가 참여한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">내가 참여한 플로깅</div></li>
+            </Link>
+            <Link to={`/mypage/${userId}/plogging/scrapPlogging/1`} className="link_myPageTabMenu">
+              <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
+            </Link>
+            <Link to={`/mypage/${userId}/reviews`} className="link_myPageTabMenu">
+              <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
+            </Link>
+            <Link to={`/mypage/${userId}/plogging/savePlogging/1`} className="link_myPageTabMenu">
+              <li className={clicked === '임시저장함' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">임시저장함</div></li>
             </Link>
           </ul>
-        </nav>
-      </div>
+        </li>
+        <li className="box_myPageTabMenuTitle">
+            <div className="txt_myPageTabMenu">나의 커뮤니티</div>
+            
+            <ul className="box_myForumList" onClick={onClicked}>
+              <Link to={`/mypage/${userId}/shares`} className="link_myPageTabMenu">
+              <li className={clicked === '무료 나눔' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">무료 나눔</div></li>
+              </Link>
+              <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
+              <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
+              </Link>
+              <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
+              <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
+              </Link>
+            </ul>
+          </li>
+        </ul>
+
+      </nav>
+    </div>
     );
   } 
 

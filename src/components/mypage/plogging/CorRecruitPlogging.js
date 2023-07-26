@@ -6,7 +6,7 @@ import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
 import React from 'react';
 
-export default function ScrapPlogging() {
+export default function CorRecruitPlogging() {
   const { page=1} = useParams();
   const [curPage, setCurPage] = useState(page);
   const [accompany, setAccompany] = useState([]);
@@ -15,11 +15,11 @@ export default function ScrapPlogging() {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    ScrapPloggingPage();
+    CorRecruitPloggingPage();
   }, []);
 
-  const ScrapPloggingPage = () => {
-    axios.post(`http://localhost:8080/myaccompaniesscrap`,{userId:userId, page:page})
+  const CorRecruitPloggingPage = () => {
+    axios.post(`http://localhost:8080/myaccompanies`,{userId:userId, page:page})
       .then((res) => {
           let pageInfo = res.data.pageInfo;
           let list = res.data.list;
@@ -40,8 +40,8 @@ export default function ScrapPlogging() {
   return (
     <>
     <div style={{margin: '0 100px'}}>
-      <Link style={{margin:'20px', fontSize:'20px', fontWeight:'bold', color:'black'}} to={`/mypage/${userId}/plogging/scrapPlogging/1`} className="link_myPageTabMenu">모임</Link>  
-      <Link style={{margin:'30px', fontSize:'20px', fontWeight:'bold', color:'lightgray'}} to={`/mypage/${userId}/plogging/scrapEventPlogging/1`} className="link_myPageTabMenu">행사</Link>
+      <Link style={{margin:'20px', fontSize:'20px', fontWeight:'bold', color:'black'}} to={`/mypage/${userId}/plogging/recruitPlogging/1`} className="link_myPageTabMenu">모임</Link>  
+      <Link style={{margin:'30px', fontSize:'20px', fontWeight:'bold', color:'lightgray'}} to={`/mypage/${userId}/plogging/recruitEventPlogging/1`} className="link_myPageTabMenu">행사</Link>
       <hr style={{ height: '10px', border: '0', boxShadow: '0 10px 10px -10px #bbb inset' }} />
     {accompany.length !== 0 && accompany.map((accompany) => { 
       const createdAtDate = new Date(accompany.createdAt);
@@ -49,17 +49,17 @@ export default function ScrapPlogging() {
 
     return(
       <a href={'/accompaniesdetail/' + accompany.id} key={accompany.id} style={{color:'black'}}>         
-      <div className="MyPageShare">  
+      <div className="MyPageShare1">  
         {/* 글 목록 업데이트 영역 -- 5개 */}
-        <div className="container_myShareArea"> 
-          <div className="container_mypageShareWriting">
+        <div className="container_myShareArea1"> 
+          <div className="container_mypageShareWriting1">
             {/* 사진 */}
             {/* <div className="container_myShareLeft"> */}
               {/* <img src={temptemp}  className='temptemp'/> */}
             {/* </div> */}
 
-            <div className="container_myShareRight">
-              <div className='container_myShareWhole'>
+            <div className="container_myShareRight1">
+              <div className='container_myShareWhole1'>
                 <div className='container_myShareTop'>
                   <div className='container_myShareState_ongoing'>
                     {accompany.active && <div>모집 중</div>}
@@ -80,10 +80,10 @@ export default function ScrapPlogging() {
                       시간 : {accompany.meetingTime}
                     </div>
                     <div className='container_myShareContent'>
-                      인원 : {accompany.numOfPeople}
+                      장소 : {accompany.location}
                     </div>
                     <div className='container_myShareContent'>
-                      장소 : {accompany.location} 
+                      인원 : {accompany.numOfPeople} 
                     </div>
                   </div>
                   <div className='container_myDetailBtns_Share' style={{float:'right', width:'10%'}}>
@@ -101,14 +101,14 @@ export default function ScrapPlogging() {
     <br/><br/>
     <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
-          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/scrapPlogging/${curPage-1}`}>
+          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/recruitPlogging/${curPage-1}`}>
             <span aria-hidden="true">‹</span>
           </PaginationLink>
         </PaginationItem>
         {pageBtn.map(item => {
           return (
             <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
-              <PaginationLink id={item} href={`/mypage/${userId}/plogging/scrapPlogging/${item}`} >
+              <PaginationLink id={item} href={`/mypage/${userId}/plogging/recruitPlogging/${item}`} >
                 {item}
               </PaginationLink>
             </PaginationItem>
@@ -116,7 +116,7 @@ export default function ScrapPlogging() {
         })
         }
         <PaginationItem disabled={curPage === totalPages}>
-          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/scrapPlogging/${curPage+1}`}>
+          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/recruitPlogging/${curPage+1}`}>
             <span aria-hidden="true">›</span>
           </PaginationLink>
         </PaginationItem>

@@ -28,8 +28,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
   // 대댓글 ------------
   const replyCommentSaveHandler = (event) => {
     event.preventDefault();
-    setReplyCommentTypeIn('');
-    setShowReplyInput(false);
+    cancelReplyInput();
 
     axios.post('http://localhost:8080/comments',{
       content: replyCommentTypeIn,
@@ -49,6 +48,13 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
           console.log(err);
       })  
   }
+
+  const cancelReplyInput = () => {
+    setReplyCommentTypeIn('');
+    setShowReplyInput(false);
+  };
+
+
   useEffect(()=> {
     console.log("use effect in comment")
     fetchAccompanyData(userId, accompanyId);
@@ -72,6 +78,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
         : 
         (<>
           <tr key={comment.id} className={isReply? "reply" : ""}>
+
             <td className="comment-from">
                 <div className="comment-from-container">
                       <img src={comment.profileImageUrl} className="writer-picture"/>
@@ -81,6 +88,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
                     </div>
                 </div>
             </td>
+
           </tr>
           <tr className={isReply? "reply" : ""}>
               <td className="accompany-comment">
@@ -101,13 +109,15 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
       }
 
       {!isReply && showReplyInput &&
-            <tr className="comment-write">
+            <tr className="comment-write reply">
               <textarea className="comment-type-in"
                 onChange={handleReplyCommentInputChange}
                 value={replyCommentTypeIn}
                 name="reply-type-in"
                 placeholder="댓글을 입력해 주세요"/>
+                
               <button className="comment-complete" onClick={replyCommentSaveHandler}>작성</button>
+              <button className="comment-cancel" onClick={cancelReplyInput}>취소</button>              
             </tr>
       }
 
