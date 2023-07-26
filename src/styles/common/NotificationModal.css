@@ -50,3 +50,17 @@
   padding: 5px;
   margin-bottom: 10px;
 }
+
+#no-noti-message {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#no-noti-text {
+  color: dimgray;
+  font-size: 18px;
+}
+#no-noti-icon {
+  color: gray;
+}
