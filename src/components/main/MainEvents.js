@@ -15,7 +15,6 @@ export default function MainEvents() {
     axios.get(url)
       .then((res) => {
         setEvts(res.data.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log('행사 불러오기 실패', err);

@@ -8,9 +8,6 @@ export default function MainHome() {
       <div className='mainWrap'></div>
       <div className='mainWelcome'>
         <div className='mainWelcomeEng'>
-          {/* FIND<br/>
-          PLOGGING<br/>
-          PARTNERS */}
           Find Plogging Partners
         </div>
         <div className='mainWelcomeKo'>
