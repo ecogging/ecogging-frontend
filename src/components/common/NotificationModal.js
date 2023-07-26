@@ -9,6 +9,8 @@ import { getCookie } from '../../utils/CookieUtil';
 import axios from 'axios';
 import MyButton from '../common/MyButton';
 
+import { IoNotificationsOffOutline } from 'react-icons/io5'
+
 import { isValidAxiosResponse, getMaxValueOfKeyInArrayObect } from '../../utils/CustomUtil';
 
 export default function NotificationModal({ isOpen, closeModal, setHasUnReadNotifications }) {
@@ -194,15 +196,20 @@ export default function NotificationModal({ isOpen, closeModal, setHasUnReadNoti
             </div>
             <div className="notifcation-list">
               {
-                filteredNotifications ? filteredNotifications.map(noti => 
-                  <NotificationItem
-                    item={noti}
-                    key={noti.id}
-                    deleteHandler={handleNotificationDelete}
-                    clickHandler={handleNotificationItemClick}/>
-                )
-                :
-                <h3>새로운 알림이 없습니다.~_~</h3>
+                filteredNotifications &&
+                  (filteredNotifications.length > 0 ? filteredNotifications.map(noti => 
+                      <NotificationItem
+                        item={noti}
+                        key={noti.id}
+                        deleteHandler={handleNotificationDelete}
+                        clickHandler={handleNotificationItemClick}/>
+                    )
+                    :
+                    <div id="no-noti-message">
+                      <IoNotificationsOffOutline id="no-noti-icon" size="40"></IoNotificationsOffOutline>
+                      <p id="no-noti-text">새로운 알림이 없습니다.</p>
+                    </div>
+                  )
               }
             </div>
 
