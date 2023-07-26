@@ -13,10 +13,11 @@ export default function ReviewWrite(){
     const [titleVal, setTitleVal]=useState('');
     const navigate = useNavigate();
     const userId = getCookie("userId");
+    const {accompanyId}=useParams();
  
     
 
-    const handleReviewSave=async(temp,userId)=>{
+    const handleReviewSave=async(temp)=>{
         try {
             //작성된 글과 이미지를 폼 데이터로 변환
             // const formData=new FormData();
@@ -28,10 +29,10 @@ export default function ReviewWrite(){
                 title:titleVal,
             };
             
-            const response=await axios.post(`http://localhost:8080/reviewWrite/${temp}/${userId}`, requestData,
+            const response=await axios.post(`http://localhost:8080/reviewWrite/${accompanyId}/${temp}/${userId}`, requestData,
             {
-                headers:{'Content-Type': 'application/json'},
-                withCredentials:true
+                headers:{'Content-Type': 'application/json',
+                withCredentials:true},
             })
             // const url=`/images/${response.data.filename}`;
             console.log(response.data);
@@ -40,6 +41,10 @@ export default function ReviewWrite(){
             console.log(error);
         }
     };
+
+    // const handleReviewOnClick=(temp)=>{
+    //     handleReviewSave(forumId,temp,userId);
+    // }
 
     const handleTitleChange=(e)=>{
         setTitleVal(e.target.value);
@@ -68,10 +73,10 @@ export default function ReviewWrite(){
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={handleReviewSave(1)}>
+                        <div className="tmepBtn" onClick={()=>handleReviewSave({temp:1})}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={handleReviewSave(0)}>
+                        <div className="complBtn" onClick={()=>handleReviewSave({tmep:0})}>
                                 등록
                         </div>
                     </div>
