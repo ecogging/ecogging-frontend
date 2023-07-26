@@ -16,21 +16,25 @@ import { getCookie } from "../../../utils/CookieUtil";
 export default function ReviewDetail(){
     const [reviewInfo, setReviewInfo]=useState([]);
     const [content, setContent]=useState([]);
-    const {id} = useParams();
+    const {forumId} = useParams();
     const createdAt=moment(reviewInfo.createdAt);
     const formattedDate=createdAt.format('YYYY-MM-DD');
     const navigate = useNavigate();
     // const loginCheck=true;
     const userId=getCookie("userId");
     const [isScrapped, setIsScrapped] = useState(false);
+    const [view, setView] = useState(false);
+    const [isScrap, setIsScrap] = useState(false);
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/reviewInfo`,{userId:userId,forumId:id})
+        .post(`http://localhost:8080/reviewInfo/${forumId}/${userId}`)
         .then(res=>{
             setReviewInfo(res.data.reviewInfo);
+            setView(true);
             console.log(res.data.reviewInfo);
             setContent(reviewInfo.content);
+            setIsScrap(res.data.isScrap);
             // console.log("reviewInfo : "+reviewInfo.content);
             // console.log("result"+result);
         }).catch(err=>{
@@ -50,10 +54,11 @@ export default function ReviewDetail(){
     }
 
     const handleScrap=()=>{
-        // if(accompany.active==false) return;
-        axios.post(`http://localhost:8080/reviewscrap`,{userId:userId, forumId:id})
+        console.log("스크랩");
+        axios.post(`http://localhost:8080/forumscrap/${forumId}/${userId}`)
         .then(res=> {
-            setIsScrapped(res.data);
+            setIsScrap(res.data);
+            // setIsScrapped(res.data);
         })
         .catch(err=> {
             console.log(err);
@@ -62,7 +67,7 @@ export default function ReviewDetail(){
 
     const handelReviewDel=()=>{
         axios
-        .post(`http://localhost:8080/reviewDel/${id}`)
+        .post(`http://localhost:8080/reviewDel/${forumId}`)
         .then(res=>{
             console.log("삭제 완료");
             navigate('/reviews');
@@ -77,23 +82,20 @@ export default function ReviewDetail(){
                     <div className="reviewInfo_title">{reviewInfo.title}</div>
                     <div className="reviewInfo_top_in">
                         <div className="reviewInfo_imageAndnickname">
-                            <div className="reviewInfo_profil">프사</div>
+                            <div className="reviewInfo_profil">프샤</div>
                             <div className="reviewInfo_nickname"  onClick={handleChat}>{reviewInfo.userId}</div>
                         </div>
                         <div className="reviewInfo_dateAndviewsAndscrap">
                             <div className="reviewInfo_date">{formattedDate}</div>
                             <div className="reviewInfo_views"><HiOutlineEye className="view_icon"/> {reviewInfo.views}</div>
-                            <div className="reviewInfo_scrap" onClick={handleScrap}><BsFillBookmarkFill className="BsFillBookmarkFill"/></div>
+                            <div className="reviewInfo_scrap" onClick={handleScrap}><BsFillBookmarkFill className={isScrap? "BsFillBookmarkFill":""}/></div>
                         </div>
                     </div>
                 </div>
                 <div className="reviewInfo_layout">
-                    <div className="reviewInfo_content">
-                        {/* <div className="reviewInfo_content_in"> */}
-                            {/* <Viewer initialValue={reviewInfo.content}/> */}
-                            <Viewer dangerouslySetInnerHTML={{ __html: content }}/>
-                        {/* </div> */}
-                    </div>
+                    {view && <Viewer initialValue={reviewInfo.content} style={{width:"300px", height:"300px"}}/> }
+                    {/* <div className="reviewInfo_content">
+                    </div> */}
                 </div>
                 <div className="reviewInfoBtn_layout">
                     <div className="reviewsBtn_layout">
@@ -104,7 +106,7 @@ export default function ReviewDetail(){
                         {
                         // loginCheck ?
                             <div className="modifyAndDeleteBtn_layout_in">
-                                <Link to={`/reviewInfoModify/${reviewInfo.id}`} className="modifyBtn">
+                                <Link to={`/reviewInfoModify/${forumId}`} className="modifyBtn">
                                         수정
                                 </Link>
                                 {/* <Link to={`/reviewInfoDel/${reviewInfo.id}`} className="delBtn"> */}

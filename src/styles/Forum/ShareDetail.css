@@ -75,8 +75,11 @@
     cursor: pointer;
 }
 .BsFillBookmarkFill{
-    color: #9BE4CE;
+    color: #effaf7;
 }
+/* .BsFillBookmarkFill:checked{
+    color: #9BE4CE;
+} */
 .reviewInfo_img{
     background-color: #838383;
     box-sizing: border-box;

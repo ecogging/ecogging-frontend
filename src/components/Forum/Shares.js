@@ -5,9 +5,12 @@ import axios from 'axios';
 import '../../styles/Forum/Shares.css';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import MyButton from "../../components/common/MyButton.js";
+import { Viewer } from '@toast-ui/react-editor';
 // import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
+
 
 export default function ShareList(){
     const [shares,setShares]=useState([]);
@@ -15,41 +18,46 @@ export default function ShareList(){
     const [allPage, setAllPage]=useState(false);
     const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
-    // const Data=
-    // const [sortedList, setSortedList]=useState([...]);
-    const loginCheck=true;
-    const userId="9842615";
     const navigate = useNavigate();
     const [initialShares, setInitialShares]=useState([]);
+    const userId = getCookie("userId");
+    const [view, setView] = useState(false);
+
     
     useEffect(() => {
-        setCurPage(parseInt(curPage));
-        fetchShares(parseInt(curPage));
+        fetchShares();
+        // setCurPage(parseInt(curPage));
+        // fetchShares(parseInt(curPage));
     },[]);
         
     const fetchShares=async (p_page)=>{
-        axios
-            .get(`http://localhost:8080/shares/${p_page}`)
-            .then((res)=>{
-                let pageInfo=res.data.pageInfo;
-                let list=res.data.shares;
-                setShares([...list]);
-                setInitialShares([...list]);
-                console.log(list);
-                let btn=[];
-                for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
-                    btn.push(i);
-            }
-            setCurPage(pageInfo.curPage);
-            setPageBtn(btn);
-            //setLastPage(res.data.pageInfo.allPage);
-            console.log("fetchReviews curPage : "+curPage);
-            console.log("fetchReviews pageBtn : "+pageBtn);
-            return list;
-        })
-            .catch ((err)=> {
-                console.log(err);
-            });
+            axios
+                .get(`http://localhost:8080/shares/${p_page}/${userId}`)
+                .then((res)=>{
+                    // let pageInfo=res.data.shares.pageInfo;
+                    let list=res.data.shares.content;
+                    setShares(list);
+                    setInitialShares(list);
+                    setView(true);
+                    // setShares([...list]);
+                    // setInitialShares([...list]);
+                    console.log('-------------------------LIST');
+                    console.log(list.content);
+                    console.log(res.data.shares);
+                    // let btn=[];
+                    // for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
+                    //     btn.push(i);
+                    // }
+                // setCurPage(pageInfo.curPage);
+                // setPageBtn(btn);
+                //setLastPage(res.data.pageInfo.allPage);
+                // console.log("fetchReviews curPage : "+curPage);
+                // console.log("fetchReviews pageBtn : "+pageBtn);
+                // return list;
+                })
+           
+      
+       
     }; 
 
 
@@ -155,9 +163,10 @@ export default function ShareList(){
                                     <div className='listItem_detail'>
                                         <div className="review_nickname">{shares.userId}</div>
                                         <div className='review_detail'>
-                                            <Link to={`/shareInfo/${shares.id}`}>
+                                            <Link to={`/shareInfo/${shares.forumId}`}>
                                                 <div className="review_title">{shares.title}</div>
-                                                <div className="review_content">{shares.content}</div>
+                                                {/* <div className="review_content">{shares.content}</div> */}
+                                                {view && <Viewer initialValue={shares.content} style={{width:"300px", height:"300px"}}/> }
                                             </Link>
                                         </div>
                                     </div>
@@ -176,11 +185,6 @@ export default function ShareList(){
                         })
                     }
                 </div>
-                {/* <div>
-                <Link to="{/reviewInfo}">
-                    상세
-                    </Link>
-                </div> */}
                 <Pagination className='pagination'>
                         <PaginationItem disabled={curPage===1}>
                             <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
@@ -188,7 +192,7 @@ export default function ShareList(){
                             </PaginationLink>
                         </PaginationItem>
                         {
-                            pageBtn.map(item=>{
+                            pageBtn && pageBtn.map(item=>{
                                 return(
                                     <PaginationItem className={item===curPage?'active':''} key={item}>
                                         <PaginationLink onClick={handlePageChange} id={item}>
@@ -207,8 +211,8 @@ export default function ShareList(){
                 
                 <div className='writeBtn'>
                     {
-                    loginCheck ? 
-                    <Link to={`/shareWrite/${userId}`}>
+                    userId!==null ? 
+                    <Link to={`/shareWrite`}>
                         <MyButton text={"글 작성"}/>
                     </Link> : null
                     }

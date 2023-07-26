@@ -19,7 +19,7 @@ export default function MainAccompany() {
   const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
 
   // 최신 3개 글 가져오기
-  const [accomp, setAccomp] = useState(null);
+  const [accomp, setAccomp] = useState([]);
   useEffect(() => {
     fetch("/main/accompanies")
       .then((res) => res.json())
@@ -93,7 +93,7 @@ const clicking = (e) => {
 
         <div className='container_MatesCards'>
 
-          {accomp.map((item, idx) => ( 
+          {accomp && accomp.map((item, idx) => ( 
             <div className='box_MatesCard' key={idx}>
               <div className='box_MatesCard'>
                 <div className='card_MatesWhole'>

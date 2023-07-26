@@ -1,6 +1,7 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
@@ -69,6 +70,11 @@ export default function ParticipationPlogging() {
                 <div className='container_myShareTitle'>
                   {accompany.title}
                 </div>
+
+                <Link to={`/reviewWrite/${accompany.id}`}>
+                    후기작성
+                </Link>
+
                 <div className='container_myShareBottom'>
                   <div className='container_myShareBottom2'>
                     <div className='container_myShareContent'>
@@ -103,7 +109,7 @@ export default function ParticipationPlogging() {
             <span aria-hidden="true">‹</span>
           </PaginationLink>
         </PaginationItem>
-        {pageBtn.map(item => {
+        {pageBtn && pageBtn.map(item => {
           return (
             <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
               <PaginationLink id={item} href={`/mypage/${userId}/plogging/participationPlogging/${item}`} >

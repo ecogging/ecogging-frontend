@@ -8,13 +8,20 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import React, { useRef, useState, useEffect } from 'react';
 import '../../styles/common/TextEditor.css';
 
-export default function TextEditor({onEditorDataChange}){
+export default function TextEditor({onEditorDataChange,contentData}){
     const editorRef=useRef();
     const [editorData, setEditorData]=useState('');
- 
+    // const data=props.contentData;
+    console.log("data : "+contentData);
+
     // useEffect(()=>{
-    //     editorRef.current.getInstance().setHTML(initialValue);
-    // },[]);
+    //     // {props.contentData}
+    //     // console.log(contentData)
+    //     // Editor.prototype.getInstance().setHTML(contentData);
+    //     // editorRef.current.getInstance().setHTML(contentData);
+
+    //     // editorRef.current.getInstance().setHTML(contentData);
+    // },[contentData]);
 
   
     // console.log(initialValue)
@@ -26,6 +33,8 @@ export default function TextEditor({onEditorDataChange}){
     };
     
     const onChange=()=>{
+
+        // editorRef.current.getInstance().setHTML();
         //html형식으로 가져오려면 getHTML()  마크다운형식으로 가져오려면 getMarkdown()
         const data=editorRef.current.getInstance().getHTML();
         // const data2=editorRef.current.getInstance().getHTML().getData();
@@ -45,8 +54,9 @@ export default function TextEditor({onEditorDataChange}){
     
             const response=await axios.post(`http://localhost:8080/reviewImgUpload`, formData,
             {
-                headers:{'Content-Type': 'multipart/form-data'},
-                withCredentials:true
+                headers:{'Content-Type': 'multipart/form-data',
+                withCredentials:true},
+                
             })
             // const url=`/images/${response.data.filename}`;
             console.log(response.data);
@@ -71,10 +81,11 @@ export default function TextEditor({onEditorDataChange}){
 
     return(
         <div className='edit_wrap'>
-            <Editor
+            {editorRef &&<Editor
                 className="editor"
+                // value={contentData.content}
                 ref={editorRef}
-                // initialValue={initialValue}  initialValue={editorData}
+                initialValue={contentData || ''}
                 previewStyle='vertical'
                 initialEditType='wysiwyg'
                 useCommandShortcut={false}
@@ -86,10 +97,10 @@ export default function TextEditor({onEditorDataChange}){
                 plugins={[colorSyntax]}
 
 
-                hooks={{
-                    addImageBlobHook: onUploadImage
-                }}
-            />
+                // hooks={{
+                //     addImageBlobHook: onUploadImage
+                // }}
+            /> }
         </div>
     );
 }

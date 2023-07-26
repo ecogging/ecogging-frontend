@@ -1,7 +1,7 @@
 .routeInfo_mainLayout{
     display: flex;
     justify-content: center;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     margin: 120px auto;
     width: 100%;
 }
@@ -10,10 +10,10 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(224, 203, 243);
+    /* background-color: rgb(224, 203, 243); */
 }
 .routeInfo_top{
-    background-color: rgb(163, 163, 233);
+    /* background-color: rgb(163, 163, 233); */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
     cursor: pointer;
 }
 .routeInfo_profil{
-    background-color: rgb(86, 216, 216);
+    /* background-color: rgb(86, 216, 216); */
     margin: 0px 10px 0px 10px;
     box-sizing: border-box;
     border-radius: 50%;
@@ -53,7 +53,7 @@
     margin-right: 5px;
 }
 .routeInfo_layout{
-    background-color: rgb(5, 136, 252);
+    /* background-color: rgb(5, 136, 252); */
     width: 100%;
     height: 410px;
     display: flex;
@@ -86,7 +86,7 @@
     justify-content: center;
 } */
 .routeInfo_content{
-    background-color: rgb(189, 13, 13);
+    /* background-color: rgb(189, 13, 13); */
     box-sizing: border-box;
     width: 100%;
     display: flex;
@@ -108,17 +108,17 @@
     margin: 10px;
     width: 100%;
     height: 100%;
-    background-color: rgb(165, 230, 46);
+    /* background-color: rgb(165, 230, 46); */
     font-size: 17px;
     display: flex;
 }
 .content_Detail_view{
     width: 50%;
-    background-color: darkviolet;
+    /* background-color: darkviolet; */
 }
 .map_Detail_view{
     width: 50%;
-    background-color: bisque;
+    /* background-color: bisque; */
 }
 
 /* .routeView{

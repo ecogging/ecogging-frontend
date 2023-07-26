@@ -1,5 +1,5 @@
 .reviewWrite_mainLayout{
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     display: flex;
     justify-content: center;
     margin: 120px auto;
@@ -10,16 +10,16 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(224, 203, 243);
+    /* background-color: rgb(224, 203, 243); */
 }
 .reviewWrite_top{
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     width: 100%;
     display: flex;
     justify-content: flex-start;
 }
 .reviewWrite_layout{
-    background-color: rgb(100, 135, 165);
+    /* background-color: rgb(100, 135, 165); */
     width: 100%;
     height: 450px;
     display: flex;
@@ -28,7 +28,7 @@
     padding-top: 10px;
 }
 .tempAndComplBtn_layout{
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     width: 100%;
 }
 .tempAndComplBtn_layout_in{
@@ -36,7 +36,7 @@
     justify-content: flex-end;
 }
 .reviewWrite_img{
-    background-color: #838383;
+    /* background-color: #838383; */
     box-sizing: border-box;
     width: 50%;
     display: flex;
@@ -44,7 +44,7 @@
     justify-content: center;
 }
 .reviewWrite_content{
-     background-color: bisque;
+     /* background-color: bisque; */
      box-sizing: border-box;
      width: 100%;
      display: flex;
@@ -57,7 +57,7 @@
     margin-right: 10px;
 }
 .reviewWrite_img_in{
-    background-color: rgb(204, 236, 127);
+    /* background-color: rgb(204, 236, 127); */
     margin: 10px;
     height: 90%;
     width: 90%;
@@ -69,21 +69,21 @@
     /* margin: 10px; */
     width: 50%;
     height: 100%;
-    background-color: aqua;
+    /* background-color: aqua; */
     /* font-size: 17px; */
 }
 .map_view{
     width: 50%;
     height: 100%;
-    background-color: rgb(2, 73, 73);
+    /* background-color: rgb(2, 73, 73); */
 }
 .reviewWrite_title{
     margin: 5px 0px 5px 5px;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     width: 50%;
 }
 .tempAndComplBtn_layout{
-     background-color: rgb(226, 156, 226);
+     /* background-color: rgb(226, 156, 226); */
      font-size: 20px;
      margin-top: 20px;
      display: flex;
@@ -153,13 +153,13 @@
 .map{
     width: 640px;
     height: 400px;
-    background-color: chartreuse;
+    /* background-color: chartreuse; */
 }
 .map_layout{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: violet;
+    /* background-color: violet; */
 }
 .map_input{
     display: flex;

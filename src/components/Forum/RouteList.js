@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
+import { Viewer } from '@toast-ui/react-editor';
+import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import '../../styles/Forum/Shares.css';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
@@ -15,27 +17,27 @@ export default function ShareList(){
     const [allPage, setAllPage]=useState(false);
     const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
-    // const Data=
-    // const [sortedList, setSortedList]=useState([...]);
-    const loginCheck=true;
-    const userId="9842615";
+    const userId = getCookie("userId");
     const navigate = useNavigate();
+    const [view, setView] = useState(false);
     const [initialRoutes, setInitialRoutes]=useState([]);
     //d
     useEffect(() => {
-        setCurPage(parseInt(curPage));
-        fetchShares(parseInt(curPage));
+        fetchRoute();
+        // setCurPage(parseInt(curPage));
+        // fetchShares(parseInt(curPage));
     },[]);
         
-    const fetchShares=async (p_page)=>{
+    const fetchRoute=async (p_page)=>{
         axios
-            .get(`http://localhost:8080/routes/${p_page}`)
+            .get(`http://localhost:8080/routes/${p_page}/${userId}`)
             .then((res)=>{
-                let pageInfo=res.data.pageInfo;
-                let list=res.data.routes;
-                setroutes([...list]);
-                setInitialRoutes([...list]);
+                let pageInfo=res.data.routes.pageInfo;
+                let list=res.data.routes.content;
+                setroutes(list);
+                setInitialRoutes(list);
                 console.log(list);
+                setView(true);
                 let btn=[];
                 for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
                     btn.push(i);
@@ -83,7 +85,7 @@ export default function ShareList(){
 
     const handlePageChange=(e)=>{
         setCurPage(e.target.id);
-        fetchShares(e.target.id);
+        fetchRoute(e.target.id);
     };
 
 
@@ -93,7 +95,7 @@ export default function ShareList(){
         return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
         setCurPage(curPage - 1);
         console.log("curPage : "+curPage);
-        fetchShares(curPage - 1);
+        fetchRoute(curPage - 1);
     }
 
     
@@ -102,7 +104,7 @@ export default function ShareList(){
         return ;
         setCurPage(curPage + 1);
         console.log("goToNextPage curPage : "+curPage);
-        fetchShares(curPage + 1);
+        fetchRoute(curPage + 1);
     }
 
     const handleClickShares=()=>{
@@ -155,9 +157,10 @@ export default function ShareList(){
                                     <div className='listItem_detail'>
                                         <div className="review_nickname">{routes.userId}</div>
                                         <div className='review_detail'>
-                                            <Link to={`/routeInfo/${routes.id}`}>
+                                            <Link to={`/routeInfo/${routes.forumId}`}>
                                                 <div className="review_title">{routes.title}</div>
-                                                <div className="review_content">{routes.content}</div>
+                                                {/* <div className="review_content">{routes.content}</div> */}
+                                                {view && <Viewer initialValue={routes.content} style={{width:"300px", height:"300px"}}/> }
                                             </Link>
                                         </div>
                                     </div>
@@ -188,7 +191,7 @@ export default function ShareList(){
                             </PaginationLink>
                         </PaginationItem>
                         {
-                            pageBtn.map(item=>{
+                            pageBtn && pageBtn.map(item=>{
                                 return(
                                     <PaginationItem className={item===curPage?'active':''} key={item}>
                                         <PaginationLink onClick={handlePageChange} id={item}>
@@ -207,8 +210,8 @@ export default function ShareList(){
                 
                 <div className='writeBtn'>
                     {
-                    loginCheck ? 
-                    <Link to={`/routeWrite/${userId}`}>
+                    userId!==null ? 
+                    <Link to={`/routeWrite`}>
                         <MyButton text={"글 작성"}/>
                     </Link> : null
                     }
