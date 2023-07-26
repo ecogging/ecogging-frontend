@@ -18,15 +18,14 @@ import detailDate from '../../utils/GetDayMinuteCounter ';
   };
 */
 
-export default function NotificationItem({item, deleteHandler, closeModal}) {
-  
+export default function NotificationItem({item, deleteHandler, clickHandler}) {
   if (item == null || !item) return;
   const {icon, typeName, content, link} = 
     getNotiItem(item) ||  { icon: "-", typeName: "-", content: "-", link: "/" };
 
   console.log(item)
   return (
-    <div className='notification-item'>
+    <div className={'notification-item' + (item.read ? ' isRead' : '')}>
       <div className="item-header">
         <span className='header-left'>
           {icon}
@@ -38,7 +37,7 @@ export default function NotificationItem({item, deleteHandler, closeModal}) {
           {<FiTrash2 onClick={() => deleteHandler(item.id)}/>}
         </span>
       </div>
-      <Link to={link} onClick={closeModal} className='noti-link'>
+      <Link to={link} onClick={() => clickHandler(item.id)} className='noti-link'>
         <div className="item-body">
           {content}
         </div>
