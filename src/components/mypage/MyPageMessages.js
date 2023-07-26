@@ -10,11 +10,16 @@
 
   export default function MyPageMessages() {
 
+    // 페이징 ---------------------------------------------------------------
+    const [totPages, setTotPages] = useState(0); // 전체 페이지
+    const [nowPage, setNowPage] = useState(1); // 현재 페이지
+    const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+      setNowPage(no);
+    }
+
+    // 데이터 불러오기 ------------------------------------------------------
     const { userId } = useParams();
-  console.log(typeof(userId));
-
     const [msgRooms, setMegRooms] = useState([]);
-
     const accessToken = getCookie('access-token'); 
     const headers = {
       'Authorization': 'Bearer ' + accessToken,
@@ -27,14 +32,18 @@
       const url = `/mypage/${userId}/messagerooms`;
       axios.get(url, {
         headers:headers,
+        params: {
+          pageNo: nowPage, // 현재 페이지 서버로 전송 ( Back: @RequestParam )
+        }
       })
-        .then((response) => {
-          setMegRooms(response.data.data);
+        .then((res) => {
+          setMegRooms(res.data.data);
+          setTotPages(res.data.allCount); // 전체 개수 설정
         })
         .catch((err) => {
           console.log('쪽지함 목록 불러오기 실패',err);
         })
-      }, [msgRooms]); 
+      }, [nowPage]); 
 
     // 체크박스 체크 -> 선택값 변화
     const [checkedList, setCheckedList] = useState([]); // 선택한 값 담기는 배열
@@ -188,7 +197,7 @@
         </div>
         <div className='container_mypageRevBottom'>
           <div className='box_revPagination'>
-              <Pagination />    
+            <Pagination current={nowPage} onChange={changePage} pageSize={10} total={totPages} />    
           </div>
       </div>
 
