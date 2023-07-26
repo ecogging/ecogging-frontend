@@ -188,7 +188,7 @@ export default function ShareList(){
                             </PaginationLink>
                         </PaginationItem>
                         {
-                            pageBtn.map(item=>{
+                            pageBtn && pageBtn.map(item=>{
                                 return(
                                     <PaginationItem className={item===curPage?'active':''} key={item}>
                                         <PaginationLink onClick={handlePageChange} id={item}>

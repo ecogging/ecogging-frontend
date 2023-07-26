@@ -182,7 +182,7 @@ export default function NotificationModal({ isOpen, closeModal, setHasUnReadNoti
 
             <div className="notification-type-select">
               {
-                buttonTextObject.map((bt) => 
+                buttonTextObject && buttonTextObject.map((bt) => 
                   <MyButton 
                     key={bt.type} 
                     text={bt.name} 

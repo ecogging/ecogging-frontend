@@ -158,7 +158,7 @@ const EventList = () => {
               <span aria-hidden="true">‹</span>
             </PaginationLink>
           </PaginationItem>
-          {pageBtn.map((item) => {
+          {pageBtn && pageBtn.map((item) => {
             return (
               <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
                 <PaginationLink id={item} href={`/eventList/${item}/${ptype}`}>

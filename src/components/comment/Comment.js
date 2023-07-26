@@ -122,7 +122,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
       }
 
       {
-        comment.children.map(c =>
+        comment.children && comment.children.map(c =>
           <Comment
               comment={c}
               deleteHandler={deleteHandler}

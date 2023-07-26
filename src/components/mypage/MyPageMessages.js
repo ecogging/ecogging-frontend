@@ -55,7 +55,7 @@ export default function MyPageMessages() {
   // 전체 선택
   let allCheckedAr = [];
   const setAllChecked = () => {
-    allCheckedAr = msgRooms.map((msgR) => msgR.messageRoomId+''); // 현재 모든 쪽지함id 가지는 배열 완성
+    allCheckedAr = msgRooms && msgRooms.map((msgR) => msgR.messageRoomId+''); // 현재 모든 쪽지함id 가지는 배열 완성
     if(countChecked === allCheckedAr.length) { // 전체 선택된 상태면 0으로 리셋
       setCheckedList([]);
     } else { // 전체 선택한 상태가 아니면 전체 선택
