@@ -20,6 +20,7 @@
     // 데이터 불러오기 ------------------------------------------------------
     const { userId } = useParams();
     const [msgRooms, setMegRooms] = useState([]);
+    const [unReads, setUnReads] = useState(0);
     const accessToken = getCookie('access-token'); 
     const headers = {
       'Authorization': 'Bearer ' + accessToken,
@@ -37,13 +38,16 @@
         }
       })
         .then((res) => {
+          console.log('-----------------------!');
+          console.log(res.data);
           setMegRooms(res.data.data);
+          setUnReads(res.data.unReads);
           setTotPages(res.data.allCount); // 전체 개수 설정
         })
         .catch((err) => {
           console.log('쪽지함 목록 불러오기 실패',err);
         })
-      }, [nowPage]); 
+      }, [msgRooms]); 
 
     // 체크박스 체크 -> 선택값 변화
     const [checkedList, setCheckedList] = useState([]); // 선택한 값 담기는 배열
@@ -130,7 +134,7 @@
 
         <div className='container_myMessagesHeader'>
           <div className='containver_myMessagesUnread'>
-            읽지 않은 쪽지 <span id='msg_unReadCount'>1232</span> 개
+            확인하지 않은 쪽지함 <span id='msg_unReadCount'>{unReads}</span> 개
           </div>
           <div className='container_myMessagesReadAll' onClick={updateMsgRoomsRead}>
             모두 읽음 표시
