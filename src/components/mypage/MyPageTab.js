@@ -1,44 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCookie } from "../../utils/CookieUtil";
 
-
-export default function MyPageTab( {userId} ) {
-
+export default function MyPageTab({ userId }) {
   const isCorporate = getCookie('userType') === 'CORPORATE';
+  const [clicked, setClicked] = useState(() => localStorage.getItem('selected'));
 
-  const [clicked, setClicked] = useState('계정 정보'); // 기본값 계정 정보로 시작 
-  const [prev, setPrev] = useState('box_myPageTabMenu_clicked');
+  const saveClickedMenu = (menu) => {
+    localStorage.setItem('selected', menu); // 로컬에 클릭한 메뉴 저장
+  };
 
   const onClicked = (e) => {
-    // setBeforeClicked(document.getElementsByClassName('box_myPageTabMenu_clicked')[0]); // 기본값 계정 정보
-    // console.log(prev);
-    // console.log(document.getElementsByClassName(prev)[0].className);
+    const click = e.target; // 지금 클릭한 타겟
+    const clickParentClass = e.target.parentNode.className; // 지금 클릭한 타겟의 부모클래스 이름
+    const temp = 'box_myPageTabMenuTitle'; // 플로깅, 나의 커뮤니티 부모클래스 이름
 
-    let click = e.target; // 지금 클릭한 타겟
-    let clickParentClass = e.target.parentNode.className; // 지금 클릭한 타겟의 부모클래스 이름
-    let temp = 'box_myPageTabMenuTitle'; // 플로깅, 나의 커뮤니티 부모클래스 이름
-    // console.log("지금 클릭한 타겟 텍스트--" + click.textContent);
-    // console.log("지금 클릭한 타겟의 부모클래스--"+ clickParentClass);
-    // console.log("clicked -- 전에 클릭했던 메뉴 이름 --" + clicked);
-
-    // // 전에 선택한 항목이 존재하고, 선택했던 항목의 텍스트내용이 같지 않고, 
-    // // 선택한 항목의 텍스트가 플로깅, 나의 커뮤니티가 아니라면
-    // console.log("조건문 --" + clicked !== click.textContent && clickParentClass !== temp);
-    if (clicked !== click.textContent && clickParentClass !== temp) { 
-      document.getElementsByClassName(prev)[0].classList.remove('_clicked');
-      // console.log('오나료');
+    if (clicked !== click.textContent && clickParentClass !== temp) {
+      // 이전 선택 메뉴와 현재 클릭한 메뉴가 다르고, 플로깅이나 나의 커뮤니티를 클릭하지 않았으면
+      const prevClicked = document.querySelector('.box_myPageTabMenu_clicked');
+      if (prevClicked) {
+        prevClicked.classList.remove('box_myPageTabMenu_clicked');
+      }
     }
 
-    // console.log("PREV : "+prev);
-    // console.log(clicked);
+    if (clickParentClass !== temp) {
+      // 플로깅, 나의 커뮤니티를 클릭하지 않았으면
+      setClicked(click.textContent);
+      saveClickedMenu(click.textContent); // 로컬에 저장
+    }
+  };
 
-    if (clickParentClass !== temp) { // 플로깅,나의커뮤니티를 클릭하지 않았으면
-      setClicked(click.textContent);      
-    } 
-    setPrev(clickParentClass);
-
-  }
   
   
   // 일반로그인 마이페이지 탭

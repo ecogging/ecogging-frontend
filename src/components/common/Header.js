@@ -33,6 +33,7 @@ function isCorporateUser() {
   return getCookie('userType') === 'CORPORATE';
 }
 
+
 export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
     const accessToken = getCookie('access-token');
@@ -70,6 +71,14 @@ export default function Header ({userId, setUserId}) {
                 setShowNav(!showNav);
             }
         }
+        const menuText = e.target.className;
+
+        if (menuText === 'headerMenuLink' || menuText === 'mainLogo' || menuText == 'ploggingNavMenu' || menuText == 'MyButton MyButton_gray') {
+          localStorage.setItem('selected', "계정 정보");
+          setInMenu(''); 
+        } else {
+          setInMenu(menuText);
+        }
     }
     const [showNav, setShowNav] = useState(false);
     const toggleNav = (e) => {
@@ -83,7 +92,11 @@ export default function Header ({userId, setUserId}) {
         let nowMenu = e.target; // 지금 클릭한 타겟
         let nowMenuClass = e.target.textContent; // 클릭한 타겟의 클래스이름
         setInMenu(nowMenuClass);
+
+
     }
+
+    
 
     useEffect(() => {
       setNickname(getCookie('nickname'));
