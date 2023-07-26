@@ -1,3 +1,6 @@
+.link_toShareDetail {
+  color:black;
+}
 
 .MyPageShare {
   width:100%;
@@ -138,6 +141,10 @@
   height:100%;
   display: flex;
   align-items: center;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* 버튼 */

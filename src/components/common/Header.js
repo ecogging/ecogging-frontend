@@ -53,6 +53,8 @@ export default function Header ({userId, setUserId}) {
     // 모달 - 알림
     const [isNotiModalOpen, openNotiModal, closeNotiModal] = useCustomModal();
     
+    const [hasUnReadNotifications, setHasUnReadNotifications] = useState(false);
+
     const toggleNotiModal = () => {
       if (isNotiModalOpen) {
         closeNotiModal();
@@ -118,7 +120,7 @@ export default function Header ({userId, setUserId}) {
                 <ul className='userNav' >
                     {/* 알림 */}
                     <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
-                      <div id='alramCount' className='headerNotify'>12</div>
+                      {hasUnReadNotifications && <div id='notificationCount' className='headerNotify'></div>}
                     </li>
                     <li className='userNavBox' id='headerNickname'>
                       <Link to={ isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
@@ -127,7 +129,12 @@ export default function Header ({userId, setUserId}) {
                     </li>
                     <li className='userNavBox' onClick={clickMenu} ><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
-                <NotificationModal isOpen={isNotiModalOpen} closeModal={closeNotiModal} />
+
+                <NotificationModal
+                  isOpen={isNotiModalOpen}
+                  closeModal={closeNotiModal}
+                  setHasUnReadNotifications={setHasUnReadNotifications}/>
+
                 <div className='toggle' onClick={toggleNav} >
                     <GiHamburgerMenu />
                 </div>

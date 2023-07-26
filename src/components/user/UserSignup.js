@@ -256,6 +256,9 @@ const UserSignup = () => {
         telephone
       });
 
+      console.log('signup response -----')
+      console.log(response)
+
       // Handle successful signup
 
       // Clear the form fields and any error messages

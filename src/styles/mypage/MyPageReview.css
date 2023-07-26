@@ -8,15 +8,16 @@
 }
 
 
-/* 헤더 */
+/* 헤더
 .container_mypageRevHeader {
     width:100%;
     height:100%;
     border-bottom:1px solid rgb(75, 75, 75);
     display: flex;
     align-items: flex-end;
-}
+}  */
 
+/*
 .container_mypageRevTitleArea {
     width:100%;
     height:45px;
@@ -35,9 +36,9 @@
     font-size:1.9rem;
     font-weight:bold;
     align-items: flex-start;
-}
+} */
 
-/* 최신순 오래된순 */
+/* 최신순 오래된순
 .container_mypageRevLine {
     width:180px;
     height:25px;
@@ -69,7 +70,7 @@
     display: flex;
     align-items: flex-end;
     margin-left: 2%;
-}
+}  */
 
 
 /* 플로깅 후기 게시글 */
@@ -84,13 +85,17 @@
     gap:5px;
 }
 .container_wholeMyReview {
-    width:100%;
+    width:98%;
     height:130px;
-    margin-top:10px;
+    /* margin-top:10px; */
 
     display: flex;
     align-items: center;
-    border-bottom:1px solid rgb(204, 204, 204);
+    /* border-bottom:1px solid rgb(204, 204, 204); */
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 .container_myReview {
     width:97%;
@@ -146,6 +151,7 @@
     height:100%;
     font-size:1.6rem;
     font-weight:bold;
+    color: black;
 
     display: flex;
     align-items: center;

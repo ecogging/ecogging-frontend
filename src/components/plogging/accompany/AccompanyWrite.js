@@ -53,6 +53,18 @@ const AccompanyWrite = () => {
         setAccompany({...accompany, [e.target.name]:e.target.value});
     }
 
+
+    const handleHeadCountChange = (e) => {
+        const inputValue = e.target.value;
+        // Regular expression to match only numbers (0-9)
+        const numericRegex = /^[0-9]*$/;
+        // Check if the entire input value consists of numbers (0-9)
+        if (numericRegex.test(inputValue)) {
+            setAccompany({...accompany, [e.target.name]:e.target.value});
+        }
+
+    };
+
     const accompanyWrite = (temp) => {
         axios.post(`http://localhost:8080/accompanieswrite/${temp}`,accompany)
         .then(res=> {
@@ -84,7 +96,7 @@ const AccompanyWrite = () => {
                         </tr>
                         <tr>
                             <td className="accompany-cell">
-                                <input className="accompany-headcount" type="text" name="numOfPeople" id="numOfPeople" placeholder="모집 인원" onChange={changeInput}/>
+                                <input className="accompany-headcount" type="text" name="numOfPeople" id="numOfPeople" placeholder="모집 인원" onChange={handleHeadCountChange} value={accompany.numOfPeople == 0 ? '' : accompany.numOfPeople}/>
                                 <DatePicker className="accomp-date" allowClear={false}  defaultValue={dayjs(todaystr, 'YYYY-MM-DD') }  onChange={(date, dateString)=> {setAccompany({...accompany, meetingDate:dateString})}}/>
                                 <TimePicker className="accomp-time" allowClear={false}  defaultValue={dayjs(curtime, 'HH::mm::ss') }  onChange={(time, timeString)=> {setAccompany({...accompany, meetingTime:timeString})}}/>
                             </td>

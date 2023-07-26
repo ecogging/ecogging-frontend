@@ -6,6 +6,12 @@
   background-color: white;
 }
 
+.notification-item.isRead {
+  border: 1px solid lightgray;
+  background-color: #e7e7e7;
+  color: gray;
+}
+
 .item-header {
   display: flex;
   justify-content: space-between;
@@ -28,7 +34,7 @@
   margin-right: 5px;
 }
 .noti-type-text {
-  font-size: 18px
+  font-size: 16px
 }
 .noti-date-gray {
   font-size: 14px;
@@ -36,5 +42,10 @@
 }
 
 .item-body {
-  font-size: 14px;
+  font-size: 15px;
+}
+
+.noti-link {
+  color: inherit;
+  text-decoration: none;
 }

@@ -1,38 +1,37 @@
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { useParams,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import '../../../styles/mypage/MyPagePlogging.css';
 import React from 'react';
 
-export default function RecruitEventPlogging() {
+export default function SaveEventPlogging() {
   const { page=1} = useParams();
   const [curPage, setCurPage] = useState(page);
   const [event, setEvent] = useState([]);
-  const [pageBtn, setPageBtn] = useState([]);
+  const [pageBtn, setPageBtn] = useState([]); 
   const userId = getCookie("userId");
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    RecruitEventPloggingPage();
+    saveEventPloggingPage();
   }, []);
 
-  const RecruitEventPloggingPage = () => {
-    axios
-        .post(`http://localhost:8080/myevent`,{userId:userId, page:page})
-        .then((res) => {
-        let pageInfo = res.data.pageInfo;
-        let list = res.data.list;
-        setEvent([...list]);
-        let btn = [];
-        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
-          btn.push(i);
-        }
-        setPageBtn(btn);
-        setCurPage(pageInfo.curPage);
-        setTotalPages(pageInfo.allPage);
-      })
+  const saveEventPloggingPage = () => {
+    axios.post(`http://localhost:8080/myeventtemp`,{userId:userId, page:page})
+      .then((res) => {
+          let pageInfo = res.data.pageInfo;
+          let list = res.data.list;
+          setEvent([...list]);
+          let btn = [];
+          for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            btn.push(i);
+          }
+          setPageBtn(btn);
+          setCurPage(pageInfo.curPage);
+          setTotalPages(pageInfo.allPage);
+        })
       .catch((err) => {
         console.log(err);
       });
@@ -109,7 +108,7 @@ export default function RecruitEventPlogging() {
                             </div>
                             <div className='container_myShareContent'>
                               지역 : {event.location}
-                          </div>
+                            </div>
                            </div> 
                           <div className='container_myDetailBtns_Share' style={{float:'right', width:'10%'}}>
                             <div className='txt_myBtn_Share'><a href={'/eventModify/'+ event.eventId } style={{color:'black'}}>수정</a></div>
@@ -122,18 +121,18 @@ export default function RecruitEventPlogging() {
                 </div>    
               </div> 
             </a>); 
-        })}
-        <br/><br/>
-      <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
+        })} 
+      <br/><br/>
+    <Pagination aria-label="Page navigation example" style={{ margin: '0 auto', width: '900px', justifyContent: 'center', marginTop: '30px' }}>
         <PaginationItem disabled={curPage === 1}>
-          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/recruitEventPlogging/${curPage-1}`}>
+          <PaginationLink aria-label="Previous" href={`/mypage/${userId}/plogging/saveEventPlogging/${curPage-1}`}>
             <span aria-hidden="true">‹</span>
           </PaginationLink>
         </PaginationItem>
         {pageBtn && pageBtn.map(item => {
           return (
             <PaginationItem className={item == curPage ? 'active1' : ''} key={item}>
-              <PaginationLink id={item} href={`/mypage/${userId}/plogging/recruitEventPlogging/${item}`} >
+              <PaginationLink id={item} href={`/mypage/${userId}/plogging/saveEventPlogging/${item}`} >
                 {item}
               </PaginationLink>
             </PaginationItem>
@@ -141,14 +140,13 @@ export default function RecruitEventPlogging() {
         })
         }
         <PaginationItem disabled={curPage === totalPages}>
-          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/recruitEventPlogging/${curPage+1}`}>
+          <PaginationLink  aria-label="Next" href={`/mypage/${userId}/plogging/saveEventPlogging/${curPage+1}`}>
             <span aria-hidden="true">›</span>
           </PaginationLink>
         </PaginationItem>
-      </Pagination>    
+      </Pagination>   
 
     </div>
     </>
   );
-
 }

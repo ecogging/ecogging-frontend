@@ -40,16 +40,27 @@ export default function MainForums() {
                   <div className='box_forumsCardClassify'>{item.type}</div>
                   <div className='box_forumsCardViews'>조회수 {item.views}</div>
                 </div>
+
                 <div className='container_forumsCardMiddle'>
-                  <Link to={"/temp"}>
-                    <div className='box_forumsCardTitle'>{item.title}</div>
-                    <div className='box_forumsCardContent'>{item.content}</div>
-                  </Link>
+                  
+                { (item.type) === '경로' ? (
+                      <Link to={`http://localhost:8080/routeInfo/${item.forumId}`}>
+                        <div className='box_forumsCardTitle'>{item.title}</div>
+                        <div className='box_forumsCardContent'>{item.content}</div>
+                      </Link>
+                    ) : (
+                      <Link to={`http://localhost:8080/shareInfo/${item.forumId}`}>
+                        <div className='box_forumsCardTitle'>{item.title}</div>
+                        <div className='box_forumsCardContent'>{item.content}</div>
+                      </Link>
+                    )}
+
                   <div className='box_forumsCardNickAndTime'>
                     <div className='box_forumsCardWriter'>{item.writerNickname}</div>
                     <div className='box_forumsCardWriteTime'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
                   </div>
                 </div>
+
                 <div className='container_forumsCardBottom'>
                   <div className='box_forumsCardImg'></div>
                 </div>
