@@ -1,17 +1,16 @@
 import { Table, Input, Button,Label } from 'reactstrap';
-// import { useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-//import { reqToken } from '../requestToken';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import axios from 'axios';
 
 const EventModify = () => {
     const { eventId, page, ptype } = useParams();
-    const [userId, setUserId] = useState(1);
+    const userId = getCookie("userId");
     const[event, setEvent] = useState({userId:userId,title:'', content:'',location:'',meetingDate:'',corpName:'',explanation:'',fileId:'',save:false,management:''})
     const [file, setFile] = useState();
     //const userId = useSelector(state=>state.userId);
@@ -180,7 +179,7 @@ const EventModify = () => {
                           <td style={{width:'100px'}}><Label for="title">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</Label></td>
                           <td>
                             <Input style={{width:'700px', height:'25px'}} name="title" type="text" onChange={change} id="title" required="required"
-                               value={event.title} placeholder="제목을 입력해 주세요(27자 이하)" maxLength='27'/>
+                               value={event.title} placeholder="제목을 입력해 주세요(35자 이하)" maxLength='35'/>
                           </td>
                       </tr>
                       <tr style={{height:'15px'}}></tr>

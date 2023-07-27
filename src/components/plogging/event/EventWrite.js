@@ -1,23 +1,20 @@
 import { Table, Input, Button,Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {useState} from 'react';
-//import {useDispatch} from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { reqToken } from '../../../requestToken';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
 import { useRef } from 'react';
 
 
 const EventWrite = () => {
-    const [userId, setUserId] = useState(1);
-    //const userid = useSelector(state=>state.UserId);
+    const userId = getCookie("userId");
     const[event, setEvent] = useState({title:'', content:'',location:'',meetingDate:'',endDate:'',corpName:'',explanation:'',userId:userId, save:false,management:'',views:0})
     const [file, setFile] = useState();
-    //const token = useSelector(state=>state.Authorization);
     const [cookie, setCookie] = useCookies('[refreshToken]');
-    //const dispatch = useDispatch();
 
     const change = (e) => {
         const { name, value } = e.target;
@@ -166,7 +163,7 @@ const fileInput=useRef();
                         <tr>
                             <td style={{width:'100px'}}><Label for="title">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</Label></td>
                             <td><Input style={{width:'700px', height:'25px'}} name="title" type="text" onChange={change} id="title" required="required"
-                                 value={event.title} placeholder="제목을 입력해 주세요(27자 이하)" maxLength='27'/></td>
+                                 value={event.title} placeholder="제목을 입력해 주세요(35자 이하)" maxLength='35'/></td>
                         </tr>
                         <tr style={{height:'15px'}}></tr>
                         <tr>
