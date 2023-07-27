@@ -2,56 +2,77 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
+import { Pagination } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
+import { useNavigate } from 'react-router-dom';
 import '../../../styles/plogging/review/Reviews.css';
 import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+// import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import MyButton from "../../../components/common/MyButton.js";
 // import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
 export default function ReviewList(){
     const [reviews,setReviews]=useState([]);
-    const [curPage,setCurPage]=useState(1);
-    const [allPage, setAllPage]=useState(false);
-    const [pageBtn, setPageBtn]=useState([]);
+    // const [curPage,setCurPage]=useState(1);
+    // const [allPage, setAllPage]=useState(false);
+    // const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
+    const navigate = useNavigate();
     // const Data=
     // const [sortedList, setSortedList]=useState([...]);
     const [initialReviews, setInitialReviews]=useState([]);
     const userId = getCookie("userId");
     const [view, setView] = useState(false);
 
+      // 페이징 ---------------------------------------------------------------
+      const [totPages, setTotPages] = useState(0); // 전체 페이지
+      const [nowPage, setNowPage] = useState(1); // 현재 페이지
+      const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+          setNowPage(no);
+      }
     
     useEffect(() => {
-        setCurPage(parseInt(curPage));
-        fetchReviews(parseInt(curPage));
-    },[]);
-        
-    const fetchReviews=async (p_page)=>{
         axios
-            .get(`http://localhost:8080/reviews/${p_page}/${userId}`)
-            .then((res)=>{
-                let pageInfo=res.data.reviews.pageInfo;
-                let list=res.data.reviews.content;
-                setReviews(list);
-                setInitialReviews(list);
-                setView(true);
-                let btn=[];
-                for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
-                    btn.push(i);
-            }
-            setCurPage(pageInfo.curPage);
-            setPageBtn(btn);
-            //setLastPage(res.data.pageInfo.allPage);
-            console.log("fetchReviews curPage : "+curPage);
-            console.log("fetchReviews pageBtn : "+pageBtn);
-            return list;
+        .get(`http://localhost:8080/reviews/${nowPage}`)
+        .then((res)=>{
+            console.log(res.data);
+            setReviews(res.data.res.content);
+            // setInitialRoutes(res.data.routes);
+            setView(true);
+            setTotPages(res.data.all);
         })
-            .catch ((err)=> {
-                console.log(err);
-            });
-    }; 
+        .catch ((err)=> {
+            console.log(err);
+        });
+
+
+},[nowPage]);
+        
+    // const fetchReviews=async (p_page)=>{
+    //     axios
+    //         .get(`http://localhost:8080/reviews/${p_page}/${userId}`)
+    //         .then((res)=>{
+    //             let pageInfo=res.data.reviews.pageInfo;
+    //             let list=res.data.reviews.content;
+    //             setReviews(list);
+    //             setInitialReviews(list);
+    //             setView(true);
+    //             let btn=[];
+    //             for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
+    //                 btn.push(i);
+    //         }
+    //         setCurPage(pageInfo.curPage);
+    //         setPageBtn(btn);
+    //         //setLastPage(res.data.pageInfo.allPage);
+    //         console.log("fetchReviews curPage : "+curPage);
+    //         console.log("fetchReviews pageBtn : "+pageBtn);
+    //         return list;
+    //     })
+    //         .catch ((err)=> {
+    //             console.log(err);
+    //         });
+    // }; 
 
 
     
@@ -81,31 +102,31 @@ export default function ReviewList(){
         }
     };
 
-    const handlePageChange=(e)=>{
-        setCurPage(e.target.id);
-        fetchReviews(e.target.id);
-    };
+    // const handlePageChange=(e)=>{
+    //     setCurPage(e.target.id);
+    //     fetchReviews(e.target.id);
+    // };
 
 
-    const goToPreviousPage = () => {
+    // const goToPreviousPage = () => {
         
-        if (curPage === 1) 
-        return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
-        setCurPage(curPage - 1);
-        console.log("curPage : "+curPage);
-        fetchReviews(curPage - 1);
-    }
+    //     if (curPage === 1) 
+    //     return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
+    //     setCurPage(curPage - 1);
+    //     console.log("curPage : "+curPage);
+    //     fetchReviews(curPage - 1);
+    // }
 
     
-    const goToNextPage = () => {
-        if (curPage === allPage) 
-        return ;
-        setCurPage(curPage + 1);
-        console.log("goToNextPage curPage : "+curPage);
-        fetchReviews(curPage + 1);
-    }
+    // const goToNextPage = () => {
+    //     if (curPage === allPage) 
+    //     return ;
+    //     setCurPage(curPage + 1);
+    //     console.log("goToNextPage curPage : "+curPage);
+    //     fetchReviews(curPage + 1);
+    // }
    
-    console.log(reviews);
+    // console.log(reviews);
     return (
         <div className="reviews_mainLayout">
             <div className="review_wrap">
@@ -169,34 +190,9 @@ export default function ReviewList(){
                         })
                     }
                 </div>
-                {/* <div>
-                <Link to="{/reviewInfo}">
-                    상세
-                    </Link>
-                </div> */}
-                {/* <Pagination className='pagination'>
-                        <PaginationItem disabled={curPage===1}>
-                            <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
-                            <span aria-hidden="true">‹</span>
-                            </PaginationLink>
-                        </PaginationItem>
-                        {
-                            pageBtn && pageBtn.map(item=>{
-                                return(
-                                    <PaginationItem className={item===curPage?'active':''} key={item}>
-                                        <PaginationLink onClick={handlePageChange} id={item}>
-                                            {item}
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                )
-                            })
-                        }
-                        <PaginationItem disabled={allPage}>
-                            <PaginationLink onClick={goToNextPage} aria-label='Next'>
-                                <span aria-hidden>›</span>
-                            </PaginationLink>
-                        </PaginationItem>
-                </Pagination> */}
+                <div className='container_myBottom'>
+                    <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
+                </div>
                 
                 {/* <div className='writeBtn'>
                     {
