@@ -1,5 +1,4 @@
 import '../../styles/main/MainAccompany.css';
-import imgTemp from '../../assets/123213.png';
 import picTemp from '../../assets/defaultProfile.PNG';
 import { Link } from 'react-router-dom';
 
@@ -77,9 +76,6 @@ export default function MainAccompany() {
     });
 };
 
-const clicking = (e) => {
-  console.log(e.target);
-}
 
   return (
     <div className='container_mainAccompany'>
@@ -107,7 +103,7 @@ const clicking = (e) => {
 
                   <div className='container_card_top_pic'>
 
-                    <div className='box_pic_circle' onClick={clicking}>
+                    <div className='box_pic_circle'>
                       { (item.userPicUrl) ? 
                       <img src={item.userPicUrl} className='image_userPic_source'/>
                       :

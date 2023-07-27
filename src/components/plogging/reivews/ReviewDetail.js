@@ -20,7 +20,6 @@ export default function ReviewDetail(){
     const createdAt=moment(reviewInfo.createdAt);
     const formattedDate=createdAt.format('YYYY-MM-DD');
     const navigate = useNavigate();
-    // const loginCheck=true;
     const userId=getCookie("userId");
     const [isScrapped, setIsScrapped] = useState(false);
     const [view, setView] = useState(false);
@@ -33,10 +32,8 @@ export default function ReviewDetail(){
             setReviewInfo(res.data.reviewInfo);
             setView(true);
             console.log(res.data.reviewInfo);
-            setContent(reviewInfo.content);
+            // setContent(reviewInfo.content);
             setIsScrap(res.data.isScrap);
-            // console.log("reviewInfo : "+reviewInfo.content);
-            // console.log("result"+result);
         }).catch(err=>{
             console.log(err);
         })
@@ -65,6 +62,9 @@ export default function ReviewDetail(){
         })    
     };
 
+    console.log("isScrap : "+isScrap);
+
+
     const handelReviewDel=()=>{
         axios
         .post(`http://localhost:8080/reviewDel/${forumId}`)
@@ -82,8 +82,8 @@ export default function ReviewDetail(){
                     <div className="reviewInfo_title">{reviewInfo.title}</div>
                     <div className="reviewInfo_top_in">
                         <div className="reviewInfo_imageAndnickname">
-                            <div className="reviewInfo_profil">프샤</div>
-                            <div className="reviewInfo_nickname"  onClick={handleChat}>{reviewInfo.userId}</div>
+                            {/* <div className="reviewInfo_profil">{reviewInfo.writerNickname}</div> */}
+                            {/* <div className="reviewInfo_nickname"  onClick={handleChat}>{reviewInfo.writerNicknames}</div> */}
                         </div>
                         <div className="reviewInfo_dateAndviewsAndscrap">
                             <div className="reviewInfo_date">{formattedDate}</div>
@@ -93,7 +93,7 @@ export default function ReviewDetail(){
                     </div>
                 </div>
                 <div className="reviewInfo_layout">
-                    {view && <Viewer initialValue={reviewInfo.content} style={{width:"300px", height:"300px"}}/> }
+                    {view && <Viewer initialValue={reviewInfo.content} style={{width:"300px", height:"300px"}} className="reviewVu"/> }
                     {/* <div className="reviewInfo_content">
                     </div> */}
                 </div>
@@ -104,7 +104,7 @@ export default function ReviewDetail(){
                         </Link>
                     </div>
                         {
-                        // loginCheck ?
+                        userId!=null ?
                             <div className="modifyAndDeleteBtn_layout_in">
                                 <Link to={`/reviewInfoModify/${forumId}`} className="modifyBtn">
                                         수정
@@ -115,7 +115,7 @@ export default function ReviewDetail(){
                                 </div>
                                 {/* </Link>  */}
                             </div>
-                        // : null
+                        : null
                         }
                 </div>
             </div>

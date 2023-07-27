@@ -16,7 +16,8 @@
     /* background-color: rgb(163, 163, 233); */
     width: 100%;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    justify-content: space-between;
 }
 .reviewInfo_title{
     /* background-color: rgb(189, 233, 146); */
@@ -179,4 +180,7 @@
 .delBtn:hover{
     background-color: #9BE4CE;
     color: white;
+}
+.reviewVu{
+    font-size: 30px;
 }

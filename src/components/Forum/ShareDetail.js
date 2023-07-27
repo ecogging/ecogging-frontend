@@ -19,30 +19,23 @@ export default function ShareDetail(){
     const createdAt=moment(shareInfo.createdAt);
     const formattedDate=createdAt.format('YYYY-MM-DD');
     const navigate = useNavigate();
-    // const loginCheck=true;
     const [view, setView] = useState(false);
     const userId = getCookie("userId");
+    const [isScrap, setIsScrap] = useState(false);
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/shareInfo/${forumId}`)
+        .post(`http://localhost:8080/shareInfo/${forumId}/${userId}`)
         .then(res=>{
             setShareInfo(res.data.shareInfo);
             setView(true);
             console.log(res.data.shareInfo);
-            console.log(res.data.shareInfo.content);
-            // console.log("reviewInfo : "+reviewInfo.content);
-            // console.log("result"+result);
+            setIsScrap(res.data.isScrap);
         }).catch(err=>{
             console.log(err);
         })
     },[])
     
-    // const result=shareInfo.content;
-    // console.log("result:"+result);
-    // const html=reviewInfo;
-    // console.log(html);
-
     const handleChat=()=>{
         console.log("쪽지모달");
     }
@@ -51,12 +44,18 @@ export default function ShareDetail(){
         console.log("스크랩");
         axios.post(`http://localhost:8080/forumscrap/${forumId}/${userId}`)
         .then(res=> {
+            setIsScrap(res.data);
             // setIsScrapped(res.data);
         })
         .catch(err=> {
             console.log(err);
-        })    
-    }
+        })      
+    };
+
+
+    console.log("isScrap : "+isScrap);
+
+
     const handelShareDel=()=>{
         axios
         .post(`http://localhost:8080/shareDel/${forumId}`)
@@ -75,14 +74,14 @@ export default function ShareDetail(){
                 <div className="reviewInfo_top">
                     <div className="reviewInfo_title">{shareInfo.title}</div>
                     <div className="reviewInfo_top_in">
-                        <div className="reviewInfo_imageAndnickname">
+                        {/* <div className="reviewInfo_imageAndnickname">
                             <div className="reviewInfo_profil">프사</div>
                             <div className="reviewInfo_nickname"  onClick={handleChat}>{shareInfo.userId}</div>
-                        </div>
+                        </div> */}
                         <div className="reviewInfo_dateAndviewsAndscrap">
                             <div className="reviewInfo_date">{formattedDate}</div>
                             <div className="reviewInfo_views"><HiOutlineEye className="view_icon"/> {shareInfo.views}</div>
-                            <div className="reviewInfo_scrap" onClick={handleScrap}><BsFillBookmarkFill className="BsFillBookmarkFill"/></div>
+                            <div className="reviewInfo_scrap" onClick={handleScrap}><BsFillBookmarkFill className={isScrap? "BsFillBookmarkFill":""}/></div>
                         </div>
                     </div>
                 </div>

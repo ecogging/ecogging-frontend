@@ -8,9 +8,12 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { Viewer } from '@toast-ui/react-editor';
 
 export default function MyPageShare() {
   const navigate = useNavigate();
+  const [view, setView] = useState(false);
+
 
 
   // 페이징 ---------------------------------------------------------------
@@ -94,10 +97,9 @@ export default function MyPageShare() {
                     {item.title}
                   </div>
                 </Link>
-
                 <div className='container_myShareBottom'>
                   <div className='container_myShareContent'>
-                    {item.content}
+                  <Viewer initialValue={item.content}/>
                   </div>
                   <div className='container_myDetailBtns_Share'>
                     <Link to={`/shareInfoModify/${item.forumId}`} ><div className='txt_myBtn_Share'>수정</div></Link>

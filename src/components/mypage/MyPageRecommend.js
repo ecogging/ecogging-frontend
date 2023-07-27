@@ -8,12 +8,13 @@ import { getCookie } from '../../utils/CookieUtil';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
+import { Viewer } from '@toast-ui/react-editor';
 
 const { kakao } = window;
 
 export default function MyPageRecommend() {
   const navigate = useNavigate();
-
+  const [view, setView] = useState(false);
 
   // 페이징 ---------------------------------------------------------------
   const [totPages, setTotPages] = useState(0); // 전체 페이지
@@ -128,7 +129,7 @@ const handelShareDel=(id)=>{
                 </div>
                 <div className='container_myRecomBottom'>
                   <div className='container_myRecomContent'>
-                    {item.content}
+                    <Viewer initialValue={item.content}/>
                   </div>
                   <div className='container_myDetailBtns_Recom'>
                     <Link to={`/routeInfoModify/${item.forumId}`}><div className='txt_myBtn_Recom'>수정</div></Link>

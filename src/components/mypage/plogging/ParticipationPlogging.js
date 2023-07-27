@@ -63,17 +63,15 @@ export default function ParticipationPlogging() {
                     {accompany.active && <div>모집 중</div>}
                     {!accompany.active && <div>모집 완료</div>}
                   </div>
+                <Link to={`/reviewWrite/${accompany.id}`} class="reviewWBtn">
+                    후기작성
+                </Link>
                   <div className='container_myShareViews'>{accompany.views}</div>
                   <div className='container_myWriteDate_share'>{formattedDate}</div>
                 </div>
                 <div className='container_myShareTitle'>
                   {accompany.title}
                 </div>
-
-                <Link to={`/reviewWrite/${accompany.id}`}>
-                    후기작성
-                </Link>
-
                 <div className='container_myShareBottom'>
                   <div className='container_myShareBottom2'>
                     <div className='container_myShareContent'>

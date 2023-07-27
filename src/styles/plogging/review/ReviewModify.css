@@ -51,7 +51,7 @@
      align-items: center;
      justify-content: center;
      border-radius: 10px;
-     border: 1px solid #9BE4CE;
+     /* border: 1px solid #9BE4CE; */
 }
 .reviewModify_img_in{
     /* background-color: rgb(204, 236, 127); */
@@ -67,7 +67,7 @@
     width: 90%;
     height: 90%;
     /* background-color: aqua; */
-    font-size: 17px;
+    font-size: 25px;
 }
 .reviewModify_title{
     font-size: 25px;
