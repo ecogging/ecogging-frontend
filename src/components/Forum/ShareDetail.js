@@ -86,7 +86,7 @@ export default function ShareDetail(){
                     </div>
                 </div>
                 <div className="reviewInfo_layout">
-                    {view && <Viewer initialValue={shareInfo.content} style={{width:"300px", height:"300px"}}/> }
+                    {view && <Viewer initialValue={shareInfo.content} style={{width:"300px", height:"300px"}} className='viewerContent' /> }
                     {/* <div className="reviewInfo_content">
                     </div> */}
                 </div>
