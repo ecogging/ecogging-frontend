@@ -21,7 +21,7 @@ export default function MainAccompany() {
   // 최신 3개 글 가져오기
   const [accomp, setAccomp] = useState([]);
   useEffect(() => {
-    fetch("/main/accompanies")
+    fetch("http://localhost:8080/main/accompanies")
       .then((res) => res.json())
       .then((data) => {
         if (data && Array.isArray(data.list)) {
