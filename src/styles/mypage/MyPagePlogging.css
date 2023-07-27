@@ -200,3 +200,18 @@
 .card-header-is_closed {
 	background-color: #5bce0ec4;
 }
+
+.reviewWBtn{
+  margin-right: 10px;
+  background-color: rgb(255, 255, 255);
+    border: 1px solid #9BE4CE;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #9BE4CE;
+    width: 130px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

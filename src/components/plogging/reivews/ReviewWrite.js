@@ -15,7 +15,7 @@ export default function ReviewWrite(){
     const userId = getCookie("userId");
     const {accompanyId}=useParams();
  
-    
+    console.log("accompanyId :"+accompanyId);
 
     const handleReviewSave=async(temp)=>{
         try {
@@ -23,6 +23,7 @@ export default function ReviewWrite(){
             // const formData=new FormData();
             // formData.append('content',editorData);
             // formData.append('title',titleVal);
+            console.log("temp : "+temp);
 
             const requestData={
                 content:editorData,
@@ -73,10 +74,10 @@ export default function ReviewWrite(){
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={()=>handleReviewSave({temp:1})}>
+                        <div className="tmepBtn" onClick={()=>handleReviewSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={()=>handleReviewSave({tmep:0})}>
+                        <div className="complBtn" onClick={()=>handleReviewSave(0)}>
                                 등록
                         </div>
                     </div>

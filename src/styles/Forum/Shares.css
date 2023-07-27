@@ -11,6 +11,7 @@ input{
 /* -------------------------------------------- */
 .reviews_mainLayout{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     /* background-color: aliceblue; */
     margin: 120px auto;
@@ -21,6 +22,9 @@ input{
     display: flex;
     align-items: center;
     flex-direction: column;
+    /* background-color: aqua; */
+    justify-content: center;
+    margin: 0 auto;
 }
 .reviews_top{
     display: flex;
@@ -216,8 +220,18 @@ input{
     /* background-color: darkgreen; */
 }
 .writeBtn{
-    /* background-color: aliceblue; */
+    /* background-color: rgb(12, 163, 6); */
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    margin-top: 10px;
+}
+.container_myBottom{
+    /* background-color: blue; */
+}
+.reivew_{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

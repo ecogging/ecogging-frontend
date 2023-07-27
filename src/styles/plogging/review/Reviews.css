@@ -204,3 +204,6 @@ input{
     display: flex;
     justify-content: flex-end;
 }
+.nickAndPic{
+    display: flex;
+}

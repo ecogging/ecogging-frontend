@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
+import { Pagination } from 'antd';
 import '../../styles/Forum/Shares.css';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+// import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import MyButton from "../../components/common/MyButton.js";
@@ -14,52 +15,40 @@ import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
 export default function ShareList(){
     const [shares,setShares]=useState([]);
-    const [curPage,setCurPage]=useState(1);
-    const [allPage, setAllPage]=useState(false);
-    const [pageBtn, setPageBtn]=useState([]);
-    const [bsearch, setBsearch]=useState(false);
+    // const [curPage,setCurPage]=useState(1);
+    // const [allPage, setAllPage]=useState(false);
+    // const [pageBtn, setPageBtn]=useState([]);
+    // const [bsearch, setBsearch]=useState(false);
     const navigate = useNavigate();
     const [initialShares, setInitialShares]=useState([]);
     const userId = getCookie("userId");
     const [view, setView] = useState(false);
 
+       // 페이징 ---------------------------------------------------------------
+       const [totPages, setTotPages] = useState(0); // 전체 페이지
+       const [nowPage, setNowPage] = useState(1); // 현재 페이지
+       const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+           setNowPage(no);
+       }
     
     useEffect(() => {
-        fetchShares();
-        // setCurPage(parseInt(curPage));
-        // fetchShares(parseInt(curPage));
-    },[]);
-        
-    const fetchShares=async (p_page)=>{
-            axios
-                .get(`http://localhost:8080/shares/${p_page}/${userId}`)
-                .then((res)=>{
-                    // let pageInfo=res.data.shares.pageInfo;
-                    let list=res.data.shares.content;
-                    setShares(list);
-                    setInitialShares(list);
-                    setView(true);
-                    // setShares([...list]);
-                    // setInitialShares([...list]);
-                    console.log('-------------------------LIST');
-                    console.log(list.content);
-                    console.log(res.data.shares);
-                    // let btn=[];
-                    // for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
-                    //     btn.push(i);
-                    // }
-                // setCurPage(pageInfo.curPage);
-                // setPageBtn(btn);
-                //setLastPage(res.data.pageInfo.allPage);
-                // console.log("fetchReviews curPage : "+curPage);
-                // console.log("fetchReviews pageBtn : "+pageBtn);
-                // return list;
-                })
            
-      
-       
-    }; 
 
+
+                axios
+                .get(`http://localhost:8080/shares/${nowPage}`)
+                .then((res)=>{
+                    console.log(res.data);
+                    setShares(res.data.res.content);
+                    // setInitialRoutes(res.data.routes);
+                    setView(true);
+                    setTotPages(res.data.all);
+                })
+                .catch ((err)=> {
+                    console.log(err);
+                });
+
+},[nowPage]);
 
     
 
@@ -89,29 +78,29 @@ export default function ShareList(){
         }
     };
 
-    const handlePageChange=(e)=>{
-        setCurPage(e.target.id);
-        fetchShares(e.target.id);
-    };
+    // const handlePageChange=(e)=>{
+    //     setCurPage(e.target.id);
+    //     fetchShares(e.target.id);
+    // };
 
 
-    const goToPreviousPage = () => {
+    // const goToPreviousPage = () => {
         
-        if (curPage === 1) 
-        return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
-        setCurPage(curPage - 1);
-        console.log("curPage : "+curPage);
-        fetchShares(curPage - 1);
-    }
+    //     if (curPage === 1) 
+    //     return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
+    //     setCurPage(curPage - 1);
+    //     console.log("curPage : "+curPage);
+    //     fetchShares(curPage - 1);
+    // }
 
     
-    const goToNextPage = () => {
-        if (curPage === allPage) 
-        return ;
-        setCurPage(curPage + 1);
-        console.log("goToNextPage curPage : "+curPage);
-        fetchShares(curPage + 1);
-    }
+    // const goToNextPage = () => {
+    //     if (curPage === allPage) 
+    //     return ;
+    //     setCurPage(curPage + 1);
+    //     console.log("goToNextPage curPage : "+curPage);
+    //     fetchShares(curPage + 1);
+    // }
 
     const handleClickShares=()=>{
         console.log("shares");
@@ -161,12 +150,15 @@ export default function ShareList(){
                             return (
                                 <div className="listItem"  key={shares.id}>
                                     <div className='listItem_detail'>
-                                        <div className="review_nickname">{shares.userId}</div>
+                                    <div className='nickAndPic'>
+                                            {/* <div className="review_pic">{shares.writerPic}</div> */}
+                                            <div className="review_nickname">{shares.writerNickname}</div>
+                                        </div>
                                         <div className='review_detail'>
                                             <Link to={`/shareInfo/${shares.forumId}`}>
                                                 <div className="review_title">{shares.title}</div>
                                                 {/* <div className="review_content">{shares.content}</div> */}
-                                                {view && <Viewer initialValue={shares.content} style={{width:"300px", height:"300px"}}/> }
+                                                {/* {view && <Viewer initialValue={shares.content} style={{width:"300px", height:"300px"}}/> } */}
                                             </Link>
                                         </div>
                                     </div>
@@ -185,30 +177,9 @@ export default function ShareList(){
                         })
                     }
                 </div>
-                <Pagination className='pagination'>
-                        <PaginationItem disabled={curPage===1}>
-                            <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
-                            <span aria-hidden="true">‹</span>
-                            </PaginationLink>
-                        </PaginationItem>
-                        {
-                            pageBtn && pageBtn.map(item=>{
-                                return(
-                                    <PaginationItem className={item===curPage?'active':''} key={item}>
-                                        <PaginationLink onClick={handlePageChange} id={item}>
-                                            {item}
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                )
-                            })
-                        }
-                        <PaginationItem disabled={allPage}>
-                            <PaginationLink onClick={goToNextPage} aria-label='Next'>
-                                <span aria-hidden>›</span>
-                            </PaginationLink>
-                        </PaginationItem>
-                </Pagination>
-                
+                <div className='container_myBottom'>
+                    <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
+                </div>
                 <div className='writeBtn'>
                     {
                     userId!==null ? 
