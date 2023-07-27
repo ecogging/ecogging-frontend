@@ -16,7 +16,7 @@ export default function ShareWrite(){
     // const {id}=useParams();
     
 
-    const handleShareSave=async()=>{
+    const handleShareSave=async(temp)=>{
         try {
             // const tmep=0;
             //작성된 글과 이미지를 폼 데이터로 변환
@@ -33,7 +33,7 @@ export default function ShareWrite(){
                 // isTemp
             };
             
-            const response=await axios.post(`http://localhost:8080/shareWrite/${userId}`, requestData,
+            const response=await axios.post(`http://localhost:8080/shareWrite/${userId}/${temp}`, requestData,
             {
                 headers:{'Content-Type': 'application/json',
                 withCredentials:true},
@@ -46,36 +46,6 @@ export default function ShareWrite(){
             console.log(error);
         }
     };
-
-    const handleShareTempSave=async()=>{
-        try {
-            //작성된 글과 이미지를 폼 데이터로 변환
-            // const formData=new FormData();
-            // formData.append('content',editorData);
-            // formData.append('title',titleVal);
-            // console.log("temp"+temp);
-            console.log("등로고로고고곡버튼");
-            const requestData={
-                content:editorData,
-                title:titleVal,
-            };
-            
-            const response=await axios.post(`http://localhost:8080/sharewWrite`, requestData,
-            {
-                headers:{'Content-Type': 'application/json'},
-                withCredentials:true
-            })
-            // const url=`/images/${response.data.filename}`;
-            console.log(response.data);
-            navigate('/shares');
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // const handlShareOnClick=(temp)=>{
-    //     handleShareSave(temp);
-    // }
 
     const handleTitleChange=(e)=>{
         setTitleVal(e.target.value);
@@ -104,10 +74,10 @@ export default function ShareWrite(){
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn"onClick={handleShareTempSave}>
+                        <div className="tmepBtn" onClick={()=>handleShareSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={handleShareSave}>
+                        <div className="complBtn" onClick={()=>handleShareSave(0)}>
                                 등록
                         </div>
                     </div>

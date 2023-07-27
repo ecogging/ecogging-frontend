@@ -24,6 +24,7 @@ export default function RouteDetail(){
     const [location, setlocation]=useState('');
     const userId = getCookie("userId");
     const [view, setView] = useState(false);
+    const [isScrap, setIsScrap] = useState(false);
 
     const makeMap = (address) => {
         var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
@@ -46,10 +47,11 @@ export default function RouteDetail(){
     
    useEffect(()=>{
         axios
-        .post(`http://localhost:8080/routeInfo/${forumId}`,null,null)
+        .post(`http://localhost:8080/routeInfo/${forumId}/${userId}`,null,null)
         .then((res)=>{
             setRouteInfo(res.data.routeInfo);
             console.log(res.data.routeInfo);
+            setIsScrap(res.data.isScrap);
             setlocation(res.data.routeInfo.routeLocation);
             makeMap(res.data.routeInfo.routeLocation)
             setView(true);
@@ -68,12 +70,14 @@ export default function RouteDetail(){
         console.log("스크랩");
         axios.post(`http://localhost:8080/forumscrap/${forumId}/${userId}`)
         .then(res=> {
+            setIsScrap(res.data);
             // setIsScrapped(res.data);
         })
         .catch(err=> {
             console.log(err);
-        })    
-    }
+        })      
+    };
+
     const handelShareDel=()=>{
         axios
         .post(`http://localhost:8080/shareDel/${forumId}`)
@@ -91,14 +95,14 @@ export default function RouteDetail(){
                 <div className="routeInfo_top">
                     <div className="routeInfo_title">{routeInfo.title}</div>
                     <div className="routeInfo_top_in">
-                        <div className="routeInfo_imageAndnickname">
+                        {/* <div className="routeInfo_imageAndnickname">
                             <div className="routeInfo_profil">프사</div>
                             <div className="routeInfo_nickname"  onClick={handleChat}>{routeInfo.userId}</div>
-                        </div>
+                        </div> */}
                         <div className="routeInfo_dateAndviewsAndscrap">
                             <div className="routeInfo_date">{formattedDate}</div>
                             <div className="routeInfo_views"><HiOutlineEye className="view_icon"/> {routeInfo.views}</div>
-                            <div className="routeInfo_scrap" onClick={handleScrap}><BsFillBookmarkFill className="BsFillBookmarkFill"/></div>
+                            <div className="reviewInfo_scrap" onClick={handleScrap}><BsFillBookmarkFill className={isScrap? "BsFillBookmarkFill":""}/></div>
                         </div>
                     </div>
                 </div>

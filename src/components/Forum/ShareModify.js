@@ -20,7 +20,7 @@ export default function ShareModify(){
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/shareInfo/${forumId}`)
+        .post(`http://localhost:8080/shareInfo/${forumId}/${userId}`)
         .then(res=>{
             setView(true);
             setShareInfo(res.data.shareInfo);
@@ -37,41 +37,29 @@ export default function ShareModify(){
             console.log(err);
         })
     },[]);
-    // const result=reviewInfo.content;
-    // console.log("result : "+result);
 
-    const handleupdateSave=async()=>{
+    const handleShareUpdateSave=async(temp)=>{
         try {
-            const requestData={
-                content:editorData,
-                title:titleVal
-            };
-            const res=await axios.post(`http://localhost:8080/shareModify/${forumId}`, requestData,
+            const res=await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}/${temp}`, shareInfo,
             {
                 headers:{'Content-Type': 'application/json',
                 withCredentials:true},
-                
             })
             console.log(res.data);
             navigate('/shares');
         } catch (error) {
             console.log(error);
         }
-       
-           
-
     }
 
     const contentData=shareInfo.content;
 
     const handleEditorData=(data)=>{
-        setEditorData(data);
-        console.log("editorData : "+editorData);
+        setShareInfo({...shareInfo, content:data})
     }
 
     const handleTitleChange=(e)=>{
-        setTitleVal(e.target.value);
-        console.log(titleVal);
+        setShareInfo({...shareInfo, title:e.target.value})
     }
     
 
@@ -80,22 +68,22 @@ export default function ShareModify(){
             <div className="reviewModify_wrap">
                 <div className="reviewModify_top">
                     <div className="reviewModify_title">
-                        <input className="titleInput" value={titleVal}  onChange={handleTitleChange} maxLength={50}/>
+                        <input className="titleInput" value={shareInfo.title}  onChange={handleTitleChange} maxLength={50}/>
                     </div>
                 </div>
                 <div className="reviewModify_layout">
                     <div className="reviewModify_content">
                         <div className="reviewModify_content_in">
-                        {view && <TextEditor  onEditorDataChange={handleEditorData} contentData={contentData}/>}
+                        {view && <TextEditor  onEditorDataChange={handleEditorData} contentData={shareInfo.content}/>}
                         </div>
                     </div>
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn">
+                        <div className="tmepBtn" onClick={()=>handleShareUpdateSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={handleupdateSave}>
+                        <div className="complBtn" onClick={()=>handleShareUpdateSave(0)}>
                                 등록
                         </div>
                     </div>

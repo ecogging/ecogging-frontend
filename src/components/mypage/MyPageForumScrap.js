@@ -1,11 +1,15 @@
+import { getCookie } from "../../utils/CookieUtil";
 import '../../styles/mypage/MyPageForumScrap.css';
 import '../../styles/mypage/MyPageShare.css';
 import '../../styles/mypage/MyPageRecommend.css';
 import { RxBookmarkFilled } from "react-icons/rx";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function MyPageForumScrap() {
 
+  const userId=getCookie("userId");
+  const [isScrapInfo,setIsScrapInfo]=useState([]);
   // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
   const [isScrapped, SetIsScrapped] = useState([true, true, true]);
   const scrapClick = (index) => {
@@ -13,6 +17,14 @@ export default function MyPageForumScrap() {
     newIsScrapped[index] = !newIsScrapped[index];
     SetIsScrapped(newIsScrapped);
   }
+
+  useEffect(()=>{
+    axios
+    .get(`http://localhost:8080/myforumscrapInfo/${userId}`)
+    .then(res=>{
+      setIsScrapInfo(res.data.isScrapInfo);
+    })
+  },[])
 
   return(
     <div className="MyPageForumScrap">

@@ -65,7 +65,7 @@ export default function RouteWrite(){
     }
     
 
-    const handleRouteSave=async()=>{
+    const handleRouteSave=async(temp)=>{
         try {
             //작성된 글과 이미지를 폼 데이터로 변환
             // const formData=new FormData();
@@ -78,7 +78,7 @@ export default function RouteWrite(){
                 route_location:locationVal
             };
             
-            const response=await axios.post(`http://localhost:8080/routeWrite/${userId}`, requestData,
+            const response=await axios.post(`http://localhost:8080/routeWrite/${userId}/${temp}`, requestData,
             {
                 headers:{'Content-Type': 'application/json'},
                 withCredentials:true
@@ -146,10 +146,10 @@ export default function RouteWrite(){
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn">
+                        <div className="tmepBtn" onClick={()=>handleRouteSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={handleRouteSave}>
+                        <div className="complBtn" onClick={()=>handleRouteSave(0)}>
                                 등록
                         </div>
                     </div>

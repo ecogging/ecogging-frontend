@@ -142,12 +142,15 @@ export default function ReviewList(){
                             return (
                                 <div className="listItem"  key={review.id}>
                                     <div className='listItem_detail'>
-                                        <div className="review_nickname">{review.userId}</div>
+                                        <div className='nickAndPic'>
+                                            <div className="review_pic">{reviews.writerPic}</div>
+                                            <div className="review_nickname">{review.writerNickname}</div>
+                                        </div>
                                         <div className='review_detail'>
                                             <Link to={`/reviewInfo/${review.forumId}`}>
                                                 <div className="review_title">{review.title}</div>
                                                 {/* <div className="review_content">{review.content}</div> */}
-                                                {view && <Viewer initialValue={review.content} style={{width:"300px", height:"300px"}}/> }
+                                                {/* {view && <Viewer initialValue={review.content} style={{width:"300px", height:"300px"}}/> } */}
                                             </Link>
                                         </div>
                                     </div>
@@ -171,7 +174,7 @@ export default function ReviewList(){
                     상세
                     </Link>
                 </div> */}
-                <Pagination className='pagination'>
+                {/* <Pagination className='pagination'>
                         <PaginationItem disabled={curPage===1}>
                             <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
                             <span aria-hidden="true">‹</span>
@@ -193,7 +196,7 @@ export default function ReviewList(){
                                 <span aria-hidden>›</span>
                             </PaginationLink>
                         </PaginationItem>
-                </Pagination>
+                </Pagination> */}
                 
                 {/* <div className='writeBtn'>
                     {

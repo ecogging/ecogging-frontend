@@ -32,9 +32,9 @@ export default function ReviewModify(){
         })
     },[])
 
-    const handleupdateSave=async()=>{
+    const handleupdateSave=async(temp)=>{
         try {
-            const res=await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}`, reviewInfo,
+            const res=await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}/${temp}`, reviewInfo,
             {
                 headers:{'Content-Type': 'application/json',
                 withCredentials:true},
@@ -71,10 +71,10 @@ export default function ReviewModify(){
                 </div>
                 <div className="tempAndComplBtn_layout">
                     <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn">
+                        <div className="tmepBtn" onClick={()=>handleupdateSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={handleupdateSave}>
+                        <div className="complBtn" onClick={()=>handleupdateSave(0)}>
                                 등록
                         </div>
                     </div>
