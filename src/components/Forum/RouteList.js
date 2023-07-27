@@ -2,64 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
+import { Pagination } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
 import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import '../../styles/Forum/Shares.css';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+// import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import MyButton from "../../components/common/MyButton.js";
 // import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
 export default function ShareList(){
-    const [routes,setroutes]=useState([]);
-    const [curPage,setCurPage]=useState(1);
-    const [allPage, setAllPage]=useState(false);
-    const [pageBtn, setPageBtn]=useState([]);
-    const [bsearch, setBsearch]=useState(false);
+    const [routes,setRoutes]=useState([]);
     const userId = getCookie("userId");
     const navigate = useNavigate();
     const [view, setView] = useState(false);
     const [initialRoutes, setInitialRoutes]=useState([]);
-    //d
+
+     // 페이징 ---------------------------------------------------------------
+    const [totPages, setTotPages] = useState(0); // 전체 페이지
+    const [nowPage, setNowPage] = useState(1); // 현재 페이지
+    const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+        setNowPage(no);
+    }
+
     useEffect(() => {
-        fetchRoute();
-        // setCurPage(parseInt(curPage));
-        // fetchShares(parseInt(curPage));
-    },[]);
-        
-    const fetchRoute=async (p_page)=>{
-        axios
-            .get(`http://localhost:8080/routes/${p_page}/${userId}`)
-            .then((res)=>{
-                let pageInfo=res.data.routes.pageInfo;
-                let list=res.data.routes.content;
-                setroutes(list);
-                setInitialRoutes(list);
-                console.log(list);
-                setView(true);
-                let btn=[];
-                for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
-                    btn.push(i);
-            }
-            setCurPage(pageInfo.curPage);
-            setPageBtn(btn);
-            //setLastPage(res.data.pageInfo.allPage);
-            console.log("fetchReviews curPage : "+curPage);
-            console.log("fetchReviews pageBtn : "+pageBtn);
-            return list;
-        })
-            .catch ((err)=> {
-                console.log(err);
-            });
-    }; 
+       
+            axios
+                .get(`http://localhost:8080/routes/${nowPage}`)
+                .then((res)=>{
+                    console.log(res.data);
+                    setRoutes(res.data.res.content);
+                    // setInitialRoutes(res.data.routes);
+                    setView(true);
+                    setTotPages(res.data.all);
+                })
+                .catch ((err)=> {
+                    console.log(err);
+                });
+      
 
+    },[nowPage]);
 
-    
-
-    const handleSearch=()=>{
-
-    };
+    const handleSearch=()=>{};
 
     const handleSort=(e, type)=>{
         console.log("리뷰 정렬");
@@ -69,7 +54,7 @@ export default function ShareList(){
             // const sortByViews=[...shares].sort((a,b)=>a.views-b.views);
             // setShares(sortByViews);
             const sortByView = [...routes].sort((a, b) => b.views - a.views);
-            setroutes(sortByView);
+            setRoutes(sortByView);
 
         }else if(type === '최신순'){
             console.log("최신순");
@@ -77,35 +62,11 @@ export default function ShareList(){
             // setShares(sortByDate);
             // console.log(shares);
             // navigate('/shares');
-            setroutes([...initialRoutes]);
+            // setRoutes([...initialRoutes]);
         }else{
             return ;
         }
     };
-
-    const handlePageChange=(e)=>{
-        setCurPage(e.target.id);
-        fetchRoute(e.target.id);
-    };
-
-
-    const goToPreviousPage = () => {
-        
-        if (curPage === 1) 
-        return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
-        setCurPage(curPage - 1);
-        console.log("curPage : "+curPage);
-        fetchRoute(curPage - 1);
-    }
-
-    
-    const goToNextPage = () => {
-        if (curPage === allPage) 
-        return ;
-        setCurPage(curPage + 1);
-        console.log("goToNextPage curPage : "+curPage);
-        fetchRoute(curPage + 1);
-    }
 
     const handleClickShares=()=>{
         console.log("shares");
@@ -114,10 +75,10 @@ export default function ShareList(){
     
     const handelClickRoutes=()=>{
         console.log("routes");
-        setroutes([...initialRoutes]);
+        setRoutes([...initialRoutes]);
     }
    
-    console.log(routes);
+    
     return (
         <div className="reviews_mainLayout">
             <div className="review_wrap">
@@ -179,35 +140,9 @@ export default function ShareList(){
                         })
                     }
                 </div>
-                {/* <div>
-                <Link to="{/reviewInfo}">
-                    상세
-                    </Link>
-                </div> */}
-                {/* <Pagination className='pagination'>
-                        <PaginationItem disabled={curPage===1}>
-                            <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
-                            <span aria-hidden="true">‹</span>
-                            </PaginationLink>
-                        </PaginationItem>
-                        {
-                            pageBtn && pageBtn.map(item=>{
-                                return(
-                                    <PaginationItem className={item===curPage?'active':''} key={item}>
-                                        <PaginationLink onClick={handlePageChange} id={item}>
-                                            {item}
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                )
-                            })
-                        }
-                        <PaginationItem disabled={allPage}>
-                            <PaginationLink onClick={goToNextPage} aria-label='Next'>
-                                <span aria-hidden>›</span>
-                            </PaginationLink>
-                        </PaginationItem>
-                </Pagination> */}
-                
+                <div className='container_myBottom'>
+                    <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
+                </div>
                 <div className='writeBtn'>
                     {
                     userId!==null ? 
