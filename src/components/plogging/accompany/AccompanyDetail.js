@@ -196,6 +196,7 @@ const AccompanyDetail = () => {
                                 comment={comment}
                                 deleteHandler={handleCommentDelete}
                                 fetchAccompanyData={fetchAccompanyData}
+                                handleMessageOpen={openSendModal}
                               />
                             )
                           })
