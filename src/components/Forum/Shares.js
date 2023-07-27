@@ -161,12 +161,15 @@ export default function ShareList(){
                             return (
                                 <div className="listItem"  key={shares.id}>
                                     <div className='listItem_detail'>
-                                        <div className="review_nickname">{shares.userId}</div>
+                                    <div className='nickAndPic'>
+                                            {/* <div className="review_pic">{shares.writerPic}</div> */}
+                                            <div className="review_nickname">{shares.writerNickname}</div>
+                                        </div>
                                         <div className='review_detail'>
                                             <Link to={`/shareInfo/${shares.forumId}`}>
                                                 <div className="review_title">{shares.title}</div>
                                                 {/* <div className="review_content">{shares.content}</div> */}
-                                                {view && <Viewer initialValue={shares.content} style={{width:"300px", height:"300px"}}/> }
+                                                {/* {view && <Viewer initialValue={shares.content} style={{width:"300px", height:"300px"}}/> } */}
                                             </Link>
                                         </div>
                                     </div>
@@ -185,7 +188,7 @@ export default function ShareList(){
                         })
                     }
                 </div>
-                <Pagination className='pagination'>
+                {/* <Pagination className='pagination'>
                         <PaginationItem disabled={curPage===1}>
                             <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
                             <span aria-hidden="true">‹</span>
@@ -207,7 +210,7 @@ export default function ShareList(){
                                 <span aria-hidden>›</span>
                             </PaginationLink>
                         </PaginationItem>
-                </Pagination>
+                </Pagination> */}
                 
                 <div className='writeBtn'>
                     {

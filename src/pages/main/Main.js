@@ -104,7 +104,7 @@ export default function Main() {
             
             <Route path="/reviews" element={<Reviews/>}/>
             <Route path="/reviewInfo/:forumId" element={<ReviewDetail/>}/>
-            <Route path="/reviewWrite/:forumId" element={<ReviewWrite/>}/>
+            <Route path="/reviewWrite/:accompanyId" element={<ReviewWrite/>}/>
             <Route path="/reviewInfoModify/:forumId" element={<ReviewModify/>}/>
 
             <Route path="/corp-login" element={<CorpLogin />}/>

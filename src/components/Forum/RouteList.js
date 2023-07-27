@@ -155,12 +155,12 @@ export default function ShareList(){
                             return (
                                 <div className="listItem"  key={routes.id}>
                                     <div className='listItem_detail'>
-                                        <div className="review_nickname">{routes.userId}</div>
+                                        <div className="review_nickname">{routes.writerNickname}</div>
                                         <div className='review_detail'>
                                             <Link to={`/routeInfo/${routes.forumId}`}>
                                                 <div className="review_title">{routes.title}</div>
                                                 {/* <div className="review_content">{routes.content}</div> */}
-                                                {view && <Viewer initialValue={routes.content} style={{width:"300px", height:"300px"}}/> }
+                                                {/* {view && <Viewer initialValue={routes.content} style={{width:"300px", height:"300px"}}/> } */}
                                             </Link>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@ export default function ShareList(){
                     상세
                     </Link>
                 </div> */}
-                <Pagination className='pagination'>
+                {/* <Pagination className='pagination'>
                         <PaginationItem disabled={curPage===1}>
                             <PaginationLink onClick={goToPreviousPage} aria-label='Previous'>
                             <span aria-hidden="true">‹</span>
@@ -206,7 +206,7 @@ export default function ShareList(){
                                 <span aria-hidden>›</span>
                             </PaginationLink>
                         </PaginationItem>
-                </Pagination>
+                </Pagination> */}
                 
                 <div className='writeBtn'>
                     {
