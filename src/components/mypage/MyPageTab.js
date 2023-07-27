@@ -78,9 +78,9 @@ export default function MyPageTab({ userId }) {
                 <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
                 <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
                 </Link>
-                <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
+                {/* <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
                 <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
-                </Link>
+                </Link> */}
               </ul>
             </li>
           </ul>
@@ -137,9 +137,9 @@ export default function MyPageTab({ userId }) {
               <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
               <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
               </Link>
-              <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
+              {/* <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
               <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
-              </Link>
+              </Link> */}
             </ul>
           </li>
         </ul>
