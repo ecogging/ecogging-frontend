@@ -78,9 +78,9 @@ export default function MyPageTab({ userId }) {
                 <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
                 <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
                 </Link>
-                <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
+                {/* <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
                 <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
-                </Link>
+                </Link> */}
               </ul>
             </li>
           </ul>
@@ -119,7 +119,7 @@ export default function MyPageTab({ userId }) {
             <Link to={`/mypage/${userId}/plogging/scrapPlogging/1`} className="link_myPageTabMenu">
               <li className={clicked === '스크랩한 플로깅' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">스크랩한 플로깅</div></li>
             </Link>
-            <Link to={`/mypage/${userId}/reviews`} className="link_myPageTabMenu">
+            <Link to={`/mypage/${userId}/reviews/1`} className="link_myPageTabMenu">
               <li className={clicked === '플로깅 후기' ? 'box_myPloggingMenu_clicked' : 'box_myPloggingMenu'}><div className="txt_myPloggingMenu">플로깅 후기</div></li>
             </Link>
             <Link to={`/mypage/${userId}/plogging/savePlogging/1`} className="link_myPageTabMenu">
@@ -137,9 +137,9 @@ export default function MyPageTab({ userId }) {
               <Link to={`/mypage/${userId}/recommendations`} className="link_myPageTabMenu">
               <li className={clicked === '경로 추천' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">경로 추천</div></li>
               </Link>
-              <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
+              {/* <Link to={`/mypage/${userId}/forumscraps`} className="link_myPageTabMenu">
               <li className={clicked === '스크랩' ? 'box_myForumMenu_clicked' : 'box_myForumMenu'}><div className="txt_myForumMenu">스크랩</div></li>
-              </Link>
+              </Link> */}
             </ul>
           </li>
         </ul>

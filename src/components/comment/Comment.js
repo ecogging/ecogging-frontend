@@ -5,7 +5,7 @@ import { getCookie } from '../../utils/CookieUtil';
 import detailDate from '../../utils/GetDayMinuteCounter ';
 
 
-const Comment = ({ comment, deleteHandler, fetchAccompanyData, handleMessageOpen }) => {
+const Comment = ({ comment, deleteHandler, fetchAccompanyData }) => {
 
   console.log("pararm comment: ")
   console.log(comment)
@@ -83,7 +83,7 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData, handleMessageOpen
                 <div className="comment-from-container">
                       <img src={comment.profileImageUrl} className="writer-picture"/>
                     <div className="comment-from-info">
-                        <div className="comment-writer" onClick={() => handleMessageOpen(comment.userId, comment.userNickname)}>{comment.userNickname}</div>
+                        <div className="comment-writer">{comment.userNickname}</div>
                         <div className="comment-date">{detailDate(comment.createdAt)}</div>
                     </div>
                 </div>
@@ -122,16 +122,17 @@ const Comment = ({ comment, deleteHandler, fetchAccompanyData, handleMessageOpen
       }
 
       {
-        comment.children && comment.children.map(c =>
+        comment.children.map(c =>
           <Comment
               comment={c}
               deleteHandler={deleteHandler}
               fetchAccompanyData={fetchAccompanyData}
-              handleMessageOpen={handleMessageOpen}
           />
         )
       }
     </>
+
+    
   )
 }
 

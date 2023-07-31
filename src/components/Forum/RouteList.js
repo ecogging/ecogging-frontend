@@ -63,6 +63,7 @@ export default function ShareList(){
             // console.log(shares);
             // navigate('/shares');
             // setRoutes([...initialRoutes]);
+                navigate("/routeList");
         }else{
             return ;
         }

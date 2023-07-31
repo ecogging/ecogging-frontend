@@ -72,7 +72,8 @@ export default function ShareList(){
             // setShares(sortByDate);
             // console.log(shares);
             // navigate('/shares');
-            setShares([...initialShares]);
+            // setShares([...initialShares]);
+            navigate('/shares');
         }else{
             return ;
         }

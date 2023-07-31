@@ -14,7 +14,7 @@ import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
 export default function ReviewList(){
     const [reviews,setReviews]=useState([]);
-    // const [curPage,setCurPage]=useState(1);
+    const [curPage,setCurPage]=useState(1);
     // const [allPage, setAllPage]=useState(false);
     // const [pageBtn, setPageBtn]=useState([]);
     const [bsearch, setBsearch]=useState(false);
@@ -96,7 +96,8 @@ export default function ReviewList(){
             // const sortByDate=[...reviews].sort((a,b)=>b.createdAt-a.createdAt);
             // setReviews(sortByDate);
             // console.log(reviews);
-            setReviews([...initialReviews]);
+            // setReviews([...initialReviews]);
+            navigate("/reviews");
         }else{
             return ;
         }
