@@ -73,7 +73,7 @@ export default function Header ({userId, setUserId}) {
         }
         const menuText = e.target.className;
 
-        if (menuText === 'headerMenuLink' || menuText === 'mainLogo' || menuText == 'ploggingNavMenu' || menuText == 'MyButton MyButton_gray') {
+        if (menuText === 'headerMenuLink' || menuText === 'mainLogo' || menuText === 'ploggingNavMenu' || menuText === 'MyButton MyButton_gray' || menuText === 'nickName') {
           localStorage.setItem('selected', "계정 정보");
           setInMenu(''); 
         } else {
@@ -90,10 +90,9 @@ export default function Header ({userId, setUserId}) {
     const [inMenu, setInMenu] = useState('');
     const clickMenu = (e) => {
         let nowMenu = e.target; // 지금 클릭한 타겟
+        console.log(nowMenu.className);
         let nowMenuClass = e.target.textContent; // 클릭한 타겟의 클래스이름
         setInMenu(nowMenuClass);
-
-
     }
 
     

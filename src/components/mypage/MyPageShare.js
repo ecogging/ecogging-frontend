@@ -99,7 +99,7 @@ export default function MyPageShare() {
                 </Link>
                 <div className='container_myShareBottom'>
                   <div className='container_myShareContent'>
-                  <Viewer initialValue={item.content}/>
+                  {/* <Viewer initialValue={item.content}/> */}
                   </div>
                   <div className='container_myDetailBtns_Share'>
                     <Link to={`/shareInfoModify/${item.forumId}`} ><div className='txt_myBtn_Share'>수정</div></Link>
