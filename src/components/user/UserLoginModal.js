@@ -59,6 +59,14 @@ function UserLoginModal({isOpen, closeModal, setIsLogin}) {
         const token = response.data.token;
         // Save the token to localStorage
         // localStorage.setItem('token', token);
+        const tokenKeys = ['access-token', 'userId', 'nickname', 'userType', 'profileImageUrl'];
+        
+        for (const tokenKey of tokenKeys) {
+          if (getCookie(tokenKey))
+            removeCookie(tokenKey)
+        }
+        
+        
         setCookie('access-token', token);
 
         // Decode the token
