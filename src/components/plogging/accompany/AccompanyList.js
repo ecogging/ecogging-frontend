@@ -35,7 +35,7 @@ const AccompanyList = () => {
     }    
 
     const reqAccompany = (page, order) => {
-        axios.get(`http://192.168.0.16:8080/accompanies/${page}?orderby=${order}`)
+        axios.get(`http://localhost:8080/accompanies/${page}?orderby=${order}`)
             .then(res => {
                 console.log(res);
                 setHasNext(res.data.hasNext);
