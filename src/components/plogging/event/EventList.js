@@ -102,7 +102,8 @@ const EventList = () => {
             } 
 
             return (
-              <a href={'/eventDetail/' + event.eventId+"/"+curPage+"/"+type} key={event.eventId}>
+              <Link to={`/eventDetail/${event.eventId}/${curPage}/${type}`}>
+                
                 <div className="card">
                   {/* 카드 헤더 */}
                   <div className="card-header1" style={cardHeaderStyle}>
@@ -148,7 +149,7 @@ const EventList = () => {
                     </div>
                   </div>
                 </div>
-              </a>
+               </Link>
             );
           })}
           </div>
