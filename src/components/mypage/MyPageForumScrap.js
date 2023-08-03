@@ -5,26 +5,105 @@ import '../../styles/mypage/MyPageRecommend.css';
 import { RxBookmarkFilled } from "react-icons/rx";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from "react-router";
+import { Pagination } from "antd";
+import moment from "moment";
+import { Link } from "react-router-dom";
+
+const { kakao } = window;
 
 export default function MyPageForumScrap() {
 
-  const userId=getCookie("userId");
-  const [isScrapInfo,setIsScrapInfo]=useState([]);
-  // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
-  const [isScrapped, SetIsScrapped] = useState([true, true, true]);
-  const scrapClick = (index) => {
-    const newIsScrapped = [...isScrapped];
-    newIsScrapped[index] = !newIsScrapped[index];
-    SetIsScrapped(newIsScrapped);
+    // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
+    const [isScrapped, SetIsScrapped] = useState([true, true, true]);
+    const scrapClick = (index) => {
+      const newIsScrapped = [...isScrapped];
+      newIsScrapped[index] = !newIsScrapped[index];
+      SetIsScrapped(newIsScrapped);
+    }
+
+  // 페이징 ---------------------------------------------------------------
+  const [totPages, setTotPages] = useState(0); // 전체 페이지
+  const [nowPage, setNowPage] = useState(1); // 현재 페이지
+  const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
+    setNowPage(no);
+  }
+  
+  // 데이터 불러오기 ------------------------------------------------------
+  const { userId } = useParams();
+  const accessToken = getCookie('access-token'); 
+  const headers = {
+    'Authorization': 'Bearer ' + accessToken,
+    'Content-Type': 'application/json',
+  };
+
+  const [myScraps,setMyScraps]=useState(null);
+
+  useEffect(() => {
+    const url = `/mypage/${userId}/forumscraps`;
+    axios.get(url, {
+      headers:headers,
+      params: {
+        pageNo: nowPage,
+      }
+    })
+    .then((res) => {
+      console.log(res.data.data);
+      setMyScraps(res.data.data);
+      setTotPages(res.data.allCount);
+    })
+    .catch((err) => {
+      console.log('내 스크랩 불러오기 실패', err);
+    });
+  }, [nowPage]);
+
+
+   
+  // 지도 ------------------------------------------------------------------
+  useEffect(() => {
+    let boxMaps = document.getElementsByClassName("container_myRecomLeft");
+    for(let boxMap of boxMaps) { 
+        mapOnload(boxMap, boxMap.dataset.address);
+    }
+  }, [myScraps]); 
+
+  if (myScraps === null) {
+    return <div>Loading...</div>
   }
 
-  useEffect(()=>{
-    axios
-    .get(`http://localhost:8080/myforumscrapInfo/${userId}`)
-    .then(res=>{
-      setIsScrapInfo(res.data.isScrapInfo);
-    })
-  },[])
+  const mapOnload = (e, address) => {
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(address, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) { 
+            let lat = result[0].y;
+            let lon = result[0].x; 
+            var center = new kakao.maps.LatLng(lat, lon);
+
+            const mapOption = {
+                center: center, 
+                draggable: false,
+                level: 4 
+            };   
+
+            if (e) {
+            var map = new kakao.maps.Map(e, mapOption);
+            map.setZoomable(false);
+
+            var marker = new kakao.maps.Marker({
+                position: center
+            });
+            marker.setMap(map);
+        }
+      }
+    });
+  };
+
+
+
+
+
+
+
 
   return(
     <div className="MyPageForumScrap">
@@ -48,122 +127,96 @@ export default function MyPageForumScrap() {
       </div>
       
       <div className='container_myforumScrapArea'>
-        {/* 글 종류 나눔/경로추천에 따라 리턴 다르게 */}
 
+        {myScraps && myScraps.map((item, idx) => {
+          console.log(item.type)
 
+          return item.type === '나눔' ? 
+          
+            (
+              <div className="container_mypageShareWriting" key={idx}>
 
-        <div className="container_mypageShareWriting">
-          {/* 사진 */}
-          {/* <div className="container_myShareLeft"> */}
-            {/* <img src={temptemp}  className='temptemp'/> */}
-          {/* </div> */}
+                <div className="container_myShareRight">
+                  <div className='container_myShareWhole'>
+                    <div className='container_myScrapTop'>
+                      <div className='container_myShareState_ongoing'>진행중</div>
+                      <div className='container_myShareViews'>조회수 {item.views}</div>
+                      <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
+                      
+                      <div className='container_myScrapToggle'
+                      onClick={() => scrapClick(0)}>
+                        <RxBookmarkFilled className={isScrapped[0] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
+                      </div>
 
-          <div className="container_myShareRight">
-            <div className='container_myShareWhole'>
-              <div className='container_myShareTop'>
-                <div className='container_myShareState_ongoing'>진행중</div>
-                <div className='container_myShareViews'>조회수 1004</div>
-                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
-                
-                <div className='container_myScrapToggle'
-                onClick={() => scrapClick(0)}>
-                  <RxBookmarkFilled className={isScrapped[0] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
+                    </div>
+                    <Link to={`/shareInfo/${item.forumId}`} className='link_toShareDetail'>
+                      <div className='container_myShareTitle'>
+                        {item.title}
+                      </div>
+                    </Link>
+                    <div className='container_myShareBottom'>
+                      <div className='container_myScrapContent'>
+                        {item.content}
+                      </div>
+
+                      <div className='container_myScrapUser'>
+                        <div className='box_userNickname'>{item.nickname}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
               </div>
-              <div className='container_myShareTitle'>
-                무료 나눔글 제목
-              </div>
-              <div className='container_myShareBottom'>
-                <div className='container_myShareContent'>
-                  본문
+            )
+
+          :
+
+            (
+              <div className="container_mypageRecomWriting" key={idx}>
+                {/* 지도 */}
+                <div className="container_myRecomLeft" id="container_myRecomLeft" data-address={item.location} ref={(e) => mapOnload(e,item.location)}>
+                  {/* <img src={temptemp}  className='temptemp'/> */}
                 </div>
-                {/* 스크랩에서만 글작성자 */}
-                <div className='container_myScrapUser'>
-                  <div className='box_userNickname'>닉네임닉네임</div>
+
+                <div className="container_myRecomRight">
+                  <div className='container_myRecomWhole'>
+                    <div className='container_myScrapTop_r'>
+                      <Link to={`/routeInfo/${item.forumId}`} className='link_toRouteDetail'>
+                        <div className='container_myRecomTitle'>
+                          {item.title}
+                        </div>
+                      </Link>
+                      <div className='container_myViews'>조회수 {item.views}</div>
+                      <div className='container_myWriteDate_Recom'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
+
+                      <div className='container_myScrapToggle'
+                      onClick={() => scrapClick(2)}>
+                        <RxBookmarkFilled className={isScrapped[2] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'} id='icon_myRouteScrapToggle'/>
+                      </div>
+                    </div>
+
+                    <div className='container_myRecomBottom'>
+                      <div className='container_myScrapContent_r'>
+                        {item.content}
+                      </div>
+
+                      <div className='container_myScrapUser'>
+                      <div className='box_userNickname'>{item.nickname}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
             </div>
-          </div>
-        </div>
+          ) 
+        
 
-        <div className="container_mypageShareWriting">
-          {/* 사진 */}
-          <div className="container_myShareLeft">
-            {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
-
-          <div className="container_myShareRight">
-            <div className='container_myShareWhole'>
-              <div className='container_myShareTop'>
-                <div className='container_myShareState_ongoing'>진행중</div>
-                <div className='container_myShareViews'>조회수 1004</div>
-                <div className='container_myWriteDate_share'>2023. 07. 16 03:46</div>
-                <div className='container_myScrapToggle'
-                onClick={() => scrapClick(1)}>
-                  <RxBookmarkFilled className={isScrapped[1] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
-                </div>
-              </div>
-              <div className='container_myShareTitle'>
-                무료 나눔글 제목
-              </div>
-              <div className='container_myShareBottom'>
-                <div className='container_myShareContent'>
-                  본문
-                </div>
-                {/* 스크랩에서만 글작성자 */}
-                <div className='container_myScrapUser'>
-                  <div className='box_userNickname'>닉네임닉네임</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="container_mypageRecomWriting">
-          {/* 지도 */}
-          <div className="container_myRecomLeft">
-            {/* <img src={temptemp}  className='temptemp'/> */}
-          </div>
-
-          <div className="container_myRecomRight">
-            <div className='container_myRecomWhole'>
-              <div className='container_myRecomTop'>
-                <div className='container_myRecomTitle'>
-                  경로 추천글 제목
-                </div>
-                <div className='container_myViews'>조회수 1004</div>
-                <div className='container_myWriteDate_Recom'>2023. 07. 16 03:46</div>
-
-                <div className='container_myScrapToggle'
-                onClick={() => scrapClick(2)}>
-                  <RxBookmarkFilled className={isScrapped[2] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'} id='icon_myRouteScrapToggle'/>
-                </div>
-              </div>
-
-              <div className='container_myRecomBottom'>
-                <div className='container_myRecomContent'>
-                  본문
-                </div>
-                   {/* 스크랩에서만 글작성자 */}
-                   <div className='container_myScrapUser'>
-                  <div className='box_userNickname'>닉네임닉네임</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-       
-
-
+      })}
 
       </div>
 
       <div className='container_myBottom'>
-        <div className='box_contensPlus'>
-            더보기  
-        </div>
+          <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
       </div>
 
     </div>

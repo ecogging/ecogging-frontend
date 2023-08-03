@@ -63,8 +63,8 @@
   width:100%;
   height:40px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  background-color: beige;
 }
 /* 진행상태 */
 .container_myShareState_ongoing {
@@ -137,7 +137,7 @@
 
 /* 본문 */
 .container_myShareContent {
-  width:100%;
+  width:86%;
   height:100%;
   display: flex;
   align-items: center;
@@ -170,24 +170,6 @@
   cursor: pointer;
 }
 
-/* 프사+닉네임 */
-.container_myScrapUser {
-  width:160px;
-  height:35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right:57px;
-}
-.box_userNickname {
-  width:100px;
-  height:100%;
-  display: flex;
-  margin-left:auto;
-  align-items: center;
-  justify-content: flex-end;
-  font-size:1.125rem;
-}
 
 /* 하단 페이지네이션 */
 .container_myBottom {

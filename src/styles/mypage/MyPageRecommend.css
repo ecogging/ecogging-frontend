@@ -73,6 +73,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top:5px;
+  background-color: beige;
 }
 .container_myViews {
   width:150px;
@@ -126,6 +127,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  background-color: red;
 }
 
 /* 버튼 */
