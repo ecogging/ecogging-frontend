@@ -47,7 +47,7 @@ export default function RouteDetail(){
     
    useEffect(()=>{
         axios
-        .post(`http://localhost:8080/routeInfo/${forumId}/${userId}`,null,null)
+        .post(`http://localhost:8080/routeInfo/${forumId}`,{userId:userId})
         .then((res)=>{
             setRouteInfo(res.data.routeInfo);
             console.log(res.data.routeInfo);
