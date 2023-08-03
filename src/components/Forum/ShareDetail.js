@@ -25,7 +25,7 @@ export default function ShareDetail(){
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/shareInfo/${forumId}/${userId}`)
+        .post(`http://localhost:8080/shareInfo/${forumId}`,{userId:userId})
         .then(res=>{
             setShareInfo(res.data.shareInfo);
             setView(true);

@@ -27,7 +27,7 @@ export default function ReviewDetail(){
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/reviewInfo/${forumId}/${userId}`)
+        .post(`http://localhost:8080/reviewInfo/${forumId}`,{userId:userId})
         .then(res=>{
             setReviewInfo(res.data.reviewInfo);
             setView(true);
