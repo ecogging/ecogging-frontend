@@ -120,16 +120,6 @@
   border-radius:10px;
 }
 
-/* 왼쪽 사진 */
-.container_myScrapLeft {
-  width:160px;
-  height:100%;
-  background-color: gray;
-  border-radius: 10px 0 0 10px;
-  object-fit: contain;
-}
-
-
 /* 오른쪽 */
 .container_myScrapRight {
   width:100%;
@@ -144,9 +134,37 @@
   height:80%;
 }
 
+/* 프사+닉네임 */
+.container_myScrapUser {
+  width:200px;
+  height:35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-right:px; */
+}
+.box_userNickname {
+  width:150px;
+  height:100%;
+  display: flex;
+  margin-left:auto;
+  align-items: center;
+  justify-content: flex-end;
+  font-size:1.125rem;
+}
+
+
 
 /* 진행상태 + 조회수 */
 .container_myScrapTop {
+  width:100%;
+  height:40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container_myScrapTop_r {
   width:100%;
   height:40px;
 
@@ -210,9 +228,6 @@
   margin-top:-15px;
   color:#c2c2c2;
 }
-#icon_myRouteScrapToggle {
-  margin-top:-20px;
-}
 
 .icon_myScrapToggle_scrap:hover {
   cursor: pointer;
@@ -245,12 +260,28 @@
 
 /* 본문 */
 .container_myScrapContent {
-  width:100%;
+  width:1300px;
   height:100%;
 
   display: flex;
   align-items: center;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+.container_myScrapContent_r {
+  width:1080px;
+  height:100%;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 
 /* 하단 페이지네이션 */
 .container_myBottom {
