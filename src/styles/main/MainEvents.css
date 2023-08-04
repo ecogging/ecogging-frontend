@@ -88,13 +88,18 @@
   height:80%;
 }
 .box_EventsCard_title {
-  width:100%;
-  height:30%;
+  width: 100%;
+  height: 30%;
+  margin-top:5%;
+  margin-bottom:5%;
 
   display: flex;
   align-items: flex-end;
-  font-size:2.25rem;
-  font-weight:bold;
+  font-size: 2.25rem;
+  font-weight: bold;
+
+  overflow: hidden;
+  white-space: nowrap;
 }
 .box_EventsCard_date {
   width:100%;
