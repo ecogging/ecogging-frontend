@@ -62,16 +62,13 @@ export default function MyPageForumScrap() {
   }, [nowPage]);
 
   // 지도 ------------------------------------------------------------------
+  let boxMaps = null;
   useEffect(() => {
-    let boxMaps = document.getElementsByClassName("container_myRecomLeft");
+    boxMaps = document.getElementsByClassName("container_myRecomLeftScrap");
     for(let boxMap of boxMaps) { 
-        mapOnload(boxMap, boxMap.dataset.address);
+        mapOnload(boxMap, boxMap.dataset.address );
     }
-  }, [myScraps]); 
-
-  if (myScraps === null) {
-    return <div>Loading...</div>
-  }
+  }); 
 
   const mapOnload = (e, address) => {
     var geocoder = new kakao.maps.services.Geocoder();
@@ -220,34 +217,35 @@ export default function MyPageForumScrap() {
             (
               <div className="container_mypageShareWriting" key={idx}>
 
-                <div className="container_myShareRight">
-                  <div className='container_myShareWhole'>
-                    <div className='container_myScrapTop'>
-                      <div className='container_myShareState_ongoing'>진행중</div>
-                      <div className='container_myShareViews'>조회수 {item.views}</div>
-                      <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
-                      
-                      <div className='container_myScrapToggle'>
-                        <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
-                      </div>
+                <div className="container_myShareRight"></div>
+                  <div className="container_myShareCover">
+                    <div className='container_myShareWhole'>
+                      <div className='container_myScrapTop'>
+                        <div className='container_myShareState_ongoing'>진행중</div>
+                        <div className='container_myShareViews'>조회수 {item.views}</div>
+                        <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
+                        
+                        <div className='container_myScrapToggle'>
+                          <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
+                        </div>
 
-                    </div>
-                    <Link to={`/shareInfo/${item.forumId}`} className='link_toShareDetail'>
-                      <div className='container_myShareTitle'>
-                        {item.title}
                       </div>
-                    </Link>
-                    <div className='container_myShareBottom'>
-                      <div className='container_myScrapContent'>
-                        {item.content}
-                      </div>
+                      <Link to={`/shareInfo/${item.forumId}`} className='link_toShareDetail'>
+                        <div className='container_myShareTitle'>
+                          {item.title}
+                        </div>
+                      </Link>
+                      <div className='container_myShareBottom'>
+                        <div className='container_myScrapContent'>
+                          {item.content}
+                        </div>
 
-                      <div className='container_myScrapUser'>
-                        <div className='box_userNickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
+                        <div className='container_myScrapUser'>
+                          <div className='box_userNickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
               </div>
             )
@@ -257,7 +255,7 @@ export default function MyPageForumScrap() {
             (
               <div className="container_mypageRecomWriting" key={idx}>
 
-                <div className="container_myRecomLeft" id="container_myRecomLeft" data-address={item.location} ref={(e) => mapOnload(e,item.location)}></div>
+                <div className="container_myRecomLeftScrap" id="container_myRecomLeft" data-address={item.location} ref={(e) => mapOnload(e,item.location)}></div>
 
                 <div className="container_myRecomRight">
                   <div className='container_myRecomWhole'>
