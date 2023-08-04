@@ -19,13 +19,10 @@ const { kakao } = window;
 
 export default function MyPageForumScrap() {
 
+  // 검색
   const [searchCriteria, setSearchCriteria] = useState('전체');
   const [searchWords, setSearchWords] = useState(null);
   const [searchNull, setSearchNull] = useState(false);
-  console.log("조건: "+searchCriteria);
-  console.log('검색어: '+searchWords);
-
-
 
   // 쪽지 -----------------------------------------------------------------
   const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
@@ -56,7 +53,6 @@ export default function MyPageForumScrap() {
       }
     })
     .then((res) => {
-      console.log(res.data.data);
       setMyScraps(res.data.data);
       setTotPages(res.data.allCount);
     })
@@ -150,9 +146,7 @@ export default function MyPageForumScrap() {
         }
       })
       .then((res) => {
-        console.log('내 스크롤 검색 결과 불러오기 완료');
         setSearchNull(false);
-        console.log(res.data);
         setMyScraps(res.data.data);
         setTotPages(res.data.allCount);
       })
@@ -165,10 +159,8 @@ export default function MyPageForumScrap() {
 
 
   // 스크랩 토글 ------------------------------------------------------------
-  const getMyScrapToggle = (forumId) => {
+  const getMyScrapToggle = (forumId, e) => {
     const url = `/mypage/${userId}/forumscraps`;
-    console.log(forumId);
-    console.log(typeof(forumId));
     axios.put(url, null, {
       headers:headers,
       params: {
@@ -176,21 +168,19 @@ export default function MyPageForumScrap() {
       }
     })
     .then((res) => {
-      console.log('스크랩 토글 완료');
-      console.log(res.data);
+      if (e.target.classList.contains('icon_myScrapToggle_scrap')) {
+        e.target.classList.remove('icon_myScrapToggle_scrap');
+        e.target.classList.add('scrappedOk');
+      } else {
+        e.target.classList.remove('scrappedOk');
+        e.target.classList.add('icon_myScrapToggle_scrap');
+      }
     })
     .catch((err) => {
-      console.log('스크랩 토글 실패');
       console.log(err);
     });
   }
       
-
-
-
-
-
-
 
 
   return(
@@ -238,7 +228,7 @@ export default function MyPageForumScrap() {
                       <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
                       
                       <div className='container_myScrapToggle'>
-                        <RxBookmarkFilled className='icon_myScrapToggle_scrap' id='icon_myScrapToggle' onClick={() => getMyScrapToggle(item.forumId)} />
+                        <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
                       </div>
 
                     </div>
@@ -281,7 +271,7 @@ export default function MyPageForumScrap() {
                       <div className='container_myWriteDate_Recom'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
 
                       <div className='container_myScrapToggle'>
-                        <RxBookmarkFilled className='icon_myScrapToggle_scrap' id='icon_myScrapToggle' onClick={() => getMyScrapToggle(item.forumId)} />
+                        <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
                       </div>
                     </div>
 

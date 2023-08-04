@@ -222,19 +222,19 @@
   width:80px;
   height:80px;
   margin-top:-15px;
-  color:#9BE4CE;
+  color:#c2c2c2;
 }
-.icon_myScrapToggle_unScrap {
+.scrappedOk {
   width:80px;
   height:80px;
   margin-top:-15px;
-  color:#c2c2c2;
+  color:#9BE4CE;
 }
 
 .icon_myScrapToggle_scrap:hover {
   cursor: pointer;
 }
-.icon_myScrapToggle_unScrap:hover {
+.scrappedOk:hover {
   cursor: pointer;
 }
 
