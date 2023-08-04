@@ -78,10 +78,11 @@
   border: none;
   width:75%;
   height:60%;
-  background-color: rgb(230, 230, 230);
+  background-color: transparent;
 }
 .input_myForumScrapSearch:focus {
   outline: none;
+  background-color: transparent;
 }
 .btn_myForumScrapSearch {
   width:60px;
