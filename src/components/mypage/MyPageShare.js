@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
+import NotFoundWrote from './NotFoundWrote';
 
 export default function MyPageShare() {
   const navigate = useNavigate();
@@ -65,11 +66,15 @@ export default function MyPageShare() {
   return (
     <div className="MyPageShare">
 
-      {/* 글 목록 업데이트 영역 -- 5개 */}
       <div className="container_myShareArea"> 
 
+        {shares === null ?
 
-        {shares && shares.map((item, idx) => (
+        <NotFoundWrote />
+
+        : 
+
+        shares.map((item, idx) => (
 
 
         <div className="container_mypageShareWriting" key={item.forumId}>
@@ -112,9 +117,10 @@ export default function MyPageShare() {
           </div>
           </div>
 
-        ))}
+        ))
     
-
+      }
+      
       </div>
 
       <div className='container_myBottom'>
