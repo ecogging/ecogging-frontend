@@ -9,6 +9,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
+import NotFoundWrote from './NotFoundWrote';
 
 const { kakao } = window;
 
@@ -58,10 +59,6 @@ export default function MyPageRecommend() {
     }
   }, [routes]); 
 
-  if (routes === null) {
-    return <div>Loading...</div>
-  }
-
   const mapOnload = (e, address) => {
     var geocoder = new kakao.maps.services.Geocoder();
     geocoder.addressSearch(address, (result, status) => {
@@ -108,8 +105,13 @@ const handelShareDel=(id)=>{
 
       <div className="container_mypageRecomArea">
 
+        { routes === null ?
 
-        {routes && routes.map((item) => (
+          <NotFoundWrote />
+
+        :
+        
+        routes.map((item) => (
 
           <div className="container_mypageRecomWriting">
             
@@ -140,7 +142,9 @@ const handelShareDel=(id)=>{
             </div>
           </div>
 
-        ))}
+        ))
+        
+      }
 
    
 

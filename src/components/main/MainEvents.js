@@ -43,13 +43,13 @@ export default function MainEvents() {
                   <div className='container_EventsCardCoverText'>
                     
                     <div className="cont_EventsCardCoverTop">
-                      { (item.active) ?  <div className="box_EventsCard_state_ing">진행중</div>
-                      :  <div className="box_EventsCard_state_fin">마감</div>}
+                      { (item.active) ?  <div className="box_EventsCard_state_fin">마감</div>
+                      :  <div className="box_EventsCard_state_ing">진행중</div>}
                     </div>
 
                     <div className="cont_EventsCardCoverMiddle">
                       <div className='box_EventsCard_title'>
-                          {(item.evtTitle.length>10) ? item.evtTitle.substring(0,8)+'...' : item.evtTitle}
+                          {item.evtTitle}
                       </div>
                       <div className='box_EventsCard_date'><BiCalendarCheck className="icon_eventsDate"/>{item.evtStartDate} ~ {item.evtEndDate}</div>
                       <div className='box_EventsCard_writer'>{item.nickname}</div>

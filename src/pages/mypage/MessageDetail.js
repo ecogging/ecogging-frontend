@@ -74,6 +74,20 @@ export default function MessageDetail() {
         })
     }, [msgs]);
 
+
+    // 쪽지함 읽기 처리 [알림 경로]  -------------------------------------------------------------
+    useEffect(() => { 
+        const url = `/${userId}/messageroom/${messageRoomId}/read`;
+        axios.put(url, null, {
+            headers: headers,
+        })
+        .catch((err) => {
+            console.log('쪽지함 읽음 처리 실패');
+            console.log(err);
+        });
+    }, []); 
+
+
     return (
         <div className="MessageDetail">
 
@@ -92,7 +106,7 @@ export default function MessageDetail() {
 
                 <div className='container_messageDetailHeader'>
                     <MyButton text={'목록보기'} type={ 'whiteGrayWide2' } 
-                    onClick={() => goBack(-1)}/>
+                    onClick={() => goBack(`/mypage/${userId}/messagerooms`)}/>
                 </div>
 
                 <div className='container_msgSubWrapper'>
