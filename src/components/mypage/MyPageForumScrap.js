@@ -194,7 +194,7 @@ export default function MyPageForumScrap() {
               <ul className='droplist_myScrapSearch' id="droplist_myScrapSearch" onClick={getSearchCriteria}>
                 <li className='drops_myScrapSearch'>전체</li>
                 <li className='drops_myScrapSearch'>나눔</li>
-                <li className='drops_myScrapSearch'>추천</li>
+                <li className='drops_myScrapSearch'>경로</li>
               </ul>
             </div>
             <input type='text' name='forumscrapSearch' className='input_myForumScrapSearch' id='input_myForumScrapSearch' onChange={getSearchWords}/>
