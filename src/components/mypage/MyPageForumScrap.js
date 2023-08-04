@@ -25,13 +25,7 @@ export default function MyPageForumScrap() {
   console.log("조건: "+searchCriteria);
   console.log('검색어: '+searchWords);
 
-  // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
-  const [isScrapped, SetIsScrapped] = useState([true, true, true]);
-  const scrapClick = (index) => {
-    const newIsScrapped = [...isScrapped];
-    newIsScrapped[index] = !newIsScrapped[index];
-    SetIsScrapped(newIsScrapped);
-  }
+
 
   // 쪽지 -----------------------------------------------------------------
   const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
@@ -167,7 +161,29 @@ export default function MyPageForumScrap() {
         setSearchNull(true);
       });
     }
-  };
+  }
+
+
+  // 스크랩 토글 ------------------------------------------------------------
+  const getMyScrapToggle = (forumId) => {
+    const url = `/mypage/${userId}/forumscraps`;
+    console.log(forumId);
+    console.log(typeof(forumId));
+    axios.put(url, null, {
+      headers:headers,
+      params: {
+        forumId:forumId,
+      }
+    })
+    .then((res) => {
+      console.log('스크랩 토글 완료');
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log('스크랩 토글 실패');
+      console.log(err);
+    });
+  }
       
 
 
@@ -221,9 +237,8 @@ export default function MyPageForumScrap() {
                       <div className='container_myShareViews'>조회수 {item.views}</div>
                       <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
                       
-                      <div className='container_myScrapToggle'
-                      onClick={() => scrapClick(0)}>
-                        <RxBookmarkFilled className={isScrapped[0] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'}/>
+                      <div className='container_myScrapToggle'>
+                        <RxBookmarkFilled className='icon_myScrapToggle_scrap' id='icon_myScrapToggle' onClick={() => getMyScrapToggle(item.forumId)} />
                       </div>
 
                     </div>
@@ -265,9 +280,8 @@ export default function MyPageForumScrap() {
                       <div className='container_myViews'>조회수 {item.views}</div>
                       <div className='container_myWriteDate_Recom'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
 
-                      <div className='container_myScrapToggle'
-                      onClick={() => scrapClick(2)}>
-                        <RxBookmarkFilled className={isScrapped[2] ? 'icon_myScrapToggle_scrap' : 'icon_myScrapToggle_unScrap'} id='icon_myRouteScrapToggle'/>
+                      <div className='container_myScrapToggle'>
+                        <RxBookmarkFilled className='icon_myScrapToggle_scrap' id='icon_myScrapToggle' onClick={() => getMyScrapToggle(item.forumId)} />
                       </div>
                     </div>
 
