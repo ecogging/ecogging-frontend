@@ -10,17 +10,23 @@ import { Pagination } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
+import MessageSendModal from '../../components/common/MessageSendModal';
+import useSendMessage from "../../hooks/useSendMessage";
+
 const { kakao } = window;
 
 export default function MyPageForumScrap() {
 
-    // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
-    const [isScrapped, SetIsScrapped] = useState([true, true, true]);
-    const scrapClick = (index) => {
-      const newIsScrapped = [...isScrapped];
-      newIsScrapped[index] = !newIsScrapped[index];
-      SetIsScrapped(newIsScrapped);
-    }
+  // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
+  const [isScrapped, SetIsScrapped] = useState([true, true, true]);
+  const scrapClick = (index) => {
+    const newIsScrapped = [...isScrapped];
+    newIsScrapped[index] = !newIsScrapped[index];
+    SetIsScrapped(newIsScrapped);
+  }
+
+  // 쪽지 -----------------------------------------------------------------
+  const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
 
   // 페이징 ---------------------------------------------------------------
   const [totPages, setTotPages] = useState(0); // 전체 페이지
@@ -57,8 +63,6 @@ export default function MyPageForumScrap() {
     });
   }, [nowPage]);
 
-
-   
   // 지도 ------------------------------------------------------------------
   useEffect(() => {
     let boxMaps = document.getElementsByClassName("container_myRecomLeft");
@@ -107,6 +111,8 @@ export default function MyPageForumScrap() {
 
   return(
     <div className="MyPageForumScrap">
+
+      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
 
       <div className='container_myForumScrapHeader'>
 
@@ -160,7 +166,7 @@ export default function MyPageForumScrap() {
                       </div>
 
                       <div className='container_myScrapUser'>
-                        <div className='box_userNickname'>{item.nickname}</div>
+                        <div className='box_userNickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
                       </div>
                     </div>
                   </div>
@@ -173,10 +179,8 @@ export default function MyPageForumScrap() {
 
             (
               <div className="container_mypageRecomWriting" key={idx}>
-                {/* 지도 */}
-                <div className="container_myRecomLeft" id="container_myRecomLeft" data-address={item.location} ref={(e) => mapOnload(e,item.location)}>
-                  {/* <img src={temptemp}  className='temptemp'/> */}
-                </div>
+
+                <div className="container_myRecomLeft" id="container_myRecomLeft" data-address={item.location} ref={(e) => mapOnload(e,item.location)}></div>
 
                 <div className="container_myRecomRight">
                   <div className='container_myRecomWhole'>
@@ -201,7 +205,7 @@ export default function MyPageForumScrap() {
                       </div>
 
                       <div className='container_myScrapUser'>
-                      <div className='box_userNickname'>{item.nickname}</div>
+                      <div className='box_userNickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
                     </div>
                   </div>
                 </div>
