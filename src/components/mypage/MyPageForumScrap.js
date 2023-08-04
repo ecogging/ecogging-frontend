@@ -114,7 +114,7 @@ export default function MyPageForumScrap() {
 
       {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
 
-      <div className='container_myForumScrapHeader'>
+      <div className='container_myForumScrapHeader' onClick={closeSendModal}>
 
         <div className='container_myForumScrapSearch'>
           <div className='box_myScrapSearch'>
@@ -132,7 +132,7 @@ export default function MyPageForumScrap() {
         </div>
       </div>
       
-      <div className='container_myforumScrapArea'>
+      <div className='container_myforumScrapArea' onClick={closeSendModal}>
 
         {myScraps && myScraps.map((item, idx) => {
           console.log(item.type)
@@ -219,7 +219,7 @@ export default function MyPageForumScrap() {
 
       </div>
 
-      <div className='container_myBottom'>
+      <div className='container_myBottom'  onClick={closeSendModal}>
           <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
       </div>
 
