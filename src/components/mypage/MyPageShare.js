@@ -83,6 +83,7 @@ export default function MyPageShare() {
           }
 
             <div className="container_myShareRight">
+            <div className="container_myShareCover">
               <div className='container_myShareWhole'>
                 <div className='container_myShareTop'>
 
@@ -108,6 +109,7 @@ export default function MyPageShare() {
                 </div>
               </div>
             </div>
+          </div>
           </div>
 
         ))}
