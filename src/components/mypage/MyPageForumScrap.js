@@ -4,18 +4,26 @@ import '../../styles/mypage/MyPageShare.css';
 import '../../styles/mypage/MyPageRecommend.css';
 import { RxBookmarkFilled } from "react-icons/rx";
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from "react-router";
+import { Route, useParams } from "react-router";
 import { Pagination } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
 import MessageSendModal from '../../components/common/MessageSendModal';
 import useSendMessage from "../../hooks/useSendMessage";
+import NotFound from "./NotFound";
 
 const { kakao } = window;
 
 export default function MyPageForumScrap() {
+
+  const [searchCriteria, setSearchCriteria] = useState('전체');
+  const [searchWords, setSearchWords] = useState(null);
+  const [searchNull, setSearchNull] = useState(false);
+  console.log("조건: "+searchCriteria);
+  console.log('검색어: '+searchWords);
 
   // 스크랩 토글 - 일단 임시 (글 생성 -> 자동 인덱스, 배열 업데이트 함수 추가)
   const [isScrapped, SetIsScrapped] = useState([true, true, true]);
@@ -102,6 +110,66 @@ export default function MyPageForumScrap() {
     });
   };
 
+  // 검색창 분류기준 드롭다운 여닫기 -------------------------------------
+  const openSearchCriteria = () => {
+    const droplist = document.getElementById("droplist_myScrapSearch");
+    if (droplist.classList.contains('searchDrop_clicked')) {
+      droplist.classList.remove('searchDrop_clicked');
+    } else {
+      droplist.classList.add('searchDrop_clicked');
+    }
+  }
+
+  // 검색창 분류기준 설정
+  const getSearchCriteria = (e) => {
+    setSearchCriteria(e.target.textContent);
+    document.getElementById("droplist_myScrapSearch").classList.remove('searchDrop_clicked');
+  }
+
+  const getSearchWords = (e) => {
+    let inputSearch = document.getElementById('input_myForumScrapSearch').value;
+    setSearchWords(inputSearch);
+  }
+
+  // 검색어 설정 & 검색 
+  const goSearch = () => {
+    document.getElementById("droplist_myScrapSearch").classList.remove('searchDrop_clicked');
+    const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/;
+
+    if(searchWords === null) {
+      alert('검색어를 입력해주세요');
+    } else if (searchWords.length < 2) {
+      alert('검색어는 2글자 이상 입력해주세요');  
+    } else if (regExp.test(searchWords)) {
+      alert('특수문자를 뺀 한글, 영어, 숫자로 검색해주세요');
+    }
+    else {
+
+      const url = `/mypage/${userId}/forumscraps/search`;
+      setNowPage(1);
+      axios.get(url, {
+        headers:headers,
+        params: {
+          pageNo: nowPage,
+          searchCriteria: searchCriteria,
+          searchWords: searchWords
+        }
+      })
+      .then((res) => {
+        console.log('내 스크롤 검색 결과 불러오기 완료');
+        setSearchNull(false);
+        console.log(res.data);
+        setMyScraps(res.data.data);
+        setTotPages(res.data.allCount);
+      })
+      .catch((err) => {
+        console.log('내 스크랩 검색 결과 불러오기 실패', err);
+        setSearchNull(true);
+      });
+    }
+  };
+      
+
 
 
 
@@ -119,23 +187,27 @@ export default function MyPageForumScrap() {
         <div className='container_myForumScrapSearch'>
           <div className='box_myScrapSearch'>
             <div className='dropbox_myScrapSearch'>
-              <div className='droplist_nowSearch'>전체</div>
-              <ul className='droplist_myScrapSearch'>
+              <div className='droplist_nowSearch' onClick={openSearchCriteria}>{searchCriteria}</div>
+              <ul className='droplist_myScrapSearch' id="droplist_myScrapSearch" onClick={getSearchCriteria}>
                 <li className='drops_myScrapSearch'>전체</li>
                 <li className='drops_myScrapSearch'>나눔</li>
                 <li className='drops_myScrapSearch'>추천</li>
               </ul>
             </div>
-            <input type='text' name='forumscrapSearch' className='input_myForumScrapSearch' />
-            <button className='btn_myForumScrapSearch'>검색</button>
+            <input type='text' name='forumscrapSearch' className='input_myForumScrapSearch' id='input_myForumScrapSearch' onChange={getSearchWords}/>
+            <button className='btn_myForumScrapSearch' onClick={goSearch}>검색</button>
           </div>
         </div>
       </div>
       
       <div className='container_myforumScrapArea' onClick={closeSendModal}>
 
-        {myScraps && myScraps.map((item, idx) => {
-          console.log(item.type)
+        { searchNull === true ? 
+         <NotFound />
+        
+          :
+          
+         searchNull === false && myScraps && myScraps.map((item, idx) => {
 
           return item.type === '나눔' ? 
           
@@ -213,9 +285,10 @@ export default function MyPageForumScrap() {
               
             </div>
           ) 
-        
 
-      })}
+      })
+
+    } 
 
       </div>
 
