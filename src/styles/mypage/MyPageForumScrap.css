@@ -44,6 +44,7 @@
   align-items: center;
   background-color: rgb(230, 230, 230);
   color:rgb(75, 75, 75);
+  z-index:10;
 }
 .droplist_myScrapSearch {
   position: absolute;
@@ -52,12 +53,13 @@
   background-color: rgb(230, 230, 230);
   display: none;
 }
-.droplist_myScrapSearch_clicked {
+.searchDrop_clicked {
   position: absolute;
   width:50px;
   height:95px;
   background-color: rgb(230, 230, 230);
   display: block;
+  z-index:10;
 }
 .drops_myScrapSearch {
   width: 100%;
@@ -220,19 +222,19 @@
   width:80px;
   height:80px;
   margin-top:-15px;
-  color:#9BE4CE;
+  color:#c2c2c2;
 }
-.icon_myScrapToggle_unScrap {
+.scrappedOk {
   width:80px;
   height:80px;
   margin-top:-15px;
-  color:#c2c2c2;
+  color:#9BE4CE;
 }
 
 .icon_myScrapToggle_scrap:hover {
   cursor: pointer;
 }
-.icon_myScrapToggle_unScrap:hover {
+.scrappedOk:hover {
   cursor: pointer;
 }
 
