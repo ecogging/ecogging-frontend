@@ -37,11 +37,21 @@ export default function NotificationItem({item, deleteHandler, clickHandler}) {
           {<FiTrash2 onClick={() => deleteHandler(item.id)}/>}
         </span>
       </div>
-      <Link to={link} onClick={() => clickHandler(item.id)} className='noti-link'>
-        <div className="item-body">
-          {content}
-        </div>
-      </Link>
+
+      {window.location.href.indexOf('mypage') > -1 && link.indexOf('Plogging') > -1 ?
+        <a href={link} onClick={() => clickHandler(item.id)} className='noti-link'>
+          <div className="item-body">
+            {content}
+          </div>
+        </a>
+          :
+        <Link to={link} onClick={() => clickHandler(item.id)} className='noti-link'>
+          <div className="item-body">
+            {content}
+          </div>
+        </Link>
+      }
+
     </div>
   )
 }

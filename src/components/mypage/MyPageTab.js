@@ -7,7 +7,6 @@ export default function MyPageTab({ userId }) {
 
   // 다른 경로를 통해 마이페이지로 들어올 경우 
   useEffect(() => {
-    console.log(window.location.pathname);
     let nowPath = window.location.href;
     let links = document.getElementsByClassName('link_myPageTabMenu');
     for (let l of links) {
