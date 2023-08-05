@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCookie } from "../../utils/CookieUtil";
 
-export default function MyPageTab({ userId, match }) {
+export default function MyPageTab({ userId }) {
   const isCorporate = getCookie('userType') === 'CORPORATE';
 
   // 다른 경로를 통해 마이페이지로 들어올 경우 
@@ -15,7 +15,7 @@ export default function MyPageTab({ userId, match }) {
         l.firstChild.className += '_clicked';
       }
     }
-  }, [window.location.pathname]);
+  }, []);
 
   const handleTabMenu = (e) => {
 

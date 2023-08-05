@@ -18,12 +18,10 @@ function isValidTokenToLogin(token) {
 }
 
 function removeTokenAndUserFromCookie() {
-  const tokenKeys = ['access-token', 'userId', 'nickname', 'userType', 'profileImageUrl'];
-        
-  for (const tokenKey of tokenKeys) {
-    if (getCookie(tokenKey))
-      removeCookie(tokenKey)
-  }
+  removeCookie('access-token');
+  removeCookie('userId');
+  removeCookie('nickname');
+  removeCookie('userType');
 }
 
 // 새로고침
@@ -96,6 +94,13 @@ export default function Header ({userId, setUserId}) {
         let nowMenuClass = e.target.textContent; // 클릭한 타겟의 클래스이름
         setInMenu(nowMenuClass);
     }
+
+    
+
+    useEffect(() => {
+      setNickname(getCookie('nickname'));
+      setIsCorporate(isCorporateUser);
+    },[])
 
     if(isLogin){
         return (
