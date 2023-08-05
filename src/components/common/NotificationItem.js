@@ -38,13 +38,17 @@ export default function NotificationItem({item, deleteHandler, clickHandler}) {
         </span>
       </div>
 
-      {window.location.href.indexOf('mypage') > -1 && link.indexOf('Plogging') > -1 ?
+      {(window.location.href.indexOf('mypage') > -1 && link.indexOf('Plogging') > -1 )
+        || (window.location.href.indexOf('mypage') === -1  && window.location.pathname !== '/' && window.location.href.indexOf('messageroom/') === -1)   ?
+
         <a href={link} onClick={() => clickHandler(item.id)} className='noti-link'>
           <div className="item-body">
             {content}
           </div>
         </a>
+
           :
+
         <Link to={link} onClick={() => clickHandler(item.id)} className='noti-link'>
           <div className="item-body">
             {content}

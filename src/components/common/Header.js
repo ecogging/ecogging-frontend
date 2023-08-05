@@ -48,6 +48,8 @@ export default function Header ({userId, setUserId}) {
     // 모달 - 로그인
     const [isLoginModalOpen, openLoginModal, closeLoginModal] = useCustomModal();
     const userLogout = () => {
+      handleRemoveCss();
+
       removeTokenAndUserFromCookie();
       navigate('/');
       setIsLogin(false);
@@ -68,18 +70,13 @@ export default function Header ({userId, setUserId}) {
 
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
+        console.log(window.location.pathname);
+        handleHeaderMenu(e);
+
         if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
             if(showNav === true) {
                 setShowNav(!showNav);
             }
-        }
-        const menuText = e.target.className;
-
-        if (menuText === 'headerMenuLink' || menuText === 'mainLogo' || menuText === 'ploggingNavMenu' || menuText === 'MyButton MyButton_gray' || menuText === 'nickName') {
-          localStorage.setItem('selected', "계정 정보");
-          setInMenu(''); 
-        } else {
-          setInMenu(menuText);
         }
     }
     const [showNav, setShowNav] = useState(false);
@@ -96,32 +93,83 @@ export default function Header ({userId, setUserId}) {
         setInMenu(nowMenuClass);
     }
 
+    // Header clicked css 
+    const handleHeaderMenu = (e) => {
+        let nowPath = window.location.pathname;
+        let nowMenu = e.target.parentNode.href;
+
+        let includeMenu = e.target.parentNode.parentNode.className; 
+
+        if (nowMenu) {
+            // 일단 이전에 선택했던 메뉴가 있으면 css clicked효과 제거
+            let prevMenu = document.querySelectorAll('[class*="_clicked"]');
+            if(prevMenu) {
+                for(let p of prevMenu) {
+                    const newClassName = p.className.replace('_clicked', '');
+                    p.className = newClassName;
+                }
+            }
+            
+            if(nowMenu.indexOf(nowPath) > -1 && includeMenu.indexOf('ploggingNav') > -1) { // 플로깅 하위 메뉴 선택하면 플로깅까지 css 효과 적용
+                e.target.className += '_clicked';
+                document.querySelector('.ploggingNavContainer').className += '_clicked';
+                document.getElementsByClassName('headerMenuLink')[0].className += '_clicked';
+            } else if (nowMenu.indexOf('accompanies') > -1) { // 플로깅 선택할 경우 '모임'까지 css 효과 적용
+                document.querySelector('.ploggingNavContainer').className += '_clicked';
+                document.querySelectorAll('.headerMenuLink')[0].className += '_clicked';
+                document.querySelectorAll('.ploggingNavMenu')[0].className += '_clicked';
+            } else {
+                e.target.className += '_clicked';
+            }
+
+        }
+    }
+    
+    // 알림 통한 모임 댓글 들어간 경우 Header CSS 적용
+    if (window.location.href.indexOf('accompaniesdetail') > -1) {
+        if(document.querySelector('.ploggingNavContainer')) {
+            document.querySelector('.ploggingNavContainer').className += '_clicked';
+            document.querySelectorAll('.headerMenuLink')[0].className += '_clicked';
+            document.querySelectorAll('.ploggingNavMenu')[0].className += '_clicked';
+        }
+    }
+
+    const handleRemoveCss = () => {
+        let prevMenu = document.querySelectorAll('[class*="_clicked"]');
+        if(prevMenu) {
+            for(let p of prevMenu) {
+                const newClassName = p.className.replace('_clicked', '');
+                p.className = newClassName;
+            }
+        }
+    }
+
 
     if(isLogin){
         return (
             <header className='header' onClick={closeToggle} >
                 <Link to = {'/'}>
-                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo' onClick={clickMenu} />
+                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
                 </Link>
                 <nav className={`headerNav ${showNav ? 'show' : ''}`}>
                     <ul className='headerMenu'>
                         <li className='headerMenuList'>
-                            <Link to = {'/accompanies'} id='ploggingMenu' onClick={clickMenu} >
-                                <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div>
+                            <Link to = {'/accompanies'} id='ploggingMenu' className='ploggingMenu'>
+                                <div className='headerMenuLink'>플로깅</div>
                             </Link>
-                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                            <div className='ploggingNavContainer'>
                                 <ul className='ploggingNav' >
-                                    <Link to={'/accompanies'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'} onClick={clickMenu}>모임</li></Link>
-                                    <Link to={'/eventList'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'} onClick={clickMenu}>행사</li></Link>
-                                    <Link to={'/reviews'}><li className={inMenu === '후기' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'} onClick={clickMenu}>후기</li></Link>
+                                    <Link to={'/accompanies'}><li className='ploggingNavMenu'>모임</li></Link>
+                                    <Link to={'/eventList'}><li className='ploggingNavMenu'>행사</li></Link>
+                                    <Link to={'/reviews'}><li className='ploggingNavMenu'>후기</li></Link>
                                 </ul>
                             </div>
                         </li>
-                        <Link to={'/shares'}>
-                            <li className='headerMenuList' onClick={clickMenu} >
-                                <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
-                            </li>
-                        </Link>
+                        <li className='headerMenuList'>
+                            <Link to={'/shares'}>
+                                <div className='headerMenuLink'>커뮤니티</div>
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
                 <ul className='userNav' >
@@ -133,18 +181,16 @@ export default function Header ({userId, setUserId}) {
                     <li className='userNavBox' id='headerNickname'>
                         {window.location.href.indexOf('mypage') > -1 ? (
                             <a href={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                            <span className='nickName' onClick={clickMenu}>{nickname}</span>
+                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
                             </a>
                         ) : (
                             <Link to={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                            <a>
-                                <span className='nickName' onClick={clickMenu}>{nickname}</span>
-                            </a>
+                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
                             </Link>
                         )}
                         님
                     </li>
-                    <li className='userNavBox' onClick={clickMenu} ><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
+                    <li className='userNavBox'><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
 
                 <NotificationModal
@@ -162,32 +208,32 @@ export default function Header ({userId, setUserId}) {
     return (
         <header onClick={closeToggle}>
                 <Link to = {'/'}>
-                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo' onClick={clickMenu} />
+                    <img src={ecoggingLogo} alt='EcoggingLogo' className='mainLogo'/>
                 </Link>
             <nav className={`headerNav ${showNav ? 'show' : ''}`}>
                 <ul className='headerMenu'>
                     <li className='headerMenuList'>
-                        <Link to = {'/accompanies'} id='ploggingMenu' onClick={clickMenu}>
-                            <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu === '플로깅' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>플로깅</div>
+                        <Link to = {'/accompanies'} id='ploggingMenu'>
+                            <div className='headerMenuLink'>플로깅</div>
                         </Link>
-                        <div className={inMenu === '모임' || inMenu === '행사' ||inMenu === '후기' || inMenu=='플로깅' ? 'ploggingNavContainer_clicked' : 'ploggingNavContainer'}>
+                        <div className='ploggingNavContainer'>
                             <ul className='ploggingNav'>
-                                <Link to={'/accompanies'}><li className={ inMenu=='플로깅'  || inMenu === '모임' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'} onClick={clickMenu}>모임</li></Link>
-                                <Link to={'/eventList'}><li className={inMenu === '행사' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'} onClick={clickMenu}>행사</li></Link>
-                                <Link to={'/reviews'}><li className={inMenu === '후기' ? 'ploggingNavMenu_clicked' : 'ploggingNavMenu'} onClick={clickMenu}>후기</li></Link>
+                                <Link to={'/accompanies'}><li className='ploggingNavMenu'>모임</li></Link>
+                                <Link to={'/eventList'}><li className='ploggingNavMenu'>행사</li></Link>
+                                <Link to={'/reviews'}><li className='ploggingNavMenu'>후기</li></Link>
                             </ul>
                         </div>
                     </li>
                     <Link to={'/shares'}>
-                        <li className='headerMenuList' onClick={clickMenu}>
-                            <div className={inMenu === '커뮤니티' ? 'headerMenuLink_clicked' : 'headerMenuLink'}>커뮤니티</div>
+                        <li className='headerMenuList'>
+                            <div className='headerMenuLink'>커뮤니티</div>
                         </li>
                     </Link>
                 </ul>
             </nav>
-            <ul className='loginNav' onClick={clickMenu}>
+            <ul className='loginNav'>
               <Link to={'/corp-login'}>
-                <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'}></MyButton></li>
+                <li className='loginBtn'><MyButton text={'기업 로그인'} type={'whiteMint'} onClick={handleRemoveCss}></MyButton></li>
               </Link>
               <li className='loginBtn'><MyButton text={'개인 로그인'} onClick={openLoginModal}></MyButton></li>
             </ul>
