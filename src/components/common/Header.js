@@ -18,10 +18,12 @@ function isValidTokenToLogin(token) {
 }
 
 function removeTokenAndUserFromCookie() {
-  removeCookie('access-token');
-  removeCookie('userId');
-  removeCookie('nickname');
-  removeCookie('userType');
+  const tokenKeys = ['access-token', 'userId', 'nickname', 'userType', 'profileImageUrl'];
+
+  for (const tokenKey of tokenKeys) {
+    if (getCookie(tokenKey))
+      removeCookie(tokenKey)
+  }
 }
 
 // 새로고침
