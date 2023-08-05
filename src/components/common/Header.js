@@ -124,6 +124,15 @@ export default function Header ({userId, setUserId}) {
 
         }
     }
+    
+    // 알림 통한 모임 댓글 들어간 경우 Header CSS 적용
+    if (window.location.href.indexOf('accompaniesdetail') > -1) {
+        if(document.querySelector('.ploggingNavContainer')) {
+            document.querySelector('.ploggingNavContainer').className += '_clicked';
+            document.querySelectorAll('.headerMenuLink')[0].className += '_clicked';
+            document.querySelectorAll('.ploggingNavMenu')[0].className += '_clicked';
+        }
+    }
 
     const handleRemoveCss = () => {
         let prevMenu = document.querySelectorAll('[class*="_clicked"]');
