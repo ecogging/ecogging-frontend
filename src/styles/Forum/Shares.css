@@ -136,7 +136,7 @@ input{
     list-style: none;
 }
 .review_title{
-    /* background-color: antiquewhite; */
+    background-color: antiquewhite;
     font-size: 18px;
     color: black;
     font-weight: bold;
@@ -234,4 +234,15 @@ input{
     justify-content: center;
     align-items: center;
 
+}
+.share_detail_in{
+    background-color: rgb(76, 0, 255);
+    display: flex;
+}
+.share_detail_in>div{
+    margin-right: 5px;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    
 }
