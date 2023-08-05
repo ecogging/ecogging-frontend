@@ -177,6 +177,12 @@ export default function MyPageForumScrap() {
       console.log(err);
     });
   }
+
+  // 본문 내용 태그 제거 ------------------------------------------------
+  function removeHtmlTags(input) {
+    const doc = new DOMParser().parseFromString(input, 'text/html');
+    return doc.body.textContent || "";
+  }
       
 
 
@@ -221,7 +227,13 @@ export default function MyPageForumScrap() {
                   <div className="container_myShareCover">
                     <div className='container_myShareWhole'>
                       <div className='container_myScrapTop'>
-                        <div className='container_myShareState_ongoing'>진행중</div>
+
+                        {item.status === '진행중' ?
+                          <div className='container_myShareState_ongoing'>진행중</div>
+                          :
+                          <div className='container_myShareState_finish'>완료</div>
+                        }
+
                         <div className='container_myShareViews'>조회수 {item.views}</div>
                         <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
                         
@@ -236,8 +248,15 @@ export default function MyPageForumScrap() {
                         </div>
                       </Link>
                       <div className='container_myShareBottom'>
+
                         <div className='container_myScrapContent'>
-                          {item.content}
+
+                        { removeHtmlTags(item.content).length > 60 ? 
+                          removeHtmlTags(item.content).substring(0, 60)
+                          :
+                          removeHtmlTags(item.content)
+                        }
+
                         </div>
 
                         <div className='container_myScrapUser'>
@@ -275,7 +294,11 @@ export default function MyPageForumScrap() {
 
                     <div className='container_myRecomBottom'>
                       <div className='container_myScrapContent_r'>
-                        {item.content}
+                        { removeHtmlTags(item.content).length > 60 ? 
+                          removeHtmlTags(item.content).substring(0, 60)
+                          :
+                          removeHtmlTags(item.content)
+                        }
                       </div>
 
                       <div className='container_myScrapUser'>
