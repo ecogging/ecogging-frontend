@@ -70,7 +70,7 @@ export default function Header ({userId, setUserId}) {
 
     // 반응형 토글 메뉴 여닫기
     const closeToggle = (e) => {
-
+        console.log(window.location.pathname);
         handleHeaderMenu(e);
 
         if(e.target.className !== 'headerMenu' && e.target.className !== 'ploggingNav' && e.target.className !== ''){
@@ -181,13 +181,11 @@ export default function Header ({userId, setUserId}) {
                     <li className='userNavBox' id='headerNickname'>
                         {window.location.href.indexOf('mypage') > -1 ? (
                             <a href={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                            <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
+                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
                             </a>
                         ) : (
                             <Link to={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                            <a>
                                 <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
-                            </a>
                             </Link>
                         )}
                         님
