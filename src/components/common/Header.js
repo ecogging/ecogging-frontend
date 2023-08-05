@@ -97,12 +97,6 @@ export default function Header ({userId, setUserId}) {
         setInMenu(nowMenuClass);
     }
 
-    
-
-    useEffect(() => {
-      setNickname(getCookie('nickname'));
-      setIsCorporate(isCorporateUser);
-    },[])
 
     if(isLogin){
         return (
