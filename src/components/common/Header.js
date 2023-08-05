@@ -92,7 +92,6 @@ export default function Header ({userId, setUserId}) {
     const [inMenu, setInMenu] = useState('');
     const clickMenu = (e) => {
         let nowMenu = e.target; // 지금 클릭한 타겟
-        console.log(nowMenu.className);
         let nowMenuClass = e.target.textContent; // 클릭한 타겟의 클래스이름
         setInMenu(nowMenuClass);
     }
@@ -130,10 +129,20 @@ export default function Header ({userId, setUserId}) {
                     <li className='userNavBox headerNotify' onClick={toggleNotiModal}><FaRegBell className='headerNotify'/>
                       {hasUnReadNotifications && <div id='notificationCount' className='headerNotify'></div>}
                     </li>
+
                     <li className='userNavBox' id='headerNickname'>
-                      <Link to={ isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                        <span className='nickName' onClick={clickMenu} >{nickname}</span>
-                      </Link> 님
+                        {window.location.href.indexOf('mypage') > -1 ? (
+                            <a href={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
+                            <span className='nickName' onClick={clickMenu}>{nickname}</span>
+                            </a>
+                        ) : (
+                            <Link to={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
+                            <a>
+                                <span className='nickName' onClick={clickMenu}>{nickname}</span>
+                            </a>
+                            </Link>
+                        )}
+                        님
                     </li>
                     <li className='userNavBox' onClick={clickMenu} ><MyButton text={"로그아웃"} type={"gray"} onClick={userLogout}></MyButton></li>
                 </ul>
