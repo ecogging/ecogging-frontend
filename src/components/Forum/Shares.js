@@ -157,7 +157,10 @@ export default function ShareList(){
                                         </div>
                                         <div className='review_detail'>
                                             <Link to={`/shareInfo/${shares.forumId}`}>
-                                                <div className="review_title">{shares.title}</div>
+                                                <div className='share_detail_in'>
+                                                    <div className="share_status">[{shares.status}]</div>
+                                                    <div className="review_title">{shares.title}</div>
+                                                </div>
                                                 {/* <div className="review_content">{shares.content}</div> */}
                                                 {/* {view && <Viewer initialValue={shares.content} style={{width:"300px", height:"300px"}}/> } */}
                                             </Link>
@@ -183,7 +186,7 @@ export default function ShareList(){
                 </div>
                 <div className='writeBtn'>
                     {
-                    userId!==null ? 
+                    userId!==null && userId !== undefined? 
                     <Link to={`/shareWrite`}>
                         <MyButton text={"글 작성"}/>
                     </Link> : null

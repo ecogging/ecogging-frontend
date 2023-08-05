@@ -7,9 +7,12 @@ import '../../styles/Forum/ShareDetail.css';
 import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
 import { HiOutlineEye } from "react-icons/hi2";
 import { BsFillBookmarkFill } from "react-icons/bs";
+import {MdKeyboardArrowUp} from "react-icons/md";
+import {MdOutlineKeyboardArrowDown} from "react-icons/md";
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
 import { useNavigate } from 'react-router-dom';
+import ShareStatus from './ShareStatus';
 
  
 
@@ -22,6 +25,8 @@ export default function ShareDetail(){
     const [view, setView] = useState(false);
     const userId = getCookie("userId");
     const [isScrap, setIsScrap] = useState(false);
+    const [dropd, setDropd]=useState(false);
+    const [shareStau, setShareStau]=useState("");
 
     useEffect(()=>{
         axios
@@ -29,6 +34,7 @@ export default function ShareDetail(){
         .then(res=>{
             setShareInfo(res.data.shareInfo);
             setView(true);
+            setShareStau(res.data.shareInfo.status);
             console.log(res.data.shareInfo);
             setIsScrap(res.data.isScrap);
         }).catch(err=>{
@@ -66,13 +72,42 @@ export default function ShareDetail(){
             console.log(err);
         })
     }
+
+    const handleShareStatus=(data)=>{
+        setShareStau(data);
+        console.log("data : "+data);
+        const status=data;
+        console.log(status);
+        axios.post(`http://localhost:8080/shareStatus/${forumId}`,{stat:status})
+        // .then(res=> {
+        //     // setIsScrap(res.data);
+        //     // // setIsScrapped(res.data);
+        // })
+        // .catch(err=> {
+        //     console.log(err);
+        // })      
+    };
+
     return(
         <div className="reviewInfo_mainLayout">
             <div>
             </div>
             <div className="reviewInfo_wrap">
+                <div className="share_status">
+                    <div className="share_status_in">
+                        <ul onClick={()=>{setDropd(!dropd)}} className="share_ul">
+                            {shareStau}
+                            {/* <div className="dropDownIcon"> */}
+                                {dropd?<MdKeyboardArrowUp/>:<MdOutlineKeyboardArrowDown/>}
+                            {/* </div> */}
+                            {dropd&&<ShareStatus onStatus={handleShareStatus}/>}
+                        </ul>
+                    </div>
+                </div>
                 <div className="reviewInfo_top">
-                    <div className="reviewInfo_title">{shareInfo.title}</div>
+                    <div className="shareInfo_title">
+                        <div className="reviewInfo_title">{shareInfo.title}</div>
+                    </div>
                     <div className="reviewInfo_top_in">
                         {/* <div className="reviewInfo_imageAndnickname">
                             <div className="reviewInfo_profil">프사</div>
