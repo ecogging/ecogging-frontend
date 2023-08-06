@@ -1,5 +1,4 @@
 import '../../styles/mypage/MyPageShare.css';
-import temptemp from '../../assets/temp.png';
 import { Pagination } from 'antd';
 import { getCookie } from '../../utils/CookieUtil';
 import { useEffect } from 'react';
@@ -8,13 +7,10 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { Viewer } from '@toast-ui/react-editor';
 import NotFoundWrote from './NotFoundWrote';
 
 export default function MyPageShare() {
   const navigate = useNavigate();
-  const [view, setView] = useState(false);
-
 
 
   // 페이징 ---------------------------------------------------------------
@@ -83,14 +79,6 @@ export default function MyPageShare() {
 
 
         <div className="container_mypageShareWriting" key={item.forumId}>
-
-          { (item.fileName) ? 
-          <div className="container_myShareLeft">
-            <img src={temptemp}  className='temptemp'/> 
-          </div>
-          :
-          null
-          }
 
             <div className="container_myShareRight">
             <div className="container_myShareCover">
