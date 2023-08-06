@@ -5,17 +5,11 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import MessageSendModal from '../../components/common/MessageSendModal';
-import useSendMessage from "../../hooks/useSendMessage";
-
 const { kakao } = window;
 
 
 
 export default function MainAccompany() {
-
-  // 쪽지 보내기 모달
-  const { isModalOpen, selectedNick, selectedUserId, openSendModal, closeSendModal } = useSendMessage();
 
   // 최신 3개 글 가져오기
   const [accomp, setAccomp] = useState([]);
@@ -79,9 +73,8 @@ export default function MainAccompany() {
 
   return (
     <div className='container_mainAccompany'>
-      {isModalOpen ? <MessageSendModal onCloseModal={closeSendModal} receiverNick={selectedNick} receiverId={selectedUserId} /> : null}
 
-      <div className='container_part_mainAccompany' onClick={closeSendModal}>
+      <div className='container_part_mainAccompany'>
 
         <div className='container_title'>
           <div className='box_title'>RECENT MATES</div>
@@ -115,7 +108,7 @@ export default function MainAccompany() {
 
 
                   <div className='container_card_middle'>
-                    <div className='box_nickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
+                    <div className='box_nickname'>{item.nickname}</div>
                     <Link to={`/accompaniesdetail/${item.id}`} ><div className='box_matesTitle'>{item.title}</div></Link>
                   </div>
 
