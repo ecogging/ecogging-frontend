@@ -1,7 +1,5 @@
 import { getCookie } from "../../utils/CookieUtil";
 import '../../styles/mypage/MyPageForumScrap.css';
-import '../../styles/mypage/MyPageShare.css';
-import '../../styles/mypage/MyPageRecommend.css';
 import { RxBookmarkFilled } from "react-icons/rx";
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -15,7 +13,8 @@ import MessageSendModal from '../../components/common/MessageSendModal';
 import useSendMessage from "../../hooks/useSendMessage";
 import NotFound from "./NotFound";
 
-const { kakao } = window;
+import { SlLocationPin } from "react-icons/sl";
+
 
 export default function MyPageForumScrap() {
 
@@ -61,41 +60,6 @@ export default function MyPageForumScrap() {
     });
   }, [nowPage]);
 
-  // 지도 ------------------------------------------------------------------
-  let boxMaps = null;
-  useEffect(() => {
-    boxMaps = document.getElementsByClassName("container_myRecomLeftScrap");
-    for(let boxMap of boxMaps) { 
-        mapOnload(boxMap, boxMap.dataset.address );
-    }
-  }); 
-
-  const mapOnload = (e, address) => {
-    var geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(address, (result, status) => {
-        if (status === kakao.maps.services.Status.OK) { 
-            let lat = result[0].y;
-            let lon = result[0].x; 
-            var center = new kakao.maps.LatLng(lat, lon);
-
-            const mapOption = {
-                center: center, 
-                draggable: false,
-                level: 4 
-            };   
-
-            if (e) {
-            var map = new kakao.maps.Map(e, mapOption);
-            map.setZoomable(false);
-
-            var marker = new kakao.maps.Marker({
-                position: center
-            });
-            marker.setMap(map);
-        }
-      }
-    });
-  };
 
   // 검색창 분류기준 드롭다운 여닫기 -------------------------------------
   const openSearchCriteria = () => {
@@ -177,6 +141,12 @@ export default function MyPageForumScrap() {
       console.log(err);
     });
   }
+
+  // 본문 내용 태그 제거 ------------------------------------------------
+  function removeHtmlTags(input) {
+    const doc = new DOMParser().parseFromString(input, 'text/html');
+    return doc.body.textContent || "";
+  }
       
 
 
@@ -201,6 +171,7 @@ export default function MyPageForumScrap() {
             <button className='btn_myForumScrapSearch' onClick={goSearch}>검색</button>
           </div>
         </div>
+
       </div>
       
       <div className='container_myforumScrapArea' onClick={closeSendModal}>
@@ -215,36 +186,53 @@ export default function MyPageForumScrap() {
           return item.type === '나눔' ? 
           
             (
-              <div className="container_mypageShareWriting" key={idx}>
+              <div className="container_myForumScrapWriting" key={idx}>
 
-                <div className="container_myShareRight"></div>
-                  <div className="container_myShareCover">
-                    <div className='container_myShareWhole'>
-                      <div className='container_myScrapTop'>
-                        <div className='container_myShareState_ongoing'>진행중</div>
-                        <div className='container_myShareViews'>조회수 {item.views}</div>
-                        <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
-                        
-                        <div className='container_myScrapToggle'>
-                          <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
-                        </div>
+                <div className="container_myForumScrapCon">
+
+                      <div className='container_scrapShareTop'>
+
+                        {item.status === '진행중' ?
+                          <div className='container_myShareState_ongoing'>진행중</div>
+                          :
+                          <div className='container_myShareState_finish'>완료</div>
+                        }
+
+                        <div className='container_scrapShareTopRight'>
+                          <div className='container_scrapShareViews'>조회수 {item.views}</div>
+                          <div className='container_scrapShareDate'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
+                        </div>    
+                                            
+                          <div className='container_scrapShareToggle'>
+                            <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
+                          </div>
 
                       </div>
+
                       <Link to={`/shareInfo/${item.forumId}`} className='link_toShareDetail'>
-                        <div className='container_myShareTitle'>
+                        <div className='container_scrapShareTitle'>
                           {item.title}
                         </div>
                       </Link>
-                      <div className='container_myShareBottom'>
-                        <div className='container_myScrapContent'>
-                          {item.content}
+
+                      <div className='container_scrapShareBottom'>
+
+                        <div className='container_scrapShareContent'>
+
+                        { removeHtmlTags(item.content).length > 60 ? 
+                          removeHtmlTags(item.content).substring(0, 60)
+                          :
+                          removeHtmlTags(item.content)
+                        }
+
                         </div>
 
-                        <div className='container_myScrapUser'>
-                          <div className='box_userNickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
+                        <div className='container_scrapShareUser'>
+                          <div className='box_userNicknameScrap' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
                         </div>
+
                       </div>
-                    </div>
+
                   </div>
 
               </div>
@@ -253,36 +241,46 @@ export default function MyPageForumScrap() {
           :
 
             (
-              <div className="container_mypageRecomWriting" key={idx}>
+              <div className="container_myForumScrapWriting" key={idx}>
 
-                <div className="container_myRecomLeftScrap" id="container_myRecomLeft" data-address={item.location} ref={(e) => mapOnload(e,item.location)}></div>
+                  <div className="container_myForumScrapCon">
 
-                <div className="container_myRecomRight">
-                  <div className='container_myRecomWhole'>
-                    <div className='container_myScrapTop_r'>
-                      <Link to={`/routeInfo/${item.forumId}`} className='link_toRouteDetail'>
-                        <div className='container_myRecomTitle'>
-                          {item.title}
+                      <div className='container_scrapShareTop'>
+
+                        <div className="container_scrapRecomLocation">
+                          <SlLocationPin className="icon_scrapRecomLocation"/> {item.location}
                         </div>
-                      </Link>
-                      <div className='container_myViews'>조회수 {item.views}</div>
-                      <div className='container_myWriteDate_Recom'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
+                      
+                        <div className='container_scrapShareTopRight'>
+                          <div className='container_scrapShareViews'>조회수 {item.views}</div>
+                          <div className='container_scrapShareDate'>{moment(item.createdAt).format('YY.MM.DD h:mm a')}</div>
+                        </div>
 
-                      <div className='container_myScrapToggle'>
-                        <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
+                        <div className='container_scrapShareToggle' id ='container_myScrapToggler'>
+                          <RxBookmarkFilled className='scrappedOk' id='icon_myScrapToggle' onClick={(e) => getMyScrapToggle(item.forumId, e)} />
+                        </div>
+                       </div>
+
+                        <Link to={`/routeInfo/${item.forumId}`} className='link_toRouteDetail'>
+                          <div className='container_scrapShareTitle'>
+                            {item.title}
+                          </div>
+                        </Link>
+
+                      <div className='container_scrapShareBottom'>
+                        <div className='container_scrapShareContent'>
+                          { removeHtmlTags(item.content).length > 60 ? 
+                            removeHtmlTags(item.content).substring(0, 60)
+                            :
+                            removeHtmlTags(item.content)
+                          }
+                        </div>
+
+                        <div className='container_scrapShareUser'>
+                        <div className='box_userNicknameScrap' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
                       </div>
-                    </div>
-
-                    <div className='container_myRecomBottom'>
-                      <div className='container_myScrapContent_r'>
-                        {item.content}
-                      </div>
-
-                      <div className='container_myScrapUser'>
-                      <div className='box_userNickname' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
-                    </div>
-                  </div>
                 </div>
+
               </div>
               
             </div>
