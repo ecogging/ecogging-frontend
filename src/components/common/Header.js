@@ -134,6 +134,13 @@ export default function Header ({userId, setUserId}) {
         }
     }
 
+    // 마이페이지 나의 커뮤니티 하위 탭 통한 나눔/경로 상세글 진입 -> Header CSS 적용
+    if (window.location.href.indexOf('shareInfo') > -1 || window.location.href.indexOf('routeInfo') > -1) {
+        if(document.querySelectorAll('.headerMenuLink').length>1 && document.querySelectorAll('.headerMenuLink')[1].className.indexOf('_clicked') === -1) {
+            document.querySelectorAll('.headerMenuLink')[1].className += '_clicked';
+        }
+    }
+
     const handleRemoveCss = () => {
         let prevMenu = document.querySelectorAll('[class*="_clicked"]');
         if(prevMenu) {
