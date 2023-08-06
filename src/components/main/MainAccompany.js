@@ -109,7 +109,7 @@ export default function MainAccompany() {
                       :
                       <img src={picTemp} className='image_userPic_source'/>
                       }
-                      </div>
+                    </div>
                   
                   </div>
 
