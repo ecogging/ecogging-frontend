@@ -50,12 +50,12 @@ export default function MainForums() {
                 <div className='container_forumsCardMiddle'>
                   
                 { (item.type) === '경로' ? (
-                      <Link to={`http://localhost:8080/routeInfo/${item.forumId}`}>
+                      <Link to={`/routeInfo/${item.forumId}`}>
                         <div className='box_forumsCardTitle'>{item.title}</div>
                         <div className='box_forumsCardContent'>{removeHtmlTags(item.content)}</div>
                       </Link>
                     ) : (
-                      <Link to={`http://localhost:8080/shareInfo/${item.forumId}`}>
+                      <Link to={`/shareInfo/${item.forumId}`}>
                         <div className='box_forumsCardTitle'>{item.title}</div>
                         <div className='box_forumsCardContent'>{removeHtmlTags(item.content)}</div>
                       </Link>
