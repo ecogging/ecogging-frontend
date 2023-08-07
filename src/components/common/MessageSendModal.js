@@ -113,17 +113,22 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
       };
 
     const sendMessage = () => {
-        axios.post('http://localhost:8080/messagerooms', data, {
-            headers: headers, // 설정한 헤더를 옵션으로 전달
-        })
-            .then((response) => {
-                onCloseModal();
-            })
-            .catch((error) => {
-            console.log('쪽지 전송 실패', error);
-        });
-    }
 
+        if(curId === rcvId) {
+            alert('본인에게 쪽지를 보낼 수는 없습니다');
+            onCloseModal();
+        } else {  
+                axios.post('http://localhost:8080/messagerooms', data, {
+                headers: headers, // 설정한 헤더를 옵션으로 전달
+            })
+                .then((response) => {
+                    onCloseModal();
+                })
+                .catch((error) => {
+                console.log('쪽지 전송 실패', error);
+            });
+        }
+    }
 
 
     return (

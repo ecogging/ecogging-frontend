@@ -21,6 +21,12 @@ export default function MainForums() {
     });
   }, []);
 
+  // 본문 내용 태그 제거
+  function removeHtmlTags(input) {
+    const doc = new DOMParser().parseFromString(input, 'text/html');
+    return doc.body.textContent || "";
+  }
+
 
   return(
     <div className='container_mainForum'>
@@ -46,18 +52,18 @@ export default function MainForums() {
                 { (item.type) === '경로' ? (
                       <Link to={`http://localhost:8080/routeInfo/${item.forumId}`}>
                         <div className='box_forumsCardTitle'>{item.title}</div>
-                        <div className='box_forumsCardContent'>{item.content}</div>
+                        <div className='box_forumsCardContent'>{removeHtmlTags(item.content)}</div>
                       </Link>
                     ) : (
                       <Link to={`http://localhost:8080/shareInfo/${item.forumId}`}>
                         <div className='box_forumsCardTitle'>{item.title}</div>
-                        <div className='box_forumsCardContent'>{item.content}</div>
+                        <div className='box_forumsCardContent'>{removeHtmlTags(item.content)}</div>
                       </Link>
                     )}
 
                   <div className='box_forumsCardNickAndTime'>
                     <div className='box_forumsCardWriter'>{item.writerNickname}</div>
-                    <div className='box_forumsCardWriteTime'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
+                    <div className='box_forumsCardWriteTime'>{moment(item.createdAt).format('YY.MM.DD hh:mm a')}</div>
                   </div>
                 </div>
 

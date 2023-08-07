@@ -91,7 +91,7 @@ export const ModalView = styled.div`
 `;
 
 
-export default function MessageReplyModal({ onCloseModal, conId }) {
+export default function MessageReplyModal({ onCloseModal, conId, totCount, setTotCount }) {
 
     const {userId} = useParams();
     const {messageRoomId} = useParams();
@@ -120,6 +120,7 @@ export default function MessageReplyModal({ onCloseModal, conId }) {
         })
             .then((response) => {
                 onCloseModal();
+                setTotCount(totCount+1);
             })
             .catch((error) => {
             console.log('답장 보내기 실패', error);

@@ -18,6 +18,14 @@
     display: flex;
     /* flex-direction: column; */
 }
+/* .shareInfo_statusAndTitle{
+    display: flex;
+    align-items: center;
+} */
+/* .shareInfo_statusAndTitle>div{
+    margin-right: 5px;
+} */
+
 .reviewInfo_title{
     /* background-color: rgb(189, 233, 146); */
     /* display: flex;
@@ -198,3 +206,26 @@
     width: 350px;
     height: 350px;
 }
+.share_status{
+    background-color: aqua;
+    font-size: 20px;
+    width: 100%;
+    position: relative;
+    top: -30px;
+}
+.share_status_in{
+    background-color: burlywood;
+    position: absolute;
+}
+.share_ul>div{
+    display: flex;
+}
+/* .share_status_in>dropdownUP{
+    display: flex;
+    align-items: center;
+} */
+/* .share_status_in>ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */

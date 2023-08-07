@@ -17,7 +17,7 @@ export default function MessageDetail() {
     const { messageRoomId } = useParams();
 
     // 페이징 ---------------------------------------------------------------
-    const [totPages, setTotPages] = useState(0); // 전체 페이지
+    const [totCount, setTotCount] = useState(0); // 전체 페이지
     const [nowPage, setNowPage] = useState(1); // 현재 페이지
     const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
       setNowPage(no);
@@ -47,6 +47,7 @@ export default function MessageDetail() {
 
     // 서버에서 데이터 받아오기
     const[msgs, setMsgs] = useState([]);
+    const[hasNext, setHasNext] = useState(false);
     const[conNick, setConNick] = useState('');
     const[conId, setConId] = useState('');
     const[conPic, setConPic] = useState('');
@@ -61,25 +62,71 @@ export default function MessageDetail() {
             }
         })
         .then((response) => {
-            console.log(response.data.data.messages);
-            console.log(response.data.data.messages.totalPages);
             setMsgs(response.data.data.messages.content); 
             setConNick(response.data.data.contactNickname);
             setConId(response.data.data.contactId);
             setConPic(response.data.data.contactPicUrl);
-            setTotPages(response.data.data.messages.totalElements); // 전체 개수 설정
+            setTotCount(response.data.allCount);
+            
+            
+            if(response.data.data.messages.last === false) {
+                setHasNext(true);
+            } else {
+                setHasNext(false);
+            }
         })
         .catch((err) => {
             console.log('쪽지 불러오기 실패', err);
         })
-    }, [msgs]);
+    }, [totCount]);
+
+    
+    const loadMoreMsgs = () => {
+        const nextPage = nowPage + 1;
+        const url = `/${userId}/messageroom/${messageRoomId}`;
+        axios.get(url, {
+            headers:headers,
+            params: {
+                pageNo: nextPage, 
+            }
+        })
+        .then((response) => {
+            setMsgs((prevMsgs) => [...prevMsgs, ...response.data.data.messages.content]);
+            setTotCount(response.data.allCount);
+            
+            if(response.data.data.messages.last === false) {
+                setHasNext(true);
+            } else {
+                setHasNext(false);
+            }
+
+        })
+        .catch((err) => {
+            console.log('쪽지 불러오기 실패', err);
+        })
+    }
+
+    // 쪽지함 읽기 처리 [알림 경로]  -------------------------------------------------------------
+    useEffect(() => { 
+        const url = `/${userId}/messageroom/${messageRoomId}/read`;
+        axios.put(url, null, {
+            headers: headers,
+        })
+        .catch((err) => {
+            console.log('쪽지함 읽음 처리 실패');
+            console.log(err);
+        });
+    }, []); 
+
+
+
 
     return (
         <div className="MessageDetail">
 
             {/* 답장모달 */}
             {isOpen ? 
-                <MessageReplyModal onCloseModal={ closeReplyModal } conId={conId} />
+                <MessageReplyModal onCloseModal={ closeReplyModal } conId={conId} totCount={totCount} setTotCount={setTotCount} />
                 : null }
 
             {/* 삭제모달 */}
@@ -92,7 +139,7 @@ export default function MessageDetail() {
 
                 <div className='container_messageDetailHeader'>
                     <MyButton text={'목록보기'} type={ 'whiteGrayWide2' } 
-                    onClick={() => goBack(-1)}/>
+                    onClick={() => goBack(`/mypage/${userId}/messagerooms`)}/>
                 </div>
 
                 <div className='container_msgSubWrapper'>
@@ -127,7 +174,7 @@ export default function MessageDetail() {
                                                     <div className='txt_msgState_receive'>받은 쪽지</div>
                                                     :   <div className='txt_msgState_send'>보낸 쪽지</div>
                                                 }   
-                                                <div className='txt_msgWriteDate'>{moment(msg.createdAt).format('YY.MM.D h:mm a')}</div>
+                                                <div className='txt_msgWriteDate'>{moment(msg.createdAt).format('YY.MM.DD hh:mm a')}</div>
                                             </div>
                                             <div className='box_msgContentsBody'>
                                                 {msg.content}
@@ -142,11 +189,16 @@ export default function MessageDetail() {
                     </div>
                 </div>
 
-                <div className='container_mypageRevBottom'>
-                    <div className='box_revPagination'>
-                        <Pagination current={nowPage} onChange={changePage} pageSize={10} total={totPages} />    
-                    </div>
-                </div>   
+                {hasNext === true ? 
+                    <div className='container_mypageMsgBottom'>
+                        <div className='box_msgMore' onClick={loadMoreMsgs}>
+                            더 보기 
+                        </div>
+                    </div>   
+                    :
+                    null
+                }
+
             </div>        
         </div>
     );
