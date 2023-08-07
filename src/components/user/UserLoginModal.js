@@ -75,7 +75,6 @@ function UserLoginModal({isOpen, closeModal, setIsLogin}) {
         setCookie('userId', decodedToken.userId)
         setCookie('nickname', decodedToken.nickname);
 
-
         const userType = response.data.userType;
         setCookie('userType', userType);
 
@@ -142,8 +141,9 @@ function UserLoginModal({isOpen, closeModal, setIsLogin}) {
                   <Link to={'/signup-intro'} onClick={closeModal} className='link-in-modal'><span> 회원가입 </span></Link>
                 </div>
 
-              <img src={kakaoLoginImage} alt='kakaoLoginImage' className='kakao-login-image'/>
-                
+                <a href="http://localhost:8080/oauth2/authorization/kakao" alt="카카오로 시작하기">
+                    <img src={kakaoLoginImage} alt='kakaoLoginImage' className='kakao-login-image'/>
+                </a>
               </div>
           </div>
         </div>
