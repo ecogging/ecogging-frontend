@@ -41,6 +41,7 @@ import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
 import CorpLogin from '../../components/corporate/CorpLogin';
 import CorpSignUp from '../../components/corporate/CorpSignUp';
 import CorpMyPage from '../mypage/CorpMyPage';
+import KakaoLoginRedirect from '../../components/user/KaKaoLoginRedirect';
 
 
 export default function Main() {
@@ -109,6 +110,8 @@ export default function Main() {
 
             <Route path="/corp-login" element={<CorpLogin />}/>
             <Route path="/corp-signup" element={<CorpSignUp />}/>
+
+            <Route path="/oauth2/redirect/:token" element={<KakaoLoginRedirect />} />
           </Routes>
         </div>
         <Footer />  

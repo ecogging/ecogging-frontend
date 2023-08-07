@@ -27,7 +27,10 @@ function UserSignupIntro() {
       <Link to={'/signup'}>
         <MyButton type={'whiteGray'} text={emailSignupText}></MyButton>
       </Link>
-      <img src={kakao_start} alt='kakao-start'/>
+
+      <a href="http://localhost:8080/oauth2/authorization/kakao" alt="카카오로 시작하기">
+        <img src={kakao_start} alt='kakao-start'/>
+      </a>
 
       <p>
         이미 계정이 있으신가요? <button className='signup-login' onClick={openModal}>로그인</button>

@@ -23,7 +23,9 @@ function removeTokenAndUserFromCookie() {
   for (const tokenKey of tokenKeys) {
     if (getCookie(tokenKey))
       removeCookie(tokenKey)
+
   }
+  localStorage.clear()
 }
 
 // 새로고침
@@ -38,12 +40,10 @@ function isCorporateUser() {
 
 export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
-    const accessToken = getCookie('access-token');
 
     // 로그인 처리
-    const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));
+    const [isLogin, setIsLogin] = useState(false);
     const [isCorporate, setIsCorporate] = useState(isCorporateUser());
-    const [nickname, setNickname] = useState(getCookie('nickname'));
 
     // 모달 - 로그인
     const [isLoginModalOpen, openLoginModal, closeLoginModal] = useCustomModal();
@@ -92,6 +92,13 @@ export default function Header ({userId, setUserId}) {
         let nowMenuClass = e.target.textContent; // 클릭한 타겟의 클래스이름
         setInMenu(nowMenuClass);
     }
+
+    useEffect(() => {
+      const accessToken = getCookie('access-token');
+      const hasValidToken = isValidTokenToLogin(accessToken);
+      setIsLogin(hasValidToken);
+      
+    }, []);
 
     // Header clicked css 
     const handleHeaderMenu = (e) => {
@@ -186,13 +193,14 @@ export default function Header ({userId, setUserId}) {
                     </li>
 
                     <li className='userNavBox' id='headerNickname'>
+
                         {window.location.href.indexOf('mypage') > -1 ? (
                             <a href={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
+                                <span className='nickName' onClick={handleRemoveCss}>{getCookie('nickname')}</span>
                             </a>
                         ) : (
                             <Link to={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
+                                <span className='nickName' onClick={handleRemoveCss}>{getCookie('nickname')}</span>
                             </Link>
                         )}
                         님
