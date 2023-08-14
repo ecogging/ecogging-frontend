@@ -1,10 +1,8 @@
 import '../../styles/main/MainForums.css';
-import tempPic from '../../assets/temp.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-// import { getFormSubmissionInfo } from 'react-router-dom';
 
 export default function MainForums() {
 

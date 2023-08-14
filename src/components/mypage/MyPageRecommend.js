@@ -1,5 +1,4 @@
 import '../../styles/mypage/MyPageRecommend.css';
-import temptemp from '../../assets/temp.png';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
