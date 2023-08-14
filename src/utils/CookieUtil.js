@@ -7,7 +7,11 @@ export const setCookie = (name, value, options) => {
 }
 
 export const getCookie = (name) => {
- return cookies.get(name); 
+  let result = cookies.get(name);
+  if (!result)
+    result = localStorage.getItem(name);
+
+  return result; 
 }
 
 export const removeCookie = (name) => {

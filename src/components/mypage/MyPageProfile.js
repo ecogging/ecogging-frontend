@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, navigate, useNavigate } from 'react-router-dom';
 import '../../styles/mypage/MyPageProfile.css';
 
-import { getCookie, setCookie } from '../../utils/CookieUtil';
+import { getCookie, removeCookie, setCookie } from '../../utils/CookieUtil';
 
 export default function MyPageProfile() {
   const navigate = useNavigate();
@@ -45,7 +45,12 @@ export default function MyPageProfile() {
 
       setProfile(responseProfile);
       setNickname(responseProfile.nickname);
+
+      if (!responseProfile.telephone)
+        alert("휴대폰 번호 정보가 없습니다. 프로필을 수정해주세요.")
+
       setTelephone(responseProfile.telephone);
+
       setProfileImageUrl(responseProfile.profileImageUrl);
     })
   }
@@ -134,7 +139,15 @@ export default function MyPageProfile() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setCookie('nickname', nickname);
+      const responseProfile = response.data;
+      const nickname = responseProfile.nickname;
+
+      removeCookie("nickname");
+      localStorage.removeItem("nickname");
+
+      setCookie("nickname", nickname);
+      localStorage.setItem("nickname", nickname);
+
       reloading();      
       navigate('/mypage/profile');
 
@@ -151,7 +164,7 @@ export default function MyPageProfile() {
     navigate('/mypage/profile');
   }
 
-  console.log(getCookie('isCorporate'))
+
 
   return (
     <div className='profile-edit-container'>
