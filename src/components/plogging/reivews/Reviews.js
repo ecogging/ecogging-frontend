@@ -53,7 +53,7 @@ export default function ReviewList(){
             try {
                 const searchResult=reviews.filter(itemList=>itemList.title.includes(search));
                 console.log(searchResult);
-                searchResult
+                // searchResult
                 if(searchResult!==null || searchResult.length>0){
                     console.log("검색할것이 잇댜");
                     const filterList=reviews.filter(itemList=>itemList.title.includes(search));
