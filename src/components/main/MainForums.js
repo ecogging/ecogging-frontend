@@ -1,11 +1,9 @@
 import '../../styles/main/MainForums.css';
-import tempPic from '../../assets/temp.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import axios from 'axios';
 import moment from 'moment';
-// import { getFormSubmissionInfo } from 'react-router-dom';
 
 export default function MainForums() {
 
@@ -22,6 +20,12 @@ export default function MainForums() {
       console.log('포럼 불러오기 실패', err);
     });
   }, []);
+
+  // 본문 내용 태그 제거
+  function removeHtmlTags(input) {
+    const doc = new DOMParser().parseFromString(input, 'text/html');
+    return doc.body.textContent || "";
+  }
 
 
   return(
@@ -63,7 +67,7 @@ export default function MainForums() {
 
                   <div className='box_forumsCardNickAndTime'>
                     <div className='box_forumsCardWriter'>{item.writerNickname}</div>
-                    <div className='box_forumsCardWriteTime'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
+                    <div className='box_forumsCardWriteTime'>{moment(item.createdAt).format('YY.MM.DD hh:mm a')}</div>
                   </div>
                 </div>
 

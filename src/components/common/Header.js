@@ -23,7 +23,9 @@ function removeTokenAndUserFromCookie() {
   for (const tokenKey of tokenKeys) {
     if (getCookie(tokenKey))
       removeCookie(tokenKey)
+
   }
+  localStorage.clear()
 }
 
 // 새로고침
@@ -38,12 +40,10 @@ function isCorporateUser() {
 
 export default function Header ({userId, setUserId}) {
     const navigate = useNavigate();
-    const accessToken = getCookie('access-token');
 
     // 로그인 처리
-    const [isLogin, setIsLogin] = useState(isValidTokenToLogin(accessToken));
+    const [isLogin, setIsLogin] = useState(false);
     const [isCorporate, setIsCorporate] = useState(isCorporateUser());
-    const [nickname, setNickname] = useState(getCookie('nickname'));
 
     // 모달 - 로그인
     const [isLoginModalOpen, openLoginModal, closeLoginModal] = useCustomModal();
@@ -93,6 +93,13 @@ export default function Header ({userId, setUserId}) {
         setInMenu(nowMenuClass);
     }
 
+    useEffect(() => {
+      const accessToken = getCookie('access-token');
+      const hasValidToken = isValidTokenToLogin(accessToken);
+      setIsLogin(hasValidToken);
+      
+    }, []);
+
     // Header clicked css 
     const handleHeaderMenu = (e) => {
         let nowPath = window.location.pathname;
@@ -131,6 +138,13 @@ export default function Header ({userId, setUserId}) {
             document.querySelector('.ploggingNavContainer').className += '_clicked';
             document.querySelectorAll('.headerMenuLink')[0].className += '_clicked';
             document.querySelectorAll('.ploggingNavMenu')[0].className += '_clicked';
+        }
+    }
+
+    // 마이페이지 나의 커뮤니티 하위 탭 통한 나눔/경로 상세글 진입 -> Header CSS 적용
+    if (window.location.href.indexOf('shareInfo') > -1 || window.location.href.indexOf('routeInfo') > -1) {
+        if(document.querySelectorAll('.headerMenuLink').length>1 && document.querySelectorAll('.headerMenuLink')[1].className.indexOf('_clicked') === -1) {
+            document.querySelectorAll('.headerMenuLink')[1].className += '_clicked';
         }
     }
 
@@ -179,13 +193,14 @@ export default function Header ({userId, setUserId}) {
                     </li>
 
                     <li className='userNavBox' id='headerNickname'>
+
                         {window.location.href.indexOf('mypage') > -1 ? (
                             <a href={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
+                                <span className='nickName' onClick={handleRemoveCss}>{getCookie('nickname')}</span>
                             </a>
                         ) : (
                             <Link to={isCorporate ? '/corporate/mypage/profile' : '/mypage/profile'}>
-                                <span className='nickName' onClick={handleRemoveCss}>{nickname}</span>
+                                <span className='nickName' onClick={handleRemoveCss}>{getCookie('nickname')}</span>
                             </Link>
                         )}
                         님

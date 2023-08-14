@@ -1,5 +1,4 @@
 import '../../styles/mypage/MyPageShare.css';
-import temptemp from '../../assets/temp.png';
 import { Pagination } from 'antd';
 import { getCookie } from '../../utils/CookieUtil';
 import { useEffect } from 'react';
@@ -8,13 +7,10 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { Viewer } from '@toast-ui/react-editor';
 import NotFoundWrote from './NotFoundWrote';
 
 export default function MyPageShare() {
   const navigate = useNavigate();
-  const [view, setView] = useState(false);
-
 
 
   // 페이징 ---------------------------------------------------------------
@@ -52,7 +48,7 @@ export default function MyPageShare() {
   }, [nowPage]);
 
 
-// 글 삭제 ------------------------------------------------------------
+  // 글 삭제 ------------------------------------------------------------
   const handelShareDel=(id)=>{
     axios.post(`http://localhost:8080/shareDel/${id}`)
     .then((res)=>{
@@ -62,6 +58,11 @@ export default function MyPageShare() {
     })
   }
   
+  // 본문 내용 태그 제거 ------------------------------------------------
+  function removeHtmlTags(input) {
+    const doc = new DOMParser().parseFromString(input, 'text/html');
+    return doc.body.textContent || "";
+  }
 
   return (
     <div className="MyPageShare">
@@ -79,21 +80,16 @@ export default function MyPageShare() {
 
         <div className="container_mypageShareWriting" key={item.forumId}>
 
-          { (item.fileName) ? 
-          <div className="container_myShareLeft">
-            <img src={temptemp}  className='temptemp'/> 
-          </div>
-          :
-          null
-          }
-
             <div className="container_myShareRight">
             <div className="container_myShareCover">
               <div className='container_myShareWhole'>
                 <div className='container_myShareTop'>
 
-                  {/* 진행상태 따라 컴포넌트 변경 */}
-                  <div className='container_myShareState_ongoing'>진행중</div>
+                  {item.status === '진행중' ?
+                    <div className='container_myShareState_ongoing'>진행중</div>
+                    :
+                    <div className='container_myShareState_finish'>완료</div>
+                  }
 
                   <div className='container_myShareViews'>조회수 {item.views}</div>
                   <div className='container_myWriteDate_share'>{moment(item.createdAt).format('YY.MM.D h:mm a')}</div>
@@ -104,9 +100,15 @@ export default function MyPageShare() {
                   </div>
                 </Link>
                 <div className='container_myShareBottom'>
-                  <div className='container_myShareContent'>
-                  {/* <Viewer initialValue={item.content}/> */}
-                  </div>
+                    <div className='container_myShareContent'>
+
+                      { removeHtmlTags(item.content).length > 60 ? 
+                      removeHtmlTags(item.content).substring(0, 60)
+                      :
+                      removeHtmlTags(item.content)
+                      }
+
+                    </div>
                   <div className='container_myDetailBtns_Share'>
                     <Link to={`/shareInfoModify/${item.forumId}`} ><div className='txt_myBtn_Share'>수정</div></Link>
                     <div className='txt_myBtn_Share' onClick={() => handelShareDel(item.forumId)}>삭제</div>
