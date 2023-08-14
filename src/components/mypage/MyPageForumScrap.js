@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Route, useParams } from "react-router";
 import { Pagination } from "antd";
+import { Viewer } from '@toast-ui/react-editor';
 import moment from "moment";
 import { Link } from "react-router-dom";
 
@@ -43,6 +44,8 @@ export default function MyPageForumScrap() {
   };
 
   const [myScraps,setMyScraps]=useState(null);
+  const [view, setView] = useState(false);
+
 
   useEffect(() => {
     const url = `/mypage/${userId}/forumscraps`;
@@ -55,6 +58,7 @@ export default function MyPageForumScrap() {
     .then((res) => {
       setMyScraps(res.data.data);
       setTotPages(res.data.allCount);
+      setView(true);
     })
     .catch((err) => {
       console.log('내 스크랩 불러오기 실패', err);
@@ -237,7 +241,7 @@ export default function MyPageForumScrap() {
                       </Link>
                       <div className='container_myShareBottom'>
                         <div className='container_myScrapContent'>
-                          {item.content}
+                          {view && <Viewer initialValue={item.content} /> }
                         </div>
 
                         <div className='container_myScrapUser'>
@@ -275,7 +279,7 @@ export default function MyPageForumScrap() {
 
                     <div className='container_myRecomBottom'>
                       <div className='container_myScrapContent_r'>
-                        {item.content}
+                        {view && <Viewer initialValue={item.content} /> }
                       </div>
 
                       <div className='container_myScrapUser'>

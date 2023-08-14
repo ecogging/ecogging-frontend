@@ -3,34 +3,28 @@ import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import axios from 'axios';
 import { Pagination } from 'antd';
-import { Viewer } from '@toast-ui/react-editor';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/plogging/review/Reviews.css';
-import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
-// import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import MyButton from "../../../components/common/MyButton.js";
-// import { BsEye } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi"; <BiSearch size={30}/>
 
 export default function ReviewList(){
     const [reviews,setReviews]=useState([]);
-    const [curPage,setCurPage]=useState(1);
-    // const [allPage, setAllPage]=useState(false);
-    // const [pageBtn, setPageBtn]=useState([]);
-    const [bsearch, setBsearch]=useState(false);
     const navigate = useNavigate();
-    // const Data=
-    // const [sortedList, setSortedList]=useState([...]);
-    const [initialReviews, setInitialReviews]=useState([]);
-    const userId = getCookie("userId");
-    const [view, setView] = useState(false);
+    const [search,setSearch]=useState("");
+    const [searchList, setSearchList]=useState([]);
 
       // 페이징 ---------------------------------------------------------------
       const [totPages, setTotPages] = useState(0); // 전체 페이지
       const [nowPage, setNowPage] = useState(1); // 현재 페이지
       const changePage = (no) => { // 페이지 클릭할 때마다 현재 페이지 변경
           setNowPage(no);
-      }
+      };
+
+      useEffect(()=>{
+        setSearchList(null);
+        setSearch(null);
+        console.log(searchList);
+      },[]);
     
     useEffect(() => {
         axios
@@ -38,96 +32,62 @@ export default function ReviewList(){
         .then((res)=>{
             console.log(res.data);
             setReviews(res.data.res.content);
-            // setInitialRoutes(res.data.routes);
-            setView(true);
             setTotPages(res.data.all);
         })
         .catch ((err)=> {
             console.log(err);
         });
+    },[nowPage]);
 
-
-},[nowPage]);
+    console.log(search);
         
-    // const fetchReviews=async (p_page)=>{
-    //     axios
-    //         .get(`http://localhost:8080/reviews/${p_page}/${userId}`)
-    //         .then((res)=>{
-    //             let pageInfo=res.data.reviews.pageInfo;
-    //             let list=res.data.reviews.content;
-    //             setReviews(list);
-    //             setInitialReviews(list);
-    //             setView(true);
-    //             let btn=[];
-    //             for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
-    //                 btn.push(i);
-    //         }
-    //         setCurPage(pageInfo.curPage);
-    //         setPageBtn(btn);
-    //         //setLastPage(res.data.pageInfo.allPage);
-    //         console.log("fetchReviews curPage : "+curPage);
-    //         console.log("fetchReviews pageBtn : "+pageBtn);
-    //         return list;
-    //     })
-    //         .catch ((err)=> {
-    //             console.log(err);
-    //         });
-    // }; 
-
-
-    
-
     const handleSearch=()=>{
-
+        console.log("검색");
+        if(search===null || search===""){
+            setSearchList(null);
+            setSearch(null);
+            console.log("검색어 없음");
+            alert("검색어를 입력해주세요");
+        }else{
+            console.log("검색어 : "+search);
+            try {
+                const searchResult=reviews.filter(itemList=>itemList.title.includes(search));
+                console.log(searchResult);
+                searchResult
+                if(searchResult!==null || searchResult.length>0){
+                    console.log("검색할것이 잇댜");
+                    const filterList=reviews.filter(itemList=>itemList.title.includes(search));
+                    setSearchList(filterList);
+                    console.log(searchList);
+                }else{
+                    alert("검색 결과가 없습니다");
+                }
+            } catch (error) {
+                console.log(error);      
+            }
+        }
     };
+
+    // const onChangeSearch=(e)=>{
+    //   console.log("search input");
+    //   setSearch(e.target.value);  
+    // };
 
     const handleSort=(e, type)=>{
         console.log("리뷰 정렬");
-        
         if(type === '조회순'){
             console.log("조회순");
-            // const sortByViews=[...reviews].sort((a,b)=>a.views-b.views);
-            // setReviews(sortByViews);
             const sortByView = [...reviews].sort((a, b) => b.views - a.views);
             setReviews(sortByView);
 
         }else if(type === '최신순'){
             console.log("최신순");
-            // const sortByDate=[...reviews].sort((a,b)=>b.createdAt-a.createdAt);
-            // setReviews(sortByDate);
-            // console.log(reviews);
-            // setReviews([...initialReviews]);
             navigate("/reviews");
         }else{
             return ;
         }
     };
-
-    // const handlePageChange=(e)=>{
-    //     setCurPage(e.target.id);
-    //     fetchReviews(e.target.id);
-    // };
-
-
-    // const goToPreviousPage = () => {
-        
-    //     if (curPage === 1) 
-    //     return; // 첫 페이지일 경우 이전 페이지로 이동하지 않음
-    //     setCurPage(curPage - 1);
-    //     console.log("curPage : "+curPage);
-    //     fetchReviews(curPage - 1);
-    // }
-
-    
-    // const goToNextPage = () => {
-    //     if (curPage === allPage) 
-    //     return ;
-    //     setCurPage(curPage + 1);
-    //     console.log("goToNextPage curPage : "+curPage);
-    //     fetchReviews(curPage + 1);
-    // }
    
-    // console.log(reviews);
     return (
         <div className="reviews_mainLayout">
             <div className="review_wrap">
@@ -150,15 +110,16 @@ export default function ReviewList(){
                                 </ul>
                             </div>
                             <div className="reivew_search">
-                                <input className="search_input" type="text" placeholder="    search" />
-                                <BiSearch className="search_icon" onClick={()=>handleSearch()}/>
+                                <input className="search_input" name='search_input' type="text" placeholder="    search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                                <BiSearch className="search_icon" onClick={handleSearch}/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="listLayout">
                     {
-                        reviews.length !== 0 && reviews.map(review => {
+                        searchList !== null && searchList.length>0?
+                            searchList.map(review=>{
                             const createdAt=moment(review.createdAt);
                             const formattedDate=createdAt.format('YYYY-MM-DD');
                             return (
@@ -171,15 +132,41 @@ export default function ReviewList(){
                                         <div className='review_detail'>
                                             <Link to={`/reviewInfo/${review.forumId}`}>
                                                 <div className="review_title">{review.title}</div>
-                                                {/* <div className="review_content">{review.content}</div> */}
-                                                {/* {view && <Viewer initialValue={review.content} style={{width:"300px", height:"300px"}}/> } */}
                                             </Link>
                                         </div>
                                     </div>
                                     <div className="review_footer">
                                         <div className='dateAndView'>
                                             <div className="viewLayout">
-                                                {/* <div><BsEye className="view_icon"/></div> */}
+                                                <div className='review_span'>조회수</div>
+                                                <div className="review_views">{review.views}</div>
+                                            </div>
+                                            <div className="review_created_at">{formattedDate}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                )
+                            })
+                                : 
+                            reviews.length !== 0 && reviews.map(review => {
+                            const createdAt=moment(review.createdAt);
+                            const formattedDate=createdAt.format('YYYY-MM-DD');
+                            return (
+                                <div className="listItem"  key={review.id}>
+                                    <div className='listItem_detail'>
+                                        <div className='nickAndPic'>
+                                            <div className="review_pic">{reviews.writerPic}</div>
+                                            <div className="review_nickname">{review.writerNickname}</div>
+                                        </div>
+                                        <div className='review_detail'>
+                                            <Link to={`/reviewInfo/${review.forumId}`}>
+                                                <div className="review_title">{review.title}</div>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                    <div className="review_footer">
+                                        <div className='dateAndView'>
+                                            <div className="viewLayout">
                                                 <div className='review_span'>조회수</div>
                                                 <div className="review_views">{review.views}</div>
                                             </div>
@@ -194,15 +181,6 @@ export default function ReviewList(){
                 <div className='container_myBottom'>
                     <Pagination current={nowPage} onChange={changePage} pageSize={5} total={totPages} />
                 </div>
-                
-                {/* <div className='writeBtn'>
-                    {
-                    loginCheck ? 
-                    <Link to={`/reviewWrite/${userId}`}>
-                        <MyButton text={"글 작성"}/>
-                    </Link> : null
-                    }
-                </div> */}
             </div>
         </div>
     );

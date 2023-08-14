@@ -1,203 +1,128 @@
-.reviewInfo_mainLayout{
+.shareInfo_mainLayout{
     display: flex;
     justify-content: center;
     /* background-color: aliceblue; */
     margin: 120px auto;
     width: 100%;
 }
-.reviewInfo_wrap{
+.shareInfo_wrap{
     width: 95%;
     display: flex;
     align-items: center;
     flex-direction: column;
     /* background-color: rgb(224, 203, 243); */
 }
-.reviewInfo_top{
+.shareInfo_status{
+    /* background-color: aqua; */
+    font-size: 20px;
+    width: 100%;
+    position: relative;
+    top: -30px;
+}
+.shareInfo_status_in{
+    background-color: white;
+    position: absolute;
+    border: 1px solid #838383;
+    border-radius: 5px;
+}
+.share_status_ul>div{
+    display: flex;
+}
+.shareInfo_top{
     /* background-color: rgb(163, 163, 233); */
     width: 100%;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
+    justify-content: space-between;
 }
-/* .shareInfo_statusAndTitle{
-    display: flex;
-    align-items: center;
-} */
-/* .shareInfo_statusAndTitle>div{
-    margin-right: 5px;
-} */
-
-.reviewInfo_title{
-    /* background-color: rgb(189, 233, 146); */
-    /* display: flex;
-    justify-content: start; */
-    font-size: 25px;
-}
-.reviewInfo_top_in{
+.shareInfo_top_in{
     /* background-color: rgb(61, 90, 61); */
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 5px 0px 5px 0px;
 }
-.reviewInfo_imageAndnickname{
+.shareInfo_imageAndnickname{
     /* background-color: rgb(79, 79, 236); */
     display: flex;
-    font-size: 20px;
+    font-size: 17px;
+    align-items: center;
+    justify-content: center;
 }
-.reviewInfo_nickname{
+.shareInfo_profil{
+    /* background-color: rgb(86, 216, 216); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shareInfo_profil_img{
+    margin: 0 auto;
+    border: 1px solid gray;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: contain
+}
+.shareInfo_nickname{
+    /* background-color: antiquewhite; */
     cursor: pointer;
 }
-.reviewInfo_profil{
-    background-color: rgb(86, 216, 216);
-    margin: 0px 10px 0px 10px;
-    box-sizing: border-box;
-    border-radius: 50%;
-}
-.reviewInfo_dateAndviewsAndscrap{
+.shareInfo_dateAndviewsAndscrap{
     /* background-color: coral; */
     display: flex;
 }
-.reviewInfo_dateAndviewsAndscrap>div:not(:last-child){
+.shareInfo_dateAndviewsAndscrap>div:not(:last-child){
     margin-right: 5px;
 }
-.reviewInfo_layout{
+.shareInfo_views{
+    display: flex;
+    align-items: center;
+}
+.shareInfo_layout{
     /* background-color: rgb(100, 135, 165); */
     width: 100%;
     height: 410px;
     display: flex;
     justify-content: center;
     border-top: 1px solid #838383;
-    /* border-bottom: 1px solid #838383; */
     padding-top: 10px;
 }
-.reviewInfo_views{
-    display: flex;
-    align-items: center;
-}
-.view_icon{
-    margin-right: 2px;
-}
-.reviewInfo_scrap{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-.BsFillBookmarkFill{
-    color: #9BE4CE;
-}
-/* .BsFillBookmarkFill:checked{
-    color: #9BE4CE;
-} */
-.reviewInfo_img{
-    background-color: #838383;
-    box-sizing: border-box;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.reviewInfo_content{
-    /* background-color: bisque; */
-    box-sizing: border-box;
+.shareInfo_layout_in{
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+    height: 100%;
+    /* background-color: darkviolet; */
+    margin-top: 10px;
+    padding: 0px 10px 0px 10px;
     border: 1px solid #9BE4CE;
-}
-.reviewInfo_img_in{
-    background-color: rgb(204, 236, 127);
-    margin: 10px;
-    height: 90%;
-    width: 90%;
+    border-radius: 15px;
     display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
     justify-content: center;
-    align-items: center;
 }
-.reviewInfo_content_in{
-    margin: 10px;
-    width: 90%;
-    height: 90%;
-    background-color: aqua;
-    font-size: 17px;
+.shareInfo_layout_in::-webkit-scrollbar {
+    width: 5px; 
+    /* background-color: antiquewhite; */
 }
-.reviewInfoBtn_layout{
-    /* background-color: rgb(226, 156, 226); */
+.shareInfo_layout_in::-webkit-scrollbar-thumb{
+   width: 5px;
+   background-color: #ebebeb;
+   border: 1px solid #ebebeb;
+   opacity: 0.3;
+   border-radius: 20px;
+}
+/* share btn ---------------------------------------*/
+.shareInfoBtn_layout{
     font-size: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
-.modifyAndDeleteBtn_layout_in{
-    display: flex;
-}
-.modifyBtn{
-    margin-right: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #9BE4CE;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #9BE4CE;
-    width: 120px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.delBtn{
-    margin-right: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #9BE4CE;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #9BE4CE;
-    width: 120px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;  
-}
-/* .modifyBtn.:hover{
-    background-color: #9BE4CE;
-    color: white;
-} */
-.reviewsBtn{
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #9BE4CE;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #9BE4CE;
-    width: 120px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 10px;
-}
-.reviewsBtn:hover{
-    background-color: #9BE4CE;
-    color: white;
-}
-.modifyBtn:hover{
-    background-color: #9BE4CE;
-    color: white;
-}
-.delBtn:hover{
-    background-color: #9BE4CE;
-    color: white;
-}
 
-.reviewInfo_layout>div {
-    width:100%;
-    height:100%;
-}
 
-.toastui-editor-contents {
+
+/* .toastui-editor-contents {
     width:100%;
     font-size:1.125rem;
 }
@@ -205,27 +130,4 @@
 .toastui-editor-contents img {
     width: 350px;
     height: 350px;
-}
-.share_status{
-    background-color: aqua;
-    font-size: 20px;
-    width: 100%;
-    position: relative;
-    top: -30px;
-}
-.share_status_in{
-    background-color: burlywood;
-    position: absolute;
-}
-.share_ul>div{
-    display: flex;
-}
-/* .share_status_in>dropdownUP{
-    display: flex;
-    align-items: center;
-} */
-/* .share_status_in>ul{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 } */

@@ -89,6 +89,9 @@ input{
 .review_sort_ul>li:not(:last-child){
     margin-right: 15px;
 }
+.review_sort_ul>li:hover{
+    color: #9BE4CE;
+}
 .sortAndSearch{
     width: 100%;
 }
@@ -206,4 +209,7 @@ input{
 }
 .nickAndPic{
     display: flex;
+}
+.search_icon{
+    cursor: pointer;
 }

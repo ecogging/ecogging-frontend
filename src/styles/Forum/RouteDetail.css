@@ -16,7 +16,7 @@
     /* background-color: rgb(163, 163, 233); */
     width: 100%;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: space-between;
 }
 .routeInfo_title{
@@ -35,16 +35,27 @@
 .routeInfo_imageAndnickname{
     /* background-color: rgb(79, 79, 236); */
     display: flex;
-    font-size: 20px;
+    font-size: 17px;
+    align-items: center;
+    justify-content: center;
 }
 .routeInfo_nickname{
+    /* background-color: antiquewhite; */
     cursor: pointer;
 }
 .routeInfo_profil{
     /* background-color: rgb(86, 216, 216); */
-    margin: 0px 10px 0px 10px;
-    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.routeInfo_profil_img{
+    margin: 0 auto;
+    border: 1px solid gray;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
+    object-fit: contain
 }
 .routeInfo_dateAndviewsAndscrap{
     /* background-color: coral; */
@@ -60,145 +71,60 @@
     display: flex;
     justify-content: center;
     border-top: 1px solid #838383;
-    /* border-bottom: 1px solid #838383; */
-    padding-top: 10px;
+}
+.routeInfo_layout>div:not(:last-child){
+    margin-right: 10px;
+}
+.routeInfo_content_Detail_view{
+    width: 50%;
+    height: 100%;
+    /* background-color: darkviolet; */
+    margin-top: 10px;
+    padding: 0px 10px 0px 10px;
+    border: 1px solid #9BE4CE;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+.routeInfo_content_Detail_view::-webkit-scrollbar {
+     width: 5px; 
+     /* background-color: antiquewhite; */
+}
+.routeInfo_content_Detail_view::-webkit-scrollbar-thumb{
+    width: 5px;
+    background-color: #ebebeb;
+    border: 1px solid #ebebeb;
+    opacity: 0.3;
+    border-radius: 20px;
+}
+.routeInfo_map_Detail_view{
+    width: 50%;
+    height: 100%;
+    margin-top: 10px;
+}
+.map_address{
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.map_st{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
 }
 .routeInfo_views{
     display: flex;
     align-items: center;
 }
-.view_icon{
-    margin-right: 2px;
-}
-.routeInfo_scrap{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-.BsFillBookmarkFill{
-    color: #9BE4CE;
-}
-/* .routeInfo_img{
-    background-color: #838383;
-    box-sizing: border-box;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
-.routeInfo_content{
-    /* background-color: rgb(189, 13, 13); */
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border: 1px solid #9BE4CE;
-}
-/* .reviewInfo_img_in{
-    background-color: rgb(204, 236, 127);
-    margin: 10px;
-    height: 90%;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-.routeInfo_content_in{
-    margin: 10px;
-    width: 100%;
-    height: 100%;
-    /* background-color: rgb(165, 230, 46); */
-    font-size: 17px;
-    display: flex;
-}
-.content_Detail_view{
-    width: 50%;
-    /* background-color: darkviolet; */
-}
-.map_Detail_view{
-    width: 50%;
-    /* background-color: bisque; */
-}
-
-/* .routeView{
-    z-index: 1000;
-} */
-.content_view_in{
-    z-index: 1000;
-}
-
+/* route btn ---------------------------------------*/
 .routeInfoBtn_layout{
     /* background-color: rgb(226, 156, 226); */
     font-size: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-.modifyAndDeleteBtn_layout_in{
-    display: flex;
-}
-.modifyBtn{
-    margin-right: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #9BE4CE;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #9BE4CE;
-    width: 120px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.delBtn{
-    margin-right: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #9BE4CE;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #9BE4CE;
-    width: 120px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;  
-}
-/* .modifyBtn.:hover{
-    background-color: #9BE4CE;
-    color: white;
-} */
-.routeListBtn{
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #9BE4CE;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #9BE4CE;
-    width: 120px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 10px;
-}
-.routeListBtn:hover{
-    background-color: #9BE4CE;
-    color: white;
-}
-.modifyBtn:hover{
-    background-color: #9BE4CE;
-    color: white;
-}
-.delBtn:hover{
-    background-color: #9BE4CE;
-    color: white;
-}
-.map_layout{
-    width: 100%;
-    height: 100%;;
 }

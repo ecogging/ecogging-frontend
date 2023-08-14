@@ -1,44 +1,33 @@
 import axios from "axios";
-import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router";
-import '../../styles/Forum/ShareModify.css';
+import { getCookie } from '../../utils/CookieUtil';
 import TextEditor from "../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
-
+import '../../styles/Forum/ShareWrite.css';
+import '../../styles/Forum/ForumCommon.css';
 
 export default function ShareModify(){
-    // const [reviewModify, setReviewModity]=useState([]);
-    const [editorData,setEditorData]=useState('');
-    const [titleVal, setTitleVal]=useState('');
     const navigate = useNavigate();
     const {forumId}=useParams();
-    const editorRef=useRef();
-    const [userId,setUserId]=useState(1);
+    const userId = getCookie("userId");
     const [shareInfo, setShareInfo]=useState('');
     const [view, setView] = useState(false);
 
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/shareInfo/${forumId}/${userId}`)
+        .post(`http://localhost:8080/shareInfo/${forumId}`,{userId:userId})
         .then(res=>{
             setView(true);
             setShareInfo(res.data.shareInfo);
             console.log(res.data.shareInfo);
-            setTitleVal(res.data.shareInfo.title);
-            setEditorData(res.data.shareInfo.content);
             console.log("info 가져오기");
-            // console.log("setEditorData : "+editorData);
-            // console.log("reviewInfo : "+reviewInfo.content);
-            // console.log("result"+result);
-            // editorRef.current.getInstance().setHTML(editorData);
-            
         }).catch(err=>{
             console.log(err);
         })
-    },[]);
+    },[view]);
 
-    const handleShareUpdateSave=async(temp)=>{
+    const handleShareSave=async(temp)=>{
         try {
             const res=await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}/${temp}`, shareInfo,
             {
@@ -50,40 +39,31 @@ export default function ShareModify(){
         } catch (error) {
             console.log(error);
         }
-    }
-
-    const contentData=shareInfo.content;
+    };
 
     const handleEditorData=(data)=>{
         setShareInfo({...shareInfo, content:data})
-    }
+    };
 
     const handleTitleChange=(e)=>{
         setShareInfo({...shareInfo, title:e.target.value})
-    }
+    };
     
-
     return( 
-        <div className="reviewModify_mainLayout">
-            <div className="reviewModify_wrap">
-                <div className="reviewModify_top">
-                    <div className="reviewModify_title">
-                        <input className="titleInput" value={shareInfo.title}  onChange={handleTitleChange} maxLength={50}/>
-                    </div>
+        <div className="share_mainLayout">
+            <div className="share_wrap">
+                <div className="share_top">
+                    <input className="titleInput" value={shareInfo.title}  onChange={handleTitleChange} maxLength={50}/>
                 </div>
-                <div className="reviewModify_layout">
-                    <div className="reviewModify_content">
-                        <div className="reviewModify_content_in">
-                        {view && <TextEditor  onEditorDataChange={handleEditorData} contentData={shareInfo.content}/>}
-                        </div>
-                    </div>
+                <div className="share_layout">
+                    {view && <TextEditor  onEditorDataChange={handleEditorData} contentData={shareInfo.content}/>}
                 </div>
-                <div className="tempAndComplBtn_layout">
-                    <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={()=>handleShareUpdateSave(1)}>
+                <div className="tempAndSaveBtn_layout">
+                    <div className="tempAndSaveBtn_layout_in">
+                        <div className="routeBtn" onClick={()=>handleShareSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={()=>handleShareUpdateSave(0)}>
+                        <div className="routeBtn" onClick={()=>handleShareSave(0)}>
                                 등록
                         </div>
                     </div>

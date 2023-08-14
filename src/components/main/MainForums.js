@@ -2,19 +2,21 @@ import '../../styles/main/MainForums.css';
 import tempPic from '../../assets/temp.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Viewer } from '@toast-ui/react-editor';
 import axios from 'axios';
 import moment from 'moment';
 // import { getFormSubmissionInfo } from 'react-router-dom';
 
 export default function MainForums() {
 
-
+  const [view, setView] = useState(false);
   const [forums, setForums] = useState(null);
   const url = '/main/forums';
   useEffect(() => {   
     axios.get(url)
     .then((res) => {
       setForums(res.data.data);
+      setView(true);
     })
     .catch((err) => {
       console.log('포럼 불러오기 실패', err);
@@ -44,14 +46,18 @@ export default function MainForums() {
                 <div className='container_forumsCardMiddle'>
                   
                 { (item.type) === '경로' ? (
-                      <Link to={`http://localhost:8080/routeInfo/${item.forumId}`}>
+                      <Link to={`/routeInfo/${item.forumId}`}>
                         <div className='box_forumsCardTitle'>{item.title}</div>
-                        <div className='box_forumsCardContent'>{item.content}</div>
+                        <div className='box_forumsCardContent'>
+                          {view && <Viewer initialValue={item.content} /> }
+                        </div>
                       </Link>
                     ) : (
-                      <Link to={`http://localhost:8080/shareInfo/${item.forumId}`}>
+                      <Link to={`/shareInfo/${item.forumId}`}>
                         <div className='box_forumsCardTitle'>{item.title}</div>
-                        <div className='box_forumsCardContent'>{item.content}</div>
+                        <div className='box_forumsCardContent'>
+                          {view && <Viewer initialValue={item.content} /> }
+                        </div>
                       </Link>
                     )}
 

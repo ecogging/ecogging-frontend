@@ -1,40 +1,34 @@
 import axios from "axios";
-import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { setCookie, getCookie, removeCookie } from '../../../utils/CookieUtil';
+import React, { useEffect, useState } from 'react';
+import { getCookie } from '../../../utils/CookieUtil';
 import { useParams } from "react-router";
-import '../../../styles/plogging/review/ReviewModify.css';
 import TextEditor from "../../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
-
+import '../../../styles/plogging/review/ReviewWrite.css';
+import '../../../styles/Forum/ForumCommon.css';
 
 export default function ReviewModify(){
     const navigate = useNavigate();
     const {forumId}=useParams();
-    const [reviewInfo, setReviewInfo]=useState({});
+    const [reviewInfo, setReviewInfo]=useState("");
     const userId = getCookie("userId");
     const [view, setView] = useState(false);
 
-    console.log("forumId : "+forumId);
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/reviewInfo/${forumId}/${userId}`)
+        .post(`http://localhost:8080/reviewInfo/${forumId}`,{userId:userId})
         .then(res=>{
             setView(true);
             setReviewInfo(res.data.reviewInfo);
-            // setView(true);
             console.log(res.data.reviewInfo);
-            // setContent(reviewInfo.content);
-            // console.log("reviewInfo : "+reviewInfo.content);
-            // console.log("result"+result);
         }).catch(err=>{
             console.log(err);
         })
-    },[])
+    },[view])
 
-    const handleupdateSave=async(temp)=>{
+    const handleReviewSave=async(temp)=>{
         try {
-            const res=await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}/${temp}`, reviewInfo,
+            const res=await axios.post(`http://localhost:8080/reviewModify/${userId}/${forumId}/${temp}`, reviewInfo,
             {
                 headers:{'Content-Type': 'application/json',
                 withCredentials:true},
@@ -44,37 +38,31 @@ export default function ReviewModify(){
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const handleEditorData=(data)=>{
         setReviewInfo({...reviewInfo, content:data})
-    }
+    };
 
     const handleTitleChange=(e)=>{
         setReviewInfo({...reviewInfo, title:e.target.value})
-    }
+    };
 
     return( 
-        <div className="reviewModify_mainLayout">
-            <div className="reviewModify_wrap">
-                <div className="reviewModify_top">
-                    <div className="reviewModify_title">
-                        <input className="titleInput" value={reviewInfo.title}  onChange={handleTitleChange} maxLength={50}/>
-                    </div>
+        <div className="review_mainLayout">
+            <div className="review_wrap">
+                <div className="review_top">
+                    <input className="titleInput" value={reviewInfo.title}  onChange={handleTitleChange} maxLength={50}/>
                 </div>
-                <div className="reviewModify_layout">
-                    <div className="reviewModify_content">
-                        <div className="reviewModify_content_in">
-                        {view && <TextEditor onEditorDataChange={handleEditorData} contentData={reviewInfo.content}/>}
-                        </div>
-                    </div>
+                <div className="review_layout">
+                    {view && <TextEditor onEditorDataChange={handleEditorData} contentData={reviewInfo.content}/>}
                 </div>
-                <div className="tempAndComplBtn_layout">
-                    <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={()=>handleupdateSave(1)}>
+                <div className="tempAndSaveBtn_layout">
+                    <div className="tempAndSaveBtn_layout_in">
+                        <div className="routeBtn" onClick={()=>handleReviewSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={()=>handleupdateSave(0)}>
+                        <div className="routeBtn" onClick={()=>handleReviewSave(0)}>
                                 등록
                         </div>
                     </div>
