@@ -1,17 +1,17 @@
-import React, { useEffect, useState , useRef} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
 import { useParams } from "react-router";
-import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
-import '../../styles/Forum/RouteWrite.css';
+import { getCookie } from '../../utils/CookieUtil';
 import TextEditor from "../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
+import '../../styles/Forum/RouteWrite.css';
+import '../../styles/Forum/ForumCommon.css';
+
 const {kakao} =window;
 const {daum}=window;
 
 export default function RouteWrite(){
     const navigate = useNavigate();
-
     const userId = getCookie("userId");
     const {forumId}=useParams();
     const [routeInfo, setRouteInfo]=useState(null);
@@ -20,7 +20,6 @@ export default function RouteWrite(){
     function daumPostcode() {
         console.log("sample5_execDaumPostcode");
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-
         
         mapOption = {
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -72,10 +71,7 @@ export default function RouteWrite(){
         }
     }
 
-   
-    
     const makeMap = (address) => {
-
         var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         var geocoder = new kakao.maps.services.Geocoder();
         geocoder.addressSearch(address, function(result, status) {
@@ -95,11 +91,10 @@ export default function RouteWrite(){
             }
             })    
         }
-  
     
     useEffect(()=>{
         axios
-        .post(`http://localhost:8080/routeInfo/${forumId}/${userId}`)
+        .post(`http://localhost:8080/routeInfo/${forumId}`,{userId:userId})
         .then(res=>{
             setRouteInfo(res.data.routeInfo);
             console.log(res.data.routeInfo);
@@ -138,13 +133,11 @@ export default function RouteWrite(){
         try {
             console.log('====================');
             console.log(routeInfo)
-            const response=
-                await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}/${temp}`, routeInfo,
+            const response=await axios.post(`http://localhost:8080/routeModify/${userId}/${forumId}/${temp}`, routeInfo,
             {
                 headers:{'Content-Type': 'application/json'},
                 withCredentials:true
             })
-            // const url=`/images/${response.data.filename}`;
             console.log(response.data);
             navigate('/routeList');
         } catch (error) {
@@ -158,52 +151,47 @@ export default function RouteWrite(){
 
     const handleEditorData=(data)=>{
         setRouteInfo({...routeInfo, content:data})
-        //setEditorData(data);
-        //console.log("editorData : "+editorData);
-    }
+    };
 
     const handleAddress=(addr)=>{
         setRouteInfo({...routeInfo, routeLocation:addr })
-    }
+    };
 
     const handleAddressDetail = (e) => {
         setRouteInfo({...routeInfo, routeLocationDetail: e.target.value})
-    }
-    
-
-    console.log(routeInfo);
+    };
 
     return( 
-        <div className="reviewWrite_mainLayout">
-            {view && <div className="reviewWrite_wrap">
-                <div className="reviewWrite_top">
-                    <div className="reviewWrite_title">
-                        <input className="titleInput" value={routeInfo.title} onChange={handleTitleChange}/>
-                    </div>
+        <div className="route_mainLayout">
+            {view && <div className="route_wrap">
+                <div className="route_top">
+                    <input className="titleInput" value={routeInfo.title} onChange={handleTitleChange}/>
                 </div>
-                <div className="reviewWrite_layout">
-                    <div className="reviewWrite_content">
-                        <div className="reviewWrite_content_in">
-                            <TextEditor onEditorDataChange={handleEditorData} contentData={routeInfo.content}/>
-                        </div>
-                        <div className="map_view">
-                            <div className="map_layout">
-                                <div id="map" className='map'></div>
-                                <div className='map_input'>
-                                    <input className="route_location_detail" type="text" name="routeLocationDetail" id="routeLocationDetail" value={routeInfo.routeLocationDetail} placeholder="장소" onChange={handleAddressDetail}/>
+                <div className="route_layout">
+                    <div className="route_view">
+                        <TextEditor onEditorDataChange={handleEditorData} contentData={routeInfo.content}/>
+                    </div>
+                    <div className="map_view">
+                        <div id="map" className='map_st'></div>
+                        <div className="map_input">
+                            <div className='map_input_in'>
+                                <div className="map_input1">
                                     <input type="text" id="sample5_address" name="routeLocation" value={routeInfo.routeLocation} onChange={handleAddress}/>
-                                    <input type="button" onClick={daumPostcode} value="주소 검색"/><br/>
-                                </div>  
+                                    <input type="button" className='route_search_btn' onClick={daumPostcode} value="주소 검색"/>
+                                </div>
+                                <div className="map_input2">
+                                    <input className="route_location_detail" type="text" name="routeLocationDetail" id="routeLocationDetail" value={routeInfo.routeLocationDetail} placeholder="상세주소" onChange={handleAddressDetail}/>
+                                </div>
                             </div>
-                        </div>
+                        </div>  
                     </div>
                 </div>
-                <div className="tempAndComplBtn_layout">
-                    <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={()=>handleRouteUpdateSave(1)}>
+                <div className="tempAndSaveBtn_layout">
+                    <div className="tempAndSaveBtn_layout_in">
+                        <div className="routeBtn" onClick={()=>handleRouteUpdateSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={()=>handleRouteUpdateSave(0)}>
+                        <div className="routeBtn" onClick={()=>handleRouteUpdateSave(0)}>
                                 등록
                         </div>
                     </div>

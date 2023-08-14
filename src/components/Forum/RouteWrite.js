@@ -1,20 +1,19 @@
-import React, { useEffect, useState , useRef} from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
-import { useParams } from "react-router";
-import { setCookie, getCookie, removeCookie } from '../../utils/CookieUtil';
-import '../../styles/Forum/RouteWrite.css';
+import { getCookie } from '../../utils/CookieUtil';
 import TextEditor from "../common/TextEditor";
 import { useNavigate } from 'react-router-dom';
-const {kakao} =window;
+import '../../styles/Forum/RouteWrite.css';
+import '../../styles/Forum/ForumCommon.css';
+
 const {daum}=window;
 
 export default function RouteWrite(){
     const [editorData,setEditorData]=useState('');
-    // const {userId}=useParams();
     const [titleVal, setTitleVal]=useState('');
     const navigate = useNavigate();
     const [locationVal,setLocationVal]=useState();
+    const [locationDetail,setLocationDetail]=useState();
     const userId = getCookie("userId");
 
     function sample5_execDaumPostcode() {
@@ -64,26 +63,19 @@ export default function RouteWrite(){
         }).open();
     }
     
-
     const handleRouteSave=async(temp)=>{
         try {
-            //작성된 글과 이미지를 폼 데이터로 변환
-            // const formData=new FormData();
-            // formData.append('content',editorData);
-            // formData.append('title',titleVal);
-
             const requestData={
                 content:editorData,
                 title:titleVal,
-                route_location:locationVal
+                route_location:locationVal,
+                route_location_detail:locationDetail
             };
-            
             const response=await axios.post(`http://localhost:8080/routeWrite/${userId}/${temp}`, requestData,
             {
                 headers:{'Content-Type': 'application/json'},
                 withCredentials:true
             })
-            // const url=`/images/${response.data.filename}`;
             console.log(response.data);
             navigate('/routeList');
         } catch (error) {
@@ -99,57 +91,48 @@ export default function RouteWrite(){
     const handleEditorData=(data)=>{
         setEditorData(data);
         console.log("editorData : "+editorData);
-    }
+    };
 
     const handleAddress=(e)=>{
         setLocationVal();
         console.log("location : "+locationVal);
-    }
+    };
 
-    // var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    // mapOption = { 
-    //     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-    //     level: 3 // 지도의 확대 레벨
-    // };
-
-    // // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-    // var map = new kakao.maps.Map(mapContainer, mapOption); 
-    
-    const changeInput=(e)=>{
-        setLocationVal(e.target.value);
+    const handleAddressDetail=(e)=>{
+        setLocationDetail(e.target.value);
     }
 
     return( 
-        <div className="reviewWrite_mainLayout">
-            <div className="reviewWrite_wrap">
-                <div className="reviewWrite_top">
-                    <div className="reviewWrite_title">
-                        <input className="titleInput" value={titleVal} onChange={handleTitleChange}/>
-                    </div>
+        <div className="route_mainLayout">
+            <div className="route_wrap">
+                <div className="route_top">
+                    <input className="titleInput" value={titleVal} onChange={handleTitleChange}/>
                 </div>
-                <div className="reviewWrite_layout">
-                    <div className="reviewWrite_content">
-                        <div className="reviewWrite_content_in">
-                            <TextEditor onEditorDataChange={handleEditorData}/>
-                        </div>
-                        <div className="map_view">
-                            <div className="map_layout">
-                                <div id="map" className='map'></div>
-                                <div className='map_input'>
-                                    <input className="route_location_detail" type="text" name="routeLocationDetail" id="routeLocationDetail" placeholder="장소" value={locationVal}/>
+                <div className="route_layout">
+                    <div className="route_view">
+                        <TextEditor onEditorDataChange={handleEditorData}/>
+                    </div>
+                    <div className="map_view">
+                        <div id="map" className='map_st'></div>
+                        <div className='map_input'>
+                            <div className='map_input_in'>
+                                <div className="map_input1">
                                     <input type="text" id="sample5_address" placeholder="주소" onChange={handleAddress}/>
-                                    <input type="button" onClick={sample5_execDaumPostcode} value="주소 검색"/><br/>
+                                    <input type="button" className='route_search_btn' onClick={sample5_execDaumPostcode} value="주소 검색"/><br/>
+                                </div>
+                                <div className="map_input2">
+                                    <input className="route_location_detail" type="text" name="routeLocationDetail" id="routeLocationDetail" placeholder="상세주소" onChange={handleAddressDetail}/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="tempAndComplBtn_layout">
-                    <div className="tempAndComplBtn_layout_in">
-                        <div className="tmepBtn" onClick={()=>handleRouteSave(1)}>
+                <div className="tempAndSaveBtn_layout">
+                    <div className="tempAndSaveBtn_layout_in">
+                        <div className="routeBtn" onClick={()=>handleRouteSave(1)}>
                                 임시저장
                         </div>
-                        <div className="complBtn" onClick={()=>handleRouteSave(0)}>
+                        <div className="routeBtn" onClick={()=>handleRouteSave(0)}>
                                 등록
                         </div>
                     </div>

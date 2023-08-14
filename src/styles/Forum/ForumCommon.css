@@ -1,0 +1,41 @@
+/* 스크랩 컨테이너 */
+.forum_scrap{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+/* 스크랩 아이콘  */
+.BsFillBookmarkFill_true{
+    color: #9BE4CE;
+} 
+.BsFillBookmarkFill_false{
+    stroke: #9BE4CE;
+    stroke-width: 1px;
+    color: white;
+}
+/* 조회수 아이콘 */
+.HiOutlineEye{
+    margin-right: 2px;
+}
+/* 버튼 */
+.modifyAndDeleteBtn_layout_in{
+    display: flex;
+}
+.routeBtn{
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #9BE4CE;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #9BE4CE;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.routeBtn:hover{
+    background-color: #9BE4CE;
+    color: white;
+}
