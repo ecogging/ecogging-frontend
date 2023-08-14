@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import MessageSendModal from '../../components/common/MessageSendModal';
 import useSendMessage from "../../hooks/useSendMessage";
 import NotFound from "./NotFound";
+import NotFoundForumScrap from "./NotFoundForumScrap";
 
 import { SlLocationPin } from "react-icons/sl";
 
@@ -175,12 +176,20 @@ export default function MyPageForumScrap() {
       
       <div className='container_myforumScrapArea' onClick={closeSendModal}>
 
-        { searchNull === true ? 
+        { 
+        
+          myScraps === null ?
+
+          <NotFoundForumScrap />
+
+          :
+        
+      (    searchNull === true ? 
          <NotFound />
         
           :
           
-         searchNull === false && myScraps && myScraps.map((item, idx) => {
+          myScraps.map((item, idx) => {
 
           return item.type === '나눔' ? 
           
@@ -285,7 +294,7 @@ export default function MyPageForumScrap() {
             </div>
           ) 
 
-      })
+      }))
 
     } 
 
