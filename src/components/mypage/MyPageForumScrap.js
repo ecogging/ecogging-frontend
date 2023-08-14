@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router";
 import { Pagination } from "antd";
-import { Viewer } from '@toast-ui/react-editor';
 import moment from "moment";
 import { Link } from "react-router-dom";
 
@@ -43,8 +42,6 @@ export default function MyPageForumScrap() {
   };
 
   const [myScraps,setMyScraps]=useState(null);
-  const [view, setView] = useState(false);
-
 
   useEffect(() => {
     const url = `/mypage/${userId}/forumscraps`;
@@ -57,7 +54,6 @@ export default function MyPageForumScrap() {
     .then((res) => {
       setMyScraps(res.data.data);
       setTotPages(res.data.allCount);
-      setView(true);
     })
     .catch((err) => {
       console.log('내 스크랩 불러오기 실패', err);
@@ -227,11 +223,6 @@ export default function MyPageForumScrap() {
                         </div>
                       </Link>
 
-                      <div className='container_myShareBottom'>
-                        <div className='container_myScrapContent'>
-                          {view && <Viewer initialValue={item.content} /> }
-
-
                       <div className='container_scrapShareBottom'>
 
                         <div className='container_scrapShareContent'>
@@ -241,7 +232,6 @@ export default function MyPageForumScrap() {
                           :
                           removeHtmlTags(item.content)
                         }
-
 
                         </div>
 
@@ -294,9 +284,6 @@ export default function MyPageForumScrap() {
                           }
                         </div>
 
-                    <div className='container_myRecomBottom'>
-                      <div className='container_myScrapContent_r'>
-                        {view && <Viewer initialValue={item.content} /> }
                         <div className='container_scrapShareUser'>
                         <div className='box_userNicknameScrap' onClick={() => openSendModal(item.userId, item.nickname)}>{item.nickname}</div>
                       </div>
