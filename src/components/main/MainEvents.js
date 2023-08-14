@@ -1,6 +1,5 @@
 import { BiCalendarCheck } from "react-icons/bi";
 import '../../styles/main/MainEvents.css';
-import posterTemp from '../../assets/poster.png';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -66,7 +65,7 @@ export default function MainEvents() {
                     {item.filePath ? (
                       <img src={`http://localhost:8080/eventImg/${item.fileId}`} className='img_poster_source' />
                     ) : (
-                      <img src={posterTemp} className='img_poster_source' />
+                      <div className='img_poster_source' />
                     )}
                 </div>
             
