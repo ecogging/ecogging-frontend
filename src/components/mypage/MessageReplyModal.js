@@ -115,16 +115,21 @@ export default function MessageReplyModal({ onCloseModal, conId, totCount, setTo
     // 답장 보내기
     const sendMessage = () => {
 
-        axios.post(`/${userId}/messageroom/${messageRoomId}/messages`, data, {
-            headers: headers, 
-        })
-            .then((response) => {
-                onCloseModal();
-                setTotCount(totCount+1);
+        if(content === null || content.replace(/(\s*)/g, "").length < 1) {
+            alert('쪽지 내용을 입력해주세요');
+        } else {
+
+            axios.post(`/${userId}/messageroom/${messageRoomId}/messages`, data, {
+                headers: headers, 
             })
-            .catch((error) => {
-            console.log('답장 보내기 실패', error);
-        });
+                .then((response) => {
+                    onCloseModal();
+                    setTotCount(totCount+1);
+                })
+                .catch((error) => {
+                console.log('답장 보내기 실패', error);
+            });
+        }
     }
     
     return (
