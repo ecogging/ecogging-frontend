@@ -117,6 +117,10 @@ export default function MessageSendModal({ onCloseModal, receiverNick, receiverI
         if(curId === rcvId) {
             alert('본인에게 쪽지를 보낼 수는 없습니다');
             onCloseModal();
+        } else if(content === null || content.replace(/(\s*)/g, "").length < 1) {
+            alert('쪽지 내용을 입력해주세요');
+        } else if (content.length > 300) {
+            alert('쪽지 내용은 300자를 초과할 수 없습니다');
         } else {  
                 axios.post('http://localhost:8080/messagerooms', data, {
                 headers: headers, // 설정한 헤더를 옵션으로 전달
