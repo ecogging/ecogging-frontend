@@ -117,8 +117,9 @@ export default function MessageReplyModal({ onCloseModal, conId, totCount, setTo
 
         if(content === null || content.replace(/(\s*)/g, "").length < 1) {
             alert('쪽지 내용을 입력해주세요');
+        } else if (content.length > 300) {
+            alert('쪽지 내용은 300자를 초과할 수 없습니다');
         } else {
-
             axios.post(`/${userId}/messageroom/${messageRoomId}/messages`, data, {
                 headers: headers, 
             })
