@@ -11,10 +11,7 @@ export default function useSendMessage ( ) {
   
   const openSendModal = (userId, nickname) => {
     setSelectedUserId(userId);
-    console.log(userId);
-    console.log('훅훅'+selectedUserId);
     setSelectedNick(nickname);
-    console.log(nickname);
     setIsModalOpen(true);
   }
 

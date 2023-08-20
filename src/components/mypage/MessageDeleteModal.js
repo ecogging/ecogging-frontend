@@ -100,7 +100,6 @@ export default function MessageDeleteModal( {onCloseDeleteModal} ) {
       headers:headers,
     })
     .then((res) => {
-      console.log('삭제완료');
       onCloseDeleteModal();
       navigateBack();
     })
